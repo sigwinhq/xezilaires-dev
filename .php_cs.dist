@@ -1,0 +1,56 @@
+<?php
+
+declare(strict_types = 1);
+
+$header = <<<'EOF'
+This file is part of the xezilaires project.
+
+(c) Dalibor Karlović <dalibor@flexolabs.io>
+
+This source file is subject to the MIT license that is bundled
+with this source code in the file LICENSE.
+EOF;
+
+$finder = PhpCsFixer\Finder::create()
+    ->exclude('vendor')
+    ->in(__DIR__);
+
+return PhpCsFixer\Config::create()
+    ->setRiskyAllowed(true)
+    ->setUsingCache(false)
+    ->setRules(
+        [
+            '@PHP71Migration:risky' => true,
+            '@PHP70Migration:risky' => true,
+            '@PHP56Migration' => true,
+            '@Symfony' => true,
+            '@Symfony:risky' => true,
+            'array_syntax' => ['syntax' => 'short'],
+            'header_comment' => ['header' => $header],
+            'declare_strict_types' => true,
+            'dir_constant' => true,
+            'general_phpdoc_annotation_remove' => ['@author'],
+            'mb_str_functions' => true,
+            'modernize_types_casting' => true,
+            'native_function_invocation' => ['include' => ['@compiler_optimized']],
+            'no_multiline_whitespace_before_semicolons' => true,
+            'no_php4_constructor' => true,
+            'no_short_echo_tag' => true,
+            'no_useless_else' => true,
+            'no_useless_return' => true,
+            'not_operator_with_space' => true,
+            'not_operator_with_successor_space' => true,
+            'ordered_class_elements' => true,
+            'ordered_imports' => true,
+            'php_unit_construct' => true,
+            // 'php_unit_strict' => true,
+            'phpdoc_add_missing_param_annotation' => true,
+            'phpdoc_order' => true,
+            'psr4' => true,
+            'random_api_migration' => true,
+            'semicolon_after_instruction' => true,
+            'strict_comparison' => true,
+            'strict_param' => true,
+        ]
+    )
+    ->setFinder($finder);

@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+
+if (version_compare('7.1.0', PHP_VERSION, '>')) {
+    fwrite(STDERR, 'Xezilaires requires PHP 7.1+'.PHP_EOL);
+    exit(1);
+}
+
+if (PHP_SAPI !== 'cli') {
+    fwrite(STDERR, 'Xezilaires must be invoked via CLI version of PHP'.PHP_EOL);
+    exit(1);
+}
+
+if (!ini_get('date.timezone')) {
+    ini_set('date.timezone', 'UTC');
+}
+
+require __DIR__.'/../src/bootstrap.php';
+
+use Xezilaires\Infrastructure\Symfony\Console\Application;
+
+$application = new Application();
+$application->run();
