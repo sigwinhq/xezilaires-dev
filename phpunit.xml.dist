@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/7.0/phpunit.xsd"
+         bootstrap="./vendor/autoload.php"
+         colors="true"
+         verbose="true"
+         forceCoversAnnotation="true"
+         beStrictAboutCoversAnnotation="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutResourceUsageDuringSmallTests="true"
+         beStrictAboutTodoAnnotatedTests="true"
+         failOnWarning="true"
+         failOnRisky="true">
+    <testsuites>
+        <testsuite name="Xezilaires">
+            <directory>./tests/Xezilaires</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./tests/Xezilaires</directory>
+        </whitelist>
+    </filter>
+</phpunit>

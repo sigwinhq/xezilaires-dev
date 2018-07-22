@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<psalm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="https://getpsalm.org/schema/config"
+       xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+       cacheDirectory="var/psalm"
+       strictBinaryOperands="true"
+       totallyTyped="true">
+    
+    <projectFiles>
+        <directory name="bin"/>
+        <directory name="src/"/>
+        <directory name="tests/"/>
+    </projectFiles>
+
+    <issueHandlers>
+        <MissingConstructor>
+            <errorLevel type="suppress">
+                <directory name="tests/" />
+            </errorLevel>
+        </MissingConstructor>
+        <PropertyNotSetInConstructor errorLevel="info" />
+
+        <!-- false positives -->
+        <UnresolvableInclude>
+            <errorLevel type="info">
+                <file name="src/bootstrap.php" />
+            </errorLevel>
+        </UnresolvableInclude>
+        <MixedArgument>
+            <errorLevel type="info">
+                <file name="src/bootstrap.php" />
+            </errorLevel>
+        </MixedArgument>
+    </issueHandlers>
+</psalm>

@@ -1,2 +1,4 @@
+/resources/fixtures/.~lock.*
 /vendor/
+/var/
 /composer.lock

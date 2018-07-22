@@ -14,14 +14,28 @@
             "Xezilaires\\": "src/Xezilaires"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Xezilaires\\Test\\": "tests/Xezilaires"
+        }
+    },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "ext-gd": "1.3.1"
+        }
     },
     "require": {
-        "phpoffice/phpspreadsheet": "^1.3",
-        "symfony/serializer": "^4.0"
+        "php": ">= 7.1.3",
+        "phpoffice/phpspreadsheet": "^1.0",
+        "symfony/options-resolver": "^3.0 | ^4.0",
+        "symfony/property-access": "^3.0 | ^4.0",
+        "symfony/serializer": "^3.0 | ^4.0"
     },
     "require-dev": {
-        "symfony/console": "^4.0"
+        "doctrine/annotations": "^1.0",
+        "nicmart/tree": "^0.2, >= 0.2.4",
+        "phpunit/phpunit": "^6.0 | ^7.0",
+        "symfony/console": "^3.0 | ^4.0"
     }
 }

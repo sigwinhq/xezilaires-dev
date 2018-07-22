@@ -1,13 +1,39 @@
 QA_DOCKER_IMAGE=jakzal/phpqa:alpine
-QA_DOCKER_COMMAND=docker run -it --rm -v /tmp/tmp-phpqa:/tmp -v "$(shell pwd):/project" -w /project ${QA_DOCKER_IMAGE}
+QA_DOCKER_COMMAND=docker run --init --interactive --tty --rm --env "COMPOSER_HOME=/composer" --user "$(shell id -u):$(shell id -g)" --volume /tmp/tmp-phpqa-$(shell id -u):/tmp --volume "$(shell pwd):/project" --volume "${HOME}/.composer:/composer" --workdir /project ${QA_DOCKER_IMAGE}
 
-dist: composer-validate cs phpstan
+dist: composer-validate cs phpstan psalm test
+check: composer-validate cs-check phpstan psalm
+test: phpunit-coverage infection
 
-composer-validate:
+composer-validate: ensure
 	sh -c "${QA_DOCKER_COMMAND} composer validate"
 
-cs:
+composer-install: ensure
+	sh -c "${QA_DOCKER_COMMAND} composer upgrade"
+
+composer-install-lowest: ensure
+	sh -c "${QA_DOCKER_COMMAND} composer upgrade --prefer-lowest"
+
+cs: ensure
 	sh -c "${QA_DOCKER_COMMAND} php-cs-fixer fix --using-cache=false --diff -vvv"
 
-phpstan:
+cs-check: ensure
+	sh -c "${QA_DOCKER_COMMAND} php-cs-fixer fix --using-cache=false --dry-run --diff -vvv"
+
+phpstan: ensure
 	sh -c "${QA_DOCKER_COMMAND} phpstan analyse"
+
+psalm: ensure
+	sh -c "${QA_DOCKER_COMMAND} psalm --show-info=false"
+
+infection: ensure
+	sh -c "${QA_DOCKER_COMMAND} phpdbg -qrr /usr/local/bin/infection run  --coverage var/ --only-covered"
+
+phpunit-coverage: ensure
+	sh -c "${QA_DOCKER_COMMAND} phpdbg -qrr vendor/bin/phpunit --coverage-text --coverage-xml var/coverage-xml/"
+
+phpunit:
+	vendor/bin/phpunit --verbose
+
+ensure:
+	mkdir -p ${HOME}/.composer /tmp/tmp-phpqa-$(shell id -u)
