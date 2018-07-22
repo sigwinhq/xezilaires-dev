@@ -1,0 +1,32 @@
+language: php
+
+sudo: true
+services:
+    - docker
+
+branches:
+    only:
+        - master
+
+matrix:
+    include:
+        - php: '7.1'
+          env: deps='low'
+        - php: '7.2'
+
+cache:
+    directories:
+        - $HOME/.composer/cache
+
+install:
+    - |
+        if [[ ! $deps ]]; then
+            make composer-install
+        elif [[ $deps = 'dev' ]]; then
+            make composer-install-dev
+        elif [[ $deps = 'low' ]]; then
+            make composer-install-lowest
+        fi
+
+script:
+    - make check

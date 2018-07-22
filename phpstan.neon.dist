@@ -3,8 +3,11 @@ includes:
     - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-strict-rules/rules.neon
     - /tools/.composer/vendor-bin/phpstan/vendor/pepakriz/phpstan-exception-rules/extension.neon
 parameters:
+    tmpDir: %currentWorkingDirectory%/var/phpstan
     level: max
     paths:
         - ./
     excludes_analyse:
+        - tests/toy.php
+        - var/
         - vendor/
