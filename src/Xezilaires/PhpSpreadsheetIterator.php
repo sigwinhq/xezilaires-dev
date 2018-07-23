@@ -34,29 +34,29 @@ class PhpSpreadsheetIterator implements Iterator
     private $file;
 
     /**
-     * @var Spreadsheet
-     */
-    private $spreadsheet;
-
-    /**
      * @var Mapping
      */
     private $mapping;
 
     /**
-     * @var \Iterator
+     * @var null|Spreadsheet
+     */
+    private $spreadsheet;
+
+    /**
+     * @var null|\Iterator
      */
     private $iterator;
+
+    /**
+     * @var null|DenormalizerInterface
+     */
+    private $denormalizer;
 
     /**
      * @var int
      */
     private $key = 0;
-
-    /**
-     * @var DenormalizerInterface
-     */
-    private $denormalizer;
 
     /**
      * @param \SplFileObject $file
@@ -158,10 +158,14 @@ class PhpSpreadsheetIterator implements Iterator
     private function getSpreadsheet(): Spreadsheet
     {
         if (null === $this->spreadsheet) {
-            try {
-                $reader = IOFactory::createReaderForFile($this->file->getRealPath());
+            $path = $this->file->getRealPath();
+            if (false === $path) {
+                throw new \RuntimeException('Unable to open spreadsheet');
+            }
 
-                $this->spreadsheet = $reader->load($this->file->getRealPath());
+            try {
+                $reader = IOFactory::createReaderForFile($path);
+                $this->spreadsheet = $reader->load($path);
             } catch (ReaderException $exception) {
                 throw new \RuntimeException('Unable to open spreadsheet', 0, $exception);
             }

@@ -53,7 +53,10 @@ class TreeBuilder
         foreach ($iterator as $node) {
             $treeNode = new Node($node);
             if ($node->hasParent()) {
-                $this->fetch($node->getParentIdentifier())->addChild($treeNode);
+                /** @var int|float|string $parentIdentifier */
+                $parentIdentifier = $node->getParentIdentifier();
+
+                $this->fetch($parentIdentifier)->addChild($treeNode);
             } else {
                 $this->root->addChild($treeNode);
             }
