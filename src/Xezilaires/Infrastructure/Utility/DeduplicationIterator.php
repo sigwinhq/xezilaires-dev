@@ -41,7 +41,6 @@ class DeduplicationIterator extends \FilterIterator
      */
     public function __construct(Iterator $iterator, array $fields)
     {
-        /** @psalm-suppress InvalidArgument */
         parent::__construct($iterator);
 
         $this->fields = $fields;

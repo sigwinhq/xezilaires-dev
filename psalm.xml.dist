@@ -26,10 +26,5 @@
                 <file name="src/bootstrap.php" />
             </errorLevel>
         </UnresolvableInclude>
-        <MixedArgument>
-            <errorLevel type="info">
-                <file name="src/bootstrap.php" />
-            </errorLevel>
-        </MixedArgument>
     </issueHandlers>
 </psalm>

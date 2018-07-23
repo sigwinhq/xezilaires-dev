@@ -2,16 +2,17 @@ QA_DOCKER_IMAGE=jakzal/phpqa:alpine
 QA_DOCKER_COMMAND=docker run --init --interactive --tty --rm --env "COMPOSER_HOME=/composer" --user "$(shell id -u):$(shell id -g)" --volume /tmp/tmp-phpqa-$(shell id -u):/tmp --volume "$(shell pwd):/project" --volume "${HOME}/.composer:/composer" --workdir /project ${QA_DOCKER_IMAGE}
 
 dist: composer-validate cs phpstan psalm test
+ci: check test
 check: composer-validate cs-check phpstan psalm
 test: phpunit-coverage infection
 
 composer-validate: ensure
 	sh -c "${QA_DOCKER_COMMAND} composer validate"
 
-composer-install: ensure
+composer-install: fetch ensure
 	sh -c "${QA_DOCKER_COMMAND} composer upgrade"
 
-composer-install-lowest: ensure
+composer-install-lowest: fetch ensure
 	sh -c "${QA_DOCKER_COMMAND} composer upgrade --prefer-lowest"
 
 cs: ensure
@@ -37,3 +38,6 @@ phpunit:
 
 ensure:
 	mkdir -p ${HOME}/.composer /tmp/tmp-phpqa-$(shell id -u)
+
+fetch:
+	docker pull "${QA_DOCKER_IMAGE}"

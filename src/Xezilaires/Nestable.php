@@ -19,7 +19,7 @@ namespace Xezilaires;
 interface Nestable
 {
     /**
-     * @return string|int
+     * @return string|int|float
      */
     public function getIdentifier();
 
@@ -29,7 +29,7 @@ interface Nestable
     public function hasParent(): bool;
 
     /**
-     * @return string|int
+     * @return null|string|int|float
      */
     public function getParentIdentifier();
 }

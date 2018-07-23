@@ -26,7 +26,7 @@ class Category implements Nestable
     public $id;
 
     /**
-     * @var int
+     * @var null|int
      */
     public $parent;
 
