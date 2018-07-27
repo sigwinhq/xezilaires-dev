@@ -16,7 +16,7 @@ namespace Xezilaires\Metadata;
 /**
  * Class ColumnMapping.
  */
-class ColumnReference
+class ColumnReference implements Reference
 {
     /**
      * @var string
@@ -37,5 +37,13 @@ class ColumnReference
     public function getColumn(): string
     {
         return $this->column;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getReference(): string
+    {
+        return $this->getColumn();
     }
 }
