@@ -16,7 +16,7 @@ namespace Xezilaires\Metadata;
 /**
  * Class HeaderReference.
  */
-class HeaderReference
+class HeaderReference implements Reference
 {
     /**
      * @var string
@@ -29,5 +29,21 @@ class HeaderReference
     public function __construct(string $header)
     {
         $this->header = $header;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHeader(): string
+    {
+        return $this->header;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getReference(): string
+    {
+        return $this->getHeader();
     }
 }

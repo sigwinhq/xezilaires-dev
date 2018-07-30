@@ -15,6 +15,7 @@ namespace Xezilaires\Test;
 
 use PHPUnit\Framework\TestCase;
 use Xezilaires\Metadata\ColumnReference;
+use Xezilaires\Metadata\HeaderReference;
 use Xezilaires\Metadata\Mapping;
 use Xezilaires\PhpSpreadsheetIterator;
 use Xezilaires\Test\Model\Product;
@@ -27,7 +28,7 @@ class FunctionalTest extends TestCase
     /**
      * @coversNothing
      */
-    public function testCanLoadFlatFixture(): void
+    public function testCanLoadFlatFixtureWithColumnReference(): void
     {
         $iterator = new PhpSpreadsheetIterator(
             $this->fixture('products.xls'),
@@ -38,6 +39,32 @@ class FunctionalTest extends TestCase
                     'price' => new ColumnReference('B'),
                 ],
                 [
+                    'start' => 2,
+                ]
+            )
+        );
+
+        $this->assertIteratorMatches([
+            ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
+            ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
+        ], $iterator);
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testCanLoadFlatFixtureWithHeaderReference(): void
+    {
+        $iterator = new PhpSpreadsheetIterator(
+            $this->fixture('products.xls'),
+            new Mapping(
+                Product::class,
+                [
+                    'price' => new HeaderReference('Price USD'),
+                    'name' => new HeaderReference('Name'),
+                ],
+                [
+                    'header' => 1,
                     'start' => 2,
                 ]
             )

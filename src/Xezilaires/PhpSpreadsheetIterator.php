@@ -54,6 +54,11 @@ class PhpSpreadsheetIterator implements Iterator
     private $denormalizer;
 
     /**
+     * @var null|array<string, string>
+     */
+    private $headers;
+
+    /**
      * @var int
      */
     private $key = 0;
@@ -66,18 +71,33 @@ class PhpSpreadsheetIterator implements Iterator
     {
         $this->file = $file;
         $this->mapping = $mapping;
+
+        $this->mapping->setReferenceResolver(new PhpSpreadsheetHeaderReferenceResolver($this));
     }
 
     /**
-     * @param string $coordinates
+     * @param string $header
+     *
+     * @return string
+     */
+    public function getColumnByHeader(string $header): string
+    {
+        $headerColumnReferences = $this->getHeaderColumnReferences();
+
+        return $headerColumnReferences[$header];
+    }
+
+    /**
+     * @param int    $rowIndex
+     * @param string $columnIndex
      *
      * @return null|string|int|float
      */
-    public function fetch(string $coordinates)
+    public function fetch(int $rowIndex, string $columnIndex)
     {
         $worksheet = $this->getActiveWorksheet();
         try {
-            $cell = $worksheet->getCell($coordinates);
+            $cell = $worksheet->getCell(sprintf('%1$s%2$d', $columnIndex, $rowIndex));
         } catch (Exception $exception) {
             throw new \RuntimeException('Value not found at coordinates: '.$exception->getMessage());
         }
@@ -101,7 +121,13 @@ class PhpSpreadsheetIterator implements Iterator
     {
         /** @var Row $row */
         $row = $this->getIterator()->current();
-        $data = $this->readRow($row);
+        $row = $this->readRow($row->getRowIndex());
+
+        /** @var array<string, null|string|int|float> $data */
+        $data = [];
+        foreach ($this->mapping->getColumnMapping() as $name => $column) {
+            $data[$name] = $row[$column];
+        }
 
         return $this->getDenormalizer()->denormalize($data, $this->mapping->getClassName());
     }
@@ -203,16 +229,19 @@ class PhpSpreadsheetIterator implements Iterator
     }
 
     /**
-     * @param Row $row
+     * @param int $rowIndex
      *
-     * @return array
+     * @return array<string, null|string|int|float>
      */
-    private function readRow(Row $row): array
+    private function readRow(int $rowIndex): array
     {
         $data = [];
-        $rowIndex = $row->getRowIndex();
-        foreach ($this->mapping->getColumnMapping() as $name => $column) {
-            $data[$name] = $this->fetch(\sprintf('%1$s%2$d', $column, $rowIndex));
+        $worksheet = $this->getActiveWorksheet();
+        $columnIterator = $worksheet->getColumnIterator();
+
+        foreach ($columnIterator as $column) {
+            $columnIndex = $column->getColumnIndex();
+            $data[$columnIndex] = $this->fetch($rowIndex, $columnIndex);
         }
 
         return $data;
@@ -228,5 +257,33 @@ class PhpSpreadsheetIterator implements Iterator
         }
 
         return $this->denormalizer;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    private function getHeaderColumnReferences(): array
+    {
+        if (null === $this->headers) {
+            /** @var null|int $headerRowIndex */
+            $headerRowIndex = $this->mapping->getOption('header');
+            if (null === $headerRowIndex) {
+                throw new \RuntimeException('Header index must be set');
+            }
+            /** @var array<string, string> $headerRow */
+            $headerRow = $this->readRow($headerRowIndex);
+
+            $headers = [];
+            foreach ($headerRow as $column => $header) {
+                if (isset($headers[$header])) {
+                    throw new \RuntimeException('Header already used');
+                }
+
+                $headers[$header] = $column;
+            }
+            $this->headers = $headers;
+        }
+
+        return $this->headers;
     }
 }

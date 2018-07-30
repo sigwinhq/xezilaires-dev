@@ -26,9 +26,9 @@ class Mapping
     private $className;
 
     /**
-     * @var array<string, ColumnReference>
+     * @var array<string, Reference>
      */
-    private $columns;
+    private $columns = [];
 
     /**
      * @var array<string, null|string|bool>
@@ -36,14 +36,18 @@ class Mapping
     private $options;
 
     /**
-     * @param string                         $className
-     * @param array<string, ColumnReference> $columns
-     * @param array                          $options
+     * @var ReferenceResolver
+     */
+    private $referenceResolver;
+
+    /**
+     * @param string                   $className
+     * @param array<string, Reference> $columns
+     * @param array                    $options
      */
     public function __construct(string $className, array $columns, array $options = null)
     {
         $this->className = $className;
-        $this->columns = $columns;
 
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
@@ -51,6 +55,16 @@ class Mapping
         /** @var array<string, null|string|bool> $options */
         $options = $resolver->resolve($options ?? []);
         $this->options = $options;
+
+        $this->setColumns($columns);
+    }
+
+    /**
+     * @param ReferenceResolver $referenceResolver
+     */
+    public function setReferenceResolver(ReferenceResolver $referenceResolver): void
+    {
+        $this->referenceResolver = $referenceResolver;
     }
 
     /**
@@ -68,7 +82,7 @@ class Mapping
     {
         $mapping = [];
         foreach ($this->columns as $name => $column) {
-            $mapping[$name] = $column->getColumn();
+            $mapping[$name] = $this->referenceResolver->resolve($column);
         }
 
         return $mapping;
@@ -100,5 +114,21 @@ class Mapping
         $resolver->setAllowedTypes('end', ['int', 'null']);
         $resolver->setAllowedTypes('header', ['int', 'null']);
         $resolver->setAllowedTypes('reverse', 'bool');
+    }
+
+    /**
+     * @param array<string, Reference> $columns
+     */
+    private function setColumns(array $columns): void
+    {
+        $hasHeaderOption = (null !== $this->options['header']);
+
+        foreach ($columns as $name => $column) {
+            if (false === $hasHeaderOption && $column instanceof HeaderReference) {
+                throw new \RuntimeException('Header reference requires "header" option to set header row index');
+            }
+
+            $this->columns[$name] = $column;
+        }
     }
 }
