@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Xezilaires\Metadata;
 
+use Symfony\Component\Console\Exception\InvalidOptionException;
+use Symfony\Component\OptionsResolver\Exception\ExceptionInterface as OptionsResolverException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -52,8 +54,13 @@ class Mapping
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
 
-        /** @var array<string, null|string|bool> $options */
-        $options = $resolver->resolve($options ?? []);
+        try {
+            /** @var array<string, null|string|bool> $options */
+            $options = $resolver->resolve($options ?? []);
+        } catch (OptionsResolverException $exception) {
+            throw new InvalidOptionException($exception->getMessage(), 0, $exception);
+        }
+
         $this->options = $options;
 
         $this->setColumns($columns);

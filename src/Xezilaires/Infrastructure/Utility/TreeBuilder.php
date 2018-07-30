@@ -40,6 +40,8 @@ class TreeBuilder
 
     /**
      * @param Iterator $iterator
+     *
+     * @throws \RuntimeException
      */
     public function __construct(Iterator $iterator)
     {

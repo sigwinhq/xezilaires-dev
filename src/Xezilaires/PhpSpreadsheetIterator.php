@@ -13,14 +13,16 @@ declare(strict_types=1);
 
 namespace Xezilaires;
 
-use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
+use PhpOffice\PhpSpreadsheet\Reader\Exception as PhpSpreadsheetReaderException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Symfony\Component\Serializer\Exception\ExceptionInterface as SerializerException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Xezilaires\Exception\DenormalizerException;
 use Xezilaires\Metadata\Mapping;
 
 /**
@@ -98,7 +100,7 @@ class PhpSpreadsheetIterator implements Iterator
         $worksheet = $this->getActiveWorksheet();
         try {
             $cell = $worksheet->getCell(sprintf('%1$s%2$d', $columnIndex, $rowIndex));
-        } catch (Exception $exception) {
+        } catch (PhpSpreadsheetException $exception) {
             throw new \RuntimeException('Value not found at coordinates: '.$exception->getMessage());
         }
 
@@ -129,7 +131,11 @@ class PhpSpreadsheetIterator implements Iterator
             $data[$name] = $row[$column];
         }
 
-        return $this->getDenormalizer()->denormalize($data, $this->mapping->getClassName());
+        try {
+            return $this->getDenormalizer()->denormalize($data, $this->mapping->getClassName());
+        } catch (SerializerException $exception) {
+            throw new DenormalizerException($exception->getMessage(), 0, $exception);
+        }
     }
 
     /**
@@ -192,7 +198,7 @@ class PhpSpreadsheetIterator implements Iterator
             try {
                 $reader = IOFactory::createReaderForFile($path);
                 $this->spreadsheet = $reader->load($path);
-            } catch (ReaderException $exception) {
+            } catch (PhpSpreadsheetReaderException $exception) {
                 throw new \RuntimeException('Unable to open spreadsheet', 0, $exception);
             }
         }
@@ -207,7 +213,7 @@ class PhpSpreadsheetIterator implements Iterator
     {
         try {
             return $this->getSpreadsheet()->getActiveSheet();
-        } catch (Exception $exception) {
+        } catch (PhpSpreadsheetException $exception) {
             throw new \RuntimeException('Unable to fetch active worksheet', 0, $exception);
         }
     }
