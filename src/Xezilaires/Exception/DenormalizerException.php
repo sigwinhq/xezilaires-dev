@@ -14,10 +14,20 @@ declare(strict_types=1);
 namespace Xezilaires\Exception;
 
 use Xezilaires\Exception;
+use Xezilaires\Infrastructure\Symfony\Serializer\Exception as SerializerException;
 
 /**
  * Class DenormalizerException.
  */
-class DenormalizerException extends \RuntimeException implements Exception
+class DenormalizerException extends \InvalidArgumentException implements Exception
 {
+    /**
+     * @param SerializerException $exception
+     *
+     * @return self
+     */
+    public static function denormalizationFailed(SerializerException $exception): self
+    {
+        return new self('Denormalization failed', 0, $exception);
+    }
 }

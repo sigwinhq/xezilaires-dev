@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Xezilaires;
 
+use Xezilaires\Exception\ReferenceException;
 use Xezilaires\Metadata\ColumnReference;
 use Xezilaires\Metadata\HeaderReference;
 use Xezilaires\Metadata\Reference;
@@ -51,6 +52,6 @@ class PhpSpreadsheetHeaderReferenceResolver implements ReferenceResolver
             return $this->iterator->getColumnByHeader($reference->getReference());
         }
 
-        throw new \InvalidArgumentException('Invalid reference given');
+        throw ReferenceException::invalidReference();
     }
 }

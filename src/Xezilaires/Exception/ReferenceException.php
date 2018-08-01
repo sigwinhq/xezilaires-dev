@@ -16,8 +16,15 @@ namespace Xezilaires\Exception;
 use Xezilaires\Exception;
 
 /**
- * Class InvalidOptionsException.
+ * Class ReferenceException.
  */
-class InvalidOptionsException extends \RuntimeException implements Exception
+class ReferenceException extends \InvalidArgumentException implements Exception
 {
+    /**
+     * @return self
+     */
+    public static function invalidReference(): self
+    {
+        return new self('Invalid reference');
+    }
 }

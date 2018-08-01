@@ -100,9 +100,9 @@ class FunctionalTest extends TestCase
          * @var object $item
          */
         foreach ($iterator as $idx => $item) {
-            self::assertSame($idxValidator, $idx);
+            static::assertSame($idxValidator, $idx);
             foreach ($keys as $key) {
-                self::assertSame($expected[$idx][$key], $item->{$key});
+                static::assertSame($expected[$idx][$key], $item->{$key});
             }
 
             ++$idxValidator;

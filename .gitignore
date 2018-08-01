@@ -2,3 +2,4 @@
 /vendor/
 /var/
 /composer.lock
+/*.cache

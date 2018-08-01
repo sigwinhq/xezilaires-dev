@@ -15,3 +15,5 @@ parameters:
         uncheckedExceptions:
             - LogicException
             - PHPUnit\Framework\Exception
+    ignoreErrors:
+        - '#PHPDoc tag @throws with type Xezilaires\\Infrastructure\\Symfony\\Serializer\\Exception is not compatible with parent#'
