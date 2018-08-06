@@ -15,6 +15,7 @@ namespace Xezilaires\Infrastructure\Utility;
 
 use Tree\Node\Node;
 use Tree\Node\NodeInterface;
+use Xezilaires\Exception\NestableIteratorException;
 use Xezilaires\Iterator;
 use Xezilaires\Nestable;
 
@@ -44,7 +45,7 @@ class TreeBuilder
     public function __construct(Iterator $iterator)
     {
         if (false === $iterator->areItemsNestable()) {
-            throw new \RuntimeException('Iterator items must be nestable');
+            throw NestableIteratorException::iteratorMustBeNestable();
         }
 
         $this->root = new Node('Root');
@@ -119,7 +120,7 @@ class TreeBuilder
     private function fetch($id): NodeInterface
     {
         if (false === isset($this->ids[$id])) {
-            throw new \InvalidArgumentException(sprintf('No such node: "%1$s"', $id));
+            throw NestableIteratorException::noSuchNode($id);
         }
 
         return $this->ids[$id];

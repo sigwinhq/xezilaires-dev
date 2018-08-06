@@ -13,7 +13,10 @@ declare(strict_types=1);
 
 namespace Xezilaires\Metadata;
 
+use Symfony\Component\OptionsResolver\Exception\ExceptionInterface as OptionsResolverException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Xezilaires\Exception\HeaderException;
+use Xezilaires\Exception\OptionsException;
 
 /**
  * Class Mapping.
@@ -41,6 +44,11 @@ class Mapping
     private $referenceResolver;
 
     /**
+     * @var bool
+     */
+    private $headerOptionRequired = false;
+
+    /**
      * @param string                   $className
      * @param array<string, Reference> $columns
      * @param array                    $options
@@ -48,15 +56,18 @@ class Mapping
     public function __construct(string $className, array $columns, array $options = null)
     {
         $this->className = $className;
-
-        $resolver = new OptionsResolver();
-        $this->configureOptions($resolver);
-
-        /** @var array<string, null|string|bool> $options */
-        $options = $resolver->resolve($options ?? []);
-        $this->options = $options;
-
         $this->setColumns($columns);
+
+        try {
+            $resolver = new OptionsResolver();
+            $this->configureOptions($resolver);
+
+            /** @var array<string, null|string|bool> $options */
+            $options = $resolver->resolve($options ?? []);
+        } catch (OptionsResolverException $exception) {
+            throw OptionsException::invalidOption($exception);
+        }
+        $this->setOptions($options);
     }
 
     /**
@@ -121,14 +132,27 @@ class Mapping
      */
     private function setColumns(array $columns): void
     {
-        $hasHeaderOption = (null !== $this->options['header']);
-
+        $headerOptionRequired = false;
         foreach ($columns as $name => $column) {
-            if (false === $hasHeaderOption && $column instanceof HeaderReference) {
-                throw new \RuntimeException('Header reference requires "header" option to set header row index');
+            if (true === $column instanceof HeaderReference) {
+                $headerOptionRequired = true;
             }
 
             $this->columns[$name] = $column;
         }
+
+        $this->headerOptionRequired = $headerOptionRequired;
+    }
+
+    /**
+     * @param array<string, null|string|bool> $options
+     */
+    private function setOptions(array $options): void
+    {
+        if (true === $this->headerOptionRequired && false === isset($options['header'])) {
+            throw HeaderException::missingHeaderOption();
+        }
+
+        $this->options = $options;
     }
 }

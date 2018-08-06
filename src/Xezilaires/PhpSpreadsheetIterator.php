@@ -13,14 +13,18 @@ declare(strict_types=1);
 
 namespace Xezilaires;
 
-use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
+use PhpOffice\PhpSpreadsheet\Reader\Exception as PhpSpreadsheetReaderException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Xezilaires\Exception\DenormalizerException;
+use Xezilaires\Exception\HeaderException;
+use Xezilaires\Exception\SpreadsheetException;
+use Xezilaires\Infrastructure\Symfony\Serializer\Denormalizer;
+use Xezilaires\Infrastructure\Symfony\Serializer\Exception as SerializerException;
+use Xezilaires\Infrastructure\Symfony\Serializer\ObjectNormalizer;
 use Xezilaires\Metadata\Mapping;
 
 /**
@@ -49,7 +53,7 @@ class PhpSpreadsheetIterator implements Iterator
     private $iterator;
 
     /**
-     * @var null|DenormalizerInterface
+     * @var null|Denormalizer
      */
     private $denormalizer;
 
@@ -98,8 +102,8 @@ class PhpSpreadsheetIterator implements Iterator
         $worksheet = $this->getActiveWorksheet();
         try {
             $cell = $worksheet->getCell(sprintf('%1$s%2$d', $columnIndex, $rowIndex));
-        } catch (Exception $exception) {
-            throw new \RuntimeException('Value not found at coordinates: '.$exception->getMessage());
+        } catch (PhpSpreadsheetException $exception) {
+            throw SpreadsheetException::invalidCell($exception);
         }
 
         if (null !== $cell) {
@@ -129,7 +133,11 @@ class PhpSpreadsheetIterator implements Iterator
             $data[$name] = $row[$column];
         }
 
-        return $this->getDenormalizer()->denormalize($data, $this->mapping->getClassName());
+        try {
+            return $this->getDenormalizer()->denormalize($data, $this->mapping->getClassName());
+        } catch (SerializerException $exception) {
+            throw DenormalizerException::denormalizationFailed($exception);
+        }
     }
 
     /**
@@ -186,14 +194,14 @@ class PhpSpreadsheetIterator implements Iterator
         if (null === $this->spreadsheet) {
             $path = $this->file->getRealPath();
             if (false === $path) {
-                throw new \RuntimeException('Unable to open spreadsheet');
+                throw SpreadsheetException::noSpreadsheetFound();
             }
 
             try {
                 $reader = IOFactory::createReaderForFile($path);
                 $this->spreadsheet = $reader->load($path);
-            } catch (ReaderException $exception) {
-                throw new \RuntimeException('Unable to open spreadsheet', 0, $exception);
+            } catch (PhpSpreadsheetReaderException $exception) {
+                throw SpreadsheetException::invalidSpreadsheet($exception);
             }
         }
 
@@ -207,8 +215,8 @@ class PhpSpreadsheetIterator implements Iterator
     {
         try {
             return $this->getSpreadsheet()->getActiveSheet();
-        } catch (Exception $exception) {
-            throw new \RuntimeException('Unable to fetch active worksheet', 0, $exception);
+        } catch (PhpSpreadsheetException $exception) {
+            throw SpreadsheetException::failedToFetchActiveWorksheet($exception);
         }
     }
 
@@ -248,9 +256,9 @@ class PhpSpreadsheetIterator implements Iterator
     }
 
     /**
-     * @return DenormalizerInterface
+     * @return Denormalizer
      */
-    private function getDenormalizer(): DenormalizerInterface
+    private function getDenormalizer(): Denormalizer
     {
         if (null === $this->denormalizer) {
             $this->denormalizer = new ObjectNormalizer();
@@ -268,7 +276,7 @@ class PhpSpreadsheetIterator implements Iterator
             /** @var null|int $headerRowIndex */
             $headerRowIndex = $this->mapping->getOption('header');
             if (null === $headerRowIndex) {
-                throw new \RuntimeException('Header index must be set');
+                throw HeaderException::missingHeaderOption();
             }
             /** @var array<string, string> $headerRow */
             $headerRow = $this->readRow($headerRowIndex);
@@ -276,7 +284,7 @@ class PhpSpreadsheetIterator implements Iterator
             $headers = [];
             foreach ($headerRow as $column => $header) {
                 if (isset($headers[$header])) {
-                    throw new \RuntimeException('Header already used');
+                    throw HeaderException::duplicateHeader();
                 }
 
                 $headers[$header] = $column;

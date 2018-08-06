@@ -1,7 +1,7 @@
 includes:
     - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-deprecation-rules/rules.neon
     - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-strict-rules/rules.neon
-    # - /tools/.composer/vendor-bin/phpstan/vendor/pepakriz/phpstan-exception-rules/extension.neon
+    - /tools/.composer/vendor-bin/phpstan/vendor/pepakriz/phpstan-exception-rules/extension.neon
 parameters:
     tmpDir: %currentWorkingDirectory%/var/phpstan
     level: max
@@ -11,3 +11,9 @@ parameters:
         - tests/toy.php
         - var/
         - vendor/
+    exceptionRules:
+        uncheckedExceptions:
+            - LogicException
+            - PHPUnit\Framework\Exception
+    ignoreErrors:
+        - '#PHPDoc tag @throws with type Xezilaires\\Infrastructure\\Symfony\\Serializer\\Exception is not compatible with parent#'
