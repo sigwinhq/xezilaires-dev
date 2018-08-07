@@ -288,7 +288,7 @@ class PhpSpreadsheetIterator implements Iterator
                 }
 
                 if (isset($headers[$header])) {
-                    throw HeaderException::duplicateHeader();
+                    throw HeaderException::duplicateHeader($header, $column, $headers[$header]);
                 }
 
                 $headers[$header] = $column;

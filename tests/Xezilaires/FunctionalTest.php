@@ -103,6 +103,32 @@ class FunctionalTest extends TestCase
     }
 
     /**
+     * @coversNothing
+     */
+    public function testCannotLoadFixtureWithDuplicateHeaderReference(): void
+    {
+        $this->expectException(\Xezilaires\Exception\HeaderException::class);
+        $this->expectExceptionMessage('Duplicate header "Name"');
+
+        $iterator = new PhpSpreadsheetIterator(
+            $this->fixture('products-duplicate-header.xls'),
+            new Mapping(
+                Product::class,
+                [
+                    'price' => new HeaderReference('Price USD'),
+                    'name' => new HeaderReference('Name'),
+                ],
+                [
+                    'header' => 1,
+                    'start' => 2,
+                ]
+            )
+        );
+
+        iterator_to_array($iterator);
+    }
+
+    /**
      * @param string $name
      *
      * @return \SplFileObject

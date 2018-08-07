@@ -29,10 +29,14 @@ class HeaderException extends \InvalidArgumentException implements Exception
     }
 
     /**
+     * @param string $header
+     * @param string $foundColumn
+     * @param string $firstColumn
+     *
      * @return self
      */
-    public static function duplicateHeader(): self
+    public static function duplicateHeader(string $header, string $foundColumn, string $firstColumn): self
     {
-        return new self('Header already used');
+        return new self(sprintf('Duplicate header "%1$s" found in "%2$s", first used in "%3$s"', $header, $foundColumn, $firstColumn));
     }
 }
