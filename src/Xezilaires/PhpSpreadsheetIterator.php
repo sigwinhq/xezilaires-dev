@@ -87,6 +87,9 @@ class PhpSpreadsheetIterator implements Iterator
     public function getColumnByHeader(string $header): string
     {
         $headerColumnReferences = $this->getHeaderColumnReferences();
+        if (false === \array_key_exists($header, $headerColumnReferences)) {
+            throw HeaderException::headerNotFound($header);
+        }
 
         return $headerColumnReferences[$header];
     }
@@ -278,13 +281,17 @@ class PhpSpreadsheetIterator implements Iterator
             if (null === $headerRowIndex) {
                 throw HeaderException::missingHeaderOption();
             }
-            /** @var array<string, string> $headerRow */
+            /** @var array<string, null|string> $headerRow */
             $headerRow = $this->readRow($headerRowIndex);
 
             $headers = [];
             foreach ($headerRow as $column => $header) {
+                if (null === $header) {
+                    continue;
+                }
+
                 if (isset($headers[$header])) {
-                    throw HeaderException::duplicateHeader();
+                    throw HeaderException::duplicateHeader($header, $column, $headers[$header]);
                 }
 
                 $headers[$header] = $column;
