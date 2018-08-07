@@ -278,11 +278,15 @@ class PhpSpreadsheetIterator implements Iterator
             if (null === $headerRowIndex) {
                 throw HeaderException::missingHeaderOption();
             }
-            /** @var array<string, string> $headerRow */
+            /** @var array<string, null|string> $headerRow */
             $headerRow = $this->readRow($headerRowIndex);
 
             $headers = [];
             foreach ($headerRow as $column => $header) {
+                if (null === $header) {
+                    continue;
+                }
+
                 if (isset($headers[$header])) {
                     throw HeaderException::duplicateHeader();
                 }

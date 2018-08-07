@@ -77,6 +77,32 @@ class FunctionalTest extends TestCase
     }
 
     /**
+     * @coversNothing
+     */
+    public function testCanLoadSparseFixtureWithHeaderReference(): void
+    {
+        $iterator = new PhpSpreadsheetIterator(
+            $this->fixture('products-sparse.xls'),
+            new Mapping(
+                Product::class,
+                [
+                    'price' => new HeaderReference('Price USD'),
+                    'name' => new HeaderReference('Name'),
+                ],
+                [
+                    'header' => 1,
+                    'start' => 2,
+                ]
+            )
+        );
+
+        $this->assertIteratorMatches([
+            ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
+            ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
+        ], $iterator);
+    }
+
+    /**
      * @param string $name
      *
      * @return \SplFileObject
