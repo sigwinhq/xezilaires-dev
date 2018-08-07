@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Xezilaires\Test;
 
 use PHPUnit\Framework\TestCase;
+use Xezilaires\Metadata\ArrayReference;
 use Xezilaires\Metadata\ColumnReference;
 use Xezilaires\Metadata\HeaderReference;
 use Xezilaires\Metadata\Mapping;
@@ -73,6 +74,34 @@ class FunctionalTest extends TestCase
         $this->assertIteratorMatches([
             ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
             ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
+        ], $iterator);
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testCanLoadFlatFixtureWithArrayReference(): void
+    {
+        $iterator = new PhpSpreadsheetIterator(
+            $this->fixture('products.xls'),
+            new Mapping(
+                Product::class,
+                [
+                    'all' => new ArrayReference([
+                        new HeaderReference('Name'),
+                        new HeaderReference('Price USD'),
+                    ]),
+                ],
+                [
+                    'header' => 1,
+                    'start' => 2,
+                ]
+            )
+        );
+
+        $this->assertIteratorMatches([
+            ['all' => ['The Very Hungry Caterpillar', '6.59']],
+            ['all' => ['Brown Bear, Brown Bear, What Do You See?', '6.51']],
         ], $iterator);
     }
 
@@ -155,6 +184,36 @@ class FunctionalTest extends TestCase
     }
 
     /**
+     * @coversNothing
+     */
+    public function testCannotLoadFlatFixtureWithNestedArrayReference(): void
+    {
+        $this->expectException(\Xezilaires\Exception\ReferenceException::class);
+        $this->expectExceptionMessage('Invalid reference');
+
+        $iterator = new PhpSpreadsheetIterator(
+            $this->fixture('products.xls'),
+            new Mapping(
+                Product::class,
+                [
+                    'all' => new ArrayReference([
+                        new ArrayReference([
+                            new HeaderReference('Name'),
+                            new HeaderReference('Price USD'),
+                        ]),
+                    ]),
+                ],
+                [
+                    'header' => 1,
+                    'start' => 2,
+                ]
+            )
+        );
+
+        iterator_to_array($iterator);
+    }
+
+    /**
      * @param string $name
      *
      * @return \SplFileObject
@@ -165,8 +224,8 @@ class FunctionalTest extends TestCase
     }
 
     /**
-     * @param array<int, array<string, string>> $expected
-     * @param \Iterator                         $iterator
+     * @param array<int, array<string, string|array<string>>> $expected
+     * @param \Iterator                                       $iterator
      */
     private function assertIteratorMatches(array $expected, \Iterator $iterator): void
     {

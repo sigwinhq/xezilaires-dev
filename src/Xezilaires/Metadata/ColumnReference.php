@@ -34,16 +34,8 @@ class ColumnReference implements Reference
     /**
      * @return string
      */
-    public function getColumn(): string
-    {
-        return $this->column;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getReference(): string
     {
-        return $this->getColumn();
+        return $this->column;
     }
 }

@@ -21,11 +21,16 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Xezilaires\Exception\DenormalizerException;
 use Xezilaires\Exception\HeaderException;
+use Xezilaires\Exception\ReferenceException;
 use Xezilaires\Exception\SpreadsheetException;
 use Xezilaires\Infrastructure\Symfony\Serializer\Denormalizer;
 use Xezilaires\Infrastructure\Symfony\Serializer\Exception as SerializerException;
 use Xezilaires\Infrastructure\Symfony\Serializer\ObjectNormalizer;
+use Xezilaires\Metadata\ArrayReference;
+use Xezilaires\Metadata\ColumnReference;
+use Xezilaires\Metadata\HeaderReference;
 use Xezilaires\Metadata\Mapping;
+use Xezilaires\Metadata\Reference;
 
 /**
  * Class CategoryProvider.
@@ -75,23 +80,6 @@ class PhpSpreadsheetIterator implements Iterator
     {
         $this->file = $file;
         $this->mapping = $mapping;
-
-        $this->mapping->setReferenceResolver(new PhpSpreadsheetHeaderReferenceResolver($this));
-    }
-
-    /**
-     * @param string $header
-     *
-     * @return string
-     */
-    public function getColumnByHeader(string $header): string
-    {
-        $headerColumnReferences = $this->getHeaderColumnReferences();
-        if (false === \array_key_exists($header, $headerColumnReferences)) {
-            throw HeaderException::headerNotFound($header);
-        }
-
-        return $headerColumnReferences[$header];
     }
 
     /**
@@ -100,7 +88,7 @@ class PhpSpreadsheetIterator implements Iterator
      *
      * @return null|string|int|float
      */
-    public function fetch(int $rowIndex, string $columnIndex)
+    public function fetchCell(int $rowIndex, string $columnIndex)
     {
         $worksheet = $this->getActiveWorksheet();
         try {
@@ -128,12 +116,16 @@ class PhpSpreadsheetIterator implements Iterator
     {
         /** @var Row $row */
         $row = $this->getIterator()->current();
-        $row = $this->readRow($row->getRowIndex());
+        $row = $this->fetchRow($row->getRowIndex());
 
-        /** @var array<string, null|string|int|float> $data */
+        /** @var array<string, null|string|int|float|array<null|string|int|float>> $data */
         $data = [];
-        foreach ($this->mapping->getColumnMapping() as $name => $column) {
-            $data[$name] = $row[$column];
+        foreach ($this->mapping->getColumns() as $name => $reference) {
+            if ($reference instanceof ArrayReference) {
+                $data[$name] = $this->readArrayReference($row, $reference);
+            } else {
+                $data[$name] = $this->readReference($row, $reference);
+            }
         }
 
         try {
@@ -244,7 +236,7 @@ class PhpSpreadsheetIterator implements Iterator
      *
      * @return array<string, null|string|int|float>
      */
-    private function readRow(int $rowIndex): array
+    private function fetchRow(int $rowIndex): array
     {
         $data = [];
         $worksheet = $this->getActiveWorksheet();
@@ -252,7 +244,7 @@ class PhpSpreadsheetIterator implements Iterator
 
         foreach ($columnIterator as $column) {
             $columnIndex = $column->getColumnIndex();
-            $data[$columnIndex] = $this->fetch($rowIndex, $columnIndex);
+            $data[$columnIndex] = $this->fetchCell($rowIndex, $columnIndex);
         }
 
         return $data;
@@ -282,7 +274,7 @@ class PhpSpreadsheetIterator implements Iterator
                 throw HeaderException::missingHeaderOption();
             }
             /** @var array<string, null|string> $headerRow */
-            $headerRow = $this->readRow($headerRowIndex);
+            $headerRow = $this->fetchRow($headerRowIndex);
 
             $headers = [];
             foreach ($headerRow as $column => $header) {
@@ -300,5 +292,60 @@ class PhpSpreadsheetIterator implements Iterator
         }
 
         return $this->headers;
+    }
+
+    /**
+     * @param string $header
+     *
+     * @return string
+     */
+    private function getColumnByHeader(string $header): string
+    {
+        $headerColumnReferences = $this->getHeaderColumnReferences();
+        if (false === \array_key_exists($header, $headerColumnReferences)) {
+            throw HeaderException::headerNotFound($header);
+        }
+
+        return $headerColumnReferences[$header];
+    }
+
+    /**
+     * @param array<string, null|string|int|float> $row
+     * @param ArrayReference                       $reference
+     *
+     * @return array<null|string|int|float>
+     */
+    private function readArrayReference(array $row, ArrayReference $reference): array
+    {
+        $data = [];
+        foreach ($reference->getReference() as $arrayReference) {
+            $data[] = $this->readReference($row, $arrayReference);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param array<string, null|string|int|float> $row
+     * @param Reference                            $reference
+     *
+     * @return null|string|int|float
+     */
+    private function readReference(array $row, Reference $reference)
+    {
+        switch (true) {
+            case $reference instanceof ColumnReference:
+                $column = $reference->getReference();
+                $data = $row[$column];
+                break;
+            case $reference instanceof HeaderReference:
+                $column = $this->getColumnByHeader($reference->getReference());
+                $data = $row[$column];
+                break;
+            default:
+                throw ReferenceException::invalidReference();
+        }
+
+        return $data;
     }
 }

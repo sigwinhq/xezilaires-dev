@@ -18,5 +18,8 @@ namespace Xezilaires\Metadata;
  */
 interface Reference
 {
-    public function getReference(): string;
+    /**
+     * @return string|Reference[]
+     */
+    public function getReference();
 }
