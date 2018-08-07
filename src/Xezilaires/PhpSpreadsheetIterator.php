@@ -87,6 +87,9 @@ class PhpSpreadsheetIterator implements Iterator
     public function getColumnByHeader(string $header): string
     {
         $headerColumnReferences = $this->getHeaderColumnReferences();
+        if (false === \array_key_exists($header, $headerColumnReferences)) {
+            throw HeaderException::headerNotFound($header);
+        }
 
         return $headerColumnReferences[$header];
     }

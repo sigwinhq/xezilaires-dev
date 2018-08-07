@@ -39,4 +39,14 @@ class HeaderException extends \InvalidArgumentException implements Exception
     {
         return new self(sprintf('Duplicate header "%1$s" found in "%2$s", first used in "%3$s"', $header, $foundColumn, $firstColumn));
     }
+
+    /**
+     * @param string $header
+     *
+     * @return HeaderException
+     */
+    public static function headerNotFound(string $header): self
+    {
+        return new self(sprintf('Invalid header "%1$s", not found', $header));
+    }
 }

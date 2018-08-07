@@ -129,6 +129,32 @@ class FunctionalTest extends TestCase
     }
 
     /**
+     * @coversNothing
+     */
+    public function testCannotLoadFixtureWithInvalidHeaderReference(): void
+    {
+        $this->expectException(\Xezilaires\Exception\HeaderException::class);
+        $this->expectExceptionMessage('Invalid header "Nameeee"');
+
+        $iterator = new PhpSpreadsheetIterator(
+            $this->fixture('products.xls'),
+            new Mapping(
+                Product::class,
+                [
+                    'price' => new HeaderReference('Price USD'),
+                    'name' => new HeaderReference('Nameeee'),
+                ],
+                [
+                    'header' => 1,
+                    'start' => 2,
+                ]
+            )
+        );
+
+        iterator_to_array($iterator);
+    }
+
+    /**
      * @param string $name
      *
      * @return \SplFileObject
