@@ -1,4 +1,8 @@
-QA_DOCKER_IMAGE=jakzal/phpqa:alpine
+ifndef BUILD_ENV
+BUILD_ENV=php7.2
+endif
+
+QA_DOCKER_IMAGE=jakzal/phpqa:${BUILD_ENV}-alpine
 QA_DOCKER_COMMAND=docker run --init --interactive --tty --rm --env "COMPOSER_HOME=/composer" --user "$(shell id -u):$(shell id -g)" --volume /tmp/tmp-phpqa-$(shell id -u):/tmp --volume "$(shell pwd):/project" --volume "${HOME}/.composer:/composer" --workdir /project ${QA_DOCKER_IMAGE}
 
 dist: composer-validate cs phpstan psalm test
