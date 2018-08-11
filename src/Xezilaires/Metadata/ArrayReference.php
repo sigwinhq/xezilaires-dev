@@ -14,28 +14,28 @@ declare(strict_types=1);
 namespace Xezilaires\Metadata;
 
 /**
- * Class HeaderReference.
+ * Class ArrayReference.
  */
-class HeaderReference implements Reference
+class ArrayReference implements Reference
 {
     /**
-     * @var string
+     * @var Reference[]
      */
-    private $header;
+    private $references;
 
     /**
-     * @param string $header
+     * @param Reference[] $references
      */
-    public function __construct(string $header)
+    public function __construct(array $references)
     {
-        $this->header = $header;
+        $this->references = $references;
     }
 
     /**
-     * @return string
+     * @return Reference[]
      */
-    public function getReference(): string
+    public function getReference(): array
     {
-        return $this->header;
+        return $this->references;
     }
 }

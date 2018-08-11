@@ -19,6 +19,11 @@ namespace Xezilaires\Test\Model;
 class Product
 {
     /**
+     * @var array<string|float>
+     */
+    public $all;
+
+    /**
      * @var string
      */
     public $name;

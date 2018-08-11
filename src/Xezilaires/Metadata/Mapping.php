@@ -39,11 +39,6 @@ class Mapping
     private $options;
 
     /**
-     * @var ReferenceResolver
-     */
-    private $referenceResolver;
-
-    /**
      * @var bool
      */
     private $headerOptionRequired = false;
@@ -71,14 +66,6 @@ class Mapping
     }
 
     /**
-     * @param ReferenceResolver $referenceResolver
-     */
-    public function setReferenceResolver(ReferenceResolver $referenceResolver): void
-    {
-        $this->referenceResolver = $referenceResolver;
-    }
-
-    /**
      * @return string
      */
     public function getClassName(): string
@@ -87,16 +74,11 @@ class Mapping
     }
 
     /**
-     * @return array<string, string>
+     * @return array<string, Reference>
      */
-    public function getColumnMapping(): array
+    public function getColumns(): array
     {
-        $mapping = [];
-        foreach ($this->columns as $name => $column) {
-            $mapping[$name] = $this->referenceResolver->resolve($column);
-        }
-
-        return $mapping;
+        return $this->columns;
     }
 
     /**
