@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Xezilaires\Test;
 
 use PHPUnit\Framework\TestCase;
+use Xezilaires\Metadata\Annotation\AnnotationDriver;
 use Xezilaires\Metadata\ArrayReference;
 use Xezilaires\Metadata\ColumnReference;
 use Xezilaires\Metadata\HeaderReference;
@@ -128,6 +129,25 @@ class FunctionalTest extends TestCase
         $this->assertIteratorMatches([
             ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
             ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
+        ], $iterator);
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testCanLoadSparseFixtureWithAnnotations(): void
+    {
+        $driver = new AnnotationDriver();
+        $mapping = $driver->getMetadataMapping(Product::class);
+
+        $iterator = new PhpSpreadsheetIterator(
+            $this->fixture('products-sparse.xls'),
+            $mapping
+        );
+
+        $this->assertIteratorMatches([
+            ['all' => ['The Very Hungry Caterpillar', '6.59'], 'name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
+            ['all' => ['Brown Bear, Brown Bear, What Do You See?', '6.51'], 'name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
         ], $iterator);
     }
 
