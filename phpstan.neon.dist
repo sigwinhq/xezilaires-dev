@@ -5,6 +5,7 @@ includes:
 parameters:
     tmpDir: %currentWorkingDirectory%/var/phpstan
     level: max
+    reportUnmatchedIgnoredErrors: false
     paths:
         - ./
     excludes_analyse:
@@ -16,4 +17,8 @@ parameters:
             - LogicException
             - PHPUnit\Framework\Exception
     ignoreErrors:
+        # upstream problems
+        - '#Call to deprecated method registerLoader\(\) of class Doctrine\\Common\\Annotations\\AnnotationRegistry\.#'
+
+        # false positives
         - '#PHPDoc tag @throws with type Xezilaires\\Infrastructure\\Symfony\\Serializer\\Exception is not compatible with parent#'

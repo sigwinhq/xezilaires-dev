@@ -110,7 +110,7 @@ class PhpSpreadsheetIterator implements Iterator
     /**
      * {@inheritdoc}
      *
-     * @return mixed
+     * @return object
      */
     public function current()
     {
@@ -148,7 +148,7 @@ class PhpSpreadsheetIterator implements Iterator
     /**
      * {@inheritdoc}
      *
-     * @return mixed
+     * @return int
      */
     public function key()
     {

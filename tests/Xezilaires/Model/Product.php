@@ -13,23 +13,36 @@ declare(strict_types=1);
 
 namespace Xezilaires\Test\Model;
 
+use Xezilaires\Annotation as XLS;
+
 /**
  * Class Product.
+ *
+ * @XLS\Options(header=1, start=2)
  */
 class Product
 {
     /**
      * @var array<string|float>
+     *
+     * @XLS\ArrayReference({
+     *     @XLS\ColumnReference(column="A"),
+     *     @XLS\HeaderReference(header="Price USD")
+     * })
      */
     public $all;
 
     /**
      * @var string
+     *
+     * @XLS\ColumnReference(column="A")
      */
     public $name;
 
     /**
      * @var float
+     *
+     * @XLS\HeaderReference(header="Price USD")
      */
     public $price;
 }

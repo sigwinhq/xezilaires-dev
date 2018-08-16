@@ -14,11 +14,24 @@
 
     <issueHandlers>
         <MissingConstructor>
-            <errorLevel type="suppress">
+            <errorLevel type="info">
+                <directory name="src/Xezilaires/Annotation/" />
                 <directory name="tests/" />
             </errorLevel>
         </MissingConstructor>
         <PropertyNotSetInConstructor errorLevel="info" />
+        <RedundantCondition>
+            <errorLevel type="info">
+                <file name="src/Xezilaires/Metadata/Annotation/AnnotationDriver.php" />
+            </errorLevel>
+        </RedundantCondition>
+
+        <!-- upstream problems -->
+        <DeprecatedMethod>
+            <errorLevel type="info">
+                <file name="src/bootstrap.php" />
+            </errorLevel>
+        </DeprecatedMethod>
 
         <!-- false positives -->
         <UnresolvableInclude>

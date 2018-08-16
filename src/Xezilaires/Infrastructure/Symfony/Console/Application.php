@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Xezilaires\Infrastructure\Symfony\Console;
 
 use Symfony\Component\Console\Application as BaseApplication;
+use Xezilaires\Infrastructure\Symfony\Command\SerializeCommand;
 
 /**
  * Class Application.
@@ -33,5 +34,10 @@ class Application extends BaseApplication
     public function __construct()
     {
         parent::__construct(self::APP_NAME, self::APP_VERSION);
+
+        $this->addCommands([
+            new SerializeCommand(),
+        ]);
+        $this->setDefaultCommand('xezilaires:serialize');
     }
 }

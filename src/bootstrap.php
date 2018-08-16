@@ -19,15 +19,23 @@ $autoLoaders = [
     __DIR__.'/../../../autoload.php',
 ];
 
+$found = false;
 foreach ($autoLoaders as $autoLoader) {
     if (true === file_exists($autoLoader)) {
         /* @noinspection PhpIncludeInspection */
-        return include $autoLoader;
+        include $autoLoader;
+
+        $found = true;
+        break;
     }
 }
 
-fwrite(
-    STDERR,
-    'You must set up the project dependencies using `composer install`'.PHP_EOL
-);
-exit(1);
+if (false === $found) {
+    fwrite(
+        STDERR,
+        'You must set up the project dependencies using `composer install`'.PHP_EOL
+    );
+    exit(1);
+}
+
+Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
