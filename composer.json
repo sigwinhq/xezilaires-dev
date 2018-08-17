@@ -32,7 +32,7 @@
         "symfony/serializer": "^3.0 | ^4.0"
     },
     "require-dev": {
-        "doctrine/annotations": "^1.5",
+        "doctrine/annotations": "^1.6",
         "nicmart/tree": "^0.2, >= 0.2.4",
         "phpunit/phpunit": "^6.0 | ^7.0",
         "symfony/console": "^3.0 | ^4.0",

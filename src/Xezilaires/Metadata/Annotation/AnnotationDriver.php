@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Xezilaires\Metadata\Annotation;
 
 use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Annotations\AnnotationRegistry;
 use Xezilaires\Annotation;
 use Xezilaires\Exception\AnnotationException;
 use Xezilaires\Metadata\ArrayReference;
@@ -43,6 +44,7 @@ class AnnotationDriver
         if (false === class_exists(AnnotationReader::class)) {
             throw new \RuntimeException('Xezilaires annotations support requires Doctrine Annotations component. Install "doctrine/annotations" to use it.');
         }
+        AnnotationRegistry::registerUniqueLoader('class_exists');
 
         try {
             $this->reader = $reader ?? new AnnotationReader();

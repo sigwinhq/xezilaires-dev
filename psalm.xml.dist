@@ -26,13 +26,6 @@
             </errorLevel>
         </RedundantCondition>
 
-        <!-- upstream problems -->
-        <DeprecatedMethod>
-            <errorLevel type="info">
-                <file name="src/bootstrap.php" />
-            </errorLevel>
-        </DeprecatedMethod>
-
         <!-- false positives -->
         <UnresolvableInclude>
             <errorLevel type="info">
