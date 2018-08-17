@@ -11,6 +11,8 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
+use Doctrine\Common\Annotations\AnnotationRegistry;
+
 $autoLoaders = [
     // own auto-loader
     __DIR__.'/../vendor/autoload.php',
@@ -38,4 +40,12 @@ if (false === $found) {
     exit(1);
 }
 
-Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
+if (false === class_exists(AnnotationRegistry::class)) {
+    fwrite(
+        STDERR,
+        'Xezilaires annotations support requires Doctrine Annotations component. Install "doctrine/annotations" to use it.'.PHP_EOL
+    );
+    exit(1);
+}
+
+AnnotationRegistry::registerLoader('class_exists');

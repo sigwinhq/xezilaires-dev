@@ -46,6 +46,8 @@ class SerializeCommand extends Command
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
+     * @throws \RuntimeException
+     *
      * @return null|int
      */
     protected function execute(InputInterface $input, OutputInterface $output): ?int
