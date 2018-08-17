@@ -134,6 +134,8 @@ class FunctionalTest extends TestCase
 
     /**
      * @coversNothing
+     *
+     * @throws \RuntimeException
      */
     public function testCanLoadSparseFixtureWithAnnotations(): void
     {
