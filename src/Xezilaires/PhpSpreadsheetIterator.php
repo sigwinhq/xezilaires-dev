@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Xezilaires;
 
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as PhpSpreadsheetReaderException;
@@ -80,31 +82,6 @@ class PhpSpreadsheetIterator implements Iterator
     {
         $this->file = $file;
         $this->mapping = $mapping;
-    }
-
-    /**
-     * @param int    $rowIndex
-     * @param string $columnIndex
-     *
-     * @return null|string|int|float
-     */
-    public function fetchCell(int $rowIndex, string $columnIndex)
-    {
-        $worksheet = $this->getActiveWorksheet();
-        try {
-            $cell = $worksheet->getCell(sprintf('%1$s%2$d', $columnIndex, $rowIndex));
-        } catch (PhpSpreadsheetException $exception) {
-            throw SpreadsheetException::invalidCell($exception);
-        }
-
-        if (null !== $cell) {
-            /** @var null|string|int|float $value */
-            $value = $cell->getValue();
-
-            return $value;
-        }
-
-        return null;
     }
 
     /**
@@ -243,11 +220,34 @@ class PhpSpreadsheetIterator implements Iterator
         $columnIterator = $worksheet->getColumnIterator();
 
         foreach ($columnIterator as $column) {
-            $columnIndex = $column->getColumnIndex();
-            $data[$columnIndex] = $this->fetchCell($rowIndex, $columnIndex);
+            $columnName = $column->getColumnIndex();
+            $data[$columnName] = $this->fetchCell($columnName, $rowIndex);
         }
 
         return $data;
+    }
+
+    /**
+     * @param string $columnName
+     * @param int    $rowIndex
+     *
+     * @return null|string|int|float
+     */
+    private function fetchCell(string $columnName, int $rowIndex)
+    {
+        $worksheet = $this->getActiveWorksheet();
+        $columnIndex = Coordinate::columnIndexFromString($columnName);
+
+        /** @var null|Cell $cell */
+        $cell = $worksheet->getCellByColumnAndRow($columnIndex, $rowIndex, false);
+        if (null === $cell) {
+            return null;
+        }
+
+        /** @var null|string|int|float $value */
+        $value = $cell->getValue();
+
+        return $value;
     }
 
     /**
