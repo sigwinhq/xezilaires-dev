@@ -27,11 +27,6 @@
         </RedundantCondition>
 
         <!-- false positives -->
-        <UnresolvableInclude>
-            <errorLevel type="info">
-                <file name="src/bootstrap.php" />
-            </errorLevel>
-        </UnresolvableInclude>
         <InvalidCatch>
             <errorLevel type="info">
                 <file name="src/Xezilaires/Metadata/Mapping.php" />
