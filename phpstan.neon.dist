@@ -17,6 +17,8 @@ parameters:
             - LogicException
             - PHPUnit\Framework\Exception
     ignoreErrors:
+        - '#Symfony\\Component\\Serializer\\Encoder\\CsvEncoder not found#'
+
         # upstream problems
         - '#Call to deprecated method registerUniqueLoader\(\) of class Doctrine\\Common\\Annotations\\AnnotationRegistry\.#'
 

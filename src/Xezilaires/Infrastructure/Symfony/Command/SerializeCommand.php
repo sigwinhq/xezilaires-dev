@@ -18,6 +18,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Serializer;
@@ -56,17 +57,25 @@ class SerializeCommand extends Command
         $path = $input->getArgument('path');
         /** @var string $class */
         $class = $input->getArgument('class');
-        /** @var string $format */
+        /** @var null|string $format */
         $format = $input->getOption('format');
 
-        $driver = new AnnotationDriver();
-        $mapping = $driver->getMetadataMapping($class);
+        $normalizers = [new ObjectNormalizer()];
+        $encoders = [new JsonEncode(JSON_PRETTY_PRINT), new XmlEncoder('xezilaires')];
 
-        $iterator = new PhpSpreadsheetIterator(new \SplFileObject($path), $mapping);
-        $serializer = new Serializer(
-            [new ObjectNormalizer()],
-            [new JsonEncode(JSON_PRETTY_PRINT), new XmlEncoder('xezilaires')]
-        );
+        if (null === $format) {
+            throw new \RuntimeException('Format is required');
+        }
+
+        if (true === class_exists(CsvEncoder::class)) {
+            $encoders[] = new CsvEncoder();
+        } elseif ('csv' === $format) {
+            throw new \RuntimeException('CSV format is only available with Symfony 4.0+');
+        }
+
+        $driver = new AnnotationDriver();
+        $iterator = new PhpSpreadsheetIterator(new \SplFileObject($path), $driver->getMetadataMapping($class));
+        $serializer = new Serializer($normalizers, $encoders);
         $output->write($serializer->serialize($iterator, $format));
 
         return 0;
