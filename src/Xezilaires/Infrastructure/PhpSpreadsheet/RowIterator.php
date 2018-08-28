@@ -81,7 +81,7 @@ class RowIterator implements Iterator
     /**
      * @param int $index
      */
-    public function seek(int $index = 1): void
+    public function seek(int $index): void
     {
         try {
             $this->iterator->seek($index);

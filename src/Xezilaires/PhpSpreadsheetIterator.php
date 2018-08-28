@@ -40,6 +40,8 @@ use Xezilaires\Metadata\Reference;
  */
 class PhpSpreadsheetIterator implements Iterator
 {
+    private const CELL_NO_AUTO_CREATE = false;
+
     /**
      * @var \SplFileObject
      */
@@ -162,11 +164,13 @@ class PhpSpreadsheetIterator implements Iterator
     /**
      * {@inheritdoc}
      */
-    public function seek(int $index = 1): void
+    public function seek(int $index): void
     {
+        /** @var int $start */
+        $start = $this->mapping->getOption('start');
         $this->index = $index;
 
-        $this->getIterator()->seek($index);
+        $this->getIterator()->seek($start + $index);
     }
 
     /**
@@ -250,7 +254,7 @@ class PhpSpreadsheetIterator implements Iterator
         $columnIndex = Coordinate::columnIndexFromString($columnName);
 
         /** @var null|Cell $cell */
-        $cell = $worksheet->getCellByColumnAndRow($columnIndex, $rowIndex, false);
+        $cell = $worksheet->getCellByColumnAndRow($columnIndex, $rowIndex, self::CELL_NO_AUTO_CREATE);
         if (null === $cell) {
             return null;
         }
