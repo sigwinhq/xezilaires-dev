@@ -25,6 +25,7 @@ use Xezilaires\Exception\DenormalizerException;
 use Xezilaires\Exception\HeaderException;
 use Xezilaires\Exception\ReferenceException;
 use Xezilaires\Exception\SpreadsheetException;
+use Xezilaires\Infrastructure\PhpSpreadsheet\RowIterator;
 use Xezilaires\Infrastructure\Symfony\Serializer\Denormalizer;
 use Xezilaires\Infrastructure\Symfony\Serializer\Exception as SerializerException;
 use Xezilaires\Infrastructure\Symfony\Serializer\ObjectNormalizer;
@@ -55,7 +56,7 @@ class PhpSpreadsheetIterator implements Iterator
     private $spreadsheet;
 
     /**
-     * @var null|\Iterator
+     * @var null|Iterator
      */
     private $iterator;
 
@@ -72,7 +73,7 @@ class PhpSpreadsheetIterator implements Iterator
     /**
      * @var int
      */
-    private $key = 0;
+    private $index = 0;
 
     /**
      * @param \SplFileObject $file
@@ -87,7 +88,7 @@ class PhpSpreadsheetIterator implements Iterator
     /**
      * {@inheritdoc}
      *
-     * @return object
+     * @psalm-suppress MissingReturnType Cannot type-hint object here because of 7.1 compat
      */
     public function current()
     {
@@ -115,21 +116,29 @@ class PhpSpreadsheetIterator implements Iterator
     /**
      * {@inheritdoc}
      */
+    public function prev(): void
+    {
+        --$this->index;
+
+        $this->getIterator()->prev();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function next(): void
     {
-        ++$this->key;
+        ++$this->index;
 
         $this->getIterator()->next();
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return int
      */
-    public function key()
+    public function key(): int
     {
-        return $this->key;
+        return $this->index;
     }
 
     /**
@@ -145,17 +154,19 @@ class PhpSpreadsheetIterator implements Iterator
      */
     public function rewind(): void
     {
-        $this->key = 0;
+        $this->index = 0;
 
         $this->getIterator()->rewind();
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
      */
-    public function areItemsNestable(): bool
+    public function seek(int $index = 1): void
     {
-        return is_subclass_of($this->mapping->getClassName(), Nestable::class);
+        $this->index = $index;
+
+        $this->getIterator()->seek($index);
     }
 
     /**
@@ -188,21 +199,21 @@ class PhpSpreadsheetIterator implements Iterator
         try {
             return $this->getSpreadsheet()->getActiveSheet();
         } catch (PhpSpreadsheetException $exception) {
-            throw SpreadsheetException::failedToFetchActiveWorksheet($exception);
+            throw SpreadsheetException::failedFetchingActiveWorksheet($exception);
         }
     }
 
     /**
-     * @return \Iterator
+     * @return Iterator
      */
-    private function getIterator(): \Iterator
+    private function getIterator(): Iterator
     {
         if (null === $this->iterator) {
             $sheet = $this->getActiveWorksheet();
 
             /** @var int $start */
             $start = $this->mapping->getOption('start');
-            $this->iterator = $sheet->getRowIterator($start);
+            $this->iterator = new RowIterator($sheet->getRowIterator($start));
         }
 
         return $this->iterator;

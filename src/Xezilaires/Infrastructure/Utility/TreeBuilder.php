@@ -44,10 +44,6 @@ class TreeBuilder
      */
     public function __construct(Iterator $iterator)
     {
-        if (false === $iterator->areItemsNestable()) {
-            throw NestableIteratorException::iteratorMustBeNestable();
-        }
-
         $this->root = new Node('Root');
 
         /** @var Nestable $node */

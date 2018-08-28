@@ -53,9 +53,19 @@ class SpreadsheetException extends \InvalidArgumentException implements Exceptio
     /**
      * @param PhpSpreadsheetException $exception
      *
+     * @return SpreadsheetException
+     */
+    public static function invalidSeek(PhpSpreadsheetException $exception): self
+    {
+        return new self('Invalid seek: '.$exception->getMessage(), 0, $exception);
+    }
+
+    /**
+     * @param PhpSpreadsheetException $exception
+     *
      * @return self
      */
-    public static function failedToFetchActiveWorksheet(PhpSpreadsheetException $exception): self
+    public static function failedFetchingActiveWorksheet(PhpSpreadsheetException $exception): self
     {
         return new self('Failed to fetch active worksheet: '.$exception->getMessage(), 0, $exception);
     }
