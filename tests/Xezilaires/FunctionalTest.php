@@ -266,5 +266,9 @@ class FunctionalTest extends TestCase
 
             ++$idxValidator;
         }
+
+        if (0 === $idxValidator && \count($expected) > 0) {
+            static::fail('Iterator does not iterate');
+        }
     }
 }
