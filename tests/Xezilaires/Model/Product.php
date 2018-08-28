@@ -40,7 +40,7 @@ class Product
     public $name;
 
     /**
-     * @var float
+     * @var float|string
      *
      * @XLS\HeaderReference(header="Price USD")
      */

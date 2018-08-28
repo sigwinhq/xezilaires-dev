@@ -23,13 +23,20 @@ use Xezilaires\PhpSpreadsheetIterator;
 use Xezilaires\Test\Model\Product;
 
 /**
- * Class FunctionalTest.
+ * Class PhpSpreadsheetIteratorTest.
+ *
+ * @covers \Xezilaires\PhpSpreadsheetIterator
+ *
+ * @uses \Xezilaires\Infrastructure\PhpSpreadsheet\RowIterator
+ * @uses \Xezilaires\Metadata\ArrayReference
+ * @uses \Xezilaires\Metadata\ColumnReference
+ * @uses \Xezilaires\Metadata\HeaderReference
+ * @uses \Xezilaires\Metadata\Mapping
  */
-class FunctionalTest extends TestCase
+class PhpSpreadsheetIteratorTest extends TestCase
 {
-    /**
-     * @coversNothing
-     */
+    use IteratorMatcherTrait;
+
     public function testCanLoadFlatFixtureWithColumnReference(): void
     {
         $iterator = new PhpSpreadsheetIterator(
@@ -46,15 +53,12 @@ class FunctionalTest extends TestCase
             )
         );
 
-        $this->assertIteratorMatches([
+        self::assertIteratorMatches([
             ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
             ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
         ], $iterator);
     }
 
-    /**
-     * @coversNothing
-     */
     public function testCanLoadFlatFixtureWithHeaderReference(): void
     {
         $iterator = new PhpSpreadsheetIterator(
@@ -72,15 +76,12 @@ class FunctionalTest extends TestCase
             )
         );
 
-        $this->assertIteratorMatches([
+        self::assertIteratorMatches([
             ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
             ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
         ], $iterator);
     }
 
-    /**
-     * @coversNothing
-     */
     public function testCanLoadFlatFixtureWithArrayReference(): void
     {
         $iterator = new PhpSpreadsheetIterator(
@@ -100,15 +101,12 @@ class FunctionalTest extends TestCase
             )
         );
 
-        $this->assertIteratorMatches([
+        self::assertIteratorMatches([
             ['all' => ['The Very Hungry Caterpillar', '6.59']],
             ['all' => ['Brown Bear, Brown Bear, What Do You See?', '6.51']],
         ], $iterator);
     }
 
-    /**
-     * @coversNothing
-     */
     public function testCanLoadSparseFixtureWithHeaderReference(): void
     {
         $iterator = new PhpSpreadsheetIterator(
@@ -126,14 +124,14 @@ class FunctionalTest extends TestCase
             )
         );
 
-        $this->assertIteratorMatches([
+        self::assertIteratorMatches([
             ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
             ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
         ], $iterator);
     }
 
     /**
-     * @coversNothing
+     * @uses \Xezilaires\Metadata\Annotation\AnnotationDriver
      *
      * @throws \RuntimeException
      */
@@ -147,15 +145,12 @@ class FunctionalTest extends TestCase
             $mapping
         );
 
-        $this->assertIteratorMatches([
+        self::assertIteratorMatches([
             ['all' => ['The Very Hungry Caterpillar', '6.59'], 'name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
             ['all' => ['Brown Bear, Brown Bear, What Do You See?', '6.51'], 'name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
         ], $iterator);
     }
 
-    /**
-     * @coversNothing
-     */
     public function testCannotLoadFixtureWithDuplicateHeaderReference(): void
     {
         $this->expectException(\Xezilaires\Exception\HeaderException::class);
@@ -179,9 +174,6 @@ class FunctionalTest extends TestCase
         iterator_to_array($iterator);
     }
 
-    /**
-     * @coversNothing
-     */
     public function testCannotLoadFixtureWithInvalidHeaderReference(): void
     {
         $this->expectException(\Xezilaires\Exception\HeaderException::class);
@@ -205,9 +197,6 @@ class FunctionalTest extends TestCase
         iterator_to_array($iterator);
     }
 
-    /**
-     * @coversNothing
-     */
     public function testCannotLoadFlatFixtureWithNestedArrayReference(): void
     {
         $this->expectException(\Xezilaires\Exception\ReferenceException::class);
@@ -235,6 +224,71 @@ class FunctionalTest extends TestCase
         iterator_to_array($iterator);
     }
 
+    public function testCannotLoadUnreachableFile(): void
+    {
+        $this->expectException(\Xezilaires\Exception\SpreadsheetException::class);
+        $this->expectExceptionMessage('No spreadsheet path given');
+
+        $iterator = new PhpSpreadsheetIterator(
+            $this->invalidFixture('products.xls'),
+            new Mapping(Product::class, [], [])
+        );
+
+        iterator_to_array($iterator);
+    }
+
+    public function testCanFetchCurrentIteratorItem(): void
+    {
+        $iterator = new PhpSpreadsheetIterator(
+            $this->fixture('products.xls'),
+            new Mapping(
+                Product::class,
+                [
+                    'name' => new ColumnReference('A'),
+                    'price' => new ColumnReference('B'),
+                ],
+                [
+                    'start' => 2,
+                ]
+            )
+        );
+
+        $iterator->seek(1);
+        static::assertEquals(1, $iterator->key());
+
+        $current = new Product();
+        $current->name = 'Brown Bear, Brown Bear, What Do You See?';
+        $current->price = '6.51';
+        static::assertEquals($current, $iterator->current());
+    }
+
+    public function testCanRewindIterator(): void
+    {
+        $iterator = new PhpSpreadsheetIterator(
+            $this->fixture('products.xls'),
+            new Mapping(
+                Product::class,
+                [
+                    'name' => new ColumnReference('A'),
+                    'price' => new ColumnReference('B'),
+                ],
+                [
+                    'start' => 2,
+                ]
+            )
+        );
+
+        $iterator->seek(1);
+        static::assertEquals(1, $iterator->key());
+
+        $iterator->rewind();
+        $current = new Product();
+        $current->name = 'The Very Hungry Caterpillar';
+        $current->price = '6.59';
+        static::assertEquals($current, $iterator->current());
+        static::assertEquals(0, $iterator->key());
+    }
+
     /**
      * @param string $name
      *
@@ -246,29 +300,21 @@ class FunctionalTest extends TestCase
     }
 
     /**
-     * @param array<int, array<string, string|array<string>>> $expected
-     * @param \Iterator                                       $iterator
+     * @param string $name
+     *
+     * @return \SplFileObject
      */
-    private function assertIteratorMatches(array $expected, \Iterator $iterator): void
+    private function invalidFixture(string $name): \SplFileObject
     {
-        $keys = array_keys(current($expected));
-        $idxValidator = 0;
-
-        /**
-         * @var int    $idx
-         * @var object $item
-         */
-        foreach ($iterator as $idx => $item) {
-            static::assertSame($idxValidator, $idx);
-            foreach ($keys as $key) {
-                static::assertSame($expected[$idx][$key], $item->{$key});
+        return new class(__DIR__.'/../../resources/fixtures/'.$name) extends \SplFileObject {
+            /**
+             * @return bool
+             * @psalm-suppress ImplementedReturnTypeMismatch
+             */
+            public function getRealPath(): bool
+            {
+                return false;
             }
-
-            ++$idxValidator;
-        }
-
-        if (0 === $idxValidator && \count($expected) > 0) {
-            static::fail('Iterator does not iterate');
-        }
+        };
     }
 }

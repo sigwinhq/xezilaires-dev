@@ -18,7 +18,10 @@
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./tests/Xezilaires</directory>
+            <directory suffix=".php">./src/Xezilaires</directory>
+            <exclude>
+                <directory suffix=".php">./src/Xezilaires/Exception</directory>
+            </exclude>
         </whitelist>
     </filter>
 </phpunit>

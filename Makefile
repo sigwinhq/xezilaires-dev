@@ -32,13 +32,13 @@ psalm: ensure
 	sh -c "${QA_DOCKER_COMMAND} psalm --show-info=false"
 
 infection: ensure
-	sh -c "${QA_DOCKER_COMMAND} phpdbg -qrr /usr/local/bin/infection run  --coverage var/ --only-covered"
+	sh -c "${QA_DOCKER_COMMAND} phpdbg -qrr /usr/local/bin/infection run --verbose --show-mutations --no-interaction --only-covered --coverage var/ --min-msi=100 --min-covered-msi=100"
 
 phpunit-coverage: ensure
-	sh -c "${QA_DOCKER_COMMAND} phpdbg -qrr vendor/bin/phpunit --coverage-text --coverage-xml var/coverage-xml/"
+	sh -c "${QA_DOCKER_COMMAND} phpdbg -qrr vendor/bin/phpunit --verbose --coverage-text --log-junit=var/phpunit.junit.xml --coverage-xml var/coverage-xml/"
 
 phpunit:
-	vendor/bin/phpunit --verbose
+	sh -c "${QA_DOCKER_COMMAND} phpunit --verbose"
 
 ensure:
 	mkdir -p ${HOME}/.composer /tmp/tmp-phpqa-$(shell id -u)
