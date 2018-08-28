@@ -54,15 +54,16 @@ class AnnotationDriver
     }
 
     /**
-     * @param string $className
+     * @param string     $className
+     * @param array|null $options
      *
      * @return Mapping
      */
-    public function getMetadataMapping(string $className): Mapping
+    public function getMetadataMapping(string $className, ?array $options = null): Mapping
     {
         $reflectionClass = new \ReflectionClass($className);
 
-        return new Mapping($className, $this->getColumns($reflectionClass), $this->getOptions($reflectionClass));
+        return new Mapping($className, $this->getColumns($reflectionClass), $this->getOptions($reflectionClass, $options));
     }
 
     /**
@@ -129,14 +130,18 @@ class AnnotationDriver
 
     /**
      * @param \ReflectionClass $reflectionClass
+     * @param array|null       $additionalOptions
      *
      * @return array
      */
-    private function getOptions(\ReflectionClass $reflectionClass): array
+    private function getOptions(\ReflectionClass $reflectionClass, ?array $additionalOptions = null): array
     {
-        $annotation = (array) $this->reader->getClassAnnotation($reflectionClass, Annotation\Options::class);
+        $options = (array) $this->reader->getClassAnnotation($reflectionClass, Annotation\Options::class);
+        if (null !== $additionalOptions) {
+            $options = array_replace($options, $additionalOptions);
+        }
 
-        return array_filter($annotation);
+        return array_filter($options);
     }
 
     /**

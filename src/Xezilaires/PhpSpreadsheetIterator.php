@@ -28,6 +28,7 @@ use Xezilaires\Infrastructure\PhpSpreadsheet\RowIterator;
 use Xezilaires\Infrastructure\Symfony\Serializer\Denormalizer;
 use Xezilaires\Infrastructure\Symfony\Serializer\Exception as SerializerException;
 use Xezilaires\Infrastructure\Symfony\Serializer\ObjectNormalizer;
+use Xezilaires\Infrastructure\Utility\ReverseIterator;
 use Xezilaires\Metadata\ArrayReference;
 use Xezilaires\Metadata\ColumnReference;
 use Xezilaires\Metadata\HeaderReference;
@@ -216,7 +217,13 @@ class PhpSpreadsheetIterator implements Iterator
 
             /** @var int $start */
             $start = $this->mapping->getOption('start');
-            $this->iterator = new RowIterator($sheet->getRowIterator($start));
+            $iterator = new RowIterator($sheet->getRowIterator($start));
+
+            $reverse = $this->mapping->getOption('reverse');
+            if (true === $reverse) {
+                $iterator = new ReverseIterator($iterator, $start, $sheet->getHighestRow());
+            }
+            $this->iterator = $iterator;
         }
 
         return $this->iterator;

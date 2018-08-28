@@ -290,6 +290,32 @@ class PhpSpreadsheetIteratorTest extends TestCase
     }
 
     /**
+     * @uses \Xezilaires\Infrastructure\Utility\ReverseIterator
+     */
+    public function testCanLoadFlatFixtureInReverse(): void
+    {
+        $iterator = new PhpSpreadsheetIterator(
+            $this->fixture('products.xls'),
+            new Mapping(
+                Product::class,
+                [
+                    'name' => new ColumnReference('A'),
+                    'price' => new ColumnReference('B'),
+                ],
+                [
+                    'start' => 2,
+                    'reverse' => true,
+                ]
+            )
+        );
+
+        self::assertIteratorMatches([
+            ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
+            ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
+        ], $iterator);
+    }
+
+    /**
      * @param string $name
      *
      * @return \SplFileObject
