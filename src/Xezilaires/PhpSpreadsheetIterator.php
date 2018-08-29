@@ -22,8 +22,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Xezilaires\Exception\DenormalizerException;
-use Xezilaires\Exception\HeaderException;
-use Xezilaires\Exception\ReferenceException;
+use Xezilaires\Exception\MappingException;
 use Xezilaires\Exception\SpreadsheetException;
 use Xezilaires\Infrastructure\PhpSpreadsheet\RowIterator;
 use Xezilaires\Infrastructure\Symfony\Serializer\Denormalizer;
@@ -100,7 +99,7 @@ class PhpSpreadsheetIterator implements Iterator
 
         /** @var array<string, null|string|int|float|array<null|string|int|float>> $data */
         $data = [];
-        foreach ($this->mapping->getColumns() as $name => $reference) {
+        foreach ($this->mapping->getReferences() as $name => $reference) {
             if ($reference instanceof ArrayReference) {
                 $data[$name] = $this->readArrayReference($row, $reference);
             } else {
@@ -286,7 +285,7 @@ class PhpSpreadsheetIterator implements Iterator
             /** @var null|int $headerRowIndex */
             $headerRowIndex = $this->mapping->getOption('header');
             if (null === $headerRowIndex) {
-                throw HeaderException::missingHeaderOption();
+                throw MappingException::missingHeaderOption();
             }
             /** @var array<string, null|string> $headerRow */
             $headerRow = $this->fetchRow($headerRowIndex);
@@ -298,7 +297,7 @@ class PhpSpreadsheetIterator implements Iterator
                 }
 
                 if (isset($headers[$header])) {
-                    throw HeaderException::duplicateHeader($header, $column, $headers[$header]);
+                    throw MappingException::duplicateHeader($header, $column, $headers[$header]);
                 }
 
                 $headers[$header] = $column;
@@ -318,7 +317,7 @@ class PhpSpreadsheetIterator implements Iterator
     {
         $headerColumnReferences = $this->getHeaderColumnReferences();
         if (false === \array_key_exists($header, $headerColumnReferences)) {
-            throw HeaderException::headerNotFound($header);
+            throw MappingException::headerNotFound($header);
         }
 
         return $headerColumnReferences[$header];
@@ -358,7 +357,7 @@ class PhpSpreadsheetIterator implements Iterator
                 $data = $row[$column];
                 break;
             default:
-                throw ReferenceException::invalidReference();
+                throw MappingException::unexpectedReference();
         }
 
         return $data;
