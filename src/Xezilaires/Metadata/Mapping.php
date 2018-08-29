@@ -15,8 +15,7 @@ namespace Xezilaires\Metadata;
 
 use Symfony\Component\OptionsResolver\Exception\ExceptionInterface as OptionsResolverException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Xezilaires\Exception\HeaderException;
-use Xezilaires\Exception\OptionsException;
+use Xezilaires\Exception\MappingException;
 
 /**
  * Class Mapping.
@@ -31,7 +30,7 @@ class Mapping
     /**
      * @var array<string, Reference>
      */
-    private $columns = [];
+    private $references = [];
 
     /**
      * @var array<string, null|string|bool>
@@ -45,13 +44,13 @@ class Mapping
 
     /**
      * @param string                   $className
-     * @param array<string, Reference> $columns
-     * @param array                    $options
+     * @param array<string, Reference> $references
+     * @param null|array               $options
      */
-    public function __construct(string $className, array $columns, array $options = null)
+    public function __construct(string $className, array $references, array $options = null)
     {
-        $this->className = $className;
-        $this->setColumns($columns);
+        $this->setClassName($className);
+        $this->setReferences($references);
 
         try {
             $resolver = new OptionsResolver();
@@ -60,7 +59,7 @@ class Mapping
             /** @var array<string, null|string|bool> $options */
             $options = $resolver->resolve($options ?? []);
         } catch (OptionsResolverException $exception) {
-            throw OptionsException::invalidOption($exception);
+            throw MappingException::invalidOption($exception);
         }
         $this->setOptions($options);
     }
@@ -76,19 +75,19 @@ class Mapping
     /**
      * @return array<string, Reference>
      */
-    public function getColumns(): array
+    public function getReferences(): array
     {
-        return $this->columns;
+        return $this->references;
     }
 
     /**
-     * @param string $string
+     * @param string $option
      *
      * @return null|string|bool
      */
-    public function getOption(string $string)
+    public function getOption(string $option)
     {
-        return $this->options[$string];
+        return $this->options[$option];
     }
 
     /**
@@ -110,17 +109,38 @@ class Mapping
     }
 
     /**
-     * @param array<string, Reference> $columns
+     * @param string $className
      */
-    private function setColumns(array $columns): void
+    private function setClassName(string $className): void
     {
+        if (false === class_exists($className)) {
+            throw MappingException::classNotFound($className);
+        }
+
+        $this->className = $className;
+    }
+
+    /**
+     * @param array<string, mixed> $references
+     */
+    private function setReferences(array $references): void
+    {
+        if ([] === $references) {
+            throw MappingException::noReferencesSpecified();
+        }
+
         $headerOptionRequired = false;
-        foreach ($columns as $name => $column) {
-            if (true === $column instanceof HeaderReference) {
+        /** @psalm-suppress MixedAssignment */
+        foreach ($references as $name => $reference) {
+            if (false === $reference instanceof Reference) {
+                throw MappingException::invalidReference($name);
+            }
+
+            if (true === $reference instanceof HeaderReference) {
                 $headerOptionRequired = true;
             }
 
-            $this->columns[$name] = $column;
+            $this->references[$name] = $reference;
         }
 
         $this->headerOptionRequired = $headerOptionRequired;
@@ -132,7 +152,7 @@ class Mapping
     private function setOptions(array $options): void
     {
         if (true === $this->headerOptionRequired && false === isset($options['header'])) {
-            throw HeaderException::missingHeaderOption();
+            throw MappingException::missingHeaderOption();
         }
 
         $this->options = $options;
