@@ -31,7 +31,7 @@ phpstan: ensure
 psalm: ensure
 	sh -c "${QA_DOCKER_COMMAND} psalm --show-info=false"
 
-infection: ensure
+infection: phpunit-coverage
 	sh -c "${QA_DOCKER_COMMAND} phpdbg -qrr /usr/local/bin/infection run --verbose --show-mutations --no-interaction --only-covered --coverage var/ --min-msi=100 --min-covered-msi=100"
 
 phpunit-coverage: ensure

@@ -153,7 +153,7 @@ class PhpSpreadsheetIteratorTest extends TestCase
 
     public function testCannotLoadFixtureWithDuplicateHeaderReference(): void
     {
-        $this->expectException(\Xezilaires\Exception\HeaderException::class);
+        $this->expectException(\Xezilaires\Exception\MappingException::class);
         $this->expectExceptionMessage('Duplicate header "Name"');
 
         $iterator = new PhpSpreadsheetIterator(
@@ -176,7 +176,7 @@ class PhpSpreadsheetIteratorTest extends TestCase
 
     public function testCannotLoadFixtureWithInvalidHeaderReference(): void
     {
-        $this->expectException(\Xezilaires\Exception\HeaderException::class);
+        $this->expectException(\Xezilaires\Exception\MappingException::class);
         $this->expectExceptionMessage('Invalid header "Nameeee"');
 
         $iterator = new PhpSpreadsheetIterator(
@@ -199,8 +199,8 @@ class PhpSpreadsheetIteratorTest extends TestCase
 
     public function testCannotLoadFlatFixtureWithNestedArrayReference(): void
     {
-        $this->expectException(\Xezilaires\Exception\ReferenceException::class);
-        $this->expectExceptionMessage('Invalid reference');
+        $this->expectException(\Xezilaires\Exception\MappingException::class);
+        $this->expectExceptionMessage('Unexpected reference type');
 
         $iterator = new PhpSpreadsheetIterator(
             $this->fixture('products.xls'),
@@ -231,7 +231,7 @@ class PhpSpreadsheetIteratorTest extends TestCase
 
         $iterator = new PhpSpreadsheetIterator(
             $this->invalidFixture('products.xls'),
-            new Mapping(Product::class, [], [])
+            new Mapping(Product::class, ['name' => new ColumnReference('A')])
         );
 
         iterator_to_array($iterator);

@@ -34,7 +34,7 @@
     "require-dev": {
         "doctrine/annotations": "^1.6",
         "nicmart/tree": "^0.2, >= 0.2.4",
-        "phpunit/phpunit": "^6.0 | ^7.0",
+        "phpunit/phpunit": "^7.1",
         "symfony/console": "^3.0 | ^4.0",
         "symfony/property-access": "^3.0 | ^4.0",
         "symfony/property-info": "^3.0 | ^4.0"
