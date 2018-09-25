@@ -47,6 +47,6 @@ class AnnotationException extends \InvalidArgumentException implements Exception
      */
     public static function failedCreatingAnnotationReader(DoctrineAnnotationException $exception): self
     {
-        return new self('Failed creating annoration reader', 0, $exception);
+        return new self('Failed creating annotation reader', 0, $exception);
     }
 }

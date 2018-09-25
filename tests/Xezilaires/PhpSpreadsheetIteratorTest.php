@@ -177,7 +177,7 @@ class PhpSpreadsheetIteratorTest extends TestCase
     public function testCannotLoadFixtureWithInvalidHeaderReference(): void
     {
         $this->expectException(\Xezilaires\Exception\MappingException::class);
-        $this->expectExceptionMessage('Invalid header "Nameeee"');
+        $this->expectExceptionMessage('Invalid header "No such name"');
 
         $iterator = new PhpSpreadsheetIterator(
             $this->fixture('products.xls'),
@@ -185,7 +185,7 @@ class PhpSpreadsheetIteratorTest extends TestCase
                 Product::class,
                 [
                     'price' => new HeaderReference('Price USD'),
-                    'name' => new HeaderReference('Nameeee'),
+                    'name' => new HeaderReference('No such name'),
                 ],
                 [
                     'header' => 1,
