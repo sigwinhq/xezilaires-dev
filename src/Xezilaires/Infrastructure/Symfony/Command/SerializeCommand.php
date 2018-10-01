@@ -40,7 +40,8 @@ class SerializeCommand extends Command
             ->setName('xezilaires:serialize')
             ->addArgument('path', InputArgument::REQUIRED, 'Path to file to process')
             ->addArgument('class', InputArgument::REQUIRED, 'Process the rows as class')
-            ->addOption('format', 'f', InputOption::VALUE_OPTIONAL, 'Format to export to', 'json');
+            ->addOption('format', 'f', InputOption::VALUE_OPTIONAL, 'Format to export to', 'json')
+            ->addOption('reverse', 'r', InputOption::VALUE_NONE, 'Iterate in reverse');
     }
 
     /**
@@ -59,6 +60,8 @@ class SerializeCommand extends Command
         $class = $input->getArgument('class');
         /** @var null|string $format */
         $format = $input->getOption('format');
+        /** @var bool $reverse */
+        $reverse = $input->getOption('reverse');
 
         $normalizers = [new ObjectNormalizer()];
         $encoders = [new JsonEncode(JSON_PRETTY_PRINT), new XmlEncoder('xezilaires')];
@@ -74,7 +77,7 @@ class SerializeCommand extends Command
         }
 
         $driver = new AnnotationDriver();
-        $iterator = new PhpSpreadsheetIterator(new \SplFileObject($path), $driver->getMetadataMapping($class));
+        $iterator = new PhpSpreadsheetIterator(new \SplFileObject($path), $driver->getMetadataMapping($class, ['reverse' => $reverse]));
         $serializer = new Serializer($normalizers, $encoders);
         $output->write($serializer->serialize($iterator, $format));
 

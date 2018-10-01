@@ -92,10 +92,6 @@ class RowIterator implements Iterator
 
     public function prev(): void
     {
-        try {
-            $this->iterator->prev();
-        } catch (PhpSpreadsheetException $exception) {
-            throw SpreadsheetException::invalidSeek($exception);
-        }
+        $this->iterator->prev();
     }
 }
