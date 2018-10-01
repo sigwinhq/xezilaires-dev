@@ -41,10 +41,11 @@ class TreeBuilder
 
     /**
      * @param Iterator $iterator
+     * @param string   $rootNode
      */
-    public function __construct(Iterator $iterator)
+    public function __construct(Iterator $iterator, string $rootNode = 'Root')
     {
-        $this->root = new Node('Root');
+        $this->root = new Node($rootNode);
 
         /** @var Nestable $node */
         foreach ($iterator as $node) {
