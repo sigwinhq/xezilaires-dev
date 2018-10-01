@@ -41,7 +41,8 @@ class SerializeCommand extends Command
             ->addArgument('path', InputArgument::REQUIRED, 'Path to file to process')
             ->addArgument('class', InputArgument::REQUIRED, 'Process the rows as class')
             ->addOption('format', 'f', InputOption::VALUE_OPTIONAL, 'Format to export to', 'json')
-            ->addOption('reverse', 'r', InputOption::VALUE_NONE, 'Iterate in reverse');
+            ->addOption('reverse', 'r', InputOption::VALUE_NONE, 'Iterate in reverse')
+            ->addOption('xml-root', null, InputOption::VALUE_OPTIONAL, 'Name of root node in XML format', 'root');
     }
 
     /**
@@ -62,12 +63,22 @@ class SerializeCommand extends Command
         $format = $input->getOption('format');
         /** @var bool $reverse */
         $reverse = $input->getOption('reverse');
-
-        $normalizers = [new ObjectNormalizer()];
-        $encoders = [new JsonEncode(JSON_PRETTY_PRINT), new XmlEncoder('xezilaires')];
+        /** @var null|string $xmlRoot */
+        $xmlRoot = $input->getOption('xml-root');
 
         if (null === $format) {
             throw new \RuntimeException('Format is required');
+        }
+
+        $normalizers = [new ObjectNormalizer()];
+        $encoders = [new JsonEncode(JSON_PRETTY_PRINT)];
+
+        if ('xml' === $format) {
+            if (null === $xmlRoot) {
+                throw new \RuntimeException('XML root node name cannot be empty if XML format requested');
+            }
+
+            $encoders[] = new XmlEncoder($xmlRoot);
         }
 
         if (true === class_exists(CsvEncoder::class)) {
