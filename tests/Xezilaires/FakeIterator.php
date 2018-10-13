@@ -122,9 +122,9 @@ class FakeIterator implements Iterator
     /**
      * {@inheritdoc}
      */
-    public function seek(int $index): void
+    public function seek(int $rowIndex): void
     {
-        $this->iterator->seek($index);
+        $this->iterator->seek($rowIndex);
     }
 
     /**

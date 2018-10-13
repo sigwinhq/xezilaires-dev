@@ -29,9 +29,9 @@ interface Iterator extends \Iterator
     public function key(): int;
 
     /**
-     * @param int $index
+     * @param int $rowIndex row index to seek to, one-based
      */
-    public function seek(int $index): void;
+    public function seek(int $rowIndex): void;
 
     public function prev(): void;
 }

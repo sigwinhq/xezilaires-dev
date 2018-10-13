@@ -22,9 +22,10 @@ use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Serializer;
-use Xezilaires\Bridge\PhpSpreadsheet\Iterator;
+use Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet;
 use Xezilaires\Bridge\Symfony\Serializer\ObjectNormalizer;
 use Xezilaires\Metadata\Annotation\AnnotationDriver;
+use Xezilaires\SpreadsheetIterator;
 
 /**
  * Class SerializeCommand.
@@ -88,7 +89,10 @@ class SerializeCommand extends Command
         }
 
         $driver = new AnnotationDriver();
-        $iterator = new Iterator(new \SplFileObject($path), $driver->getMetadataMapping($class, ['reverse' => $reverse]));
+        $iterator = new SpreadsheetIterator(
+            new Spreadsheet(new \SplFileObject($path)),
+            $driver->getMetadataMapping($class, ['reverse' => $reverse])
+        );
         $serializer = new Serializer($normalizers, $encoders);
         $output->write($serializer->serialize($iterator, $format));
 

@@ -1,6 +1,7 @@
 includes:
     - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-deprecation-rules/rules.neon
     - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-strict-rules/rules.neon
+    - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-phpunit/extension.neon
     - /tools/.composer/vendor-bin/phpstan/vendor/pepakriz/phpstan-exception-rules/extension.neon
 parameters:
     tmpDir: %currentWorkingDirectory%/var/phpstan
@@ -16,6 +17,7 @@ parameters:
         uncheckedExceptions:
             - LogicException
             - PHPUnit\Framework\Exception
+            - PHPUnit\Framework\MockObject\RuntimeException
     ignoreErrors:
         - '#Symfony\\Component\\Serializer\\Encoder\\CsvEncoder not found#'
 

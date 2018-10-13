@@ -24,24 +24,16 @@ trait IteratorMatcherTrait
      */
     private static function assertIteratorMatches(array $expected, \Iterator $iterator): void
     {
-        $keys = array_keys(current($expected));
-        $idxValidator = 0;
+        $actual = [];
 
         /**
          * @var int    $idx
          * @var object $item
          */
         foreach ($iterator as $idx => $item) {
-            static::assertSame($idxValidator, $idx);
-            foreach ($keys as $key) {
-                static::assertSame($expected[$idx][$key], $item->{$key});
-            }
-
-            ++$idxValidator;
+            $actual[$idx] = array_filter((array) $item);
         }
 
-        if (0 === $idxValidator && \count($expected) > 0) {
-            static::fail('Iterator does not iterate');
-        }
+        static::assertEquals($expected, $actual);
     }
 }

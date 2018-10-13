@@ -11,39 +11,29 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Xezilaires\Test\Bridge\PhpSpreadsheet;
+namespace Xezilaires\Test\Functional;
 
 use PHPUnit\Framework\TestCase;
-use Xezilaires\Bridge\PhpSpreadsheet\Iterator;
 use Xezilaires\Metadata\Annotation\AnnotationDriver;
 use Xezilaires\Metadata\ArrayReference;
 use Xezilaires\Metadata\ColumnReference;
 use Xezilaires\Metadata\HeaderReference;
 use Xezilaires\Metadata\Mapping;
+use Xezilaires\Spreadsheet;
+use Xezilaires\SpreadsheetIterator;
 use Xezilaires\Test\FixtureTrait;
 use Xezilaires\Test\IteratorMatcherTrait;
 use Xezilaires\Test\Model\Product;
 
-/**
- * Class PhpSpreadsheetIteratorTest.
- *
- * @covers \Xezilaires\Bridge\PhpSpreadsheet\Iterator
- *
- * @uses \Xezilaires\Bridge\PhpSpreadsheet\RowIterator
- * @uses \Xezilaires\Metadata\ArrayReference
- * @uses \Xezilaires\Metadata\ColumnReference
- * @uses \Xezilaires\Metadata\HeaderReference
- * @uses \Xezilaires\Metadata\Mapping
- */
-class IteratorTest extends TestCase
+abstract class FunctionalTestCase extends TestCase
 {
     use FixtureTrait;
     use IteratorMatcherTrait;
 
     public function testCanLoadFlatFixtureWithColumnReference(): void
     {
-        $iterator = new Iterator(
-            $this->fixture('products.xls'),
+        $iterator = new SpreadsheetIterator(
+            $this->getSpreadsheet($this->fixture('products.xls')),
             new Mapping(
                 Product::class,
                 [
@@ -64,8 +54,8 @@ class IteratorTest extends TestCase
 
     public function testCanLoadFlatFixtureWithHeaderReference(): void
     {
-        $iterator = new Iterator(
-            $this->fixture('products.xls'),
+        $iterator = new SpreadsheetIterator(
+            $this->getSpreadsheet($this->fixture('products.xls')),
             new Mapping(
                 Product::class,
                 [
@@ -87,8 +77,8 @@ class IteratorTest extends TestCase
 
     public function testCanLoadFlatFixtureWithArrayReference(): void
     {
-        $iterator = new Iterator(
-            $this->fixture('products.xls'),
+        $iterator = new SpreadsheetIterator(
+            $this->getSpreadsheet($this->fixture('products.xls')),
             new Mapping(
                 Product::class,
                 [
@@ -112,8 +102,8 @@ class IteratorTest extends TestCase
 
     public function testCanLoadSparseFixtureWithHeaderReference(): void
     {
-        $iterator = new Iterator(
-            $this->fixture('products-sparse.xls'),
+        $iterator = new SpreadsheetIterator(
+            $this->getSpreadsheet($this->fixture('products-sparse.xls')),
             new Mapping(
                 Product::class,
                 [
@@ -143,8 +133,8 @@ class IteratorTest extends TestCase
         $driver = new AnnotationDriver();
         $mapping = $driver->getMetadataMapping(Product::class);
 
-        $iterator = new Iterator(
-            $this->fixture('products-sparse.xls'),
+        $iterator = new SpreadsheetIterator(
+            $this->getSpreadsheet($this->fixture('products-sparse.xls')),
             $mapping
         );
 
@@ -159,8 +149,8 @@ class IteratorTest extends TestCase
         $this->expectException(\Xezilaires\Exception\MappingException::class);
         $this->expectExceptionMessage('Duplicate header "Name"');
 
-        $iterator = new Iterator(
-            $this->fixture('products-duplicate-header.xls'),
+        $iterator = new SpreadsheetIterator(
+            $this->getSpreadsheet($this->fixture('products-duplicate-header.xls')),
             new Mapping(
                 Product::class,
                 [
@@ -182,8 +172,8 @@ class IteratorTest extends TestCase
         $this->expectException(\Xezilaires\Exception\MappingException::class);
         $this->expectExceptionMessage('Invalid header "No such name"');
 
-        $iterator = new Iterator(
-            $this->fixture('products.xls'),
+        $iterator = new SpreadsheetIterator(
+            $this->getSpreadsheet($this->fixture('products.xls')),
             new Mapping(
                 Product::class,
                 [
@@ -205,8 +195,8 @@ class IteratorTest extends TestCase
         $this->expectException(\Xezilaires\Exception\MappingException::class);
         $this->expectExceptionMessage('Unexpected reference type');
 
-        $iterator = new Iterator(
-            $this->fixture('products.xls'),
+        $iterator = new SpreadsheetIterator(
+            $this->getSpreadsheet($this->fixture('products.xls')),
             new Mapping(
                 Product::class,
                 [
@@ -232,8 +222,8 @@ class IteratorTest extends TestCase
         $this->expectException(\Xezilaires\Exception\SpreadsheetException::class);
         $this->expectExceptionMessage('No spreadsheet path given');
 
-        $iterator = new Iterator(
-            $this->invalidFixture('products.xls'),
+        $iterator = new SpreadsheetIterator(
+            $this->getSpreadsheet($this->invalidFixture('products.xls')),
             new Mapping(Product::class, ['name' => new ColumnReference('A')])
         );
 
@@ -242,8 +232,8 @@ class IteratorTest extends TestCase
 
     public function testCanFetchCurrentIteratorItem(): void
     {
-        $iterator = new Iterator(
-            $this->fixture('products.xls'),
+        $iterator = new SpreadsheetIterator(
+            $this->getSpreadsheet($this->fixture('products.xls')),
             new Mapping(
                 Product::class,
                 [
@@ -267,8 +257,8 @@ class IteratorTest extends TestCase
 
     public function testCanRewindIterator(): void
     {
-        $iterator = new Iterator(
-            $this->fixture('products.xls'),
+        $iterator = new SpreadsheetIterator(
+            $this->getSpreadsheet($this->fixture('products.xls')),
             new Mapping(
                 Product::class,
                 [
@@ -297,8 +287,8 @@ class IteratorTest extends TestCase
      */
     public function testCanLoadFlatFixtureInReverse(): void
     {
-        $iterator = new Iterator(
-            $this->fixture('products.xls'),
+        $iterator = new SpreadsheetIterator(
+            $this->getSpreadsheet($this->fixture('products.xls')),
             new Mapping(
                 Product::class,
                 [
@@ -317,4 +307,11 @@ class IteratorTest extends TestCase
             ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
         ], $iterator);
     }
+
+    /**
+     * @param \SplFileObject $file
+     *
+     * @return Spreadsheet
+     */
+    abstract protected function getSpreadsheet(\SplFileObject $file): Spreadsheet;
 }

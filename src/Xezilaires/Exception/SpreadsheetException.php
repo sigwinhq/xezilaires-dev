@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Xezilaires\Exception;
 
-use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\Reader\Exception as PhpSpreadsheetReaderException;
 use Xezilaires\Exception;
 
 /**
@@ -31,42 +29,63 @@ class SpreadsheetException extends \InvalidArgumentException implements Exceptio
     }
 
     /**
-     * @param PhpSpreadsheetReaderException $exception
+     * @param \Throwable $exception
      *
      * @return self
      */
-    public static function invalidSpreadsheet(PhpSpreadsheetReaderException $exception): self
+    public static function invalidSpreadsheet(\Throwable $exception): self
     {
-        return new self('Invalid spreadsheet', 0, $exception);
+        return new self('Invalid spreadsheet: '.$exception->getMessage(), 0, $exception);
     }
 
     /**
-     * @param PhpSpreadsheetException $exception
+     * @param \Throwable $exception
      *
      * @return self
      */
-    public static function invalidCell(PhpSpreadsheetException $exception): self
+    public static function invalidCell(\Throwable $exception): self
     {
         return new self('Invalid cell: '.$exception->getMessage(), 0, $exception);
     }
 
     /**
-     * @param PhpSpreadsheetException $exception
+     * @param \Throwable $exception
      *
      * @return SpreadsheetException
      */
-    public static function invalidSeek(PhpSpreadsheetException $exception): self
+    public static function invalidSeek(\Throwable $exception): self
     {
         return new self('Invalid seek: '.$exception->getMessage(), 0, $exception);
     }
 
     /**
-     * @param PhpSpreadsheetException $exception
+     * @param null|\Throwable $exception
      *
      * @return self
      */
-    public static function failedFetchingActiveWorksheet(PhpSpreadsheetException $exception): self
+    public static function failedFetchingActiveWorksheet(?\Throwable $exception = null): self
     {
-        return new self('Failed to fetch active worksheet: '.$exception->getMessage(), 0, $exception);
+        $message = 'Failed to fetch active worksheet';
+        if (null === $exception) {
+            return new self($message);
+        }
+
+        return new self($message.': '.$exception->getMessage(), 0, $exception);
+    }
+
+    /**
+     * @return SpreadsheetException
+     */
+    public static function noIterator(): self
+    {
+        return new self('No iterator was created');
+    }
+
+    /**
+     * @return SpreadsheetException
+     */
+    public static function iteratorAlreadyCreated(): self
+    {
+        return new self('Iterator already created');
     }
 }

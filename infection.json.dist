@@ -1,5 +1,5 @@
 {
-    "timeout": 10,
+    "timeout": 1,
     "source": {
         "directories": [
             "src\/Xezilaires"
@@ -10,6 +10,7 @@
     },
     "mutators": {
         "@default": true,
-        "IdenticalEqual": false
+        "IdenticalEqual": false,
+        "NotIdenticalNotEqual": false
     }
 }

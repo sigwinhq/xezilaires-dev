@@ -65,9 +65,9 @@ class ReverseIterator implements Iterator
     /**
      * {@inheritdoc}
      */
-    public function seek(int $index = 1): void
+    public function seek(int $rowIndex = 1): void
     {
-        $this->index = ($this->endIndex + 1) - $index;
+        $this->index = ($this->endIndex + 1) - $rowIndex;
 
         $this->iterator->seek($this->index);
     }

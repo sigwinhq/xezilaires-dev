@@ -20,6 +20,8 @@ use Xezilaires\Iterator;
 
 /**
  * Class RowIterator.
+ *
+ * @internal
  */
 class RowIterator implements Iterator
 {
@@ -79,17 +81,20 @@ class RowIterator implements Iterator
     }
 
     /**
-     * @param int $index
+     * {@inheritdoc}
      */
-    public function seek(int $index): void
+    public function seek(int $rowIndex): void
     {
         try {
-            $this->iterator->seek($index);
+            $this->iterator->seek($rowIndex);
         } catch (PhpSpreadsheetException $exception) {
             throw SpreadsheetException::invalidSeek($exception);
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function prev(): void
     {
         $this->iterator->prev();

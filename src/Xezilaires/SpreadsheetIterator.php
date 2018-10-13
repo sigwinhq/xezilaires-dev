@@ -11,41 +11,28 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Xezilaires\Bridge\PhpSpreadsheet;
+namespace Xezilaires;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
-use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
-use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Reader\Exception as PhpSpreadsheetReaderException;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\Row;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Xezilaires\Bridge\Symfony\Serializer\Denormalizer;
 use Xezilaires\Bridge\Symfony\Serializer\Exception as SerializerException;
 use Xezilaires\Bridge\Symfony\Serializer\ObjectNormalizer;
 use Xezilaires\Exception\DenormalizerException;
 use Xezilaires\Exception\MappingException;
-use Xezilaires\Exception\SpreadsheetException;
-use Xezilaires\Iterator as IteratorInterface;
 use Xezilaires\Metadata\ArrayReference;
 use Xezilaires\Metadata\ColumnReference;
 use Xezilaires\Metadata\HeaderReference;
 use Xezilaires\Metadata\Mapping;
 use Xezilaires\Metadata\Reference;
-use Xezilaires\ReverseIterator;
 
 /**
- * Class CategoryProvider.
+ * Class SpreadsheetIterator.
  */
-class Iterator implements IteratorInterface
+class SpreadsheetIterator implements Iterator
 {
-    private const CELL_NO_AUTO_CREATE = false;
-
     /**
-     * @var \SplFileObject
+     * @var Spreadsheet
      */
-    private $file;
+    private $spreadsheet;
 
     /**
      * @var Mapping
@@ -53,12 +40,7 @@ class Iterator implements IteratorInterface
     private $mapping;
 
     /**
-     * @var null|Spreadsheet
-     */
-    private $spreadsheet;
-
-    /**
-     * @var null|IteratorInterface
+     * @var null|Iterator
      */
     private $iterator;
 
@@ -78,12 +60,12 @@ class Iterator implements IteratorInterface
     private $index = 0;
 
     /**
-     * @param \SplFileObject $file
-     * @param Mapping        $mapping
+     * @param Spreadsheet $spreadsheet
+     * @param Mapping     $mapping
      */
-    public function __construct(\SplFileObject $file, Mapping $mapping)
+    public function __construct(Spreadsheet $spreadsheet, Mapping $mapping)
     {
-        $this->file = $file;
+        $this->spreadsheet = $spreadsheet;
         $this->mapping = $mapping;
     }
 
@@ -94,9 +76,7 @@ class Iterator implements IteratorInterface
      */
     public function current()
     {
-        /** @var Row $row */
-        $row = $this->getIterator()->current();
-        $row = $this->fetchRow($row->getRowIndex());
+        $row = $this->spreadsheet->getCurrentRow();
 
         /** @var array<string, null|string|int|float|array<null|string|int|float>> $data */
         $data = [];
@@ -164,111 +144,35 @@ class Iterator implements IteratorInterface
     /**
      * {@inheritdoc}
      */
-    public function seek(int $index): void
+    public function seek(int $rowIndex): void
     {
         /** @var int $start */
         $start = $this->mapping->getOption('start');
-        $this->index = $index;
+        $this->index = $rowIndex;
 
-        $this->getIterator()->seek($start + $index);
+        $this->getIterator()->seek($start + $rowIndex);
     }
 
     /**
-     * @return Spreadsheet
+     * {@inheritdoc}
      */
-    private function getSpreadsheet(): Spreadsheet
-    {
-        if (null === $this->spreadsheet) {
-            $path = $this->file->getRealPath();
-            if (false === $path) {
-                throw SpreadsheetException::noSpreadsheetFound();
-            }
-
-            try {
-                $reader = IOFactory::createReaderForFile($path);
-                $this->spreadsheet = $reader->load($path);
-            } catch (PhpSpreadsheetReaderException $exception) {
-                throw SpreadsheetException::invalidSpreadsheet($exception);
-            }
-        }
-
-        return $this->spreadsheet;
-    }
-
-    /**
-     * @return Worksheet
-     */
-    private function getActiveWorksheet(): Worksheet
-    {
-        try {
-            return $this->getSpreadsheet()->getActiveSheet();
-        } catch (PhpSpreadsheetException $exception) {
-            throw SpreadsheetException::failedFetchingActiveWorksheet($exception);
-        }
-    }
-
-    /**
-     * @return IteratorInterface
-     */
-    private function getIterator(): IteratorInterface
+    private function getIterator(): Iterator
     {
         if (null === $this->iterator) {
-            $sheet = $this->getActiveWorksheet();
-
             /** @var int $start */
             $start = $this->mapping->getOption('start');
-            $iterator = new RowIterator($sheet->getRowIterator($start));
+            $this->spreadsheet->createIterator($start);
+
+            $iterator = $this->spreadsheet->getIterator();
 
             $reverse = $this->mapping->getOption('reverse');
             if (true === $reverse) {
-                $iterator = new ReverseIterator($iterator, $start, $sheet->getHighestRow());
+                $iterator = new ReverseIterator($iterator, $start, $this->spreadsheet->getHighestRow());
             }
             $this->iterator = $iterator;
         }
 
         return $this->iterator;
-    }
-
-    /**
-     * @param int $rowIndex
-     *
-     * @return array<string, null|string|int|float>
-     */
-    private function fetchRow(int $rowIndex): array
-    {
-        $data = [];
-        $worksheet = $this->getActiveWorksheet();
-        $columnIterator = $worksheet->getColumnIterator();
-
-        foreach ($columnIterator as $column) {
-            $columnName = $column->getColumnIndex();
-            $data[$columnName] = $this->fetchCell($columnName, $rowIndex);
-        }
-
-        return $data;
-    }
-
-    /**
-     * @param string $columnName
-     * @param int    $rowIndex
-     *
-     * @return null|string|int|float
-     */
-    private function fetchCell(string $columnName, int $rowIndex)
-    {
-        $worksheet = $this->getActiveWorksheet();
-        $columnIndex = Coordinate::columnIndexFromString($columnName);
-
-        /** @var null|Cell $cell */
-        $cell = $worksheet->getCellByColumnAndRow($columnIndex, $rowIndex, self::CELL_NO_AUTO_CREATE);
-        if (null === $cell) {
-            return null;
-        }
-
-        /** @var null|string|int|float $value */
-        $value = $cell->getValue();
-
-        return $value;
     }
 
     /**
@@ -295,7 +199,7 @@ class Iterator implements IteratorInterface
                 throw MappingException::missingHeaderOption();
             }
             /** @var array<string, null|string> $headerRow */
-            $headerRow = $this->fetchRow($headerRowIndex);
+            $headerRow = $this->spreadsheet->getRow($headerRowIndex);
 
             $headers = [];
             foreach ($headerRow as $column => $header) {
