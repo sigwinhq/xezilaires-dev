@@ -11,13 +11,13 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Xezilaires\Infrastructure\Symfony\Serializer;
+namespace Xezilaires\Bridge\Symfony\Serializer;
 
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer as BaseObjectNormalizer;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 /**
- * Class ObjectNormalizer.
+ * Interface Exception.
  */
-class ObjectNormalizer extends BaseObjectNormalizer implements Denormalizer
+interface Exception extends ExceptionInterface, \Throwable
 {
 }

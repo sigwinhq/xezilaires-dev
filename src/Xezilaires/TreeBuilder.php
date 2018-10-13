@@ -11,13 +11,11 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Xezilaires\Infrastructure\Utility;
+namespace Xezilaires;
 
 use Tree\Node\Node;
 use Tree\Node\NodeInterface;
 use Xezilaires\Exception\NestableIteratorException;
-use Xezilaires\Iterator;
-use Xezilaires\Nestable;
 
 /**
  * Class TreeBuilder.

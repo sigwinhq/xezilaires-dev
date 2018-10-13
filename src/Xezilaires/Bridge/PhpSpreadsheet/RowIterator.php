@@ -11,7 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Xezilaires\Infrastructure\PhpSpreadsheet;
+namespace Xezilaires\Bridge\PhpSpreadsheet;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowIterator as PhpSpreadsheetRowIterator;

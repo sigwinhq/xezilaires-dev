@@ -12,14 +12,14 @@ declare(strict_types=1);
  */
 
 use Tree\Node\NodeInterface;
+use Xezilaires\Bridge\PhpSpreadsheet\Iterator;
 use Xezilaires\Metadata\ColumnReference;
 use Xezilaires\Metadata\Mapping;
-use Xezilaires\PhpSpreadsheetIterator;
 use Xezilaires\Test\Model\Category;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-$reader = new PhpSpreadsheetIterator(
+$reader = new Iterator(
     new SplFileObject(__DIR__.'/../resources/fixtures/categories.xls'),
     new Mapping(
         Category::class,
@@ -34,7 +34,7 @@ $reader = new PhpSpreadsheetIterator(
     )
 );
 
-$tree = new \Xezilaires\Infrastructure\Utility\TreeBuilder($reader);
+$tree = new Xezilaires\TreeBuilder($reader);
 viz($tree->getRoot());
 
 /**

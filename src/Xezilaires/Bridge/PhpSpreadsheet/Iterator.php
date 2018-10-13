@@ -11,7 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Xezilaires;
+namespace Xezilaires\Bridge\PhpSpreadsheet;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
@@ -21,24 +21,24 @@ use PhpOffice\PhpSpreadsheet\Reader\Exception as PhpSpreadsheetReaderException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Xezilaires\Bridge\Symfony\Serializer\Denormalizer;
+use Xezilaires\Bridge\Symfony\Serializer\Exception as SerializerException;
+use Xezilaires\Bridge\Symfony\Serializer\ObjectNormalizer;
 use Xezilaires\Exception\DenormalizerException;
 use Xezilaires\Exception\MappingException;
 use Xezilaires\Exception\SpreadsheetException;
-use Xezilaires\Infrastructure\PhpSpreadsheet\RowIterator;
-use Xezilaires\Infrastructure\Symfony\Serializer\Denormalizer;
-use Xezilaires\Infrastructure\Symfony\Serializer\Exception as SerializerException;
-use Xezilaires\Infrastructure\Symfony\Serializer\ObjectNormalizer;
-use Xezilaires\Infrastructure\Utility\ReverseIterator;
+use Xezilaires\Iterator as IteratorInterface;
 use Xezilaires\Metadata\ArrayReference;
 use Xezilaires\Metadata\ColumnReference;
 use Xezilaires\Metadata\HeaderReference;
 use Xezilaires\Metadata\Mapping;
 use Xezilaires\Metadata\Reference;
+use Xezilaires\ReverseIterator;
 
 /**
  * Class CategoryProvider.
  */
-class PhpSpreadsheetIterator implements Iterator
+class Iterator implements IteratorInterface
 {
     private const CELL_NO_AUTO_CREATE = false;
 
@@ -58,7 +58,7 @@ class PhpSpreadsheetIterator implements Iterator
     private $spreadsheet;
 
     /**
-     * @var null|Iterator
+     * @var null|IteratorInterface
      */
     private $iterator;
 
@@ -208,9 +208,9 @@ class PhpSpreadsheetIterator implements Iterator
     }
 
     /**
-     * @return Iterator
+     * @return IteratorInterface
      */
-    private function getIterator(): Iterator
+    private function getIterator(): IteratorInterface
     {
         if (null === $this->iterator) {
             $sheet = $this->getActiveWorksheet();

@@ -11,9 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Xezilaires\Infrastructure\Utility;
-
-use Xezilaires\Iterator;
+namespace Xezilaires;
 
 /**
  * Class DeduplicationIterator.

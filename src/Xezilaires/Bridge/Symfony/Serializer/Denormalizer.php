@@ -11,7 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Xezilaires\Infrastructure\Symfony\Serializer;
+namespace Xezilaires\Bridge\Symfony\Serializer;
 
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 

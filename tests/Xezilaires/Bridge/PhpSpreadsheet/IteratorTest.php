@@ -11,35 +11,38 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Xezilaires\Test;
+namespace Xezilaires\Test\Bridge\PhpSpreadsheet;
 
 use PHPUnit\Framework\TestCase;
+use Xezilaires\Bridge\PhpSpreadsheet\Iterator;
 use Xezilaires\Metadata\Annotation\AnnotationDriver;
 use Xezilaires\Metadata\ArrayReference;
 use Xezilaires\Metadata\ColumnReference;
 use Xezilaires\Metadata\HeaderReference;
 use Xezilaires\Metadata\Mapping;
-use Xezilaires\PhpSpreadsheetIterator;
+use Xezilaires\Test\FixtureTrait;
+use Xezilaires\Test\IteratorMatcherTrait;
 use Xezilaires\Test\Model\Product;
 
 /**
  * Class PhpSpreadsheetIteratorTest.
  *
- * @covers \Xezilaires\PhpSpreadsheetIterator
+ * @covers \Xezilaires\Bridge\PhpSpreadsheet\Iterator
  *
- * @uses \Xezilaires\Infrastructure\PhpSpreadsheet\RowIterator
+ * @uses \Xezilaires\Bridge\PhpSpreadsheet\RowIterator
  * @uses \Xezilaires\Metadata\ArrayReference
  * @uses \Xezilaires\Metadata\ColumnReference
  * @uses \Xezilaires\Metadata\HeaderReference
  * @uses \Xezilaires\Metadata\Mapping
  */
-class PhpSpreadsheetIteratorTest extends TestCase
+class IteratorTest extends TestCase
 {
+    use FixtureTrait;
     use IteratorMatcherTrait;
 
     public function testCanLoadFlatFixtureWithColumnReference(): void
     {
-        $iterator = new PhpSpreadsheetIterator(
+        $iterator = new Iterator(
             $this->fixture('products.xls'),
             new Mapping(
                 Product::class,
@@ -61,7 +64,7 @@ class PhpSpreadsheetIteratorTest extends TestCase
 
     public function testCanLoadFlatFixtureWithHeaderReference(): void
     {
-        $iterator = new PhpSpreadsheetIterator(
+        $iterator = new Iterator(
             $this->fixture('products.xls'),
             new Mapping(
                 Product::class,
@@ -84,7 +87,7 @@ class PhpSpreadsheetIteratorTest extends TestCase
 
     public function testCanLoadFlatFixtureWithArrayReference(): void
     {
-        $iterator = new PhpSpreadsheetIterator(
+        $iterator = new Iterator(
             $this->fixture('products.xls'),
             new Mapping(
                 Product::class,
@@ -109,7 +112,7 @@ class PhpSpreadsheetIteratorTest extends TestCase
 
     public function testCanLoadSparseFixtureWithHeaderReference(): void
     {
-        $iterator = new PhpSpreadsheetIterator(
+        $iterator = new Iterator(
             $this->fixture('products-sparse.xls'),
             new Mapping(
                 Product::class,
@@ -140,7 +143,7 @@ class PhpSpreadsheetIteratorTest extends TestCase
         $driver = new AnnotationDriver();
         $mapping = $driver->getMetadataMapping(Product::class);
 
-        $iterator = new PhpSpreadsheetIterator(
+        $iterator = new Iterator(
             $this->fixture('products-sparse.xls'),
             $mapping
         );
@@ -156,7 +159,7 @@ class PhpSpreadsheetIteratorTest extends TestCase
         $this->expectException(\Xezilaires\Exception\MappingException::class);
         $this->expectExceptionMessage('Duplicate header "Name"');
 
-        $iterator = new PhpSpreadsheetIterator(
+        $iterator = new Iterator(
             $this->fixture('products-duplicate-header.xls'),
             new Mapping(
                 Product::class,
@@ -179,7 +182,7 @@ class PhpSpreadsheetIteratorTest extends TestCase
         $this->expectException(\Xezilaires\Exception\MappingException::class);
         $this->expectExceptionMessage('Invalid header "No such name"');
 
-        $iterator = new PhpSpreadsheetIterator(
+        $iterator = new Iterator(
             $this->fixture('products.xls'),
             new Mapping(
                 Product::class,
@@ -202,7 +205,7 @@ class PhpSpreadsheetIteratorTest extends TestCase
         $this->expectException(\Xezilaires\Exception\MappingException::class);
         $this->expectExceptionMessage('Unexpected reference type');
 
-        $iterator = new PhpSpreadsheetIterator(
+        $iterator = new Iterator(
             $this->fixture('products.xls'),
             new Mapping(
                 Product::class,
@@ -229,7 +232,7 @@ class PhpSpreadsheetIteratorTest extends TestCase
         $this->expectException(\Xezilaires\Exception\SpreadsheetException::class);
         $this->expectExceptionMessage('No spreadsheet path given');
 
-        $iterator = new PhpSpreadsheetIterator(
+        $iterator = new Iterator(
             $this->invalidFixture('products.xls'),
             new Mapping(Product::class, ['name' => new ColumnReference('A')])
         );
@@ -239,7 +242,7 @@ class PhpSpreadsheetIteratorTest extends TestCase
 
     public function testCanFetchCurrentIteratorItem(): void
     {
-        $iterator = new PhpSpreadsheetIterator(
+        $iterator = new Iterator(
             $this->fixture('products.xls'),
             new Mapping(
                 Product::class,
@@ -264,7 +267,7 @@ class PhpSpreadsheetIteratorTest extends TestCase
 
     public function testCanRewindIterator(): void
     {
-        $iterator = new PhpSpreadsheetIterator(
+        $iterator = new Iterator(
             $this->fixture('products.xls'),
             new Mapping(
                 Product::class,
@@ -290,11 +293,11 @@ class PhpSpreadsheetIteratorTest extends TestCase
     }
 
     /**
-     * @uses \Xezilaires\Infrastructure\Utility\ReverseIterator
+     * @uses \Xezilaires\ReverseIterator
      */
     public function testCanLoadFlatFixtureInReverse(): void
     {
-        $iterator = new PhpSpreadsheetIterator(
+        $iterator = new Iterator(
             $this->fixture('products.xls'),
             new Mapping(
                 Product::class,
@@ -313,34 +316,5 @@ class PhpSpreadsheetIteratorTest extends TestCase
             ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
             ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
         ], $iterator);
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return \SplFileObject
-     */
-    private function fixture(string $name): \SplFileObject
-    {
-        return new \SplFileObject(__DIR__.'/../../resources/fixtures/'.$name);
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return \SplFileObject
-     */
-    private function invalidFixture(string $name): \SplFileObject
-    {
-        return new class(__DIR__.'/../../resources/fixtures/'.$name) extends \SplFileObject {
-            /**
-             * @return bool
-             * @psalm-suppress ImplementedReturnTypeMismatch
-             */
-            public function getRealPath(): bool
-            {
-                return false;
-            }
-        };
     }
 }

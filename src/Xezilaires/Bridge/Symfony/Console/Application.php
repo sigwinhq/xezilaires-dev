@@ -11,10 +11,10 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Xezilaires\Infrastructure\Symfony\Console;
+namespace Xezilaires\Bridge\Symfony\Console;
 
 use Symfony\Component\Console\Application as BaseApplication;
-use Xezilaires\Infrastructure\Symfony\Command\SerializeCommand;
+use Xezilaires\Bridge\Symfony\Command\SerializeCommand;
 
 /**
  * Class Application.
