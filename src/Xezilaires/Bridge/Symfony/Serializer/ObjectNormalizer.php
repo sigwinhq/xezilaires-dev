@@ -15,9 +15,6 @@ namespace Xezilaires\Bridge\Symfony\Serializer;
 
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer as BaseObjectNormalizer;
 
-/**
- * Class ObjectNormalizer.
- */
-class ObjectNormalizer extends BaseObjectNormalizer implements Denormalizer
+final class ObjectNormalizer extends BaseObjectNormalizer implements Denormalizer
 {
 }

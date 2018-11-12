@@ -13,9 +13,6 @@ declare(strict_types=1);
 
 namespace Xezilaires;
 
-/**
- * Interface Iterator.
- */
 interface Iterator extends \Iterator
 {
     /**
@@ -23,9 +20,6 @@ interface Iterator extends \Iterator
      */
     public function current();
 
-    /**
-     * @return int
-     */
     public function key(): int;
 
     /**

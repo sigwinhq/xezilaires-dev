@@ -18,8 +18,10 @@ use Xezilaires\FilterIterator;
 
 /**
  * @covers \Xezilaires\FilterIterator
+ *
+ * @internal
  */
-class FilterIteratorTest extends TestCase
+final class FilterIteratorTest extends TestCase
 {
     public function testCanFilterOutIteratorItems(): void
     {

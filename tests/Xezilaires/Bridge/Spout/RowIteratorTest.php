@@ -19,8 +19,10 @@ use Xezilaires\Bridge\Spout\RowIterator;
 
 /**
  * @covers \Xezilaires\Bridge\Spout\RowIterator
+ *
+ * @internal
  */
-class RowIteratorTest extends TestCase
+final class RowIteratorTest extends TestCase
 {
     public function seekProvider(): array
     {
@@ -41,9 +43,6 @@ class RowIteratorTest extends TestCase
     /**
      * @dataProvider seekProvider
      *
-     * @param int                $startRow
-     * @param int                $currentRow
-     * @param int                $seekToRow
      * @param array<string, int> $counts
      */
     public function testCanSeekProperly(int $startRow, int $currentRow, int $seekToRow, array $counts): void
@@ -55,9 +54,6 @@ class RowIteratorTest extends TestCase
     /**
      * @dataProvider getHighestRowProvider
      *
-     * @param int                  $startRow
-     * @param int                  $currentRow
-     * @param int                  $highestRow
      * @param array<string, int>   $counts
      * @param array<string, array> $calls
      */
@@ -71,11 +67,8 @@ class RowIteratorTest extends TestCase
     }
 
     /**
-     * @param int                       $currentRow
      * @param null|array<string, int>   $counts
      * @param null|array<string, array> $calls
-     *
-     * @return IteratorInterface
      */
     private function mockIterator(int $currentRow, ?array $counts = null, ?array $calls = null): IteratorInterface
     {

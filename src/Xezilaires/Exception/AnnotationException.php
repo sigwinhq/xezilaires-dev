@@ -16,35 +16,21 @@ namespace Xezilaires\Exception;
 use Doctrine\Common\Annotations\AnnotationException as DoctrineAnnotationException;
 use Xezilaires\Exception;
 
-/**
- * Class AnnotationException.
- */
-class AnnotationException extends \InvalidArgumentException implements Exception
+final class AnnotationException extends \InvalidArgumentException implements Exception
 {
-    /**
-     * @return AnnotationException
-     */
     public static function unsupportedAnnotation(): self
     {
         return new self('Unsupported annotation');
     }
 
     /**
-     * @param \ReflectionProperty                                                                     $property
-     * @param array<int, null|\Xezilaires\Annotation\Reference|\Xezilaires\Annotation\ArrayReference> $references
-     *
-     * @return AnnotationException
+     * @param array<int, null|\Xezilaires\Annotation\ArrayReference|\Xezilaires\Annotation\Reference> $references
      */
     public static function tooManyReferencesDefined(\ReflectionProperty $property, array $references): self
     {
         return new self('Too many references defined for '.$property->getName());
     }
 
-    /**
-     * @param DoctrineAnnotationException $exception
-     *
-     * @return AnnotationException
-     */
     public static function failedCreatingAnnotationReader(DoctrineAnnotationException $exception): self
     {
         return new self('Failed creating annotation reader', 0, $exception);

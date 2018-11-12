@@ -15,42 +15,24 @@ namespace Xezilaires\Exception;
 
 use Xezilaires\Exception;
 
-/**
- * Class SpreadsheetException.
- */
-class SpreadsheetException extends \InvalidArgumentException implements Exception
+final class SpreadsheetException extends \InvalidArgumentException implements Exception
 {
-    /**
-     * @return self
-     */
     public static function noSpreadsheetFound(): self
     {
         return new self('No spreadsheet path given');
     }
 
-    /**
-     * @param \Throwable $exception
-     *
-     * @return self
-     */
     public static function invalidSpreadsheet(\Throwable $exception): self
     {
         return new self('Invalid spreadsheet: '.$exception->getMessage(), 0, $exception);
     }
 
-    /**
-     * @param \Throwable $exception
-     *
-     * @return self
-     */
     public static function invalidCell(\Throwable $exception): self
     {
         return new self('Invalid cell: '.$exception->getMessage(), 0, $exception);
     }
 
     /**
-     * @param \Throwable $exception
-     *
      * @return SpreadsheetException
      */
     public static function invalidSeek(\Throwable $exception): self
@@ -58,11 +40,6 @@ class SpreadsheetException extends \InvalidArgumentException implements Exceptio
         return new self('Invalid seek: '.$exception->getMessage(), 0, $exception);
     }
 
-    /**
-     * @param null|\Throwable $exception
-     *
-     * @return self
-     */
     public static function failedFetchingActiveWorksheet(?\Throwable $exception = null): self
     {
         $message = 'Failed to fetch active worksheet';

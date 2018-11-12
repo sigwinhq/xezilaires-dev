@@ -16,7 +16,7 @@ namespace Xezilaires\Annotation;
 /**
  * @Annotation
  */
-class ArrayReference
+final class ArrayReference
 {
     /**
      * @var \Xezilaires\Annotation\Reference[]

@@ -26,9 +26,6 @@ use Xezilaires\Bridge\Symfony\Serializer\ObjectNormalizer;
 use Xezilaires\Metadata\Annotation\AnnotationDriver;
 use Xezilaires\SpreadsheetIterator;
 
-/**
- * Class SerializeCommand.
- */
 class SerializeCommand extends Command
 {
     /**
@@ -46,12 +43,7 @@ class SerializeCommand extends Command
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
      * @throws \RuntimeException
-     *
-     * @return null|int
      */
     protected function execute(InputInterface $input, OutputInterface $output): ?int
     {

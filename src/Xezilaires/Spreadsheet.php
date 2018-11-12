@@ -13,9 +13,6 @@ declare(strict_types=1);
 
 namespace Xezilaires;
 
-/**
- * Interface Loader.
- */
 interface Spreadsheet
 {
     /**
@@ -23,20 +20,17 @@ interface Spreadsheet
      */
     public function createIterator(int $startRowIndex): void;
 
-    /**
-     * @return Iterator
-     */
     public function getIterator(): Iterator;
 
     /**
      * @param int $rowIndex row index to fetch, one-based
      *
-     * @return array<string, null|string|int|float>
+     * @return array<string, null|float|int|string>
      */
     public function getRow(int $rowIndex): array;
 
     /**
-     * @return array<string, null|string|int|float>
+     * @return array<string, null|float|int|string>
      */
     public function getCurrentRow(): array;
 

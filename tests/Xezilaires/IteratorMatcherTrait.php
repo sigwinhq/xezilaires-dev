@@ -14,13 +14,12 @@ declare(strict_types=1);
 namespace Xezilaires\Test;
 
 /**
- * Class IteratorMatcherTrait.
+ * @internal
  */
 trait IteratorMatcherTrait
 {
     /**
      * @param array<int, array<string, string|array<string>>> $expected
-     * @param \Iterator                                       $iterator
      */
     private static function assertIteratorMatches(array $expected, \Iterator $iterator): void
     {

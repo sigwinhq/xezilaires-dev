@@ -22,11 +22,11 @@ use Xezilaires\Metadata\Mapping;
 use Xezilaires\Test\Model\Product;
 
 /**
- * Class PhpSpreadsheetIteratorTest.
- *
  * @covers \Xezilaires\Metadata\Mapping
+ *
+ * @internal
  */
-class MappingTest extends TestCase
+final class MappingTest extends TestCase
 {
     /**
      * @uses \Xezilaires\Metadata\ColumnReference
@@ -44,9 +44,8 @@ class MappingTest extends TestCase
     /**
      * @dataProvider getValidMappings
      *
-     * @param string                                        $className
      * @param array<string, \Xezilaires\Metadata\Reference> $columns
-     * @param null|array<string, null|string|bool>          $options
+     * @param null|array<string, null|bool|string>          $options
      */
     public function testCanCreateValidMapping(string $className, array $columns, ?array $options = null): void
     {
@@ -65,10 +64,8 @@ class MappingTest extends TestCase
     /**
      * @dataProvider getInvalidMappings
      *
-     * @param string                                        $exceptionMessage
-     * @param string                                        $className
      * @param array<string, \Xezilaires\Metadata\Reference> $columns
-     * @param null|array<string, null|string|bool>          $options
+     * @param null|array<string, null|bool|string>          $options
      */
     public function testCannotCreateInvalidMapping(string $exceptionMessage, string $className, array $columns, ?array $options = null): void
     {
@@ -78,9 +75,6 @@ class MappingTest extends TestCase
         new Mapping($className, $columns, $options);
     }
 
-    /**
-     * @return array
-     */
     public function getValidMappings(): array
     {
         return [
@@ -91,9 +85,6 @@ class MappingTest extends TestCase
         ];
     }
 
-    /**
-     * @return array
-     */
     public function getInvalidMappings(): array
     {
         return [

@@ -13,10 +13,7 @@ declare(strict_types=1);
 
 namespace Xezilaires;
 
-/**
- * Class ReverseIterator.
- */
-class ReverseIterator implements Iterator
+final class ReverseIterator implements Iterator
 {
     /**
      * @var Iterator
@@ -38,11 +35,6 @@ class ReverseIterator implements Iterator
      */
     private $index;
 
-    /**
-     * @param Iterator $iterator
-     * @param int      $startIndex
-     * @param int      $endIndex
-     */
     public function __construct(Iterator $iterator, int $startIndex, int $endIndex)
     {
         $this->iterator = $iterator;

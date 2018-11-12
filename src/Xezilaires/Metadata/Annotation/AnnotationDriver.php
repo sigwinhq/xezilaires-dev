@@ -23,11 +23,9 @@ use Xezilaires\Metadata\HeaderReference;
 use Xezilaires\Metadata\Mapping;
 
 /**
- * Class AnnotationDriver.
- *
  * @internal
  */
-class AnnotationDriver
+final class AnnotationDriver
 {
     /**
      * @var AnnotationReader
@@ -35,8 +33,6 @@ class AnnotationDriver
     private $reader;
 
     /**
-     * @param null|AnnotationReader $reader
-     *
      * @throws \RuntimeException if Doctrine's Annotations component is not available
      */
     public function __construct(AnnotationReader $reader = null)
@@ -53,12 +49,6 @@ class AnnotationDriver
         }
     }
 
-    /**
-     * @param string     $className
-     * @param array|null $options
-     *
-     * @return Mapping
-     */
     public function getMetadataMapping(string $className, ?array $options = null): Mapping
     {
         $reflectionClass = new \ReflectionClass($className);
@@ -67,8 +57,6 @@ class AnnotationDriver
     }
 
     /**
-     * @param \ReflectionClass $reflectionClass
-     *
      * @return array<string, \Xezilaires\Metadata\Reference>
      */
     private function getColumns(\ReflectionClass $reflectionClass): array
@@ -128,12 +116,6 @@ class AnnotationDriver
         return $columns;
     }
 
-    /**
-     * @param \ReflectionClass $reflectionClass
-     * @param array|null       $additionalOptions
-     *
-     * @return array
-     */
     private function getOptions(\ReflectionClass $reflectionClass, ?array $additionalOptions = null): array
     {
         $options = (array) $this->reader->getClassAnnotation($reflectionClass, Annotation\Options::class);
@@ -145,8 +127,6 @@ class AnnotationDriver
     }
 
     /**
-     * @param Annotation\Reference $annotation
-     *
      * @return ColumnReference|HeaderReference
      */
     private function createReference(Annotation\Reference $annotation)

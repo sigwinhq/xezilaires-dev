@@ -20,8 +20,10 @@ use Xezilaires\Bridge\PhpSpreadsheet\RowIterator;
 
 /**
  * @covers \Xezilaires\Bridge\PhpSpreadsheet\RowIterator
+ *
+ * @internal
  */
-class RowIteratorTest extends TestCase
+final class RowIteratorTest extends TestCase
 {
     public function testCanPerformValidCorrectly(): void
     {
@@ -68,9 +70,7 @@ class RowIteratorTest extends TestCase
     }
 
     /**
-     * @param null|array<string, array<string, null|int|bool>> $counts
-     *
-     * @return PhpspreadsheetRowIterator
+     * @param null|array<string, array<string, null|bool|int>> $counts
      */
     private function mockIterator(?array $counts = null): PhpspreadsheetRowIterator
     {

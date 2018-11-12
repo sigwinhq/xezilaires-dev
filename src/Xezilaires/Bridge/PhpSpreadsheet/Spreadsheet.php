@@ -25,10 +25,7 @@ use Xezilaires\Exception\SpreadsheetException;
 use Xezilaires\Iterator;
 use Xezilaires\Spreadsheet as SpreadsheetInterface;
 
-/**
- * Class Loader.
- */
-class Spreadsheet implements SpreadsheetInterface
+final class Spreadsheet implements SpreadsheetInterface
 {
     private const CELL_NO_AUTO_CREATE = false;
 
@@ -47,9 +44,6 @@ class Spreadsheet implements SpreadsheetInterface
      */
     private $iterator;
 
-    /**
-     * @param \SplFileObject $file
-     */
     public function __construct(\SplFileObject $file)
     {
         $this->file = $file;
@@ -117,9 +111,6 @@ class Spreadsheet implements SpreadsheetInterface
         return $this->getActiveWorksheet()->getHighestRow();
     }
 
-    /**
-     * @return PhpSpreadsheet
-     */
     private function getSpreadsheet(): PhpSpreadsheet
     {
         if (null === $this->spreadsheet) {
@@ -139,9 +130,6 @@ class Spreadsheet implements SpreadsheetInterface
         return $this->spreadsheet;
     }
 
-    /**
-     * @return Worksheet
-     */
     private function getActiveWorksheet(): Worksheet
     {
         try {
@@ -152,10 +140,7 @@ class Spreadsheet implements SpreadsheetInterface
     }
 
     /**
-     * @param string $columnName
-     * @param int    $rowIndex
-     *
-     * @return null|string|int|float
+     * @return null|float|int|string
      */
     private function fetchCell(string $columnName, int $rowIndex)
     {
@@ -168,7 +153,7 @@ class Spreadsheet implements SpreadsheetInterface
             return null;
         }
 
-        /** @var null|string|int|float $value */
+        /** @var null|float|int|string $value */
         $value = $cell->getValue();
 
         return $value;

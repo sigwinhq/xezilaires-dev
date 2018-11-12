@@ -13,27 +13,18 @@ declare(strict_types=1);
 
 namespace Xezilaires\Metadata;
 
-/**
- * Class HeaderReference.
- */
-class HeaderReference implements Reference
+final class HeaderReference implements Reference
 {
     /**
      * @var string
      */
     private $header;
 
-    /**
-     * @param string $header
-     */
     public function __construct(string $header)
     {
         $this->header = $header;
     }
 
-    /**
-     * @return string
-     */
     public function getReference(): string
     {
         return $this->header;

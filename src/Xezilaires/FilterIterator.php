@@ -13,10 +13,7 @@ declare(strict_types=1);
 
 namespace Xezilaires;
 
-/**
- * Class FilterIterator.
- */
-class FilterIterator extends \FilterIterator
+final class FilterIterator extends \FilterIterator
 {
     /**
      * @var callable
@@ -29,7 +26,6 @@ class FilterIterator extends \FilterIterator
     private $key = -1;
 
     /**
-     * @param Iterator               $iterator
      * @param callable(object): bool $filter
      */
     public function __construct(Iterator $iterator, callable $filter)

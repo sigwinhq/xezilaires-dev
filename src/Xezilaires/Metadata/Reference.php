@@ -13,13 +13,10 @@ declare(strict_types=1);
 
 namespace Xezilaires\Metadata;
 
-/**
- * Interface Reference.
- */
 interface Reference
 {
     /**
-     * @return string|Reference[]
+     * @return Reference[]|string
      */
     public function getReference();
 }
