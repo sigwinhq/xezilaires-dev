@@ -22,7 +22,6 @@ use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Serializer;
-use Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet;
 use Xezilaires\Bridge\Symfony\Serializer\ObjectNormalizer;
 use Xezilaires\Metadata\Annotation\AnnotationDriver;
 use Xezilaires\SpreadsheetIterator;
@@ -88,11 +87,19 @@ class SerializeCommand extends Command
             throw new \RuntimeException('CSV format is only available with Symfony 4.0+');
         }
 
+        switch (true) {
+            case true === interface_exists(\PhpOffice\PhpSpreadsheet\Reader\IReader::class):
+                $spreadsheet = new \Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet(new \SplFileObject($path));
+                break;
+            case true === interface_exists(\Box\Spout\Reader\ReaderInterface::class):
+                $spreadsheet = new \Xezilaires\Bridge\Spout\Spreadsheet(new \SplFileObject($path));
+                break;
+            default:
+                throw new \RuntimeException('Install either phpoffice/phpspreadsheet or box/spout to read Excel files');
+        }
+
         $driver = new AnnotationDriver();
-        $iterator = new SpreadsheetIterator(
-            new Spreadsheet(new \SplFileObject($path)),
-            $driver->getMetadataMapping($class, ['reverse' => $reverse])
-        );
+        $iterator = new SpreadsheetIterator($spreadsheet, $driver->getMetadataMapping($class, ['reverse' => $reverse]));
         $serializer = new Serializer($normalizers, $encoders);
         $output->write($serializer->serialize($iterator, $format));
 
