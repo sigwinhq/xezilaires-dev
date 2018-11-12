@@ -33,7 +33,7 @@ abstract class FunctionalTestCase extends TestCase
     public function testCanLoadFlatFixtureWithColumnReference(): void
     {
         $iterator = new SpreadsheetIterator(
-            $this->getSpreadsheet($this->fixture('products.xls')),
+            $this->getSpreadsheet($this->fixture('products.xlsx')),
             new Mapping(
                 Product::class,
                 [
@@ -49,13 +49,14 @@ abstract class FunctionalTestCase extends TestCase
         self::assertIteratorMatches([
             ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
             ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
+            ['name' => 'Stillhouse Lake', 'price' => '1.99'],
         ], $iterator);
     }
 
     public function testCanLoadFlatFixtureWithHeaderReference(): void
     {
         $iterator = new SpreadsheetIterator(
-            $this->getSpreadsheet($this->fixture('products.xls')),
+            $this->getSpreadsheet($this->fixture('products.xlsx')),
             new Mapping(
                 Product::class,
                 [
@@ -72,13 +73,14 @@ abstract class FunctionalTestCase extends TestCase
         self::assertIteratorMatches([
             ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
             ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
+            ['name' => 'Stillhouse Lake', 'price' => '1.99'],
         ], $iterator);
     }
 
     public function testCanLoadFlatFixtureWithArrayReference(): void
     {
         $iterator = new SpreadsheetIterator(
-            $this->getSpreadsheet($this->fixture('products.xls')),
+            $this->getSpreadsheet($this->fixture('products.xlsx')),
             new Mapping(
                 Product::class,
                 [
@@ -97,13 +99,14 @@ abstract class FunctionalTestCase extends TestCase
         self::assertIteratorMatches([
             ['all' => ['The Very Hungry Caterpillar', '6.59']],
             ['all' => ['Brown Bear, Brown Bear, What Do You See?', '6.51']],
+            ['all' => ['Stillhouse Lake', '1.99']],
         ], $iterator);
     }
 
     public function testCanLoadSparseFixtureWithHeaderReference(): void
     {
         $iterator = new SpreadsheetIterator(
-            $this->getSpreadsheet($this->fixture('products-sparse.xls')),
+            $this->getSpreadsheet($this->fixture('products-sparse.xlsx')),
             new Mapping(
                 Product::class,
                 [
@@ -120,6 +123,7 @@ abstract class FunctionalTestCase extends TestCase
         self::assertIteratorMatches([
             ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
             ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
+            ['name' => 'Stillhouse Lake', 'price' => '1.99'],
         ], $iterator);
     }
 
@@ -134,13 +138,14 @@ abstract class FunctionalTestCase extends TestCase
         $mapping = $driver->getMetadataMapping(Product::class);
 
         $iterator = new SpreadsheetIterator(
-            $this->getSpreadsheet($this->fixture('products-sparse.xls')),
+            $this->getSpreadsheet($this->fixture('products-sparse.xlsx')),
             $mapping
         );
 
         self::assertIteratorMatches([
             ['all' => ['The Very Hungry Caterpillar', '6.59'], 'name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
             ['all' => ['Brown Bear, Brown Bear, What Do You See?', '6.51'], 'name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
+            ['all' => ['Stillhouse Lake', '1.99'], 'name' => 'Stillhouse Lake', 'price' => '1.99'],
         ], $iterator);
     }
 
@@ -150,7 +155,7 @@ abstract class FunctionalTestCase extends TestCase
         $this->expectExceptionMessage('Duplicate header "Name"');
 
         $iterator = new SpreadsheetIterator(
-            $this->getSpreadsheet($this->fixture('products-duplicate-header.xls')),
+            $this->getSpreadsheet($this->fixture('products-duplicate-header.xlsx')),
             new Mapping(
                 Product::class,
                 [
@@ -173,7 +178,7 @@ abstract class FunctionalTestCase extends TestCase
         $this->expectExceptionMessage('Invalid header "No such name"');
 
         $iterator = new SpreadsheetIterator(
-            $this->getSpreadsheet($this->fixture('products.xls')),
+            $this->getSpreadsheet($this->fixture('products.xlsx')),
             new Mapping(
                 Product::class,
                 [
@@ -196,7 +201,7 @@ abstract class FunctionalTestCase extends TestCase
         $this->expectExceptionMessage('Unexpected reference type');
 
         $iterator = new SpreadsheetIterator(
-            $this->getSpreadsheet($this->fixture('products.xls')),
+            $this->getSpreadsheet($this->fixture('products.xlsx')),
             new Mapping(
                 Product::class,
                 [
@@ -223,7 +228,7 @@ abstract class FunctionalTestCase extends TestCase
         $this->expectExceptionMessage('No spreadsheet path given');
 
         $iterator = new SpreadsheetIterator(
-            $this->getSpreadsheet($this->invalidFixture('products.xls')),
+            $this->getSpreadsheet($this->invalidFixture('products.xlsx')),
             new Mapping(Product::class, ['name' => new ColumnReference('A')])
         );
 
@@ -233,7 +238,7 @@ abstract class FunctionalTestCase extends TestCase
     public function testCanFetchCurrentIteratorItem(): void
     {
         $iterator = new SpreadsheetIterator(
-            $this->getSpreadsheet($this->fixture('products.xls')),
+            $this->getSpreadsheet($this->fixture('products.xlsx')),
             new Mapping(
                 Product::class,
                 [
@@ -258,7 +263,7 @@ abstract class FunctionalTestCase extends TestCase
     public function testCanRewindIterator(): void
     {
         $iterator = new SpreadsheetIterator(
-            $this->getSpreadsheet($this->fixture('products.xls')),
+            $this->getSpreadsheet($this->fixture('products.xlsx')),
             new Mapping(
                 Product::class,
                 [
@@ -288,7 +293,7 @@ abstract class FunctionalTestCase extends TestCase
     public function testCanLoadFlatFixtureInReverse(): void
     {
         $iterator = new SpreadsheetIterator(
-            $this->getSpreadsheet($this->fixture('products.xls')),
+            $this->getSpreadsheet($this->fixture('products.xlsx')),
             new Mapping(
                 Product::class,
                 [
@@ -303,6 +308,7 @@ abstract class FunctionalTestCase extends TestCase
         );
 
         self::assertIteratorMatches([
+            ['name' => 'Stillhouse Lake', 'price' => '1.99'],
             ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
             ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
         ], $iterator);
