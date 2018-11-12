@@ -24,10 +24,7 @@ use Xezilaires\Metadata\HeaderReference;
 use Xezilaires\Metadata\Mapping;
 use Xezilaires\Metadata\Reference;
 
-/**
- * Class SpreadsheetIterator.
- */
-class SpreadsheetIterator implements Iterator
+final class SpreadsheetIterator implements Iterator
 {
     /**
      * @var Spreadsheet
@@ -59,10 +56,6 @@ class SpreadsheetIterator implements Iterator
      */
     private $index = 0;
 
-    /**
-     * @param Spreadsheet $spreadsheet
-     * @param Mapping     $mapping
-     */
     public function __construct(Spreadsheet $spreadsheet, Mapping $mapping)
     {
         $this->spreadsheet = $spreadsheet;
@@ -153,9 +146,6 @@ class SpreadsheetIterator implements Iterator
         $this->getIterator()->seek($start + $rowIndex);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     private function getIterator(): Iterator
     {
         if (null === $this->iterator) {
@@ -175,9 +165,6 @@ class SpreadsheetIterator implements Iterator
         return $this->iterator;
     }
 
-    /**
-     * @return Denormalizer
-     */
     private function getDenormalizer(): Denormalizer
     {
         if (null === $this->denormalizer) {
@@ -219,11 +206,6 @@ class SpreadsheetIterator implements Iterator
         return $this->headers;
     }
 
-    /**
-     * @param string $header
-     *
-     * @return string
-     */
     private function getColumnByHeader(string $header): string
     {
         $headerColumnReferences = $this->getHeaderColumnReferences();
@@ -235,10 +217,9 @@ class SpreadsheetIterator implements Iterator
     }
 
     /**
-     * @param array<string, null|string|int|float> $row
-     * @param ArrayReference                       $reference
+     * @param array<string, null|float|int|string> $row
      *
-     * @return array<null|string|int|float>
+     * @return array<null|float|int|string>
      */
     private function readArrayReference(array $row, ArrayReference $reference): array
     {
@@ -251,10 +232,9 @@ class SpreadsheetIterator implements Iterator
     }
 
     /**
-     * @param array<string, null|string|int|float> $row
-     * @param Reference                            $reference
+     * @param array<string, null|float|int|string> $row
      *
-     * @return null|string|int|float
+     * @return null|float|int|string
      */
     private function readReference(array $row, Reference $reference)
     {

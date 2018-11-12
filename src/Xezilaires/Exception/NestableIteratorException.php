@@ -15,23 +15,15 @@ namespace Xezilaires\Exception;
 
 use Xezilaires\Exception;
 
-/**
- * Class NestableIteratorException.
- */
-class NestableIteratorException extends \InvalidArgumentException implements Exception
+final class NestableIteratorException extends \InvalidArgumentException implements Exception
 {
-    /**
-     * @return self
-     */
     public static function iteratorMustBeNestable(): self
     {
         return new self('Iterator must be nestable');
     }
 
     /**
-     * @param string|int|float $node
-     *
-     * @return self
+     * @param float|int|string $node
      */
     public static function noSuchNode($node): self
     {

@@ -29,12 +29,12 @@ use Xezilaires\Test\Functional\FunctionalTestCase;
  *
  * @group functional
  * @group spout
+ *
+ * @internal
  */
-class SpreadsheetIteratorTest extends FunctionalTestCase
+final class SpreadsheetIteratorTest extends FunctionalTestCase
 {
     /**
-     * @param \SplFileObject $file
-     *
      * @return Spreadsheet
      */
     protected function getSpreadsheet(\SplFileObject $file): SpreadsheetInterface

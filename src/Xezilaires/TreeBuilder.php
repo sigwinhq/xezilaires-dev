@@ -17,9 +17,6 @@ use Tree\Node\Node;
 use Tree\Node\NodeInterface;
 use Xezilaires\Exception\NestableIteratorException;
 
-/**
- * Class TreeBuilder.
- */
 class TreeBuilder
 {
     /**
@@ -37,10 +34,6 @@ class TreeBuilder
      */
     private $paths = [];
 
-    /**
-     * @param Iterator $iterator
-     * @param string   $rootNode
-     */
     public function __construct(Iterator $iterator, string $rootNode = 'Root')
     {
         $this->root = new Node($rootNode);
@@ -49,7 +42,7 @@ class TreeBuilder
         foreach ($iterator as $node) {
             $treeNode = new Node($node);
             if ($node->hasParent()) {
-                /** @var int|float|string $parentIdentifier */
+                /** @var float|int|string $parentIdentifier */
                 $parentIdentifier = $node->getParentIdentifier();
 
                 $this->fetch($parentIdentifier)->addChild($treeNode);
@@ -60,17 +53,12 @@ class TreeBuilder
         }
     }
 
-    /**
-     * @return NodeInterface
-     */
     public function getRoot(): NodeInterface
     {
         return $this->root;
     }
 
     /**
-     * @param null|string $id
-     *
      * @return NodeInterface[]
      */
     public function getAncestors(?string $id): array
@@ -86,11 +74,6 @@ class TreeBuilder
         return $this->paths[$id];
     }
 
-    /**
-     * @param null|string $id
-     *
-     * @return string
-     */
     public function getPath(?string $id): string
     {
         return '/'.ltrim(
@@ -108,9 +91,7 @@ class TreeBuilder
     }
 
     /**
-     * @param string|int|float $id
-     *
-     * @return NodeInterface
+     * @param float|int|string $id
      */
     private function fetch($id): NodeInterface
     {

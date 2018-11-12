@@ -25,10 +25,7 @@ use Xezilaires\Exception\SpreadsheetException;
 use Xezilaires\Iterator;
 use Xezilaires\Spreadsheet as SpreadsheetInterface;
 
-/**
- * Class Spreadsheet.
- */
-class Spreadsheet implements SpreadsheetInterface
+final class Spreadsheet implements SpreadsheetInterface
 {
     /**
      * @var array<int, string> $indexCache
@@ -112,12 +109,12 @@ class Spreadsheet implements SpreadsheetInterface
         /** @var \ArrayObject $rowArrayObject */
         $rowArrayObject = $this->getIterator()->current();
 
-        /** @var array<string, null|string|int|float> $row */
+        /** @var array<string, null|float|int|string> $row */
         $row = [];
 
         /**
          * @var int                   $columnIndex
-         * @var null|string|int|float $columnValue
+         * @var null|float|int|string $columnValue
          */
         foreach ($rowArrayObject as $columnIndex => $columnValue) {
             $columnName = self::stringFromColumnIndex($columnIndex + 1);
@@ -142,10 +139,6 @@ class Spreadsheet implements SpreadsheetInterface
 
     /**
      * @author https://github.com/phpoffice/PhpSpreadsheet
-     *
-     * @param int $columnIndex
-     *
-     * @return string
      */
     private static function stringFromColumnIndex(int $columnIndex): string
     {

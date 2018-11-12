@@ -23,8 +23,10 @@ use Xezilaires\SpreadsheetIterator;
 
 /**
  * @covers \Xezilaires\SpreadsheetIterator
+ *
+ * @internal
  */
-class SpreadsheetIteratorTest extends TestCase
+final class SpreadsheetIteratorTest extends TestCase
 {
     public function testCanPerformValidCorrectly(): void
     {
@@ -57,9 +59,7 @@ class SpreadsheetIteratorTest extends TestCase
     }
 
     /**
-     * @param null|array<string, array<string, null|int|bool>> $counts
-     *
-     * @return Iterator
+     * @param null|array<string, array<string, null|bool|int>> $counts
      */
     private function mockIterator(?array $counts = null): Iterator
     {

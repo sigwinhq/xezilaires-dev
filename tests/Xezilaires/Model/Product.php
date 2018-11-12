@@ -16,14 +16,12 @@ namespace Xezilaires\Test\Model;
 use Xezilaires\Annotation as XLS;
 
 /**
- * Class Product.
- *
  * @XLS\Options(header=1, start=2)
  */
 class Product
 {
     /**
-     * @var array<string|float>
+     * @var array<float|string>
      *
      * @XLS\ArrayReference({
      *     @XLS\ColumnReference(column="A"),

@@ -13,23 +13,17 @@ declare(strict_types=1);
 
 namespace Xezilaires;
 
-/**
- * Interface Nestable.
- */
 interface Nestable
 {
     /**
-     * @return string|int|float
+     * @return float|int|string
      */
     public function getIdentifier();
 
-    /**
-     * @return bool
-     */
     public function hasParent(): bool;
 
     /**
-     * @return null|string|int|float
+     * @return null|float|int|string
      */
     public function getParentIdentifier();
 }

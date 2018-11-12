@@ -18,9 +18,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Xezilaires\Exception\MappingException;
 
 /**
- * Class Mapping.
+ * @final
  */
-class Mapping
+/* final */ class Mapping
 {
     /**
      * @var string
@@ -33,7 +33,7 @@ class Mapping
     private $references = [];
 
     /**
-     * @var array<string, null|string|bool>
+     * @var array<string, null|bool|string>
      */
     private $options;
 
@@ -43,9 +43,7 @@ class Mapping
     private $headerOptionRequired = false;
 
     /**
-     * @param string                   $className
      * @param array<string, Reference> $references
-     * @param null|array               $options
      */
     public function __construct(string $className, array $references, array $options = null)
     {
@@ -56,7 +54,7 @@ class Mapping
             $resolver = new OptionsResolver();
             $this->configureOptions($resolver);
 
-            /** @var array<string, null|string|bool> $options */
+            /** @var array<string, null|bool|string> $options */
             $options = $resolver->resolve($options ?? []);
         } catch (OptionsResolverException $exception) {
             throw MappingException::invalidOption($exception);
@@ -64,9 +62,6 @@ class Mapping
         $this->setOptions($options);
     }
 
-    /**
-     * @return string
-     */
     public function getClassName(): string
     {
         return $this->className;
@@ -81,18 +76,13 @@ class Mapping
     }
 
     /**
-     * @param string $option
-     *
-     * @return null|string|bool
+     * @return null|bool|string
      */
     public function getOption(string $option)
     {
         return $this->options[$option];
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     private function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -108,9 +98,6 @@ class Mapping
         $resolver->setAllowedTypes('reverse', 'bool');
     }
 
-    /**
-     * @param string $className
-     */
     private function setClassName(string $className): void
     {
         if (false === class_exists($className)) {
@@ -147,7 +134,7 @@ class Mapping
     }
 
     /**
-     * @param array<string, null|string|bool> $options
+     * @param array<string, null|bool|string> $options
      */
     private function setOptions(array $options): void
     {

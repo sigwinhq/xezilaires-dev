@@ -16,7 +16,7 @@ namespace Xezilaires\Annotation;
 /**
  * @Annotation
  */
-class HeaderReference implements Reference
+final class HeaderReference implements Reference
 {
     /**
      * @var string

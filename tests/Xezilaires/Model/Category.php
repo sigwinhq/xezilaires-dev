@@ -15,9 +15,6 @@ namespace Xezilaires\Test\Model;
 
 use Xezilaires\Nestable;
 
-/**
- * Class Category.
- */
 class Category implements Nestable
 {
     /**
@@ -35,9 +32,6 @@ class Category implements Nestable
      */
     public $name;
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->name;

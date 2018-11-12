@@ -16,7 +16,7 @@ namespace Xezilaires\Annotation;
 /**
  * @Annotation
  */
-class ColumnReference implements Reference
+final class ColumnReference implements Reference
 {
     /**
      * @var string

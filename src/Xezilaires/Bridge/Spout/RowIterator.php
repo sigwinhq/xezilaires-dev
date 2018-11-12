@@ -17,11 +17,9 @@ use Box\Spout\Reader\IteratorInterface;
 use Xezilaires\Iterator;
 
 /**
- * Class RowIterator.
- *
  * @internal
  */
-class RowIterator implements Iterator
+final class RowIterator implements Iterator
 {
     /**
      * @var IteratorInterface
@@ -53,7 +51,7 @@ class RowIterator implements Iterator
      */
     public function current()
     {
-        /** @var array<int, null|string|int|float> $current */
+        /** @var array<int, null|float|int|string> $current */
         $current = $this->iterator->current();
 
         return new \ArrayObject($current);

@@ -18,7 +18,7 @@ use Xezilaires\Iterator;
 /**
  * @internal
  */
-class FakeIterator implements Iterator
+final class FakeIterator implements Iterator
 {
     /**
      * @var \ArrayIterator
@@ -26,7 +26,7 @@ class FakeIterator implements Iterator
     private $iterator;
 
     /**
-     * @param array<int, int|string|object> $items
+     * @param array<int, int|object|string> $items
      */
     public function __construct(array $items)
     {
@@ -39,9 +39,7 @@ class FakeIterator implements Iterator
     }
 
     /**
-     * @param \Iterator $iterator
-     *
-     * @return array<int, int|string|object>
+     * @return array<int, int|object|string>
      */
     public static function toArray(\Iterator $iterator): array
     {

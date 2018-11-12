@@ -16,7 +16,7 @@ namespace Xezilaires\Annotation;
 /**
  * @Annotation
  */
-class Options
+final class Options
 {
     /**
      * @var int

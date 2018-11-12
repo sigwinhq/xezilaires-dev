@@ -14,30 +14,19 @@ declare(strict_types=1);
 namespace Xezilaires\Test;
 
 /**
- * Trait FixtureTrait.
+ * @internal
  */
 trait FixtureTrait
 {
-    /**
-     * @param string $name
-     *
-     * @return \SplFileObject
-     */
     private function fixture(string $name): \SplFileObject
     {
         return new \SplFileObject(__DIR__.'/../../resources/fixtures/'.$name);
     }
 
-    /**
-     * @param string $name
-     *
-     * @return \SplFileObject
-     */
     private function invalidFixture(string $name): \SplFileObject
     {
         return new class(__DIR__.'/../../resources/fixtures/'.$name) extends \SplFileObject {
             /**
-             * @return bool
              * @psalm-suppress ImplementedReturnTypeMismatch
              */
             public function getRealPath(): bool

@@ -21,8 +21,10 @@ use Xezilaires\Test\FixtureTrait;
 
 /**
  * @covers \Xezilaires\Bridge\Spout\Spreadsheet
+ *
+ * @internal
  */
-class SpreadsheetTest extends TestCase
+final class SpreadsheetTest extends TestCase
 {
     use FixtureTrait;
 

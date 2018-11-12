@@ -16,10 +16,7 @@ namespace Xezilaires\Bridge\Symfony\Console;
 use Symfony\Component\Console\Application as BaseApplication;
 use Xezilaires\Bridge\Symfony\Command\SerializeCommand;
 
-/**
- * Class Application.
- */
-class Application extends BaseApplication
+final class Application extends BaseApplication
 {
     private const APP_NAME = '
  __   __        _ _       _

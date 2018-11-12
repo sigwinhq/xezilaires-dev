@@ -13,10 +13,7 @@ declare(strict_types=1);
 
 namespace Xezilaires\Metadata;
 
-/**
- * Class ArrayReference.
- */
-class ArrayReference implements Reference
+final class ArrayReference implements Reference
 {
     /**
      * @var Reference[]

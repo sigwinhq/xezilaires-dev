@@ -19,20 +19,15 @@ use Xezilaires\Exception\SpreadsheetException;
 use Xezilaires\Iterator;
 
 /**
- * Class RowIterator.
- *
  * @internal
  */
-class RowIterator implements Iterator
+final class RowIterator implements Iterator
 {
     /**
      * @var PhpSpreadsheetRowIterator
      */
     private $iterator;
 
-    /**
-     * @param PhpSpreadsheetRowIterator $iterator
-     */
     public function __construct(PhpSpreadsheetRowIterator $iterator)
     {
         $this->iterator = $iterator;

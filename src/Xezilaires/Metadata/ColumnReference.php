@@ -13,27 +13,18 @@ declare(strict_types=1);
 
 namespace Xezilaires\Metadata;
 
-/**
- * Class ColumnMapping.
- */
-class ColumnReference implements Reference
+final class ColumnReference implements Reference
 {
     /**
      * @var string
      */
     private $column;
 
-    /**
-     * @param string $column
-     */
     public function __construct(string $column)
     {
         $this->column = $column;
     }
 
-    /**
-     * @return string
-     */
     public function getReference(): string
     {
         return $this->column;

@@ -25,6 +25,9 @@ use Xezilaires\Test\FixtureTrait;
 use Xezilaires\Test\IteratorMatcherTrait;
 use Xezilaires\Test\Model\Product;
 
+/**
+ * @internal
+ */
 abstract class FunctionalTestCase extends TestCase
 {
     use FixtureTrait;
@@ -314,10 +317,5 @@ abstract class FunctionalTestCase extends TestCase
         ], $iterator);
     }
 
-    /**
-     * @param \SplFileObject $file
-     *
-     * @return Spreadsheet
-     */
     abstract protected function getSpreadsheet(\SplFileObject $file): Spreadsheet;
 }

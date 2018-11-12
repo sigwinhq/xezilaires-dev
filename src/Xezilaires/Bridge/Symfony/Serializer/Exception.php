@@ -15,9 +15,6 @@ namespace Xezilaires\Bridge\Symfony\Serializer;
 
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
-/**
- * Interface Exception.
- */
 interface Exception extends ExceptionInterface, \Throwable
 {
 }

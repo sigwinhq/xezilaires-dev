@@ -13,10 +13,7 @@ declare(strict_types=1);
 
 namespace Xezilaires;
 
-/**
- * Class DeduplicationIterator.
- */
-class DeduplicationIterator extends \FilterIterator
+final class DeduplicationIterator extends \FilterIterator
 {
     /**
      * @var string[]
@@ -34,7 +31,6 @@ class DeduplicationIterator extends \FilterIterator
     private $key = -1;
 
     /**
-     * @param Iterator $iterator
      * @param string[] $fields
      */
     public function __construct(Iterator $iterator, array $fields)
