@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Xezilaires\Exception;
 
+use Xezilaires\Bridge\Symfony\Serializer\Exception as SerializerException;
 use Xezilaires\Exception;
-use Xezilaires\Infrastructure\Symfony\Serializer\Exception as SerializerException;
 
 /**
  * Class DenormalizerException.

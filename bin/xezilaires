@@ -17,7 +17,7 @@ if (!ini_get('date.timezone')) {
 
 require __DIR__.'/../src/bootstrap.php';
 
-use Xezilaires\Infrastructure\Symfony\Console\Application;
+use Xezilaires\Bridge\Symfony\Console\Application;
 
 $application = new Application();
 $application->run();

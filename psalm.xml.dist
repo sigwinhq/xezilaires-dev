@@ -32,5 +32,27 @@
                 <file name="src/Xezilaires/Metadata/Mapping.php" />
             </errorLevel>
         </InvalidCatch>
+        <InvalidOperand>
+            <errorLevel type="info">
+                <file name="src/Xezilaires/Bridge/Spout/Spreadsheet.php" />
+            </errorLevel>
+        </InvalidOperand>
+        <MixedArgument>
+            <errorLevel type="info">
+                <file name="tests/Xezilaires/Bridge/PhpSpreadsheet/RowIteratorTest.php" />
+            </errorLevel>
+        </MixedArgument>
+        <MixedMethodCall>
+            <errorLevel type="info">
+                <file name="tests/Xezilaires/Bridge/PhpSpreadsheet/RowIteratorTest.php" />
+                <file name="tests/Xezilaires/Bridge/Spout/RowIteratorTest.php" />
+                <file name="tests/Xezilaires/SpreadsheetIteratorTest.php" />
+            </errorLevel>
+        </MixedMethodCall>
     </issueHandlers>
+
+    <mockClasses>
+        <class name="PHPUnit\Framework\MockObject\MockObject"/>
+        <class name="PHPUnit\Framework\MockObject\Builder\InvocationMocker"/>
+    </mockClasses>
 </psalm>

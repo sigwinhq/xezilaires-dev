@@ -27,16 +27,26 @@
     },
     "require": {
         "php": ">= 7.1.3",
-        "phpoffice/phpspreadsheet": "^1.4, >= 1.4.1",
         "symfony/options-resolver": "^3.0 | ^4.0",
         "symfony/serializer": "^3.0 | ^4.0"
     },
     "require-dev": {
+        "box/spout": "^2.1",
         "doctrine/annotations": "^1.6",
         "nicmart/tree": "^0.2, >= 0.2.4",
+        "nyholm/nsa": "^1.1",
+        "phpoffice/phpspreadsheet": "^1.0",
         "phpunit/phpunit": "^7.1",
         "symfony/console": "^3.0 | ^4.0",
         "symfony/property-access": "^3.0 | ^4.0",
         "symfony/property-info": "^3.0 | ^4.0"
+    },
+    "suggest": {
+        "box/spout": "Read Excel files with Spout",
+        "phpoffice/phpspreadsheet": "Read Excel files with PhpSpreadsheet"
+    },
+    "conflict": {
+        "box/spout": "< 2.1.0",
+        "phpoffice/phpspreadsheet": "< 1.4.1"
     }
 }
