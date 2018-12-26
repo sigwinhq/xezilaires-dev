@@ -49,6 +49,9 @@ final class AnnotationDriver
         }
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     public function getMetadataMapping(string $className, ?array $options = null): Mapping
     {
         $reflectionClass = new \ReflectionClass($className);

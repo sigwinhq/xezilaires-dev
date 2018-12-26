@@ -23,6 +23,7 @@ parameters:
 
         # upstream problems
         - '#Call to deprecated method registerUniqueLoader\(\) of class Doctrine\\Common\\Annotations\\AnnotationRegistry\.#'
+        - '#\$defaultContext of class Symfony\\Component\\Serializer\\Encoder\\(XmlEncoder|JsonEncode) constructor expects array#'
 
         # false positives
         - '#PHPDoc tag @throws with type Xezilaires\\Bridge\\Symfony\\Serializer\\Exception is not compatible with parent#'
