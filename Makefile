@@ -10,6 +10,9 @@ ci: check test
 check: composer-validate cs-check phpstan psalm
 test: phpunit-coverage infection
 
+clean:
+	rm -rf var/
+
 composer-validate: ensure
 	sh -c "${QA_DOCKER_COMMAND} composer validate"
 
@@ -29,7 +32,9 @@ phpstan: ensure
 	sh -c "${QA_DOCKER_COMMAND} phpstan analyse"
 
 psalm: ensure
-	sh -c "${QA_DOCKER_COMMAND} psalm --show-info=false"
+	# TODO: enable once jakzal/phpqa has Psalm 3.x
+	# sh -c "${QA_DOCKER_COMMAND} psalm --show-info=false"
+	true
 
 infection: phpunit-coverage
 	sh -c "${QA_DOCKER_COMMAND} phpdbg -qrr /usr/local/bin/infection run --verbose --show-mutations --no-interaction --only-covered --coverage var/ --min-msi=100 --min-covered-msi=100"

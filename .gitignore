@@ -2,4 +2,6 @@
 /vendor/
 /var/
 /composer.lock
+classes.map
+annotations.map
 /*.cache
