@@ -19,15 +19,37 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
-use Symfony\Component\Serializer\Encoder\JsonEncode;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Serializer;
-use Xezilaires\Bridge\Symfony\Serializer\ObjectNormalizer;
 use Xezilaires\Metadata\Annotation\AnnotationDriver;
-use Xezilaires\SpreadsheetIterator;
+use Xezilaires\Serializer;
+use Xezilaires\SpreadsheetIteratorFactory;
 
-class SerializeCommand extends Command
+final class SerializeCommand extends Command
 {
+    /**
+     * @var string
+     */
+    protected static $defaultName = 'serialize';
+
+    /**
+     * @var SpreadsheetIteratorFactory
+     */
+    private $iteratorFactory;
+
+    /**
+     * @var Serializer
+     */
+    private $serializer;
+
+    public function __construct(SpreadsheetIteratorFactory $iteratorFactory, Serializer $serializer)
+    {
+        parent::__construct('serialize');
+
+        $this->setDescription('Serialize Excel files into JSON, XML, CSV');
+
+        $this->iteratorFactory = $iteratorFactory;
+        $this->serializer = $serializer;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -43,6 +65,7 @@ class SerializeCommand extends Command
     }
 
     /**
+     * @throws \ReflectionException
      * @throws \RuntimeException
      * @throws \ReflectionException
      */
@@ -63,39 +86,30 @@ class SerializeCommand extends Command
             throw new \RuntimeException('Format is required');
         }
 
-        $normalizers = [new ObjectNormalizer()];
-        /** @psalm-suppress InvalidArgument */
-        $encoders = [new JsonEncode(JSON_PRETTY_PRINT)];
-
-        if ('xml' === $format) {
-            if (null === $xmlRoot) {
-                throw new \RuntimeException('XML root node name cannot be empty if XML format requested');
-            }
-            /** @psalm-suppress InvalidArgument */
-            $encoders[] = new XmlEncoder($xmlRoot);
-        }
-
-        if (true === class_exists(CsvEncoder::class)) {
-            $encoders[] = new CsvEncoder();
-        } elseif ('csv' === $format) {
-            throw new \RuntimeException('CSV format is only available with Symfony 4.0+');
-        }
-
-        switch (true) {
-            case true === interface_exists(\PhpOffice\PhpSpreadsheet\Reader\IReader::class):
-                $spreadsheet = new \Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet(new \SplFileObject($path));
+        $context = [];
+        switch ($format) {
+            case 'csv':
+                if (false === class_exists(CsvEncoder::class)) {
+                    throw new \RuntimeException('CSV format is only available with Symfony 4.0+');
+                }
                 break;
-            case true === interface_exists(\Box\Spout\Reader\ReaderInterface::class):
-                $spreadsheet = new \Xezilaires\Bridge\Spout\Spreadsheet(new \SplFileObject($path));
+            case 'json':
+                $context['json_encode_options'] = JSON_PRETTY_PRINT;
                 break;
-            default:
-                throw new \RuntimeException('Install either phpoffice/phpspreadsheet or box/spout to read Excel files');
+            case 'xml':
+                if (null === $xmlRoot) {
+                    throw new \RuntimeException('XML root node name cannot be empty if XML format requested');
+                }
+                $context['xml_root_node_name'] = $xmlRoot;
+                break;
         }
 
         $driver = new AnnotationDriver();
-        $iterator = new SpreadsheetIterator($spreadsheet, $driver->getMetadataMapping($class, ['reverse' => $reverse]));
-        $serializer = new Serializer($normalizers, $encoders);
-        $output->write($serializer->serialize($iterator, $format));
+        $iterator = $this->iteratorFactory->createFromPath(
+            new \SplFileObject($path),
+            $driver->getMetadataMapping($class, ['reverse' => $reverse])
+        );
+        $output->write($this->serializer->serialize($iterator, $format, $context));
 
         return 0;
     }

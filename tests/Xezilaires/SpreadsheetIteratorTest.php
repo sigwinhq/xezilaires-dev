@@ -16,6 +16,7 @@ namespace Xezilaires\Test;
 use Nyholm\NSA;
 use PHPUnit\Framework\MockObject\Builder\InvocationMocker;
 use PHPUnit\Framework\TestCase;
+use Xezilaires\Denormalizer;
 use Xezilaires\Iterator;
 use Xezilaires\Metadata\Mapping;
 use Xezilaires\Spreadsheet;
@@ -32,7 +33,8 @@ final class SpreadsheetIteratorTest extends TestCase
     {
         $iterator = new SpreadsheetIterator(
             $this->getMockBuilder(Spreadsheet::class)->getMock(),
-            $this->getMockBuilder(Mapping::class)->disableOriginalConstructor()->getMock()
+            $this->getMockBuilder(Mapping::class)->disableOriginalConstructor()->getMock(),
+            $this->getMockBuilder(Denormalizer::class)->getMock()
         );
         NSA::setProperty($iterator, 'iterator', $this->mockIterator([
             'valid' => ['count' => 1, 'params' => null, 'return' => true],
@@ -47,7 +49,8 @@ final class SpreadsheetIteratorTest extends TestCase
     {
         $iterator = new SpreadsheetIterator(
             $this->getMockBuilder(Spreadsheet::class)->getMock(),
-            $this->getMockBuilder(Mapping::class)->disableOriginalConstructor()->getMock()
+            $this->getMockBuilder(Mapping::class)->disableOriginalConstructor()->getMock(),
+            $this->getMockBuilder(Denormalizer::class)->getMock()
         );
         NSA::setProperty($iterator, 'iterator', $this->mockIterator([
             'valid' => ['count' => 0, 'params' => null, 'return' => true],

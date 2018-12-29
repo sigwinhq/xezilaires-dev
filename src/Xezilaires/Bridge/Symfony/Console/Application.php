@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Xezilaires\Bridge\Symfony\Console;
 
-use Symfony\Component\Console\Application as BaseApplication;
-use Xezilaires\Bridge\Symfony\Command\SerializeCommand;
+use Symfony\Bundle\FrameworkBundle\Console\Application as BaseApplication;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 final class Application extends BaseApplication
 {
@@ -28,13 +28,11 @@ final class Application extends BaseApplication
 
     private const APP_VERSION = '0.1.0';
 
-    public function __construct()
+    public function __construct(KernelInterface $kernel)
     {
-        parent::__construct(self::APP_NAME, self::APP_VERSION);
+        parent::__construct($kernel);
 
-        $this->addCommands([
-            new SerializeCommand(),
-        ]);
-        $this->setDefaultCommand('xezilaires:serialize');
+        $this->setName(self::APP_NAME);
+        $this->setVersion(self::APP_VERSION);
     }
 }

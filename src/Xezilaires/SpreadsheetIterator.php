@@ -13,9 +13,7 @@ declare(strict_types=1);
 
 namespace Xezilaires;
 
-use Xezilaires\Bridge\Symfony\Serializer\Denormalizer;
 use Xezilaires\Bridge\Symfony\Serializer\Exception as SerializerException;
-use Xezilaires\Bridge\Symfony\Serializer\ObjectNormalizer;
 use Xezilaires\Exception\DenormalizerException;
 use Xezilaires\Exception\MappingException;
 use Xezilaires\Metadata\ArrayReference;
@@ -37,14 +35,19 @@ final class SpreadsheetIterator implements Iterator
     private $mapping;
 
     /**
+     * @var Denormalizer
+     */
+    private $denormalizer;
+
+    /**
+     * @var array
+     */
+    private $context;
+
+    /**
      * @var null|Iterator
      */
     private $iterator;
-
-    /**
-     * @var null|Denormalizer
-     */
-    private $denormalizer;
 
     /**
      * @var null|array<string, string>
@@ -56,10 +59,12 @@ final class SpreadsheetIterator implements Iterator
      */
     private $index = 0;
 
-    public function __construct(Spreadsheet $spreadsheet, Mapping $mapping)
+    public function __construct(Spreadsheet $spreadsheet, Mapping $mapping, Denormalizer $denormalizer, array $context = [])
     {
         $this->spreadsheet = $spreadsheet;
         $this->mapping = $mapping;
+        $this->denormalizer = $denormalizer;
+        $this->context = $context;
     }
 
     /**
@@ -82,7 +87,7 @@ final class SpreadsheetIterator implements Iterator
         }
 
         try {
-            return $this->getDenormalizer()->denormalize($data, $this->mapping->getClassName());
+            return $this->denormalizer->denormalize($data, $this->mapping->getClassName(), null, $this->context);
         } catch (SerializerException $exception) {
             throw DenormalizerException::denormalizationFailed($exception);
         }
@@ -163,15 +168,6 @@ final class SpreadsheetIterator implements Iterator
         }
 
         return $this->iterator;
-    }
-
-    private function getDenormalizer(): Denormalizer
-    {
-        if (null === $this->denormalizer) {
-            $this->denormalizer = new ObjectNormalizer();
-        }
-
-        return $this->denormalizer;
     }
 
     /**

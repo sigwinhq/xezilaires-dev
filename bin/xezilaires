@@ -1,6 +1,9 @@
 #!/usr/bin/env php
 <?php
 
+use Xezilaires\Bridge\Symfony\AppKernel;
+use Xezilaires\Bridge\Symfony\Console\Application;
+
 if (version_compare('7.1.0', PHP_VERSION, '>')) {
     fwrite(STDERR, 'Xezilaires requires PHP 7.1+'.PHP_EOL);
     exit(1);
@@ -11,13 +14,19 @@ if (PHP_SAPI !== 'cli') {
     exit(1);
 }
 
-if (!ini_get('date.timezone')) {
+require __DIR__.'/../src/bootstrap.php';
+
+if (false === class_exists(\Symfony\Bundle\FrameworkBundle\FrameworkBundle::class)) {
+    fwrite(STDERR, 'Xezilaires requires symfony/framework-bundle'.PHP_EOL);
+    exit(1);
+}
+
+if (false === ini_get('date.timezone')) {
     ini_set('date.timezone', 'UTC');
 }
 
-require __DIR__.'/../src/bootstrap.php';
+$kernel = new AppKernel('prod', false);
+$kernel->boot();
 
-use Xezilaires\Bridge\Symfony\Console\Application;
-
-$application = new Application();
+$application = new Application($kernel);
 $application->run();
