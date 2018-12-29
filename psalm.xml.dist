@@ -25,8 +25,18 @@
                 <file name="src/Xezilaires/Metadata/Annotation/AnnotationDriver.php" />
             </errorLevel>
         </RedundantCondition>
+        <DeprecatedMethod>
+            <errorLevel type="info">
+                 <file name="src/Xezilaires/Metadata/Annotation/AnnotationDriver.php" />
+             </errorLevel>
+        </DeprecatedMethod>
 
         <!-- false positives -->
+        <UndefinedClass>
+            <errorLevel type="info">
+                 <file name="src/Xezilaires/Bridge/Symfony/Command/SerializeCommand.php" />
+             </errorLevel>
+        </UndefinedClass>
         <InvalidCatch>
             <errorLevel type="info">
                 <file name="src/Xezilaires/Metadata/Mapping.php" />
@@ -37,11 +47,6 @@
                 <file name="src/Xezilaires/Bridge/Spout/Spreadsheet.php" />
             </errorLevel>
         </InvalidOperand>
-        <MixedArgument>
-            <errorLevel type="info">
-                <file name="tests/Xezilaires/Bridge/PhpSpreadsheet/RowIteratorTest.php" />
-            </errorLevel>
-        </MixedArgument>
         <MixedMethodCall>
             <errorLevel type="info">
                 <file name="tests/Xezilaires/Bridge/PhpSpreadsheet/RowIteratorTest.php" />

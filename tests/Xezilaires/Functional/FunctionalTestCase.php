@@ -134,6 +134,7 @@ abstract class FunctionalTestCase extends TestCase
      * @uses \Xezilaires\Metadata\Annotation\AnnotationDriver
      *
      * @throws \RuntimeException
+     * @throws \ReflectionException
      */
     public function testCanLoadSparseFixtureWithAnnotations(): void
     {

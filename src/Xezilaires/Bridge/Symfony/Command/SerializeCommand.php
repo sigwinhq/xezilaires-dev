@@ -44,6 +44,7 @@ class SerializeCommand extends Command
 
     /**
      * @throws \RuntimeException
+     * @throws \ReflectionException
      */
     protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
@@ -63,13 +64,14 @@ class SerializeCommand extends Command
         }
 
         $normalizers = [new ObjectNormalizer()];
+        /** @psalm-suppress InvalidArgument */
         $encoders = [new JsonEncode(JSON_PRETTY_PRINT)];
 
         if ('xml' === $format) {
             if (null === $xmlRoot) {
                 throw new \RuntimeException('XML root node name cannot be empty if XML format requested');
             }
-
+            /** @psalm-suppress InvalidArgument */
             $encoders[] = new XmlEncoder($xmlRoot);
         }
 

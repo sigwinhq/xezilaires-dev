@@ -35,10 +35,12 @@ final class SpreadsheetTest extends TestCase
             25 => 'Z',
             26 => 'AA',
         ];
+        /** @var string[] $values */
+        $values = array_values($row);
 
         $object = new Spreadsheet($this->invalidFixture('products.xlsx'));
         NSA::setProperty($object, 'iterator', new FakeIterator([(object) $row]));
 
-        static::assertEquals(array_combine(array_values($row), array_values($row)), $object->getCurrentRow());
+        static::assertEquals(array_combine($values, $values), $object->getCurrentRow());
     }
 }
