@@ -54,7 +54,7 @@ final class MappingException extends \InvalidArgumentException implements Except
     }
 
     /**
-     * @param \Throwable&ExceptionInterface $exception
+     * @param ExceptionInterface&\Throwable $exception
      */
     public static function invalidOption(ExceptionInterface $exception): self
     {
