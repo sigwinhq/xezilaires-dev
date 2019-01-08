@@ -50,7 +50,7 @@ final class SpreadsheetIterator implements Iterator
     private $iterator;
 
     /**
-     * @var null|array<string, string>
+     * @var null|array<string, string|array<int, string>>
      */
     private $headers;
 
@@ -171,7 +171,7 @@ final class SpreadsheetIterator implements Iterator
     }
 
     /**
-     * @return array<string, string>
+     * @return array<string, string|array<int, string>>
      */
     private function getHeaderColumnReferences(): array
     {
@@ -184,19 +184,21 @@ final class SpreadsheetIterator implements Iterator
             /** @var array<string, null|string> $headerRow */
             $headerRow = $this->spreadsheet->getRow($headerRowIndex);
 
-            $headers = [];
+            $this->headers = [];
             foreach ($headerRow as $column => $header) {
                 if (null === $header) {
                     continue;
                 }
 
-                if (isset($headers[$header])) {
-                    throw MappingException::duplicateHeader($header, $column, $headers[$header]);
+                if (isset($this->headers[$header])) {
+                    if (\is_string($this->headers[$header])) {
+                        $this->headers[$header] = (array) $this->headers[$header];
+                    }
+                    $this->headers[$header][] = $column;
+                } else {
+                    $this->headers[$header] = $column;
                 }
-
-                $headers[$header] = $column;
             }
-            $this->headers = $headers;
         }
 
         return $this->headers;
@@ -207,6 +209,10 @@ final class SpreadsheetIterator implements Iterator
         $headerColumnReferences = $this->getHeaderColumnReferences();
         if (false === \array_key_exists($header, $headerColumnReferences)) {
             throw MappingException::headerNotFound($header);
+        }
+
+        if (\is_array($headerColumnReferences[$header])) {
+            throw MappingException::ambiguousHeader($header, $headerColumnReferences[$header]);
         }
 
         return $headerColumnReferences[$header];

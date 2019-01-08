@@ -23,9 +23,9 @@ final class MappingException extends \InvalidArgumentException implements Except
         return new self('When using HeaderReference, "header" option is required');
     }
 
-    public static function duplicateHeader(string $header, string $foundColumn, string $firstColumn): self
+    public static function ambiguousHeader(string $header, array $columns): self
     {
-        return new self(sprintf('Duplicate header "%1$s" found in "%2$s", first used in "%3$s"', $header, $foundColumn, $firstColumn));
+        return new self(sprintf('Ambiguous header "%1$s" found, used in columns "%2$s"', $header, implode('", "', $columns)));
     }
 
     public static function headerNotFound(string $header): self

@@ -156,18 +156,17 @@ abstract class FunctionalTestCase extends TestCase
         ], $iterator);
     }
 
-    public function testCannotLoadFixtureWithDuplicateHeaderReference(): void
+    public function testCannotLoadFixtureWithAmbiguousHeaderReference(): void
     {
         $this->expectException(\Xezilaires\Exception\MappingException::class);
-        $this->expectExceptionMessage('Duplicate header "Name"');
+        $this->expectExceptionMessage('Ambiguous header "Duplicate"');
 
         $iterator = $this->createIterator(
-            $this->getSpreadsheet($this->fixture('products-duplicate-header.xlsx')),
+            $this->getSpreadsheet($this->fixture('products.xlsx')),
             new Mapping(
                 Product::class,
                 [
-                    'price' => new HeaderReference('Price USD'),
-                    'name' => new HeaderReference('Name'),
+                    'price' => new HeaderReference('Duplicate'),
                 ],
                 [
                     'header' => 1,
