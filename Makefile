@@ -1,5 +1,5 @@
 ifndef BUILD_ENV
-BUILD_ENV=php7.2
+BUILD_ENV=php7.3
 endif
 
 QA_DOCKER_IMAGE=jakzal/phpqa:${BUILD_ENV}-alpine
@@ -16,10 +16,10 @@ clean:
 composer-validate: ensure
 	sh -c "${QA_DOCKER_COMMAND} composer validate"
 
-composer-install: fetch ensure
+composer-install: fetch ensure clean
 	sh -c "${QA_DOCKER_COMMAND} composer upgrade"
 
-composer-install-lowest: fetch ensure
+composer-install-lowest: fetch ensure clean
 	sh -c "${QA_DOCKER_COMMAND} composer upgrade --prefer-lowest"
 
 cs: ensure

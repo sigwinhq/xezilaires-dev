@@ -9,6 +9,10 @@ branches:
 
 matrix:
   include:
+  - name: PHP 7.3
+    env: BUILD_ENV=php7.3
+  - name: PHP 7.3 low deps
+    env: BUILD_ENV=php7.3 DEPS=low
   - name: PHP 7.2
     env: BUILD_ENV=php7.2
   - name: PHP 7.2 low deps

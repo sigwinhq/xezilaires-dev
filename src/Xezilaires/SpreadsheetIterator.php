@@ -50,7 +50,7 @@ final class SpreadsheetIterator implements Iterator
     private $iterator;
 
     /**
-     * @var null|array<string, string|array<int, string>>
+     * @var null|array<string, array<int, string>|string>
      */
     private $headers;
 
@@ -76,7 +76,7 @@ final class SpreadsheetIterator implements Iterator
     {
         $row = $this->spreadsheet->getCurrentRow();
 
-        /** @var array<string, null|string|int|float|array<null|string|int|float>> $data */
+        /** @var array<string, null|array<null|float|int|string>|float|int|string> $data */
         $data = [];
         foreach ($this->mapping->getReferences() as $name => $reference) {
             if ($reference instanceof ArrayReference) {
@@ -171,7 +171,7 @@ final class SpreadsheetIterator implements Iterator
     }
 
     /**
-     * @return array<string, string|array<int, string>>
+     * @return array<string, array<int, string>|string>
      */
     private function getHeaderColumnReferences(): array
     {
