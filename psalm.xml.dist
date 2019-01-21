@@ -33,11 +33,6 @@
         </DeprecatedMethod>
 
         <!-- false positives -->
-        <UndefinedClass>
-            <errorLevel type="info">
-                 <file name="src/Xezilaires/Bridge/Symfony/Command/SerializeCommand.php" />
-             </errorLevel>
-        </UndefinedClass>
         <InvalidCatch>
             <errorLevel type="info">
                 <file name="src/Xezilaires/Metadata/Mapping.php" />
@@ -69,6 +64,5 @@
 
     <mockClasses>
         <class name="PHPUnit\Framework\MockObject\MockObject"/>
-        <class name="PHPUnit\Framework\MockObject\Builder\InvocationMocker"/>
     </mockClasses>
 </psalm>
