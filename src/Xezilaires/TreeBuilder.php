@@ -25,7 +25,7 @@ class TreeBuilder
     private $root;
 
     /**
-     * @var NodeInterface[]
+     * @var array<float|int|string, NodeInterface>
      */
     private $ids = [];
 
