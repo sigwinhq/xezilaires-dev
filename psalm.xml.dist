@@ -20,6 +20,17 @@
                 <directory name="vendor/" />
             </errorLevel>
         </MissingConstructor>
+        <PossiblyUnusedMethod>
+            <errorLevel type="info">
+                <directory name="tests/" />
+            </errorLevel>
+        </PossiblyUnusedMethod>
+        <PossiblyUnusedProperty>
+            <errorLevel type="info">
+                <directory name="src/Xezilaires/Annotation/" />
+                <directory name="tests/Xezilaires/Model/" />
+            </errorLevel>
+        </PossiblyUnusedProperty>
         <PropertyNotSetInConstructor errorLevel="info" />
         <RedundantCondition>
             <errorLevel type="info">

@@ -1,4 +1,7 @@
 {
+    "phpUnit": {
+        "customPath": "/tools/phpunit-7"
+    },
     "timeout": 1,
     "source": {
         "directories": [
