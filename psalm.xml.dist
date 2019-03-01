@@ -16,22 +16,9 @@
         <MissingConstructor>
             <errorLevel type="info">
                 <directory name="src/Xezilaires/Annotation/" />
-                <directory name="tests/" />
-                <directory name="vendor/" />
-            </errorLevel>
-        </MissingConstructor>
-        <PossiblyUnusedMethod>
-            <errorLevel type="info">
-                <directory name="tests/" />
-            </errorLevel>
-        </PossiblyUnusedMethod>
-        <PossiblyUnusedProperty>
-            <errorLevel type="info">
-                <directory name="src/Xezilaires/Annotation/" />
                 <directory name="tests/Xezilaires/Model/" />
             </errorLevel>
-        </PossiblyUnusedProperty>
-        <PropertyNotSetInConstructor errorLevel="info" />
+        </MissingConstructor>
         <RedundantCondition>
             <errorLevel type="info">
                 <file name="src/Xezilaires/Metadata/Annotation/AnnotationDriver.php" />
@@ -61,6 +48,11 @@
                 <file name="tests/Xezilaires/SpreadsheetIteratorTest.php" />
             </errorLevel>
         </MixedMethodCall>
+        <MethodSignatureMismatch>
+            <errorLevel type="info">
+                <directory name="vendor/" />
+            </errorLevel>
+        </MethodSignatureMismatch>
         <MixedAssignment>
             <errorLevel type="info">
                 <directory name="vendor/" />
@@ -71,6 +63,11 @@
                 <directory name="vendor/" />
            </errorLevel>
         </ImplementedReturnTypeMismatch>
+        <PropertyNotSetInConstructor>
+            <errorLevel type="info">
+                <directory name="vendor/" />
+            </errorLevel>
+        </PropertyNotSetInConstructor>
     </issueHandlers>
 
     <mockClasses>

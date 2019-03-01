@@ -108,7 +108,7 @@ use Xezilaires\Exception\MappingException;
     }
 
     /**
-     * @param array<string, mixed> $references
+     * @param array<string, object> $references
      */
     private function setReferences(array $references): void
     {
@@ -117,7 +117,6 @@ use Xezilaires\Exception\MappingException;
         }
 
         $headerOptionRequired = false;
-        /** @psalm-suppress MixedAssignment */
         foreach ($references as $name => $reference) {
             if (false === $reference instanceof Reference) {
                 throw MappingException::invalidReference($name);
