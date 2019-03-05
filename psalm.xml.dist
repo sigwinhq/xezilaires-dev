@@ -3,16 +3,29 @@
        xmlns="https://getpsalm.org/schema/config"
        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
        cacheDirectory="var/psalm"
-       strictBinaryOperands="true"
+       strictBinaryOperands="false"
        totallyTyped="true">
     
     <projectFiles>
         <directory name="bin"/>
         <directory name="src/"/>
         <directory name="tests/"/>
+        <ignoreFiles>
+            <directory name="vendor"/>
+        </ignoreFiles>
     </projectFiles>
 
     <issueHandlers>
+        <DeprecatedMethod>
+            <errorLevel type="info">
+                 <file name="src/Xezilaires/Metadata/Annotation/AnnotationDriver.php" />
+             </errorLevel>
+        </DeprecatedMethod>
+        <InvalidCatch>
+            <errorLevel type="info">
+                <file name="src/Xezilaires/Metadata/Mapping.php" />
+            </errorLevel>
+        </InvalidCatch>
         <MissingConstructor>
             <errorLevel type="info">
                 <directory name="src/Xezilaires/Annotation/" />
@@ -24,23 +37,8 @@
                 <file name="src/Xezilaires/Metadata/Annotation/AnnotationDriver.php" />
             </errorLevel>
         </RedundantCondition>
-        <DeprecatedMethod>
-            <errorLevel type="info">
-                 <file name="src/Xezilaires/Metadata/Annotation/AnnotationDriver.php" />
-             </errorLevel>
-        </DeprecatedMethod>
 
         <!-- false positives -->
-        <InvalidCatch>
-            <errorLevel type="info">
-                <file name="src/Xezilaires/Metadata/Mapping.php" />
-            </errorLevel>
-        </InvalidCatch>
-        <InvalidOperand>
-            <errorLevel type="info">
-                <file name="src/Xezilaires/Bridge/Spout/Spreadsheet.php" />
-            </errorLevel>
-        </InvalidOperand>
         <MixedMethodCall>
             <errorLevel type="info">
                 <file name="tests/Xezilaires/Bridge/PhpSpreadsheet/RowIteratorTest.php" />
@@ -48,26 +46,6 @@
                 <file name="tests/Xezilaires/SpreadsheetIteratorTest.php" />
             </errorLevel>
         </MixedMethodCall>
-        <MethodSignatureMismatch>
-            <errorLevel type="info">
-                <directory name="vendor/" />
-            </errorLevel>
-        </MethodSignatureMismatch>
-        <MixedAssignment>
-            <errorLevel type="info">
-                <directory name="vendor/" />
-            </errorLevel>
-        </MixedAssignment>
-        <ImplementedReturnTypeMismatch>
-            <errorLevel type="info">
-                <directory name="vendor/" />
-           </errorLevel>
-        </ImplementedReturnTypeMismatch>
-        <PropertyNotSetInConstructor>
-            <errorLevel type="info">
-                <directory name="vendor/" />
-            </errorLevel>
-        </PropertyNotSetInConstructor>
     </issueHandlers>
 
     <mockClasses>
