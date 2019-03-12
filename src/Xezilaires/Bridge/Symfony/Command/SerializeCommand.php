@@ -73,7 +73,10 @@ final class SerializeCommand extends Command
     {
         /** @var string $path */
         $path = $input->getArgument('path');
-        /** @var string $class */
+        /**
+         * @var string $class
+         * @psalm-var class-string $class
+         */
         $class = $input->getArgument('class');
         /** @var null|string $format */
         $format = $input->getOption('format');

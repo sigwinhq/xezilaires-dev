@@ -24,6 +24,7 @@ use Xezilaires\Exception\MappingException;
 {
     /**
      * @var string
+     * @psalm-var class-string
      */
     private $className;
 
@@ -98,6 +99,9 @@ use Xezilaires\Exception\MappingException;
         $resolver->setAllowedTypes('reverse', 'bool');
     }
 
+    /**
+     * @psalm-param string $className
+     */
     private function setClassName(string $className): void
     {
         if (false === class_exists($className)) {

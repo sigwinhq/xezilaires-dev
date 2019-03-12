@@ -51,6 +51,8 @@ final class AnnotationDriver
 
     /**
      * @throws \ReflectionException
+     *
+     * @psalm-param class-string $className
      */
     public function getMetadataMapping(string $className, ?array $options = null): Mapping
     {
