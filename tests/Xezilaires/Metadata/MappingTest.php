@@ -44,6 +44,8 @@ final class MappingTest extends TestCase
     /**
      * @dataProvider getValidMappings
      *
+     * @psalm-param class-string                            $className
+     *
      * @param array<string, \Xezilaires\Metadata\Reference> $columns
      * @param null|array<string, null|bool|string>          $options
      */
@@ -63,6 +65,8 @@ final class MappingTest extends TestCase
 
     /**
      * @dataProvider getInvalidMappings
+     *
+     * @psalm-param class-string                            $className
      *
      * @param array<string, \Xezilaires\Metadata\Reference> $columns
      * @param null|array<string, null|bool|string>          $options
