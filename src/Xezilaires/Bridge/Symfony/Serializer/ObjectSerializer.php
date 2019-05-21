@@ -16,6 +16,6 @@ namespace Xezilaires\Bridge\Symfony\Serializer;
 use Xezilaires\Denormalizer;
 use Xezilaires\Serializer;
 
-final class ObjectSerializer extends \Symfony\Component\Serializer\Serializer implements Serializer, Denormalizer
+final class ObjectSerializer extends \Symfony\Component\Serializer\Serializer implements Denormalizer, Serializer
 {
 }

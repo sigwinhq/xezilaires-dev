@@ -25,6 +25,8 @@ use Xezilaires\Test\Model\Product;
  * @covers \Xezilaires\Metadata\Mapping
  *
  * @internal
+ *
+ * @small
  */
 final class MappingTest extends TestCase
 {

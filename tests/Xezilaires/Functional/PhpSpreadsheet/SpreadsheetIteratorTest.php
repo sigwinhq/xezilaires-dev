@@ -31,6 +31,8 @@ use Xezilaires\Test\Functional\FunctionalTestCase;
  * @group phpspreadsheet
  *
  * @internal
+ *
+ * @small
  */
 final class SpreadsheetIteratorTest extends FunctionalTestCase
 {

@@ -26,6 +26,8 @@ use Xezilaires\Bridge\Symfony\XezilairesBundle;
  * @group symfony
  *
  * @internal
+ *
+ * @small
  */
 final class XezilairesBundleTest extends BaseBundleTestCase
 {

@@ -26,6 +26,8 @@ use Xezilaires\SpreadsheetIterator;
  * @covers \Xezilaires\SpreadsheetIterator
  *
  * @internal
+ *
+ * @small
  */
 final class SpreadsheetIteratorTest extends TestCase
 {

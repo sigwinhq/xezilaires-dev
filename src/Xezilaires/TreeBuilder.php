@@ -80,7 +80,7 @@ class TreeBuilder
             implode(
                 '/',
                 array_map(
-                    function (NodeInterface $node): string {
+                    static function (NodeInterface $node): string {
                         return str_replace('/', '-', (string) $node->getValue());
                     },
                     $this->getAncestors($id)
