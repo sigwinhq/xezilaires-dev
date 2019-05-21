@@ -23,6 +23,8 @@ use Xezilaires\Test\FixtureTrait;
  * @covers \Xezilaires\Bridge\Spout\Spreadsheet
  *
  * @internal
+ *
+ * @small
  */
 final class SpreadsheetTest extends TestCase
 {

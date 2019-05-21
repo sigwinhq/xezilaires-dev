@@ -22,6 +22,8 @@ use Xezilaires\Bridge\PhpSpreadsheet\RowIterator;
  * @covers \Xezilaires\Bridge\PhpSpreadsheet\RowIterator
  *
  * @internal
+ *
+ * @small
  */
 final class RowIteratorTest extends TestCase
 {

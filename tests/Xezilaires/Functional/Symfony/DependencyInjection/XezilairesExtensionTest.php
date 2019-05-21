@@ -29,6 +29,8 @@ use Xezilaires\SpreadsheetIteratorFactory;
  * @group symfony
  *
  * @internal
+ *
+ * @small
  */
 final class XezilairesExtensionTest extends AbstractExtensionTestCase
 {

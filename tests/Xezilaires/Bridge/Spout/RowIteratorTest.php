@@ -21,6 +21,8 @@ use Xezilaires\Bridge\Spout\RowIterator;
  * @covers \Xezilaires\Bridge\Spout\RowIterator
  *
  * @internal
+ *
+ * @small
  */
 final class RowIteratorTest extends TestCase
 {
