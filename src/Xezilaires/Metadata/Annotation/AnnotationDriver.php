@@ -125,6 +125,7 @@ final class AnnotationDriver
     {
         $options = (array) $this->reader->getClassAnnotation($reflectionClass, Annotation\Options::class);
         if (null !== $additionalOptions) {
+            /** @var array $options */
             $options = array_replace($options, $additionalOptions);
         }
 
