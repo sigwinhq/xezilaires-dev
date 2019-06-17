@@ -21,6 +21,7 @@ use Xezilaires\Bridge\Symfony\XezilairesBundle;
  * @covers \Xezilaires\Bridge\Symfony\XezilairesBundle
  *
  * @uses \Xezilaires\Bridge\Symfony\DependencyInjection\XezilairesExtension
+ * @uses \Xezilaires\Bridge\Symfony\Serializer\ObjectSerializer
  *
  * @group functional
  * @group symfony

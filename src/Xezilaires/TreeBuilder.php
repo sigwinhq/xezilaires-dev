@@ -17,7 +17,7 @@ use Tree\Node\Node;
 use Tree\Node\NodeInterface;
 use Xezilaires\Exception\NestableIteratorException;
 
-class TreeBuilder
+final class TreeBuilder
 {
     /**
      * @var NodeInterface

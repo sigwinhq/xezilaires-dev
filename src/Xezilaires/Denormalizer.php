@@ -23,8 +23,6 @@ interface Denormalizer
      * @param string $format
      *
      * @throws Exception
-     *
-     * @return object
      */
-    public function denormalize($data, $class, $format = null, array $context = []);
+    public function denormalize($data, $class, $format = null, array $context = []): object;
 }

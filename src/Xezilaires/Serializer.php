@@ -18,8 +18,6 @@ interface Serializer
     /**
      * @param object $data
      * @param string $format
-     *
-     * @return string
      */
-    public function serialize($data, $format, array $context = []);
+    public function serialize($data, $format, array $context = []): string;
 }
