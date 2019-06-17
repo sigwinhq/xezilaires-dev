@@ -17,10 +17,6 @@ matrix:
     env: BUILD_ENV=php7.2
   - name: PHP 7.2 low deps
     env: BUILD_ENV=php7.2 DEPS=low
-  - name: PHP 7.1
-    env: BUILD_ENV=php7.1
-  - name: PHP 7.1 low deps
-    env: BUILD_ENV=php7.1 DEPS=low
 
 cache:
   directories:

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Xezilaires\Bridge\Spout;
 
+use Box\Spout\Common\Entity\Row;
 use Box\Spout\Reader\IteratorInterface;
 use Xezilaires\Iterator;
 
@@ -46,13 +47,17 @@ final class RowIterator implements Iterator
 
     /**
      * {@inheritdoc}
-     *
-     * @psalm-suppress MissingReturnType Cannot type-hint object here because of 7.1 compat
      */
-    public function current()
+    public function current(): ?object
     {
+        /** @var null|Row $row */
+        $row = $this->iterator->current();
+        if (null === $row) {
+            return null;
+        }
+
         /** @var array<int, null|float|int|string> $current */
-        $current = $this->iterator->current();
+        $current = $row->toArray();
 
         return new \ArrayObject($current);
     }

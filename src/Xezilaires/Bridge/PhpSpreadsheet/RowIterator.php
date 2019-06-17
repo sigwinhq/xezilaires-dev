@@ -35,10 +35,8 @@ final class RowIterator implements Iterator
 
     /**
      * {@inheritdoc}
-     *
-     * @psalm-suppress MissingReturnType Cannot type-hint object here because of 7.1 compat
      */
-    public function current()
+    public function current(): ?object
     {
         return $this->iterator->current();
     }

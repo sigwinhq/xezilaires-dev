@@ -2,7 +2,7 @@ ifndef BUILD_ENV
 BUILD_ENV=php7.3
 endif
 
-QA_DOCKER_IMAGE=jakzal/phpqa:1.20-${BUILD_ENV}-alpine
+QA_DOCKER_IMAGE=jakzal/phpqa:1.21-${BUILD_ENV}-alpine
 QA_DOCKER_COMMAND=docker run --init --interactive --tty --rm --env "COMPOSER_CACHE_DIR=/composer/cache" --user "$(shell id -u):$(shell id -g)" --volume /tmp/tmp-phpqa-$(shell id -u):/tmp --volume "$(shell pwd):/project" --volume "${HOME}/.composer:/composer" --workdir /project ${QA_DOCKER_IMAGE}
 
 dist: composer-normalize cs phpstan psalm test

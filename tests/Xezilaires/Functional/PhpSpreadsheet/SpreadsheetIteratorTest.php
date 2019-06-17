@@ -26,6 +26,7 @@ use Xezilaires\Test\Functional\FunctionalTestCase;
  * @uses \Xezilaires\Metadata\ColumnReference
  * @uses \Xezilaires\Metadata\HeaderReference
  * @uses \Xezilaires\Metadata\Mapping
+ * @uses \Xezilaires\Bridge\Symfony\Serializer\ObjectSerializer
  *
  * @group functional
  * @group phpspreadsheet

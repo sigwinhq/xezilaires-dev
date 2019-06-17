@@ -15,7 +15,7 @@ namespace Xezilaires\Test\Model;
 
 use Xezilaires\Nestable;
 
-class Category implements Nestable
+final class Category implements Nestable
 {
     /**
      * @var int

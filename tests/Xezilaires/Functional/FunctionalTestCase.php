@@ -15,6 +15,7 @@ namespace Xezilaires\Test\Functional;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use Xezilaires\Bridge\Symfony\Serializer\ObjectSerializer;
 use Xezilaires\Metadata\Annotation\AnnotationDriver;
 use Xezilaires\Metadata\ArrayReference;
@@ -324,7 +325,7 @@ abstract class FunctionalTestCase extends TestCase
 
     private function createIterator(Spreadsheet $spreadsheet, Mapping $mapping): SpreadsheetIterator
     {
-        $serializer = new ObjectSerializer([new ObjectNormalizer()]);
+        $serializer = new ObjectSerializer(new Serializer([new ObjectNormalizer()]));
 
         return new SpreadsheetIterator($spreadsheet, $mapping, $serializer);
     }
