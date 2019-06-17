@@ -15,10 +15,9 @@ namespace Xezilaires\Bridge\Spout;
 
 use Box\Spout\Common\Exception\IOException;
 use Box\Spout\Common\Exception\UnsupportedTypeException;
-use Box\Spout\Common\Type;
+use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 use Box\Spout\Reader\Exception\ReaderNotOpenedException;
 use Box\Spout\Reader\IteratorInterface;
-use Box\Spout\Reader\ReaderFactory;
 use Box\Spout\Reader\ReaderInterface;
 use Box\Spout\Reader\SheetInterface;
 use Xezilaires\Exception\SpreadsheetException;
@@ -38,11 +37,6 @@ final class Spreadsheet implements SpreadsheetInterface
     private $file;
 
     /**
-     * @var string
-     */
-    private $type;
-
-    /**
      * @var null|ReaderInterface
      */
     private $reader;
@@ -52,10 +46,9 @@ final class Spreadsheet implements SpreadsheetInterface
      */
     private $iterator;
 
-    public function __construct(\SplFileObject $file, string $type = Type::XLSX)
+    public function __construct(\SplFileObject $file)
     {
         $this->file = $file;
-        $this->type = $type;
     }
 
     /**
@@ -167,7 +160,7 @@ final class Spreadsheet implements SpreadsheetInterface
             }
 
             try {
-                $this->reader = ReaderFactory::create($this->type);
+                $this->reader = ReaderEntityFactory::createXLSXReader();
                 $this->reader->open($path);
             } catch (UnsupportedTypeException | IOException $exception) {
                 throw SpreadsheetException::invalidSpreadsheet($exception);
