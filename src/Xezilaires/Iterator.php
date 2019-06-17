@@ -15,10 +15,7 @@ namespace Xezilaires;
 
 interface Iterator extends \Iterator
 {
-    /**
-     * @return object
-     */
-    public function current();
+    public function current(): ?object;
 
     public function key(): int;
 

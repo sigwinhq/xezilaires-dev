@@ -91,12 +91,10 @@ final class FakeIterator implements Iterator
 
     /**
      * {@inheritdoc}
-     *
-     * @return object
      */
-    public function current()
+    public function current(): ?object
     {
-        /** @var object $current */
+        /** @var null|object $current */
         $current = $this->iterator->current();
 
         return $current;
