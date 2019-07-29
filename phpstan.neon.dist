@@ -17,6 +17,8 @@ parameters:
             - PHPUnit\Framework\Exception
             - PHPUnit\Framework\MockObject\RuntimeException
     ignoreErrors:
+        - message: '#Access to an undefined property object\:\:\$scalar\.#'
+          path: %currentWorkingDirectory%/tests/Xezilaires/FilterIteratorTest.php
         - message: '#Call to deprecated method registerUniqueLoader\(\) of class Doctrine\\Common\\Annotations\\AnnotationRegistry#'
           path: %currentWorkingDirectory%/src/Xezilaires/Metadata/Annotation/AnnotationDriver.php
         - message: '#Return type \(bool\) of method class@anonymous\/tests\/Xezilaires\/FixtureTrait\.php:28::getRealPath\(\) should be covariant with return type \(string\|false\) of method SplFileInfo::getRealPath\(\)#'

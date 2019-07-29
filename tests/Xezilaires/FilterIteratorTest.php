@@ -28,7 +28,7 @@ final class FilterIteratorTest extends TestCase
     public function testCanFilterOutIteratorItems(): void
     {
         $iterator = new FakeIterator([1, 2, 3, 4, 5]);
-        $filter = new FilterIterator($iterator, /** @param object $item Cannot type-hint object here because of 7.1 compat */ static function ($item): bool {
+        $filter = new FilterIterator($iterator, static function (object $item): bool {
             /** @var int $scalar */
             $scalar = $item->scalar;
 
@@ -41,7 +41,7 @@ final class FilterIteratorTest extends TestCase
     public function testCallbackReturnValueMustBeBool(): void
     {
         $iterator = new FakeIterator(['ba', 'abba', 'boo', 'bae', 'nba', 'ab', 'ban']);
-        $filter = new FilterIterator($iterator, /** @param object $item Cannot type-hint object here because of 7.1 compat */ static function ($item): bool {
+        $filter = new FilterIterator($iterator, static function (object $item): bool {
             /** @var string $scalar */
             $scalar = $item->scalar;
 
