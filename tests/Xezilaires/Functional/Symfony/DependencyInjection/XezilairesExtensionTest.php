@@ -39,7 +39,6 @@ final class XezilairesExtensionTest extends AbstractExtensionTestCase
         $this->load();
 
         $this->assertContainerBuilderHasService('xezilaires.serializer', ObjectSerializer::class);
-        $this->assertContainerBuilderHasServiceDefinitionWithParent('xezilaires.serializer', 'serializer');
         $this->assertContainerBuilderHasAlias(Denormalizer::class, 'xezilaires.serializer');
         $this->assertContainerBuilderHasAlias(Serializer::class, 'xezilaires.serializer');
     }
