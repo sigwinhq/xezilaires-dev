@@ -16,8 +16,19 @@ if (PHP_SAPI !== 'cli') {
 
 require __DIR__.'/../src/bootstrap.php';
 
-if (false === class_exists(\Symfony\Bundle\FrameworkBundle\FrameworkBundle::class)) {
-    fwrite(STDERR, 'Xezilaires requires symfony/framework-bundle'.PHP_EOL);
+$requirementsSatisfied = true;
+$requirements = [
+    \Symfony\Component\Console\Application::class => 'symfony/console',
+    \Symfony\Bundle\FrameworkBundle\FrameworkBundle::class => 'symfony/framework-bundle',
+];
+foreach ($requirements as $className => $requirement) {
+    if (false === class_exists($className)) {
+        fwrite(STDERR, sprintf('%1$s requires %2$s'.PHP_EOL, $_SERVER['argv'][0], $requirement));
+        $requirementsSatisfied = false;
+    }
+}
+
+if (false === $requirementsSatisfied) {
     exit(1);
 }
 

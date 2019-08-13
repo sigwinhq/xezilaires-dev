@@ -16,6 +16,7 @@
         "symfony/serializer": "^3.4 || ^4.0"
     },
     "conflict": {
+        "box/spout": "< 3.0",
         "phpoffice/phpspreadsheet": "< 1.4.1"
     },
     "require-dev": {
@@ -35,7 +36,8 @@
     "suggest": {
         "box/spout": "Read Excel files with Spout",
         "phpoffice/phpspreadsheet": "Read Excel files with PhpSpreadsheet",
-        "symfony/framework-bundle": "Symfony bundle integration"
+        "symfony/console": "bin/xezilaires use",
+        "symfony/framework-bundle": "Symfony bundle integration, bin/xezilaires use"
     },
     "config": {
         "platform": {
