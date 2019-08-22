@@ -1,0 +1,4 @@
+StylesPath = styles
+
+[*]
+BasedOnStyles = proselint, write-good, Joblint, docs
