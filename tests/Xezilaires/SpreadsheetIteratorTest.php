@@ -17,13 +17,17 @@ use Nyholm\NSA;
 use PHPUnit\Framework\MockObject\Builder\InvocationMocker;
 use PHPUnit\Framework\TestCase;
 use Xezilaires\Denormalizer;
+use Xezilaires\Exception\MappingException;
 use Xezilaires\Iterator;
+use Xezilaires\Metadata\HeaderReference;
 use Xezilaires\Metadata\Mapping;
 use Xezilaires\Spreadsheet;
 use Xezilaires\SpreadsheetIterator;
 
 /**
  * @covers \Xezilaires\SpreadsheetIterator
+ *
+ * @uses \Xezilaires\Metadata\HeaderReference
  *
  * @internal
  *
@@ -61,6 +65,39 @@ final class SpreadsheetIteratorTest extends TestCase
             'next' => ['count' => 1, 'params' => null],
         ]));
         $iterator->next();
+    }
+
+    public function testWillOfferAnDidYouMeanForInvalidHeader(): void
+    {
+        $spreadsheet = $this
+            ->getMockBuilder(Spreadsheet::class)
+            ->getMock();
+        $spreadsheet
+            ->expects(static::once())
+            ->method('getRow')
+            ->with(1)
+            ->willReturn(['Amen', 'Nope', 'Name']);
+
+        $mapping = $this
+            ->getMockBuilder(Mapping::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mapping
+            ->expects(static::once())
+            ->method('getOption')
+            ->with('header')
+            ->willReturn(1);
+        $mapping
+            ->expects(static::once())
+            ->method('getReferences')
+            ->willReturn([
+                'name' => new HeaderReference('Naem'),
+            ]);
+        $this->expectException(MappingException::class);
+        $this->expectExceptionMessage('Invalid header "Naem", did you mean "Name"?');
+
+        $iterator = new SpreadsheetIterator($spreadsheet, $mapping, $this->getMockBuilder(Denormalizer::class)->getMock());
+        $iterator->current();
     }
 
     /**

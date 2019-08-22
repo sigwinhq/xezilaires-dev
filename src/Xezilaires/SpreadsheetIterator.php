@@ -206,7 +206,7 @@ final class SpreadsheetIterator implements Iterator
     {
         $headerColumnReferences = $this->getHeaderColumnReferences();
         if (false === \array_key_exists($header, $headerColumnReferences)) {
-            throw MappingException::headerNotFound($header);
+            throw MappingException::headerNotFound($header, array_keys($headerColumnReferences));
         }
 
         if (\is_array($headerColumnReferences[$header])) {
