@@ -28,9 +28,17 @@ final class MappingException extends \InvalidArgumentException implements Except
         return new self(sprintf('Ambiguous header "%1$s" found, used in columns "%2$s"', $header, implode('", "', $columns)));
     }
 
-    public static function headerNotFound(string $header): self
+    /**
+     * @param string[] $knownHeaders
+     */
+    public static function headerNotFound(string $unknownHeader, array $knownHeaders): self
     {
-        return new self(sprintf('Invalid header "%1$s", not found', $header));
+        $alternative = self::findAlternative($unknownHeader, $knownHeaders);
+        if (null === $alternative) {
+            return new self(sprintf('Invalid header "%1$s", not found', $unknownHeader));
+        }
+
+        return new self(sprintf('Invalid header "%1$s", did you mean "%2$s"?', $unknownHeader, $alternative));
     }
 
     public static function classNotFound(string $className): self
@@ -59,5 +67,24 @@ final class MappingException extends \InvalidArgumentException implements Except
     public static function invalidOption(ExceptionInterface $exception): self
     {
         return new self($exception->getMessage(), 0, $exception);
+    }
+
+    /**
+     * @param string[] $headers
+     */
+    private static function findAlternative(string $unknownHeader, array $headers, int $threshold = 3): ?string
+    {
+        $shortest = -1;
+        $alternative = null;
+        foreach ($headers as $header) {
+            $distance = levenshtein($unknownHeader, $header);
+
+            if ($distance <= $threshold && ($distance < $shortest || $shortest < 0)) {
+                $shortest = $distance;
+                $alternative = $header;
+            }
+        }
+
+        return $alternative;
     }
 }
