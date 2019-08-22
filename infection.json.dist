@@ -9,6 +9,9 @@
         ]
     },
     "logs": {
+        "badge": {
+            "branch": "master"
+        },
         "text": "var\/infection.log"
     },
     "mutators": {
