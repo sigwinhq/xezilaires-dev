@@ -26,7 +26,7 @@ $normalizer = new \Xezilaires\Bridge\Symfony\Serializer\ObjectSerializer($symfon
 $iteratorFactory = new \Xezilaires\SpreadsheetIteratorFactory($normalizer);
 // </demo>
 
-$iterator = $iteratorFactory->createFromPath(
+$iterator = $iteratorFactory->fromFile(
     // https://github.com/dkarlovi/xezilaires/raw/master/resources/fixtures/products.xlsx
     new \SplFileObject(__DIR__.'/../../resources/fixtures/products.xlsx'),
     new \Xezilaires\Metadata\Mapping(

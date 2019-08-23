@@ -25,7 +25,7 @@ An OEM *(Object Excel Manager)*, if you will.
 ### Without annotations
 
 ```php
-class Product implements \JsonSerializable
+class Product
 {
     private $name;
 }
@@ -36,7 +36,7 @@ $symfonySerializer = new \Symfony\Component\Serializer\Serializer([
 $normalizer = new \Xezilaires\Bridge\Symfony\Serializer\ObjectSerializer($symfonySerializer);
 $iteratorFactory = new \Xezilaires\SpreadsheetIteratorFactory($normalizer);
 
-$iterator = $iteratorFactory->createFromPath(
+$iterator = $iteratorFactory->fromFile(
     // https://github.com/dkarlovi/xezilaires/raw/master/resources/fixtures/products.xlsx
     new \SplFileObject(__DIR__.'/../../resources/fixtures/products.xlsx'),
     new \Xezilaires\Metadata\Mapping(
@@ -60,7 +60,7 @@ use Xezilaires\Annotation as XLS;
 /**
  * @XLS\Options(header=1, start=2)
  */
-class Product implements \JsonSerializable
+class Product
 {
     /**
      * @XLS\HeaderReference(header="Name")
@@ -75,7 +75,7 @@ $normalizer = new \Xezilaires\Bridge\Symfony\Serializer\ObjectSerializer($symfon
 $iteratorFactory = new \Xezilaires\SpreadsheetIteratorFactory($normalizer);
 $annotationDriver = new \Xezilaires\Metadata\Annotation\AnnotationDriver();
 
-$iterator = $iteratorFactory->createFromPath(
+$iterator = $iteratorFactory->fromFile(
     // https://github.com/dkarlovi/xezilaires/raw/master/resources/fixtures/products.xlsx
     new \SplFileObject(__DIR__.'/../../resources/fixtures/products.xlsx'),
     $annotationDriver->getMetadataMapping(Product::class, ['reverse' => true])
