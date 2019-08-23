@@ -27,7 +27,7 @@ $iteratorFactory = new \Xezilaires\SpreadsheetIteratorFactory($normalizer);
 $annotationDriver = new \Xezilaires\Metadata\Annotation\AnnotationDriver();
 // </demo>
 
-$iterator = $iteratorFactory->createFromPath(
+$iterator = $iteratorFactory->fromFile(
     // https://github.com/dkarlovi/xezilaires/raw/master/resources/fixtures/products.xlsx
     new \SplFileObject(__DIR__.'/../../resources/fixtures/products.xlsx'),
     $annotationDriver->getMetadataMapping(Product::class)

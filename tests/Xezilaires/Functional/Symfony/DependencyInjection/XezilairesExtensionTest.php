@@ -19,8 +19,8 @@ use Xezilaires\Bridge\Symfony\Command\SerializeCommand;
 use Xezilaires\Bridge\Symfony\DependencyInjection\XezilairesExtension;
 use Xezilaires\Bridge\Symfony\Serializer\ObjectSerializer;
 use Xezilaires\Denormalizer;
+use Xezilaires\IteratorFactory;
 use Xezilaires\Serializer;
-use Xezilaires\SpreadsheetIteratorFactory;
 
 /**
  * @covers \Xezilaires\Bridge\Symfony\DependencyInjection\XezilairesExtension
@@ -47,7 +47,8 @@ final class XezilairesExtensionTest extends AbstractExtensionTestCase
     {
         $this->load();
 
-        $this->assertContainerBuilderHasService(SpreadsheetIteratorFactory::class);
+        $this->assertContainerBuilderHasService('xezilaires.spreadsheet_iterator_factory');
+        $this->assertContainerBuilderHasAlias(IteratorFactory::class, 'xezilaires.spreadsheet_iterator_factory');
     }
 
     public function testContainerHasSerializeCommand(): void

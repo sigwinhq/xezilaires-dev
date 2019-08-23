@@ -16,12 +16,17 @@ namespace Xezilaires\Test\Functional\Symfony;
 use Nyholm\BundleTest\BaseBundleTestCase;
 use Xezilaires\Bridge\Symfony\Serializer\ObjectSerializer;
 use Xezilaires\Bridge\Symfony\XezilairesBundle;
+use Xezilaires\Denormalizer;
+use Xezilaires\IteratorFactory;
+use Xezilaires\Serializer;
+use Xezilaires\SpreadsheetIteratorFactory;
 
 /**
  * @covers \Xezilaires\Bridge\Symfony\XezilairesBundle
  *
  * @uses \Xezilaires\Bridge\Symfony\DependencyInjection\XezilairesExtension
  * @uses \Xezilaires\Bridge\Symfony\Serializer\ObjectSerializer
+ * @uses \Xezilaires\SpreadsheetIteratorFactory
  *
  * @group functional
  * @group symfony
@@ -35,16 +40,37 @@ final class XezilairesBundleTest extends BaseBundleTestCase
     /**
      * @throws \Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException
      */
-    public function testCanInitBundle(): void
+    public function testBundleHasSerializer(): void
     {
         $this->bootKernel();
-
         $container = $this->getContainer();
 
-        static::assertTrue($container->has('xezilaires.serializer'));
+        static::assertTrue($container->has(Serializer::class));
+        static::assertInstanceOf(ObjectSerializer::class, $container->get(Serializer::class));
+    }
 
-        $service = $container->get('xezilaires.serializer');
-        static::assertInstanceOf(ObjectSerializer::class, $service);
+    /**
+     * @throws \Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException
+     */
+    public function testBundleHasDenormalizer(): void
+    {
+        $this->bootKernel();
+        $container = $this->getContainer();
+
+        static::assertTrue($container->has(Denormalizer::class));
+        static::assertInstanceOf(ObjectSerializer::class, $container->get(Denormalizer::class));
+    }
+
+    /**
+     * @throws \Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException
+     */
+    public function testBundleHasIteratorFactory(): void
+    {
+        $this->bootKernel();
+        $container = $this->getContainer();
+
+        static::assertTrue($container->has(IteratorFactory::class));
+        static::assertInstanceOf(SpreadsheetIteratorFactory::class, $container->get(IteratorFactory::class));
     }
 
     /**

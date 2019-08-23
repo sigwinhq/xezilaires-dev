@@ -108,7 +108,7 @@ final class SerializeCommand extends Command
         }
 
         $driver = new AnnotationDriver();
-        $iterator = $this->iteratorFactory->createFromPath(
+        $iterator = $this->iteratorFactory->fromFile(
             new \SplFileObject($path),
             $driver->getMetadataMapping($class, ['reverse' => $reverse])
         );

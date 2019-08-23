@@ -15,7 +15,7 @@ namespace Xezilaires;
 
 use Xezilaires\Metadata\Mapping;
 
-final class SpreadsheetIteratorFactory
+final class SpreadsheetIteratorFactory implements IteratorFactory
 {
     /**
      * @var Denormalizer
@@ -30,7 +30,7 @@ final class SpreadsheetIteratorFactory
     /**
      * @throws \RuntimeException
      */
-    public function createFromPath(\SplFileObject $path, Mapping $mapping): SpreadsheetIterator
+    public function fromFile(\SplFileObject $path, Mapping $mapping): Iterator
     {
         switch (true) {
             case true === interface_exists(\PhpOffice\PhpSpreadsheet\Reader\IReader::class):
@@ -43,10 +43,10 @@ final class SpreadsheetIteratorFactory
                 throw new \RuntimeException('Install either phpoffice/phpspreadsheet or box/spout to read Excel files');
         }
 
-        return $this->createFromSpreadsheet($spreadsheet, $mapping);
+        return $this->fromSpreadsheet($spreadsheet, $mapping);
     }
 
-    public function createFromSpreadsheet(Spreadsheet $spreadsheet, Mapping $mapping): SpreadsheetIterator
+    public function fromSpreadsheet(Spreadsheet $spreadsheet, Mapping $mapping): Iterator
     {
         return new SpreadsheetIterator($spreadsheet, $mapping, $this->denormalizer);
     }

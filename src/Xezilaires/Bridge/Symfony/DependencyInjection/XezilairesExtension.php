@@ -28,6 +28,8 @@ final class XezilairesExtension extends Extension
     public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.xml');
+        $loader->load('serializer.xml');
+        $loader->load('iterator.xml');
+        $loader->load('application.xml');
     }
 }
