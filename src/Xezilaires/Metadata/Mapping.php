@@ -77,7 +77,7 @@ use Xezilaires\Exception\MappingException;
     }
 
     /**
-     * @return null|bool|string
+     * @return null|bool|int|string
      */
     public function getOption(string $option)
     {

@@ -259,7 +259,7 @@ abstract class FunctionalTestCase extends TestCase
         );
 
         $iterator->seek(1);
-        static::assertEquals(1, $iterator->key());
+        static::assertSame(1, $iterator->key());
 
         $current = new Product();
         $current->name = 'Brown Bear, Brown Bear, What Do You See?';
@@ -284,7 +284,7 @@ abstract class FunctionalTestCase extends TestCase
         );
 
         $iterator->seek(1);
-        static::assertEquals(1, $iterator->key());
+        static::assertSame(1, $iterator->key());
 
         $iterator->rewind();
         $current = new Product();

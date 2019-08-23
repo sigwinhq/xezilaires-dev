@@ -35,7 +35,7 @@ final class FilterIteratorTest extends TestCase
             return $scalar % 2 === 0;
         });
 
-        static::assertEquals([2, 4], FakeIterator::toArray($filter));
+        static::assertSame([2, 4], FakeIterator::toArray($filter));
     }
 
     public function testCallbackReturnValueMustBeBool(): void
@@ -48,6 +48,6 @@ final class FilterIteratorTest extends TestCase
             return false !== mb_strpos($scalar, 'ba');
         });
 
-        static::assertEquals(['ba', 'abba', 'bae', 'nba', 'ban'], FakeIterator::toArray($filter));
+        static::assertSame(['ba', 'abba', 'bae', 'nba', 'ban'], FakeIterator::toArray($filter));
     }
 }
