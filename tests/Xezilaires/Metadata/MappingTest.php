@@ -98,6 +98,8 @@ final class MappingTest extends TestCase
 
             ['Invalid mapping, no references specified', Product::class, []],
 
+            ['Invalid property name "0"', Product::class, [new ColumnReference('A')]],
+
             ['Invalid reference "aaa"', Product::class, ['aaa' => 123]],
 
             ['When using HeaderReference, "header" option is required', Product::class, ['name' => new HeaderReference('Name')]],

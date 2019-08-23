@@ -56,6 +56,14 @@ final class MappingException extends \InvalidArgumentException implements Except
         return new self(sprintf('Invalid reference "%1$s"', $name));
     }
 
+    /**
+     * @param float|int|string $name
+     */
+    public static function invalidPropertyName($name): self
+    {
+        return new self(sprintf('Invalid property name "%1$s"', $name));
+    }
+
     public static function unexpectedReference(): self
     {
         return new self('Unexpected reference type');

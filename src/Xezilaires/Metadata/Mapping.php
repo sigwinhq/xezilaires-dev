@@ -122,6 +122,10 @@ use Xezilaires\Exception\MappingException;
 
         $headerOptionRequired = false;
         foreach ($references as $name => $reference) {
+            if (is_numeric($name)) {
+                throw MappingException::invalidPropertyName($name);
+            }
+
             if (false === $reference instanceof Reference) {
                 throw MappingException::invalidReference($name);
             }
