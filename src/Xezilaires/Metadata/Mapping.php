@@ -17,10 +17,7 @@ use Symfony\Component\OptionsResolver\Exception\ExceptionInterface as OptionsRes
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Xezilaires\Exception\MappingException;
 
-/**
- * @final
- */
-/* final */ class Mapping
+final class Mapping
 {
     /**
      * @var string
