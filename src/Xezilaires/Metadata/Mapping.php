@@ -60,6 +60,9 @@ final class Mapping
         $this->setOptions($options);
     }
 
+    /**
+     * @psalm-return class-string
+     */
     public function getClassName(): string
     {
         return $this->className;
