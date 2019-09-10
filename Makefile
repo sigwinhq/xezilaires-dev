@@ -5,7 +5,7 @@ endif
 DOCQA_DOCKER_IMAGE=dkarlovi/docqa:latest
 DOCQA_DOCKER_COMMAND=docker run --init --interactive --rm --user "$(shell id -u):$(shell id -g)"  --volume "$(shell pwd)/var/tmp/docqa:/.cache" --volume "$(shell pwd):/project" --workdir /project ${DOCQA_DOCKER_IMAGE}
 
-PHPQA_DOCKER_IMAGE=jakzal/phpqa:1.22-${BUILD_ENV}-alpine
+PHPQA_DOCKER_IMAGE=jakzal/phpqa:1.24-${BUILD_ENV}-alpine
 PHPQA_DOCKER_COMMAND=docker run --init --interactive --rm --env "COMPOSER_CACHE_DIR=/composer/cache" --user "$(shell id -u):$(shell id -g)" --volume "$(shell pwd)/var/tmp/phpqa:/tmp" --volume "$(shell pwd):/project" --volume "${HOME}/.composer:/composer" --workdir /project ${PHPQA_DOCKER_IMAGE}
 
 dist: composer-normalize cs phpstan psalm test doc

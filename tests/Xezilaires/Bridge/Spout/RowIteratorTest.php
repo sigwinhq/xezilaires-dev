@@ -65,7 +65,7 @@ final class RowIteratorTest extends TestCase
         ++$counts['rewind'];
 
         $iterator = new RowIterator($this->mockIterator($currentRow, $counts, $calls), $startRow);
-        static::assertEquals($highestRow, $iterator->getHighestRow());
+        static::assertSame($highestRow, $iterator->getHighestRow());
     }
 
     /**

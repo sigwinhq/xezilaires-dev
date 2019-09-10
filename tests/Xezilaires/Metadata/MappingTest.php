@@ -37,7 +37,7 @@ final class MappingTest extends TestCase
     {
         $mapping = new Mapping(Product::class, ['name' => new ColumnReference('A')]);
 
-        static::assertEquals(1, $mapping->getOption('start'));
+        static::assertSame(1, $mapping->getOption('start'));
         static::assertNull($mapping->getOption('end'));
         static::assertNull($mapping->getOption('header'));
         static::assertFalse($mapping->getOption('reverse'));
@@ -55,12 +55,12 @@ final class MappingTest extends TestCase
     {
         $mapping = new Mapping($className, $columns, $options);
 
-        static::assertEquals($className, $mapping->getClassName());
-        static::assertEquals($columns, $mapping->getReferences());
+        static::assertSame($className, $mapping->getClassName());
+        static::assertSame($columns, $mapping->getReferences());
 
         if (null !== $options) {
             foreach ($options as $option => $value) {
-                static::assertEquals($value, $mapping->getOption($option));
+                static::assertSame($value, $mapping->getOption($option));
             }
         }
     }

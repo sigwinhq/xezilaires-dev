@@ -15,9 +15,5 @@ namespace Xezilaires;
 
 interface Serializer
 {
-    /**
-     * @param object $data
-     * @param string $format
-     */
-    public function serialize($data, $format, array $context = []): string;
+    public function serialize(object $data, string $format, array $context = []): string;
 }

@@ -26,6 +26,7 @@ use Xezilaires\SpreadsheetIterator;
 
 /**
  * @covers \Xezilaires\SpreadsheetIterator
+ * @covers \Xezilaires\Metadata\Mapping
  *
  * @uses \Xezilaires\Metadata\HeaderReference
  *
@@ -37,9 +38,13 @@ final class SpreadsheetIteratorTest extends TestCase
 {
     public function testCanPerformValidCorrectly(): void
     {
+        $mapping = new Mapping(\stdClass::class, [
+            'name' => new HeaderReference('Name'),
+        ], ['header' => 1]);
+
         $iterator = new SpreadsheetIterator(
             $this->getMockBuilder(Spreadsheet::class)->getMock(),
-            $this->getMockBuilder(Mapping::class)->disableOriginalConstructor()->getMock(),
+            $mapping,
             $this->getMockBuilder(Denormalizer::class)->getMock()
         );
         NSA::setProperty($iterator, 'iterator', $this->mockIterator([
@@ -53,9 +58,13 @@ final class SpreadsheetIteratorTest extends TestCase
 
     public function testCanPerformNextCorrectly(): void
     {
+        $mapping = new Mapping(\stdClass::class, [
+            'name' => new HeaderReference('Name'),
+        ], ['header' => 1]);
+
         $iterator = new SpreadsheetIterator(
             $this->getMockBuilder(Spreadsheet::class)->getMock(),
-            $this->getMockBuilder(Mapping::class)->disableOriginalConstructor()->getMock(),
+            $mapping,
             $this->getMockBuilder(Denormalizer::class)->getMock()
         );
         NSA::setProperty($iterator, 'iterator', $this->mockIterator([
@@ -78,21 +87,10 @@ final class SpreadsheetIteratorTest extends TestCase
             ->with(1)
             ->willReturn(['Amen', 'Nope', 'Name']);
 
-        $mapping = $this
-            ->getMockBuilder(Mapping::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mapping
-            ->expects(static::once())
-            ->method('getOption')
-            ->with('header')
-            ->willReturn(1);
-        $mapping
-            ->expects(static::once())
-            ->method('getReferences')
-            ->willReturn([
-                'name' => new HeaderReference('Naem'),
-            ]);
+        $mapping = new Mapping(\stdClass::class, [
+            'name' => new HeaderReference('Naem'),
+        ], ['header' => 1]);
+
         $this->expectException(MappingException::class);
         $this->expectExceptionMessage('Invalid header "Naem", did you mean "Name"?');
 

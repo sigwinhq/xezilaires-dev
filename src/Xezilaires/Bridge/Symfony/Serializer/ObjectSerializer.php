@@ -33,18 +33,15 @@ final class ObjectSerializer implements Denormalizer, Serializer
         $this->serializer = $serializer;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function denormalize($data, $class, $format = null, array $context = []): object
+    public function denormalize(array $data, string $class, ?string $format = null, array $context = []): object
     {
-        return $this->serializer->denormalize($data, $class, $format, $context);
+        /** @var object $object */
+        $object = $this->serializer->denormalize($data, $class, $format, $context);
+
+        return $object;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function serialize($data, $format, array $context = []): string
+    public function serialize(object $data, string $format, array $context = []): string
     {
         return $this->serializer->serialize($data, $format, $context);
     }

@@ -18,11 +18,9 @@ use Xezilaires\Bridge\Symfony\Serializer\Exception;
 interface Denormalizer
 {
     /**
-     * @param array  $data
-     * @param string $class
-     * @param string $format
+     * @psalm-param class-string $class
      *
      * @throws Exception
      */
-    public function denormalize($data, $class, $format = null, array $context = []): object;
+    public function denormalize(array $data, string $class, ?string $format = null, array $context = []): object;
 }

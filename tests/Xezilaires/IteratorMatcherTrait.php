@@ -33,6 +33,6 @@ trait IteratorMatcherTrait
             $actual[$idx] = array_filter((array) $item);
         }
 
-        static::assertEquals($expected, $actual);
+        static::assertSame($expected, $actual);
     }
 }

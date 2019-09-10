@@ -17,10 +17,7 @@ use Symfony\Component\OptionsResolver\Exception\ExceptionInterface as OptionsRes
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Xezilaires\Exception\MappingException;
 
-/**
- * @final
- */
-/* final */ class Mapping
+final class Mapping
 {
     /**
      * @var string
@@ -63,6 +60,9 @@ use Xezilaires\Exception\MappingException;
         $this->setOptions($options);
     }
 
+    /**
+     * @psalm-return class-string
+     */
     public function getClassName(): string
     {
         return $this->className;
@@ -77,7 +77,7 @@ use Xezilaires\Exception\MappingException;
     }
 
     /**
-     * @return null|bool|string
+     * @return null|bool|int|string
      */
     public function getOption(string $option)
     {
