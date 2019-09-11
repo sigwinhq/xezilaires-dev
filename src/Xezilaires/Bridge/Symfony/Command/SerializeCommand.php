@@ -28,7 +28,7 @@ final class SerializeCommand extends Command
     /**
      * @var string
      */
-    protected static $defaultName = 'serialize';
+    protected static $defaultName = 'xezilaires:serialize';
 
     /**
      * @var SpreadsheetIteratorFactory
@@ -42,7 +42,7 @@ final class SerializeCommand extends Command
 
     public function __construct(SpreadsheetIteratorFactory $iteratorFactory, Serializer $serializer)
     {
-        parent::__construct('serialize');
+        parent::__construct('xezilaires:serialize');
 
         $this->setDescription('Serialize Excel files into JSON, XML, CSV');
 
