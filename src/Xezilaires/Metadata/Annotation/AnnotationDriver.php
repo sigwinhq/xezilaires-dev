@@ -91,10 +91,7 @@ final class AnnotationDriver
 
             if (false === ($arrayAnnotation xor $columnAnnotation xor $headerAnnotation)) {
                 // if any is set, only one is allowed
-                throw AnnotationException::tooManyReferencesDefined(
-                    $reflectionProperty,
-                    [$arrayAnnotation, $columnAnnotation, $headerAnnotation]
-                );
+                throw AnnotationException::tooManyReferencesDefined($reflectionProperty, [$arrayAnnotation, $columnAnnotation, $headerAnnotation]);
             }
 
             switch (true) {
