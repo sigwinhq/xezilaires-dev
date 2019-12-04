@@ -69,7 +69,7 @@ final class SerializeCommand extends Command
      * @throws \RuntimeException
      * @throws \ReflectionException
      */
-    protected function execute(InputInterface $input, OutputInterface $output): ?int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var string $path */
         $path = $input->getArgument('path');
