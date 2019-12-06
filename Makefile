@@ -21,7 +21,7 @@ composer-install: fetch ensure
 	sh -c "${PHPQA_DOCKER_COMMAND} composer upgrade"
 
 composer-install-lowest: fetch ensure
-	sh -c "${PHPQA_DOCKER_COMMAND} composer upgrade --prefer-lowest"
+	sh -c "${PHPQA_DOCKER_COMMAND} composer upgrade --with-all-dependencies --prefer-lowest"
 
 composer-normalize: ensure
 	sh -c "${PHPQA_DOCKER_COMMAND} composer normalize"
@@ -42,10 +42,10 @@ psalm: ensure
 	sh -c "${PHPQA_DOCKER_COMMAND} psalm --show-info=false --threads max"
 
 phpunit:
-	sh -c "${PHPQA_DOCKER_COMMAND} phpunit-7 --verbose"
+	sh -c "${PHPQA_DOCKER_COMMAND} vendor/bin/phpunit --verbose"
 
 phpunit-coverage: ensure
-	sh -c "${PHPQA_DOCKER_COMMAND} phpdbg -qrr /tools/phpunit-7 --verbose --coverage-text --log-junit=var/junit.xml --coverage-xml var/coverage-xml/"
+	sh -c "${PHPQA_DOCKER_COMMAND} phpdbg -qrr vendor/bin/phpunit --verbose --coverage-text --log-junit=var/junit.xml --coverage-xml var/coverage-xml/"
 
 infection: phpunit-coverage
 	sh -c "${PHPQA_DOCKER_COMMAND} phpdbg -qrr /tools/infection run --verbose --show-mutations --no-interaction --only-covered --coverage var/ --min-msi=100 --min-covered-msi=100 --threads 4"
