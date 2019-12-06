@@ -26,6 +26,11 @@
                 <file name="src/Xezilaires/Metadata/Mapping.php" />
             </errorLevel>
         </InvalidCatch>
+        <InternalMethod>
+            <errorLevel type="info">
+                <directory name="tests/Xezilaires/" />
+            </errorLevel>
+        </InternalMethod>
         <MissingConstructor>
             <errorLevel type="info">
                 <directory name="src/Xezilaires/Annotation/" />

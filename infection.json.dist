@@ -1,6 +1,6 @@
 {
     "phpUnit": {
-        "customPath": "/tools/phpunit-7"
+        "customPath": "vendor/bin/phpunit"
     },
     "timeout": 1,
     "source": {
