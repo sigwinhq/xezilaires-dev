@@ -4,6 +4,7 @@ includes:
     - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-phpunit/extension.neon
     # - /tools/.composer/vendor-bin/phpstan/vendor/pepakriz/phpstan-exception-rules/extension.neon
 parameters:
+    checkGenericClassInNonGenericObjectType: false
     tmpDir: %currentWorkingDirectory%/var/phpstan
     level: max
     paths:
@@ -11,12 +12,19 @@ parameters:
     excludes_analyse:
         - var/
         - vendor/
-    exceptionRules:
-        uncheckedExceptions:
-            - LogicException
-            - PHPUnit\Framework\Exception
-            - PHPUnit\Framework\MockObject\RuntimeException
+    #exceptionRules:
+    #    uncheckedExceptions:
+    #        - LogicException
+    #        - PHPUnit\Framework\Exception
+    #        - PHPUnit\Framework\MockObject\RuntimeException
     ignoreErrors:
+        # false positive
+        - '#PHPDoc tag @uses has invalid value#'
+        - '#RowIterator\:\:getHighestRow\(\)#'
+
+        # needs generics support
+        - '#no value type specified in iterable type#'
+
         - message: '#Access to an undefined property object\:\:\$scalar\.#'
           path: %currentWorkingDirectory%/tests/Xezilaires/FilterIteratorTest.php
         - message: '#Call to deprecated method registerUniqueLoader\(\) of class Doctrine\\Common\\Annotations\\AnnotationRegistry#'

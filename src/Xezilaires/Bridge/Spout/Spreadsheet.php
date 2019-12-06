@@ -139,10 +139,10 @@ final class Spreadsheet implements SpreadsheetInterface
             $indexValue = $columnIndex;
             $base26 = '';
             do {
-                /** @var int $characterValue Psalm bug? */
-                $characterValue = ($indexValue % 26) ?: 26;
+                $normalizedIndexValue = $indexValue % 26;
+                $characterValue = $normalizedIndexValue > 0 ? $normalizedIndexValue : 26;
                 $indexValue = ($indexValue - $characterValue) / 26;
-                $base26 = \chr($characterValue + 64).($base26 ?: '');
+                $base26 = \chr($characterValue + 64).$base26;
             } while ($indexValue > 0);
 
             self::$indexCache[$columnIndex] = $base26;
