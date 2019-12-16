@@ -127,17 +127,19 @@ final class RowIterator implements Iterator
     public function getHighestRow(): int
     {
         if (null === $this->highestRow) {
-            $this->highestRow = 0;
+            $highestRow = 0;
 
             $this->iterator->rewind();
             while ($this->iterator->valid()) {
-                ++$this->highestRow;
+                ++$highestRow;
                 $this->iterator->next();
             }
 
             // NOTE: Spout goes out of bounds, but the index is not incremented
             // bug workaround
             $this->prev();
+
+            $this->highestRow = $highestRow;
         }
 
         return $this->highestRow;
