@@ -1,0 +1,41 @@
+name: Pull Request
+on: [pull_request]
+
+env:
+    DOCQA_DOCKER_COMMAND: " "
+    PHPQA_DOCKER_COMMAND: " "
+
+jobs:
+    MutationTest:
+        container: jakzal/phpqa:1.28-${{ matrix.php }}-alpine
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                php: [php7.2, php7.3, php7.4]
+                dependencies: [lowest, highest]
+        steps:
+            -   uses: actions/checkout@master
+            -   name: Composer install lowest dependencies
+                if: "matrix.dependencies == 'lowest'"
+                run: make composer-bare-install-lowest
+            -   name: Composer install highest dependencies
+                if: "matrix.dependencies == 'highest'"
+                run: make composer-bare-install
+            -   name: Run tests
+                run: make test
+    CodeQualityAnalysis:
+        container: jakzal/phpqa:1.28-php7.4-alpine
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@master
+            -   name: Composer install highest dependencies
+                run: make composer-bare-install
+            -   name: Run code quality analysis
+                run: make check
+    DocumentationQualityAnalysis:
+        container: dkarlovi/docqa:latest
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@master
+            -   name: Run documentation quality analysis
+                run: make doc
