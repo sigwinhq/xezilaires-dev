@@ -2,11 +2,15 @@ ifndef BUILD_ENV
 BUILD_ENV=php7.4
 endif
 
+ifndef DOCQA_DOCKER_COMMAND
 DOCQA_DOCKER_IMAGE=dkarlovi/docqa:latest
 DOCQA_DOCKER_COMMAND=docker run --init --interactive --rm --user "$(shell id -u):$(shell id -g)"  --volume "$(shell pwd)/var/tmp/docqa:/.cache" --volume "$(shell pwd):/project" --workdir /project ${DOCQA_DOCKER_IMAGE}
+endif
 
+ifndef PHPQA_DOCKER_COMMAND
 PHPQA_DOCKER_IMAGE=jakzal/phpqa:1.28-${BUILD_ENV}-alpine
 PHPQA_DOCKER_COMMAND=docker run --init --interactive --rm --env "COMPOSER_CACHE_DIR=/composer/cache" --user "$(shell id -u):$(shell id -g)" --volume "$(shell pwd)/var/tmp/phpqa:/tmp" --volume "$(shell pwd):/project" --volume "${HOME}/.composer:/composer" --workdir /project ${PHPQA_DOCKER_IMAGE}
+endif
 
 dist: composer-normalize cs phpstan psalm test doc
 ci: check test doc
@@ -20,7 +24,13 @@ composer-validate: ensure composer-normalize-check
 composer-install: fetch ensure
 	sh -c "${PHPQA_DOCKER_COMMAND} composer upgrade"
 
+composer-bare-install:
+	sh -c "${PHPQA_DOCKER_COMMAND} composer upgrade"
+
 composer-install-lowest: fetch ensure
+	sh -c "${PHPQA_DOCKER_COMMAND} composer upgrade --with-all-dependencies --prefer-lowest"
+
+composer-bare-install-lowest:
 	sh -c "${PHPQA_DOCKER_COMMAND} composer upgrade --with-all-dependencies --prefer-lowest"
 
 composer-normalize: ensure
@@ -51,10 +61,10 @@ infection: phpunit-coverage
 	sh -c "${PHPQA_DOCKER_COMMAND} phpdbg -qrr /tools/infection run --verbose --show-mutations --no-interaction --only-covered --coverage var/ --min-msi=100 --min-covered-msi=100 --threads 4"
 
 markdownlint: ensure
-	sh -c "${DOCQA_DOCKER_COMMAND} markdownlint *.md"
+	sh -c "${DOCQA_DOCKER_COMMAND} markdownlint *.md docs/"
 
 proselint: ensure
-	sh -c "${DOCQA_DOCKER_COMMAND} proselint README.md"
+	sh -c "${DOCQA_DOCKER_COMMAND} proselint README.md docs/"
 
 textlint: ensure
 	sh -c "${DOCQA_DOCKER_COMMAND} textlint -c docs/.textlintrc.dist README.md"
