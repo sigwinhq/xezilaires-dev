@@ -4,8 +4,7 @@ Xezilaires is a PHP 7 library which helps reading structured Excel files
 into PHP objects.
 
 [![Latest Stable Version](https://poser.pugx.org/dkarlovi/xezilaires/v/stable.png)](https://packagist.org/packages/dkarlovi/xezilaires)
-[![Travis CI Build Status](https://travis-ci.com/dkarlovi/xezilaires.svg?branch=master)](https://travis-ci.com/dkarlovi/xezilaires)
-[![Infection Mutation testing badge](https://badge.stryker-mutator.io/github.com/dkarlovi/xezilaires/master)](https://stryker-mutator.io/)
+[![Actions Status](https://github.com/dkarlovi/xezilaires/workflows/Continuous%20Integration/badge.svg)](https://github.com/dkarlovi/xezilaires/actions)
 [![PHPStan enabled](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)](https://github.com/phpstan/phpstan)
 
 ## What it does
@@ -105,7 +104,7 @@ Features included:
 *(using `doctrine/annotations`)*
 - mapping via **column names** or **header labels**  
 *(saying "Map header label `PrdctEN` to property `product`")*
-- **A Symfony bundle**
+- **A Symfony bundle**  
 *(for easy integration into existing apps)*
 - CLI *(command-line interface)* tool
 
