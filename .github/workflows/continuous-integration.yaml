@@ -11,7 +11,7 @@ env:
 
 jobs:
     MutationTest:
-        container: jakzal/phpqa:1.28-${{ matrix.php }}-alpine
+        container: jakzal/phpqa:1.29-${{ matrix.php }}-alpine
         runs-on: ubuntu-latest
         strategy:
             matrix:
@@ -28,7 +28,7 @@ jobs:
             -   name: Run tests
                 run: make test
     CodeQualityAnalysis:
-        container: jakzal/phpqa:1.28-php7.4-alpine
+        container: jakzal/phpqa:1.29-php7.4-alpine
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@master
