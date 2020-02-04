@@ -7,13 +7,11 @@ on:
 
 env:
     DOCQA_DOCKER_COMMAND: " "
-    DOCQA_DOCKER_IMAGE: dkarlovi/docqa:latest
     PHPQA_DOCKER_COMMAND: " "
-    PHPQA_DOCKER_IMAGE: jakzal/phpqa:1.29
 
 jobs:
     MutationTest:
-        container: ${{ env.PHPQA_DOCKER_IMAGE }}-${{ matrix.php }}-alpine
+        container: jakzal/phpqa:1.29-${{ matrix.php }}-alpine
         runs-on: ubuntu-latest
         strategy:
             matrix:
@@ -30,7 +28,7 @@ jobs:
             -   name: Run tests
                 run: make test
     CodeQualityAnalysis:
-        container: ${{ env.PHPQA_DOCKER_IMAGE }}-php7.4-alpine
+        container: jakzal/phpqa:1.29-php7.4-alpine
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@master
@@ -39,7 +37,7 @@ jobs:
             -   name: Run code quality analysis
                 run: make check
     DocumentationQualityAnalysis:
-        container: ${{ env.DOCQA_DOCKER_IMAGE }}
+        container: dkarlovi/docqa:latest
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@master
