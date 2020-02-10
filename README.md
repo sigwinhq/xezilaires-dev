@@ -4,8 +4,9 @@ Xezilaires is a PHP 7 library which helps reading structured Excel files
 into PHP objects.
 
 [![Latest Stable Version](https://poser.pugx.org/dkarlovi/xezilaires/v/stable.png)](https://packagist.org/packages/dkarlovi/xezilaires)
-[![Actions Status](https://github.com/dkarlovi/xezilaires/workflows/Continuous%20Integration/badge.svg)](https://github.com/dkarlovi/xezilaires/actions)
+[![Actions Status](https://github.com/dkarlovi/xezilaires/workflows/Build/badge.svg)](https://github.com/dkarlovi/xezilaires/actions)
 [![PHPStan enabled](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)](https://github.com/phpstan/phpstan)
+[![Psalm enabled](https://img.shields.io/badge/Psalm-enabled-brightgreen.svg?style=flat)](https://github.com/vimeo/psalm)
 
 ## What it does
 
