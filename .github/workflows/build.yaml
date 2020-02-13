@@ -11,7 +11,7 @@ env:
 
 jobs:
     MutationTest:
-        container: jakzal/phpqa:1.30-${{ matrix.php }}-alpine
+        container: jakzal/phpqa:1.31-${{ matrix.php }}-alpine
         runs-on: ubuntu-latest
         strategy:
             matrix:
@@ -25,17 +25,21 @@ jobs:
             -   name: Composer install highest dependencies
                 if: "matrix.dependencies == 'highest'"
                 run: make composer-bare-install
+            -   name: GitHub pull request annotations support
+                run: composer require mheap/phpunit-github-actions-printer
             -   name: Run tests
-                run: make test
+                run: make ci-test
     CodeQualityAnalysis:
-        container: jakzal/phpqa:1.29-php7.4-alpine
+        container: jakzal/phpqa:1.31-php7.4-alpine
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@master
             -   name: Composer install highest dependencies
                 run: make composer-bare-install
+            -   name: GitHub pull request annotations support
+                run: composer require staabm/annotate-pull-request-from-checkstyle
             -   name: Run code quality analysis
-                run: make check
+                run: make ci-check
     DocumentationQualityAnalysis:
         container: dkarlovi/docqa:latest
         runs-on: ubuntu-latest
