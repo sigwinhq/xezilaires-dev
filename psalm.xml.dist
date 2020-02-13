@@ -3,7 +3,6 @@
        xmlns="https://getpsalm.org/schema/config"
        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
        cacheDirectory="var/psalm"
-       strictBinaryOperands="false"
        totallyTyped="true">
     
     <projectFiles>
