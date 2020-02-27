@@ -11,6 +11,10 @@ parameters:
     paths:
         - ./
     excludes_analyse:
+        - src/Bridge/*/var/*
+        - src/Bridge/*/vendor/*
+        - src/Xezilaires/var/
+        - src/Xezilaires/vendor/
         - var/
         - vendor/
     #exceptionRules:
@@ -20,10 +24,10 @@ parameters:
     #        - PHPUnit\Framework\MockObject\RuntimeException
     ignoreErrors:
         - message: '#Access to an undefined property object\:\:\$scalar\.#'
-          path: %currentWorkingDirectory%/tests/Xezilaires/FilterIteratorTest.php
+          path: %currentWorkingDirectory%/src/Xezilaires/Test/FilterIteratorTest.php
         - message: '#Call to deprecated method registerUniqueLoader\(\) of class Doctrine\\Common\\Annotations\\AnnotationRegistry#'
           path: %currentWorkingDirectory%/src/Xezilaires/Metadata/Annotation/AnnotationDriver.php
-        - message: '#Return type \(bool\) of method class@anonymous\/tests\/Xezilaires\/FixtureTrait\.php:28::getRealPath\(\) should be covariant with return type \(string\|false\) of method SplFileInfo::getRealPath\(\)#'
+        - message: '#Return type \(bool\) of method class@anonymous\/src\/Xezilaires\/Test\/FixtureTrait\.php:28::getRealPath\(\) should be covariant with return type \(string\|false\) of method SplFileInfo::getRealPath\(\)#'
           paths:
-            - %currentWorkingDirectory%/tests/Xezilaires/Bridge/Spout/SpreadsheetTest.php
-            - %currentWorkingDirectory%/tests/Xezilaires/Functional/FunctionalTestCase.php
+            - %currentWorkingDirectory%/src/Bridge/Spout/Test/SpreadsheetTest.php
+            - %currentWorkingDirectory%/src/Xezilaires/Test/Functional/FunctionalTestCase.php

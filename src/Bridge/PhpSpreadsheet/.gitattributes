@@ -1,0 +1,3 @@
+/Test export-ignore
+/.* export-ignore
+/*dist export-ignore

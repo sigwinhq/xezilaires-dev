@@ -6,7 +6,7 @@
          beStrictAboutOutputDuringTests="true"
          beStrictAboutResourceUsageDuringSmallTests="true"
          beStrictAboutTodoAnnotatedTests="true"
-         bootstrap="./src/bootstrap.php"
+         bootstrap="./vendor/autoload.php"
          colors="true"
          executionOrder="random"
          failOnRisky="true"
@@ -15,22 +15,17 @@
          verbose="true">
     <testsuites>
         <testsuite name="Xezilaires">
-            <directory>./src/Xezilaires/Test</directory>
-            <directory>./src/Bridge/*/Test</directory>
+            <directory>./Test</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src/Xezilaires</directory>
-            <directory suffix=".php">./src/Bridge</directory>
+            <directory suffix=".php">./</directory>
             <exclude>
-                <directory suffix=".php">./src/Xezilaires/Exception</directory>
-                <directory suffix=".php">./src/Xezilaires/Test</directory>
-                <directory suffix=".php">./src/Xezilaires/vendor</directory>
-                <directory suffix=".php">./src/Xezilaires/var</directory>
-                <directory suffix=".php">./src/Bridge/*/Test</directory>
-                <directory suffix=".php">./src/Bridge/*/vendor</directory>
-                <directory suffix=".php">./src/Bridge/*/var</directory>
+                <directory suffix=".php">./Exception</directory>
+                <directory suffix=".php">./Test</directory>
+                <directory suffix=".php">./var</directory>
+                <directory suffix=".php">./vendor</directory>
             </exclude>
         </whitelist>
     </filter>

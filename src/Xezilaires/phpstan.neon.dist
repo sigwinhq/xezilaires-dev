@@ -1,0 +1,22 @@
+includes:
+    - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-deprecation-rules/rules.neon
+    - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-strict-rules/rules.neon
+    - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-phpunit/extension.neon
+parameters:
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+    tmpDir: %currentWorkingDirectory%/var/phpstan
+    level: max
+    paths:
+        - ./
+    excludes_analyse:
+        - var/
+        - vendor/
+    ignoreErrors:
+        - message: '#Access to an undefined property object\:\:\$scalar\.#'
+          path: %currentWorkingDirectory%/Test/FilterIteratorTest.php
+        - message: '#Call to deprecated method registerUniqueLoader\(\) of class Doctrine\\Common\\Annotations\\AnnotationRegistry#'
+          path: %currentWorkingDirectory%/Metadata/Annotation/AnnotationDriver.php
+        - message: '#Return type \(bool\) of method class@anonymous\/Test\/FixtureTrait\.php:28::getRealPath\(\) should be covariant with return type \(string\|false\) of method SplFileInfo::getRealPath\(\)#'
+          paths:
+            - %currentWorkingDirectory%/Test/Functional/FunctionalTestCase.php

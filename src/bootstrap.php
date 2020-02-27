@@ -19,21 +19,11 @@ $autoLoaders = [
     __DIR__.'/../../../autoload.php',
 ];
 
-$found = false;
 foreach ($autoLoaders as $autoLoader) {
     if (true === file_exists($autoLoader)) {
         /* @noinspection PhpIncludeInspection */
-        include $autoLoader;
-
-        $found = true;
-        break;
+        return include $autoLoader;
     }
 }
 
-if (false === $found) {
-    fwrite(
-        STDERR,
-        'You must set up the project dependencies using `composer install`'.PHP_EOL
-    );
-    exit(1);
-}
+fwrite(STDERR, 'You must set up the project dependencies using `composer install`'.PHP_EOL);

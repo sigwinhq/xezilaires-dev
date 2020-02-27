@@ -11,14 +11,11 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Xezilaires;
+namespace Xezilaires\Serializer;
 
-interface Denormalizer
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
+use Xezilaires\Exception as BaseException;
+
+interface Exception extends BaseException, ExceptionInterface
 {
-    /**
-     * @psalm-param class-string $class
-     *
-     * @throws Exception
-     */
-    public function denormalize(array $data, string $class, ?string $format = null, array $context = []): object;
 }

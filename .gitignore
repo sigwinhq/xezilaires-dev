@@ -1,7 +1,4 @@
-/resources/fixtures/.~lock.*
-/vendor/
-/var/
-/composer.lock
-classes.map
-annotations.map
-/*.cache
+var
+vendor
+composer.lock
+*.cache

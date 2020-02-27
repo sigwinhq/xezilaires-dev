@@ -22,7 +22,7 @@ require_once __DIR__.'/../../vendor/autoload.php';
 $symfonySerializer = new \Symfony\Component\Serializer\Serializer([
     new \Symfony\Component\Serializer\Normalizer\PropertyNormalizer(),
 ]);
-$normalizer = new \Xezilaires\Bridge\Symfony\Serializer\ObjectSerializer($symfonySerializer);
+$normalizer = new \Xezilaires\Serializer\ObjectSerializer($symfonySerializer);
 $iteratorFactory = new \Xezilaires\SpreadsheetIteratorFactory($normalizer);
 // </demo>
 

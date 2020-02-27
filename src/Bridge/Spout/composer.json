@@ -1,0 +1,36 @@
+{
+    "name": "dkarlovi/xezilaires-spout",
+    "type": "library",
+    "description": "Iterate Excel spreadsheets, normalize rows into value objects, validate, serialize into CSV, JSON, XML",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dalibor Karlović",
+            "email": "dalibor.karlovic@flexolabs.io"
+        }
+    ],
+    "require": {
+        "php": ">= 7.2.0",
+        "box/spout": "^3.0",
+        "dkarlovi/xezilaires": "^0.3"
+    },
+    "suggest": {
+        "dkarlovi/xezilaires-symfony": "Symfony bundle integration, bin/xezilaires use"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Xezilaires\\Bridge\\Spout\\": "."
+        },
+        "exclude-from-classmap": [
+            "/Test/"
+        ]
+    }
+}

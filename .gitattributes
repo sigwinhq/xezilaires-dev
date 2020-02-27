@@ -1,6 +1,7 @@
 /docs export-ignore
 /resources export-ignore
-/tests export-ignore
+/src/Xezilaires/Bridge/*/Test export-ignore
+/src/Xezilaires/Test export-ignore
 /.* export-ignore
 /*dist export-ignore
 /Makefile export-ignore

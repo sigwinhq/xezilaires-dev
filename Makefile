@@ -13,8 +13,10 @@ PHPQA_DOCKER_COMMAND=docker run --init --interactive --rm --env "COMPOSER_CACHE_
 endif
 
 dist: composer-normalize cs phpstan psalm test doc
-check: composer-validate cs-check phpstan psalm
-ci-check: composer-validate ci-cs-check ci-phpstan ci-psalm
+check: composer-validate cs-check analyze
+analyze: phpstan psalm
+ci-analyze: ci-phpstan ci-psalm
+ci-check: composer-validate ci-cs-check ci-analyze
 test: infection
 ci-test: ci-infection
 doc: markdownlint textlint proselint vale
@@ -78,4 +80,4 @@ fetch:
 	docker pull "${DOCQA_DOCKER_IMAGE}"
 	docker pull "${PHPQA_DOCKER_IMAGE}"
 clean:
-	rm -rf var/
+	rm -rf var/cache/

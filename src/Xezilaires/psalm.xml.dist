@@ -6,58 +6,50 @@
        totallyTyped="true">
     
     <projectFiles>
-        <directory name="src/"/>
-        <ignoreFiles allowMissingFiles="true">
-            <directory name="src/Bridge/*/var/"/>
-            <directory name="src/Bridge/*/vendor/"/>
-            <directory name="src/Xezilaires/var/"/>
-            <directory name="src/Xezilaires/vendor/"/>
-            <directory name="vendor/"/>
+        <directory name="."/>
+        <ignoreFiles>
             <directory name="var/"/>
+            <directory name="vendor/"/>
         </ignoreFiles>
     </projectFiles>
 
     <issueHandlers>
         <DeprecatedMethod>
             <errorLevel type="info">
-                 <file name="src/Xezilaires/Metadata/Annotation/AnnotationDriver.php" />
+                 <file name="Metadata/Annotation/AnnotationDriver.php" />
              </errorLevel>
         </DeprecatedMethod>
         <InvalidCatch>
             <errorLevel type="info">
-                <file name="src/Xezilaires/Metadata/Mapping.php" />
+                <file name="Metadata/Mapping.php" />
             </errorLevel>
         </InvalidCatch>
         <InternalMethod>
             <errorLevel type="info">
-                <directory name="src/Xezilaires/Test/" />
-                <directory name="src/Bridge/*/Test/" />
+                <directory name="Test/" />
             </errorLevel>
         </InternalMethod>
         <MissingConstructor>
             <errorLevel type="info">
-                <directory name="src/Xezilaires/Annotation/" />
-                <directory name="src/Xezilaires/Test/Model/" />
+                <directory name="Annotation/" />
+                <directory name="Test/" />
             </errorLevel>
         </MissingConstructor>
         <RedundantCondition>
             <errorLevel type="info">
-                <file name="src/Xezilaires/Metadata/Annotation/AnnotationDriver.php" />
+                <file name="Metadata/Annotation/AnnotationDriver.php" />
             </errorLevel>
         </RedundantCondition>
         <PropertyNotSetInConstructor>
             <errorLevel type="info">
-                <directory name="src/Xezilaires/Test/" />
-                <directory name="src/Bridge/*/Test/" />
+                <directory name="Test/" />
             </errorLevel>
         </PropertyNotSetInConstructor>
 
         <!-- false positives -->
         <MixedMethodCall>
             <errorLevel type="info">
-                <file name="src/Bridge/PhpSpreadsheet/Test/RowIteratorTest.php" />
-                <file name="src/Bridge/Spout/Test/RowIteratorTest.php" />
-                <file name="src/Xezilaires/Test/SpreadsheetIteratorTest.php" />
+                <file name="Test/SpreadsheetIteratorTest.php" />
             </errorLevel>
         </MixedMethodCall>
     </issueHandlers>

@@ -5,8 +5,7 @@
     "timeout": 1,
     "source": {
         "directories": [
-            "src/Xezilaires",
-            "src/Bridge"
+            "."
         ]
     },
     "logs": {
