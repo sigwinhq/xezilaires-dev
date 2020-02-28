@@ -1,0 +1,44 @@
+{
+    "name": "dkarlovi/xezilaires-symfony",
+    "type": "library",
+    "description": "Iterate Excel spreadsheets, normalize rows into value objects, validate, serialize into CSV, JSON, XML",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dalibor Karlović",
+            "email": "dalibor.karlovic@flexolabs.io"
+        }
+    ],
+    "require": {
+        "php": ">= 7.2.0",
+        "dkarlovi/xezilaires": "^0.3",
+        "symfony/console": "^3.4 || ^4.0 || ^5.0",
+        "symfony/framework-bundle": "^3.4 || ^4.0 || ^5.0",
+        "symfony/property-access": "^3.4 || ^4.0 || ^5.0",
+        "symfony/property-info": "^3.4 || ^4.0 || ^5.0"
+    },
+    "require-dev": {
+        "matthiasnoback/symfony-dependency-injection-test": "^4.0",
+        "nyholm/symfony-bundle-test": "^1.5"
+    },
+    "suggest": {
+        "dkarlovi/xezilaires-phpspreadsheet": "Read Excel files with PhpSpreadsheet",
+        "dkarlovi/xezilaires-spout": "Read Excel files with Spout"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Xezilaires\\Bridge\\Symfony\\": "."
+        },
+        "exclude-from-classmap": [
+            "/Test/"
+        ]
+    }
+}

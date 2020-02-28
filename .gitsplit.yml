@@ -1,0 +1,9 @@
+splits:
+    - prefix: "src/Xezilaires"
+      target: "git@github.com:dkarlovi/xezilaires.git"
+    - prefix: "src/Bridge/PhpSpreadsheet"
+      target: "git@github.com:dkarlovi/xezilaires-phpspreadsheet.git"
+    - prefix: "src/Bridge/Spout"
+      target: "git@github.com:dkarlovi/xezilaires-spout.git"
+    - prefix: "src/Bridge/Symfony"
+      target: "git@github.com:dkarlovi/xezilaires-symfony.git"

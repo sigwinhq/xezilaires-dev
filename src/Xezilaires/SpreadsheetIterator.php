@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Xezilaires;
 
-use Xezilaires\Bridge\Symfony\Serializer\Exception as SerializerException;
 use Xezilaires\Exception\DenormalizerException;
 use Xezilaires\Exception\MappingException;
 use Xezilaires\Metadata\ArrayReference;
@@ -86,7 +85,7 @@ final class SpreadsheetIterator implements Iterator
 
         try {
             return $this->denormalizer->denormalize($data, $this->mapping->getClassName(), null, $this->context);
-        } catch (SerializerException $exception) {
+        } catch (Exception $exception) {
             throw DenormalizerException::denormalizationFailed($exception);
         }
     }

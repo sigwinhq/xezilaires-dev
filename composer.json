@@ -1,5 +1,5 @@
 {
-    "name": "dkarlovi/xezilaires",
+    "name": "dkarlovi/xezilaires-dev",
     "type": "library",
     "description": "Iterate Excel spreadsheets, normalize rows into value objects, validate, serialize into CSV, JSON, XML",
     "license": "MIT",
@@ -14,6 +14,12 @@
         "ext-json": "*",
         "symfony/options-resolver": "^3.4 || ^4.0 || ^5.0",
         "symfony/serializer": "^3.4 || ^4.0 || ^5.0"
+    },
+    "replace": {
+        "dkarlovi/xezilaires-core": "self.version",
+        "dkarlovi/xezilaires-phpspreadsheet": "self.version",
+        "dkarlovi/xezilaires-spout": "self.version",
+        "dkarlovi/xezilaires-symfony": "self.version"
     },
     "conflict": {
         "box/spout": "< 3.0",
@@ -45,17 +51,22 @@
         },
         "sort-packages": true
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
     "autoload": {
         "psr-4": {
-            "Xezilaires\\": "src/Xezilaires"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Xezilaires\\Test\\": "tests/Xezilaires"
-        }
+            "Xezilaires\\": "src/Xezilaires",
+            "Xezilaires\\Bridge\\": "src/Bridge"
+        },
+        "exclude-from-classmap": [
+            "**/src/Xezilaires/Test/",
+            "**/src/Bridge/*/Test/"
+        ]
     },
     "bin": [
-        "bin/xezilaires"
+        "src/Bridge/Symfony/bin/xezilaires"
     ]
 }
