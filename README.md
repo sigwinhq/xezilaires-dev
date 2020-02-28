@@ -34,11 +34,13 @@ $symfonySerializer = new \Symfony\Component\Serializer\Serializer([
     new \Symfony\Component\Serializer\Normalizer\PropertyNormalizer(),
 ]);
 $normalizer = new \Xezilaires\Bridge\Symfony\Serializer\ObjectSerializer($symfonySerializer);
-$iteratorFactory = new \Xezilaires\SpreadsheetIteratorFactory($normalizer);
+$iteratorFactory = new \Xezilaires\SpreadsheetIteratorFactory($normalizer, [
+    \Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet::class,
+]);
 
 $iterator = $iteratorFactory->fromFile(
-    // https://github.com/dkarlovi/xezilaires/raw/master/resources/fixtures/products.xlsx
-    new \SplFileObject(__DIR__.'/../../resources/fixtures/products.xlsx'),
+    // https://github.com/dkarlovi/xezilaires-dev/raw/master/src/Xezilaires/Test/resources/fixtures/products.xlsx
+    new \SplFileObject(__DIR__.'/../../src/Xezilaires/Test/resources/fixtures/products.xlsx'),
     new \Xezilaires\Metadata\Mapping(
         Model\Product::class,
         [
@@ -72,12 +74,14 @@ $symfonySerializer = new \Symfony\Component\Serializer\Serializer([
     new \Symfony\Component\Serializer\Normalizer\PropertyNormalizer(),
 ]);
 $normalizer = new \Xezilaires\Bridge\Symfony\Serializer\ObjectSerializer($symfonySerializer);
-$iteratorFactory = new \Xezilaires\SpreadsheetIteratorFactory($normalizer);
+$iteratorFactory = new \Xezilaires\SpreadsheetIteratorFactory($normalizer, [
+    \Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet::class,
+]);
 $annotationDriver = new \Xezilaires\Metadata\Annotation\AnnotationDriver();
 
 $iterator = $iteratorFactory->fromFile(
-    // https://github.com/dkarlovi/xezilaires/raw/master/resources/fixtures/products.xlsx
-    new \SplFileObject(__DIR__.'/../../resources/fixtures/products.xlsx'),
+    // https://github.com/dkarlovi/xezilaires-dev/raw/master/src/Xezilaires/Test/resources/fixtures/products.xlsx
+    new \SplFileObject(__DIR__.'/../../src/Xezilaires/Test/resources/fixtures/products.xlsx'),
     $annotationDriver->getMetadataMapping(Product::class, ['reverse' => true])
 );
 ```

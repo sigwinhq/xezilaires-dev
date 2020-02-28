@@ -26,7 +26,7 @@ final class Application extends BaseApplication
   / . \  __// /| | | (_| | | | |  __/\__ \
  /_/ \_\___/___|_|_|\__,_|_|_|  \___||___/ ';
 
-    private const APP_VERSION = '0.1.0';
+    private const APP_VERSION = '0.3.0';
 
     public function __construct(KernelInterface $kernel)
     {

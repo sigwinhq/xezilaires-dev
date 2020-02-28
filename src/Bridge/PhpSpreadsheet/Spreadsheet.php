@@ -49,6 +49,11 @@ final class Spreadsheet implements SpreadsheetInterface
         $this->file = $file;
     }
 
+    public static function fromFile(\SplFileObject $file): SpreadsheetInterface
+    {
+        return new self($file);
+    }
+
     /**
      * {@inheritdoc}
      */

@@ -22,28 +22,30 @@ final class SpreadsheetIteratorFactory implements IteratorFactory
      */
     private $denormalizer;
 
-    public function __construct(Denormalizer $denormalizer)
+    /**
+     * @var array<class-string<Spreadsheet>>
+     */
+    private $spreadsheetClasses;
+
+    /**
+     * @param array<class-string<Spreadsheet>> $spreadsheetClasses
+     */
+    public function __construct(Denormalizer $denormalizer, array $spreadsheetClasses)
     {
         $this->denormalizer = $denormalizer;
+        $this->spreadsheetClasses = $spreadsheetClasses;
     }
 
     /**
      * @throws \RuntimeException
      */
-    public function fromFile(\SplFileObject $path, Mapping $mapping): Iterator
+    public function fromFile(\SplFileObject $file, Mapping $mapping): Iterator
     {
-        switch (true) {
-            case true === interface_exists(\PhpOffice\PhpSpreadsheet\Reader\IReader::class):
-                $spreadsheet = new Bridge\PhpSpreadsheet\Spreadsheet($path);
-                break;
-            case true === interface_exists(\Box\Spout\Reader\ReaderInterface::class):
-                $spreadsheet = new Bridge\Spout\Spreadsheet($path);
-                break;
-            default:
-                throw new \RuntimeException('Install either phpoffice/phpspreadsheet or box/spout to read Excel files');
+        foreach ($this->spreadsheetClasses as $spreadsheetClass) {
+            return $this->fromSpreadsheet($spreadsheetClass::fromFile($file), $mapping);
         }
 
-        return $this->fromSpreadsheet($spreadsheet, $mapping);
+        throw new \RuntimeException('Install either phpoffice/phpspreadsheet or box/spout to read Excel files');
     }
 
     public function fromSpreadsheet(Spreadsheet $spreadsheet, Mapping $mapping): Iterator

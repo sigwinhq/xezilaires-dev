@@ -15,6 +15,8 @@ namespace Xezilaires;
 
 interface Spreadsheet
 {
+    public static function fromFile(\SplFileObject $file): self;
+
     /**
      * @param int $startRowIndex row index where this iterator starts, one-based
      */
