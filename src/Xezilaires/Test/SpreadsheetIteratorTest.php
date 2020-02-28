@@ -73,7 +73,10 @@ final class SpreadsheetIteratorTest extends TestCase
             'prev' => ['count' => 0, 'params' => null],
             'next' => ['count' => 1, 'params' => null],
         ]));
+        $key = $iterator->key();
         $iterator->next();
+
+        static::assertGreaterThan($key, $iterator->key());
     }
 
     public function testWillOfferAnDidYouMeanForInvalidHeader(): void

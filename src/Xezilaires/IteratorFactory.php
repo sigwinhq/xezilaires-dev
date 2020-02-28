@@ -17,7 +17,7 @@ use Xezilaires\Metadata\Mapping;
 
 interface IteratorFactory
 {
-    public function fromFile(\SplFileObject $path, Mapping $mapping): Iterator;
+    public function fromFile(\SplFileObject $file, Mapping $mapping): Iterator;
 
     public function fromSpreadsheet(Spreadsheet $spreadsheet, Mapping $mapping): Iterator;
 }

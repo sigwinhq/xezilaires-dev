@@ -23,12 +23,14 @@ $symfonySerializer = new \Symfony\Component\Serializer\Serializer([
     new \Symfony\Component\Serializer\Normalizer\PropertyNormalizer(),
 ]);
 $normalizer = new \Xezilaires\Serializer\ObjectSerializer($symfonySerializer);
-$iteratorFactory = new \Xezilaires\SpreadsheetIteratorFactory($normalizer);
+$iteratorFactory = new \Xezilaires\SpreadsheetIteratorFactory($normalizer, [
+    \Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet::class,
+]);
 // </demo>
 
 $iterator = $iteratorFactory->fromFile(
     // https://github.com/dkarlovi/xezilaires/raw/master/resources/fixtures/products.xlsx
-    new \SplFileObject(__DIR__.'/../../resources/fixtures/products.xlsx'),
+    new \SplFileObject(__DIR__.'/../../src/Xezilaires/Test/resources/fixtures/products.xlsx'),
     new \Xezilaires\Metadata\Mapping(
         // what class to denormalize into
         Model\Product::class,

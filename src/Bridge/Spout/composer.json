@@ -14,6 +14,13 @@
         "box/spout": "^3.0",
         "dkarlovi/xezilaires": "^0.3"
     },
+    "require-dev": {
+        "doctrine/annotations": "^1.6",
+        "nyholm/nsa": "^1.1",
+        "phpunit/phpunit": "^8.5",
+        "symfony/property-access": "^3.4 || ^4.0 || ^5.0",
+        "symfony/property-info": "^3.4 || ^4.0 || ^5.0"
+    },
     "suggest": {
         "dkarlovi/xezilaires-symfony": "Symfony bundle integration, bin/xezilaires use"
     },

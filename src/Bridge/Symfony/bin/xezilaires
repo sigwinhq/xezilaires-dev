@@ -4,8 +4,8 @@
 use Xezilaires\Bridge\Symfony\AppKernel;
 use Xezilaires\Bridge\Symfony\Console\Application;
 
-if (version_compare('7.1.0', PHP_VERSION, '>')) {
-    fwrite(STDERR, 'Xezilaires requires PHP 7.1+'.PHP_EOL);
+if (version_compare('7.2.0', PHP_VERSION, '>')) {
+    fwrite(STDERR, 'Xezilaires requires PHP 7.2+'.PHP_EOL);
     exit(1);
 }
 
@@ -14,22 +14,25 @@ if (PHP_SAPI !== 'cli') {
     exit(1);
 }
 
-require __DIR__.'/../../../../../src/bootstrap.php';
+$autoLoaders = [
+    // own auto-loader
+    __DIR__.'/../vendor/autoload.php',
 
-$requirementsSatisfied = true;
-$requirements = [
-    \Symfony\Component\Console\Application::class => 'symfony/console',
-    \Symfony\Bundle\FrameworkBundle\FrameworkBundle::class => 'symfony/framework-bundle',
+    // mono-repo auto-loader
+    __DIR__.'/../../../../vendor/autoload.php',
 ];
-foreach ($requirements as $className => $requirement) {
-    if (false === class_exists($className)) {
-        fwrite(STDERR, sprintf('%1$s requires %2$s'.PHP_EOL, $_SERVER['argv'][0], $requirement));
-        $requirementsSatisfied = false;
+
+$found = false;
+foreach ($autoLoaders as $autoLoader) {
+    if (true === file_exists($autoLoader)) {
+        /* @noinspection PhpIncludeInspection */
+        include $autoLoader;
+
+        $found = true;
     }
 }
-
-if (false === $requirementsSatisfied) {
-    exit(1);
+if ($found === false) {
+    fwrite(STDERR, 'You must set up the project dependencies using `composer install`'.PHP_EOL);
 }
 
 if (false === ini_get('date.timezone')) {

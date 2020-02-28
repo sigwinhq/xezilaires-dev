@@ -41,7 +41,7 @@ final class AppKernel extends Kernel
      */
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
-        $loader->load(__DIR__.'/resources/config/services.xml');
+        $loader->load(__DIR__.'/Resources/bin-config/services.xml');
     }
 
     public function getCacheDir(): string

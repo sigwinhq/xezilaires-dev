@@ -17,15 +17,24 @@ use Nyholm\BundleTest\BaseBundleTestCase;
 use Xezilaires\Bridge\Symfony\XezilairesBundle;
 use Xezilaires\Denormalizer;
 use Xezilaires\IteratorFactory;
+use Xezilaires\Metadata\ColumnReference;
+use Xezilaires\Metadata\Mapping;
 use Xezilaires\Serializer;
 use Xezilaires\Serializer\ObjectSerializer;
+use Xezilaires\SpreadsheetIterator;
 use Xezilaires\SpreadsheetIteratorFactory;
+use Xezilaires\Test\FixtureTrait;
+use Xezilaires\Test\Model\Product;
 
 /**
  * @covers \Xezilaires\Bridge\Symfony\XezilairesBundle
  *
+ * @uses \Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet
  * @uses \Xezilaires\Bridge\Symfony\DependencyInjection\XezilairesExtension
  * @uses \Xezilaires\Serializer\ObjectSerializer
+ * @uses \Xezilaires\Metadata\Mapping
+ * @uses \Xezilaires\Metadata\ColumnReference
+ * @uses \Xezilaires\SpreadsheetIterator
  * @uses \Xezilaires\SpreadsheetIteratorFactory
  *
  * @group functional
@@ -37,6 +46,8 @@ use Xezilaires\SpreadsheetIteratorFactory;
  */
 final class XezilairesBundleTest extends BaseBundleTestCase
 {
+    use FixtureTrait;
+
     /**
      * @throws \Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException
      */
@@ -71,6 +82,23 @@ final class XezilairesBundleTest extends BaseBundleTestCase
 
         static::assertTrue($container->has(IteratorFactory::class));
         static::assertInstanceOf(SpreadsheetIteratorFactory::class, $container->get(IteratorFactory::class));
+    }
+
+    /**
+     * @throws \Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException
+     */
+    public function testIteratorFactoryWorks(): void
+    {
+        $this->bootKernel();
+        $container = $this->getContainer();
+
+        /** @var IteratorFactory $iteratorFactory */
+        $iteratorFactory = $container->get(IteratorFactory::class);
+
+        $mapping = new Mapping(Product::class, ['name' => new ColumnReference('A')]);
+        $iterator = $iteratorFactory->fromFile($this->fixture('products.xlsx'), $mapping);
+
+        static::assertInstanceOf(SpreadsheetIterator::class, $iterator);
     }
 
     /**

@@ -30,4 +30,5 @@ parameters:
         - message: '#Return type \(bool\) of method class@anonymous\/src\/Xezilaires\/Test\/FixtureTrait\.php:28::getRealPath\(\) should be covariant with return type \(string\|false\) of method SplFileInfo::getRealPath\(\)#'
           paths:
             - %currentWorkingDirectory%/src/Bridge/Spout/Test/SpreadsheetTest.php
+            - %currentWorkingDirectory%/src/Bridge/Symfony/Test/Functional/XezilairesBundleTest.php
             - %currentWorkingDirectory%/src/Xezilaires/Test/Functional/FunctionalTestCase.php

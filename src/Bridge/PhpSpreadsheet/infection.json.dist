@@ -5,8 +5,7 @@
     "timeout": 1,
     "source": {
         "directories": [
-            "src/Xezilaires",
-            "src/Bridge"
+            "."
         ]
     },
     "logs": {
@@ -15,11 +14,6 @@
     "mutators": {
         "@default": true,
         "IdenticalEqual": false,
-        "NotIdenticalNotEqual": false,
-        "MethodCallRemoval": {
-            "ignore": [
-                "Xezilaires\\Bridge\\Symfony\\DependencyInjection\\XezilairesExtension::load::44"
-            ]
-        }
+        "NotIdenticalNotEqual": false
     }
 }
