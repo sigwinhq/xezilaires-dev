@@ -1,5 +1,5 @@
 ifndef BUILD_ENV
-BUILD_ENV=php7.4
+BUILD_ENV=7.4
 endif
 
 ifndef DOCQA_DOCKER_COMMAND
@@ -8,7 +8,7 @@ DOCQA_DOCKER_COMMAND=docker run --init --interactive --rm --user "$(shell id -u)
 endif
 
 ifndef PHPQA_DOCKER_COMMAND
-PHPQA_DOCKER_IMAGE=jakzal/phpqa:1.31-${BUILD_ENV}-alpine
+PHPQA_DOCKER_IMAGE=jakzal/phpqa:1.34-php${BUILD_ENV}-alpine
 PHPQA_DOCKER_COMMAND=docker run --init --interactive --rm --env "COMPOSER_CACHE_DIR=/composer/cache" --user "$(shell id -u):$(shell id -g)" --volume "$(shell pwd)/var/tmp/phpqa:/tmp" --volume "$(shell pwd):/project" --volume "${HOME}/.composer:/composer" --workdir /project ${PHPQA_DOCKER_IMAGE}
 endif
 
