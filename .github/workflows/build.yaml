@@ -11,7 +11,7 @@ env:
 
 jobs:
     MutationTest:
-        container: jakzal/phpqa:1.34-php${{ matrix.php }}-alpine
+        container: jakzal/phpqa:1.35-php${{ matrix.php }}-alpine
         runs-on: ubuntu-latest
         strategy:
             matrix:
@@ -34,7 +34,7 @@ jobs:
                 if: "matrix.php != '7.2'"
                 run: make ci-test
     CodeQualityAnalysis:
-        container: jakzal/phpqa:1.34-php7.4-alpine
+        container: jakzal/phpqa:1.35-php7.4-alpine
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@master
