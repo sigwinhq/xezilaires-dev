@@ -15,10 +15,7 @@ endif
 dist: composer-normalize cs phpstan psalm test doc
 check: composer-validate cs-check analyze
 analyze: phpstan psalm
-ci-analyze: ci-phpstan ci-psalm
-ci-check: composer-validate ci-cs-check ci-analyze
 test: infection
-ci-test: ci-infection
 doc: markdownlint textlint proselint vale
 
 composer-validate: ensure composer-normalize-check
@@ -40,29 +37,19 @@ cs: ensure
 	sh -c "${PHPQA_DOCKER_COMMAND} php-cs-fixer fix --using-cache=false --diff -vvv"
 cs-check: ensure
 	sh -c "${PHPQA_DOCKER_COMMAND} php-cs-fixer fix --using-cache=false --dry-run --diff -vvv"
-ci-cs-check: ensure
-	sh -c "${PHPQA_DOCKER_COMMAND} php-cs-fixer fix --using-cache=false --dry-run --diff -vvv --format=checkstyle | vendor/bin/cs2pr"
 
 phpstan: ensure
 	sh -c "${PHPQA_DOCKER_COMMAND} phpstan analyse"
-ci-phpstan: ensure
-	sh -c "${PHPQA_DOCKER_COMMAND} phpstan analyse --error-format=checkstyle | vendor/bin/cs2pr"
 
 psalm: ensure
 	sh -c "${PHPQA_DOCKER_COMMAND} psalm --show-info=false --threads max"
-ci-psalm: ensure
-	sh -c "${PHPQA_DOCKER_COMMAND} psalm --show-info=false --threads max --output-format=checkstyle | vendor/bin/cs2pr"
 
 phpunit:
 	sh -c "${PHPQA_DOCKER_COMMAND} vendor/bin/phpunit --verbose"
 phpunit-coverage: ensure
 	sh -c "${PHPQA_DOCKER_COMMAND} php -d pcov.enabled=1 vendor/bin/phpunit --verbose --coverage-text --log-junit=var/junit.xml --coverage-xml var/coverage-xml/"
-ci-phpunit-coverage: ensure
-	sh -c "${PHPQA_DOCKER_COMMAND} php -d pcov.enabled=1 vendor/bin/phpunit --printer \"mheap\\GithubActionsReporter\\Printer\" --log-junit=var/junit.xml --coverage-xml var/coverage-xml/"
 
 infection: phpunit-coverage
-	sh -c "${PHPQA_DOCKER_COMMAND} infection run --verbose --show-mutations --no-interaction --only-covered --coverage var/ --min-msi=100 --min-covered-msi=100 --threads 4"
-ci-infection: ci-phpunit-coverage
 	sh -c "${PHPQA_DOCKER_COMMAND} infection run --verbose --show-mutations --no-interaction --only-covered --coverage var/ --min-msi=100 --min-covered-msi=100 --threads 4"
 
 markdownlint: ensure
