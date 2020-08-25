@@ -25,8 +25,6 @@ parameters:
     ignoreErrors:
         - message: '#Access to an undefined property object\:\:\$scalar\.#'
           path: %currentWorkingDirectory%/src/Xezilaires/Test/FilterIteratorTest.php
-        - message: '#Call to deprecated method registerUniqueLoader\(\) of class Doctrine\\Common\\Annotations\\AnnotationRegistry#'
-          path: %currentWorkingDirectory%/src/Xezilaires/Metadata/Annotation/AnnotationDriver.php
         - message: '#Return type \(bool\) of method class@anonymous\/src\/Xezilaires\/Test\/FixtureTrait\.php:28::getRealPath\(\) should be covariant with return type \(string\|false\) of method SplFileInfo::getRealPath\(\)#'
           paths:
             - %currentWorkingDirectory%/src/Bridge/Spout/Test/SpreadsheetTest.php
