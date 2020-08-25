@@ -11,7 +11,7 @@ env:
 
 jobs:
     MutationTest:
-        container: jakzal/phpqa:1.35-php${{ matrix.php }}-alpine
+        container: jakzal/phpqa:1.40-php${{ matrix.php }}-alpine
         runs-on: ubuntu-latest
         strategy:
             matrix:
@@ -25,25 +25,21 @@ jobs:
             -   name: Composer install highest dependencies
                 if: "matrix.dependencies == 'highest'"
                 run: make composer-bare-install
-            -   name: GitHub pull request annotations support
-                run: composer require mheap/phpunit-github-actions-printer
             -   name: Tests without mutation
                 if: "matrix.php == '7.2'"
-                run: make ci-phpunit-coverage
+                run: make phpunit-coverage
             -   name: Tests with mutation
                 if: "matrix.php != '7.2'"
-                run: make ci-test
+                run: make test
     CodeQualityAnalysis:
-        container: jakzal/phpqa:1.35-php7.4-alpine
+        container: jakzal/phpqa:1.40-php7.4-alpine
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@master
             -   name: Composer install highest dependencies
                 run: make composer-bare-install
-            -   name: GitHub pull request annotations support
-                run: composer require staabm/annotate-pull-request-from-checkstyle
             -   name: Run code quality analysis
-                run: make ci-check
+                run: make check
     DocumentationQualityAnalysis:
         container: dkarlovi/docqa:latest
         runs-on: ubuntu-latest
