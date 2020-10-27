@@ -10,20 +10,20 @@
         }
     ],
     "require": {
-        "php": ">= 7.2.0",
+        "php": "^7.3 || ^8.0",
         "ext-json": "*",
-        "symfony/options-resolver": "^3.4 || ^4.0 || ^5.0",
-        "symfony/serializer": "^3.4 || ^4.0 || ^5.0"
+        "symfony/options-resolver": "^4.4 || ^5.0",
+        "symfony/serializer": "^4.4 || ^5.0"
     },
     "require-dev": {
         "box/spout": "^3.0",
         "doctrine/annotations": "^1.6",
         "nicmart/tree": "^0.2,>= 0.2.4",
         "nyholm/nsa": "^1.1",
-        "phpunit/phpunit": "^8.5",
-        "symfony/console": "^3.4 || ^4.0 || ^5.0",
-        "symfony/property-access": "^3.4 || ^4.0 || ^5.0",
-        "symfony/property-info": "^3.4 || ^4.0 || ^5.0"
+        "phpunit/phpunit": "^9.5",
+        "symfony/console": "^4.4 || ^5.0",
+        "symfony/property-access": "^4.4 || ^5.0",
+        "symfony/property-info": "^4.4 || ^5.0"
     },
     "suggest": {
         "dkarlovi/xezilaires-phpspreadsheet": "Read Excel files with PhpSpreadsheet",

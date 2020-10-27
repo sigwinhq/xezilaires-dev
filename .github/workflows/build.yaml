@@ -11,11 +11,11 @@ env:
 
 jobs:
     MutationTest:
-        container: jakzal/phpqa:1.40-php${{ matrix.php }}-alpine
+        container: jakzal/phpqa:1.52-php${{ matrix.php }}-alpine
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                php: [7.2, 7.3, 7.4]
+                php: ["7.3", "7.4", "8.0"]
                 dependencies: [lowest, highest]
         steps:
             -   uses: actions/checkout@master
@@ -26,13 +26,13 @@ jobs:
                 if: "matrix.dependencies == 'highest'"
                 run: make composer-bare-install
             -   name: Tests without mutation
-                if: "matrix.php == '7.2'"
+                if: "matrix.php == '7.3'"
                 run: make phpunit-coverage
             -   name: Tests with mutation
-                if: "matrix.php != '7.2'"
+                if: "matrix.php != '7.3'"
                 run: make test
     CodeQualityAnalysis:
-        container: jakzal/phpqa:1.40-php7.4-alpine
+        container: jakzal/phpqa:1.52-php7.4-alpine
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@master

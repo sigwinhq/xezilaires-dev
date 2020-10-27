@@ -17,7 +17,6 @@ use Box\Spout\Common\Exception\IOException;
 use Box\Spout\Common\Exception\UnsupportedTypeException;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 use Box\Spout\Reader\Exception\ReaderNotOpenedException;
-use Box\Spout\Reader\IteratorInterface;
 use Box\Spout\Reader\ReaderInterface;
 use Box\Spout\Reader\SheetInterface;
 use Xezilaires\Exception\SpreadsheetException;
@@ -66,16 +65,11 @@ final class Spreadsheet implements SpreadsheetInterface
         }
 
         $sheet = $this->getActiveWorksheet();
-
-        /** @var IteratorInterface $iterator */
         $iterator = $sheet->getRowIterator();
 
         $this->iterator = new RowIterator($iterator, $startRowIndex);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getIterator(): Iterator
     {
         if (null === $this->iterator) {
@@ -107,7 +101,6 @@ final class Spreadsheet implements SpreadsheetInterface
         /** @var \ArrayObject $rowArrayObject */
         $rowArrayObject = $this->getIterator()->current();
 
-        /** @var array<string, null|float|int|string> $row */
         $row = [];
 
         /**

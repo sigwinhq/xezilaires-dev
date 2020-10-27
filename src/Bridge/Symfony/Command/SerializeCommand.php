@@ -25,9 +25,6 @@ use Xezilaires\Serializer;
 
 final class SerializeCommand extends Command
 {
-    /**
-     * @var string
-     */
     protected static $defaultName = 'xezilaires:serialize';
 
     /**
@@ -98,7 +95,7 @@ final class SerializeCommand extends Command
                 }
                 break;
             case 'json':
-                $context['json_encode_options'] = JSON_PRETTY_PRINT;
+                $context['json_encode_options'] = \JSON_PRETTY_PRINT;
                 break;
             case 'xml':
                 if (null === $xmlRoot) {

@@ -26,9 +26,6 @@ use Xezilaires\Validator;
 
 final class ValidateCommand extends Command
 {
-    /**
-     * @var string
-     */
     protected static $defaultName = 'xezilaires:validate';
 
     /**
@@ -43,7 +40,7 @@ final class ValidateCommand extends Command
 
     public function __construct(IteratorFactory $iteratorFactory, Validator $validator)
     {
-        parent::__construct(self::$defaultName);
+        parent::__construct('xezilaires:validate');
 
         $this->setDescription('Validate the input file');
 
