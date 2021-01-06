@@ -16,7 +16,9 @@ namespace Xezilaires\Bridge\Symfony\Test\Functional\DependencyInjection;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Xezilaires\Bridge\Symfony\Command\SerializeCommand;
+use Xezilaires\Bridge\Symfony\Command\ValidateCommand;
 use Xezilaires\Bridge\Symfony\DependencyInjection\XezilairesExtension;
+use Xezilaires\Bridge\Symfony\Validator;
 use Xezilaires\Denormalizer;
 use Xezilaires\IteratorFactory;
 use Xezilaires\Serializer;
@@ -34,6 +36,14 @@ use Xezilaires\Serializer\ObjectSerializer;
  */
 final class XezilairesExtensionTest extends AbstractExtensionTestCase
 {
+    public function testContainerHasValidator(): void
+    {
+        $this->load();
+
+        $this->assertContainerBuilderHasService('xezilaires.validator', Validator::class);
+        $this->assertContainerBuilderHasAlias(\Xezilaires\Validator::class, 'xezilaires.validator');
+    }
+
     public function testContainerHasSerializer(): void
     {
         $this->load();
@@ -56,7 +66,15 @@ final class XezilairesExtensionTest extends AbstractExtensionTestCase
         $this->load();
 
         $this->assertContainerBuilderHasService(SerializeCommand::class);
-        $this->assertContainerBuilderHasServiceDefinitionWithTag(SerializeCommand::class, 'console.command');
+        $this->assertContainerBuilderHasServiceDefinitionWithTag(SerializeCommand::class, 'console.command', ['command' => 'xezilaires:serialize']);
+    }
+
+    public function testContainerHasValidateCommand(): void
+    {
+        $this->load();
+
+        $this->assertContainerBuilderHasService(ValidateCommand::class);
+        $this->assertContainerBuilderHasServiceDefinitionWithTag(ValidateCommand::class, 'console.command', ['command' => 'xezilaires:validate']);
     }
 
     /**

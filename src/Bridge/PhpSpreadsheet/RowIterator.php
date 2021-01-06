@@ -36,7 +36,7 @@ final class RowIterator implements Iterator
     /**
      * {@inheritdoc}
      */
-    public function current(): ?object
+    public function current(): object
     {
         return $this->iterator->current();
     }
