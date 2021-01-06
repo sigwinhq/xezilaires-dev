@@ -43,5 +43,8 @@
         "exclude-from-classmap": [
             "/Test/"
         ]
-    }
+    },
+    "bin": [
+        "bin/xezilaires"
+    ]
 }

@@ -57,8 +57,8 @@ final class SerializeCommand extends Command
     {
         $this
             ->setName('xezilaires:serialize')
-            ->addArgument('path', InputArgument::REQUIRED, 'Path to file to process')
             ->addArgument('class', InputArgument::REQUIRED, 'Process the rows as class')
+            ->addArgument('path', InputArgument::REQUIRED, 'Path to file to process')
             ->addOption('format', 'f', InputOption::VALUE_OPTIONAL, 'Format to export to', 'json')
             ->addOption('reverse', 'r', InputOption::VALUE_NONE, 'Iterate in reverse')
             ->addOption('xml-root', null, InputOption::VALUE_OPTIONAL, 'Name of root node in XML format', 'root');
@@ -71,13 +71,13 @@ final class SerializeCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        /** @var string $path */
-        $path = $input->getArgument('path');
         /**
          * @var string $class
          * @psalm-var class-string $class
          */
         $class = $input->getArgument('class');
+        /** @var string $path */
+        $path = $input->getArgument('path');
         /** @var null|string $format */
         $format = $input->getOption('format');
         /** @var bool $reverse */
