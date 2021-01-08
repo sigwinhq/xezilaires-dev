@@ -30,7 +30,7 @@ use Xezilaires\Validator;
 /**
  * @covers \Xezilaires\Bridge\Symfony\XezilairesBundle
  *
- * @uses \Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet
+ * @uses \Xezilaires\Bridge\Spout\Spreadsheet
  * @uses \Xezilaires\Bridge\Symfony\DependencyInjection\XezilairesExtension
  * @uses \Xezilaires\Bridge\Symfony\Validator
  * @uses \Xezilaires\Serializer\ObjectSerializer

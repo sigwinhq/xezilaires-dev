@@ -35,11 +35,11 @@ final class XezilairesExtension extends Extension
 
         /** @var array<class-string<\Xezilaires\Spreadsheet>> $spreadsheetClasses */
         $spreadsheetClasses = [];
-        if (class_exists(\Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet::class)) {
-            $spreadsheetClasses[] = \Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet::class;
-        }
         if (class_exists(\Xezilaires\Bridge\Spout\Spreadsheet::class)) {
             $spreadsheetClasses[] = \Xezilaires\Bridge\Spout\Spreadsheet::class;
+        }
+        if (class_exists(\Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet::class)) {
+            $spreadsheetClasses[] = \Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet::class;
         }
 
         $container->setParameter('xezilaires.spreadsheet_classes', $spreadsheetClasses);
