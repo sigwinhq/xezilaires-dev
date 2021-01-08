@@ -48,13 +48,10 @@ final class RowIterator implements Iterator
     /**
      * {@inheritdoc}
      */
-    public function current(): ?object
+    public function current(): object
     {
-        /** @var null|Row $row */
+        /** @var Row $row */
         $row = $this->iterator->current();
-        if (null === $row) {
-            return null;
-        }
 
         /** @var array<int, null|float|int|string> $current */
         $current = $row->toArray();

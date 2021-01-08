@@ -15,7 +15,8 @@
         "symfony/console": "^3.4 || ^4.0 || ^5.0",
         "symfony/framework-bundle": "^3.4 || ^4.0 || ^5.0",
         "symfony/property-access": "^3.4 || ^4.0 || ^5.0",
-        "symfony/property-info": "^3.4 || ^4.0 || ^5.0"
+        "symfony/property-info": "^3.4 || ^4.0 || ^5.0",
+        "symfony/validator": "^3.4 || ^4.0 || ^5.0"
     },
     "require-dev": {
         "dkarlovi/xezilaires-phpspreadsheet": "^0.3",

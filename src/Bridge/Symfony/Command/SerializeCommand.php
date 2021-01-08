@@ -59,6 +59,7 @@ final class SerializeCommand extends Command
             ->setName('xezilaires:serialize')
             ->addArgument('class', InputArgument::REQUIRED, 'Process the rows as class')
             ->addArgument('path', InputArgument::REQUIRED, 'Path to file to process')
+            ->addOption('bundle', 'b', InputOption::VALUE_REQUIRED, 'Custom project-specific bundle to load')
             ->addOption('format', 'f', InputOption::VALUE_OPTIONAL, 'Format to export to', 'json')
             ->addOption('reverse', 'r', InputOption::VALUE_NONE, 'Iterate in reverse')
             ->addOption('xml-root', null, InputOption::VALUE_OPTIONAL, 'Name of root node in XML format', 'root');

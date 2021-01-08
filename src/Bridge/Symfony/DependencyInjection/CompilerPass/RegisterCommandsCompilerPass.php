@@ -16,7 +16,6 @@ namespace Xezilaires\Bridge\Symfony\DependencyInjection\CompilerPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-use Xezilaires\Bridge\Symfony\Command\SerializeCommand;
 
 /**
  * @internal
@@ -39,21 +38,22 @@ final class RegisterCommandsCompilerPass implements CompilerPassInterface
             }
 
             if (0 !== mb_strpos($className, 'Xezilaires')) {
-                // $container->removeDefinition($id);
+                $container->removeDefinition($id);
+
+                continue;
             }
 
-            if ($className === SerializeCommand::class) {
-                $arguments = $definition->getArguments();
+            $arguments = $definition->getArguments();
+            /** @var array<array<string, string>> $tags */
+            $tags = $definition->getTags()['console.command'];
 
-                $definition = new Definition($className);
-                $definition->setArguments($arguments);
-                $definition->addTag('console.command', [
-                    'command' => 'serialize',
-                ]);
-                $container->addDefinitions([
-                    $id => $definition,
-                ]);
-            }
+            // TODO: error handling
+            $command = explode(':', current($tags)['command'])[1];
+
+            $definition = new Definition($className);
+            $definition->setArguments($arguments);
+            $definition->addTag('console.command', ['command' => $command]);
+            $container->setDefinition($id, $definition);
         }
     }
 }

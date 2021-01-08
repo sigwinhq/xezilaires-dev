@@ -28,17 +28,18 @@ final class XezilairesExtension extends Extension
     public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('validator.xml');
         $loader->load('serializer.xml');
         $loader->load('iterator.xml');
         $loader->load('application.xml');
 
         /** @var array<class-string<\Xezilaires\Spreadsheet>> $spreadsheetClasses */
         $spreadsheetClasses = [];
-        if (class_exists(\Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet::class)) {
-            $spreadsheetClasses[] = \Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet::class;
-        }
         if (class_exists(\Xezilaires\Bridge\Spout\Spreadsheet::class)) {
             $spreadsheetClasses[] = \Xezilaires\Bridge\Spout\Spreadsheet::class;
+        }
+        if (class_exists(\Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet::class)) {
+            $spreadsheetClasses[] = \Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet::class;
         }
 
         $container->setParameter('xezilaires.spreadsheet_classes', $spreadsheetClasses);

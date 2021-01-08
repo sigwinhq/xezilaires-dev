@@ -42,7 +42,7 @@ final class RowIteratorTest extends TestCase
     {
         $iterator = new RowIterator($this->mockIterator([
             'valid' => ['count' => 0, 'params' => null, 'return' => false],
-            'current' => ['count' => 1, 'params' => null],
+            'current' => ['count' => 1, 'params' => null, 'return' => new \stdClass()],
             'prev' => ['count' => 0, 'params' => null],
             'next' => ['count' => 0, 'params' => null],
         ]));
@@ -72,7 +72,7 @@ final class RowIteratorTest extends TestCase
     }
 
     /**
-     * @param null|array<string, array<string, null|bool|int>> $counts
+     * @param null|array<string, array<string, null|bool|int|object>> $counts
      */
     private function mockIterator(?array $counts = null): PhpspreadsheetRowIterator
     {

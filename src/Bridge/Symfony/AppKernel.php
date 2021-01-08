@@ -26,14 +26,29 @@ use Xezilaires\Bridge\Symfony\DependencyInjection\CompilerPass\RegisterCommandsC
 final class AppKernel extends Kernel
 {
     /**
+     * @var BundleInterface[]
+     */
+    private $customBundles;
+
+    /**
+     * @param BundleInterface[] $customBundles
+     */
+    public function __construct(array $customBundles)
+    {
+        parent::__construct('prod', false);
+
+        $this->customBundles = $customBundles;
+    }
+
+    /**
      * @return BundleInterface[]
      */
     public function registerBundles(): array
     {
-        return [
+        return array_merge([
             new FrameworkBundle(),
             new XezilairesBundle(),
-        ];
+        ], $this->customBundles);
     }
 
     /**
@@ -46,12 +61,12 @@ final class AppKernel extends Kernel
 
     public function getCacheDir(): string
     {
-        return sys_get_temp_dir().'/xezilaires-'.md5(__DIR__);
+        return '/dev/shm/'.sha1(__DIR__.time()).'/logs';
     }
 
     public function getLogDir(): string
     {
-        return sys_get_temp_dir().'/xezilaires-'.md5(__DIR__);
+        return '/dev/shm/'.sha1(__DIR__.time()).'/logs';
     }
 
     protected function build(ContainerBuilder $container): void

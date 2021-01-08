@@ -13,16 +13,7 @@ declare(strict_types=1);
 
 namespace Xezilaires;
 
-interface Iterator extends \Iterator
+interface Validator
 {
-    public function current(): object;
-
-    public function key(): int;
-
-    /**
-     * @param int $rowIndex row index to seek to, one-based
-     */
-    public function seek(int $rowIndex): void;
-
-    public function prev(): void;
+    public function validate(object $object): \Symfony\Component\Validator\ConstraintViolationListInterface;
 }

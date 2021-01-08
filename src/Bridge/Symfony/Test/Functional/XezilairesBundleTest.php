@@ -25,12 +25,14 @@ use Xezilaires\SpreadsheetIterator;
 use Xezilaires\SpreadsheetIteratorFactory;
 use Xezilaires\Test\FixtureTrait;
 use Xezilaires\Test\Model\Product;
+use Xezilaires\Validator;
 
 /**
  * @covers \Xezilaires\Bridge\Symfony\XezilairesBundle
  *
- * @uses \Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet
+ * @uses \Xezilaires\Bridge\Spout\Spreadsheet
  * @uses \Xezilaires\Bridge\Symfony\DependencyInjection\XezilairesExtension
+ * @uses \Xezilaires\Bridge\Symfony\Validator
  * @uses \Xezilaires\Serializer\ObjectSerializer
  * @uses \Xezilaires\Metadata\Mapping
  * @uses \Xezilaires\Metadata\ColumnReference
@@ -47,6 +49,18 @@ use Xezilaires\Test\Model\Product;
 final class XezilairesBundleTest extends BaseBundleTestCase
 {
     use FixtureTrait;
+
+    /**
+     * @throws \Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException
+     */
+    public function testBundleHasValidator(): void
+    {
+        $this->bootKernel();
+        $container = $this->getContainer();
+
+        static::assertTrue($container->has(Validator::class));
+        static::assertInstanceOf(\Xezilaires\Bridge\Symfony\Validator::class, $container->get(Validator::class));
+    }
 
     /**
      * @throws \Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException
@@ -107,5 +121,13 @@ final class XezilairesBundleTest extends BaseBundleTestCase
     protected function getBundleClass(): string
     {
         return XezilairesBundle::class;
+    }
+
+    protected function bootKernel(): void
+    {
+        $kernel = $this->createKernel();
+        $kernel->addConfigFile(__DIR__.'/config.yaml');
+
+        parent::bootKernel();
     }
 }

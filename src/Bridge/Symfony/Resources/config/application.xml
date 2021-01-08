@@ -10,7 +10,15 @@
             <argument type="service" id="Xezilaires\IteratorFactory"/>
             <argument type="service" id="Xezilaires\Serializer"/>
 
-            <tag name="console.command"/>
+            <tag name="console.command" command="xezilaires:serialize"/>
+        </service>
+
+        <service id="Xezilaires\Bridge\Symfony\Command\ValidateCommand"
+                 class="Xezilaires\Bridge\Symfony\Command\ValidateCommand">
+            <argument type="service" id="Xezilaires\IteratorFactory"/>
+            <argument type="service" id="Xezilaires\Validator"/>
+
+            <tag name="console.command" command="xezilaires:validate"/>
         </service>
     </services>
 </container>
