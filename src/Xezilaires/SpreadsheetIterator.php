@@ -53,11 +53,6 @@ final class SpreadsheetIterator implements Iterator
      */
     private $headers;
 
-    /**
-     * @var int
-     */
-    private $index = 0;
-
     public function __construct(Spreadsheet $spreadsheet, Mapping $mapping, Denormalizer $denormalizer, array $context = [])
     {
         $this->spreadsheet = $spreadsheet;
@@ -95,8 +90,6 @@ final class SpreadsheetIterator implements Iterator
      */
     public function prev(): void
     {
-        --$this->index;
-
         $this->getIterator()->prev();
     }
 
@@ -105,8 +98,6 @@ final class SpreadsheetIterator implements Iterator
      */
     public function next(): void
     {
-        ++$this->index;
-
         $this->getIterator()->next();
     }
 
@@ -115,7 +106,7 @@ final class SpreadsheetIterator implements Iterator
      */
     public function key(): int
     {
-        return $this->index;
+        return $this->getIterator()->key();
     }
 
     /**
@@ -131,8 +122,6 @@ final class SpreadsheetIterator implements Iterator
      */
     public function rewind(): void
     {
-        $this->index = 0;
-
         $this->getIterator()->rewind();
     }
 
@@ -143,7 +132,6 @@ final class SpreadsheetIterator implements Iterator
     {
         /** @var int $start */
         $start = $this->mapping->getOption('start');
-        $this->index = $rowIndex;
 
         $this->getIterator()->seek($start + $rowIndex);
     }

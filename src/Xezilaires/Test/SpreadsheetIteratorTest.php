@@ -70,6 +70,7 @@ final class SpreadsheetIteratorTest extends TestCase
         NSA::setProperty($iterator, 'iterator', $this->mockIterator([
             'valid' => ['count' => 0, 'params' => null, 'return' => true],
             'current' => ['count' => 0, 'params' => null],
+            'key' => ['count' => 2, 'params' => null, 'return' => [1, 2]],
             'prev' => ['count' => 0, 'params' => null],
             'next' => ['count' => 1, 'params' => null],
         ]));
@@ -102,7 +103,7 @@ final class SpreadsheetIteratorTest extends TestCase
     }
 
     /**
-     * @param null|array<string, array<string, null|bool|int>> $counts
+     * @param null|array<string, array<string, null|array<int>|bool|int>> $counts
      */
     private function mockIterator(?array $counts = null): Iterator
     {
@@ -123,7 +124,11 @@ final class SpreadsheetIteratorTest extends TestCase
                     ->with(...(array) $spec['params']);
 
                 if (isset($spec['return'])) {
-                    $mocker->willReturn($spec['return']);
+                    if (\is_array($spec['return'])) {
+                        $mocker->willReturnOnConsecutiveCalls(...$spec['return']);
+                    } else {
+                        $mocker->willReturn($spec['return']);
+                    }
                 }
             }
         }
