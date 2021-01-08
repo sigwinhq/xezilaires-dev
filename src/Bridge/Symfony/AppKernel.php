@@ -61,12 +61,12 @@ final class AppKernel extends Kernel
 
     public function getCacheDir(): string
     {
-        return sys_get_temp_dir().'/xezilaires-'.md5(__DIR__);
+        return '/dev/shm/'.sha1(__DIR__.time()).'/logs';
     }
 
     public function getLogDir(): string
     {
-        return sys_get_temp_dir().'/xezilaires-'.md5(__DIR__);
+        return '/dev/shm/'.sha1(__DIR__.time()).'/logs';
     }
 
     protected function build(ContainerBuilder $container): void
