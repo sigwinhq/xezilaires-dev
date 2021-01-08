@@ -16,6 +16,7 @@ namespace Xezilaires\Bridge\Symfony\Command;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Validator\ConstraintViolationInterface;
@@ -58,7 +59,8 @@ final class ValidateCommand extends Command
         $this
             ->setName('xezilaires:serialize')
             ->addArgument('class', InputArgument::REQUIRED, 'Process the rows as class')
-            ->addArgument('path', InputArgument::REQUIRED, 'Path to file to process');
+            ->addArgument('path', InputArgument::REQUIRED, 'Path to file to process')
+            ->addOption('bundle', 'b', InputOption::VALUE_REQUIRED, 'Custom project-specific bundle to load');
     }
 
     /**

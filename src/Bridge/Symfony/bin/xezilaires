@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Xezilaires\Bridge\Symfony\AppKernel;
 use Xezilaires\Bridge\Symfony\Console\Application;
 
@@ -39,7 +41,7 @@ foreach ($autoLoaders as $autoLoader) {
 }
 if ($found === false) {
     fwrite(STDERR, 'You must set up the project dependencies using `composer install`'.PHP_EOL);
-    
+
     exit(1);
 }
 
@@ -47,7 +49,25 @@ if (false === ini_get('date.timezone')) {
     ini_set('date.timezone', 'UTC');
 }
 
-$kernel = new AppKernel('prod', false);
+$bundles = [];
+$input = new ArgvInput();
+if (null !== $bundleClass = $input->getParameterOption(['--bundle', '-b'], null, true)) {
+    if (class_exists($bundleClass) === false) {
+        fwrite(STDERR, sprintf('Bundle class `%1$s` does not exist, quitting.'.PHP_EOL, $bundleClass));
+
+        exit(1);
+    }
+
+    if (is_a($bundleClass, BundleInterface::class, true) === false) {
+        fwrite(STDERR, sprintf('`%1$s` does not implement `%2$s`, not a proper bundle class.'.PHP_EOL, $bundleClass, BundleInterface::class));
+
+        exit(1);
+    }
+
+    $bundles[] = new $bundleClass;
+}
+
+$kernel = new AppKernel($bundles);
 $kernel->boot();
 
 $application = new Application($kernel);

@@ -26,14 +26,29 @@ use Xezilaires\Bridge\Symfony\DependencyInjection\CompilerPass\RegisterCommandsC
 final class AppKernel extends Kernel
 {
     /**
+     * @var BundleInterface[]
+     */
+    private $customBundles;
+
+    /**
+     * @param BundleInterface[] $customBundles
+     */
+    public function __construct(array $customBundles)
+    {
+        parent::__construct('prod', false);
+
+        $this->customBundles = $customBundles;
+    }
+
+    /**
      * @return BundleInterface[]
      */
     public function registerBundles(): array
     {
-        return [
+        return array_merge([
             new FrameworkBundle(),
             new XezilairesBundle(),
-        ];
+        ], $this->customBundles);
     }
 
     /**
