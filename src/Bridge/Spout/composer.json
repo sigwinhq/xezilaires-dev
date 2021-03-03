@@ -1,18 +1,18 @@
 {
-    "name": "dkarlovi/xezilaires-spout",
+    "name": "sigwin/xezilaires-spout",
     "type": "library",
     "description": "Iterate Excel spreadsheets, normalize rows into value objects, validate, serialize into CSV, JSON, XML",
     "license": "MIT",
     "authors": [
         {
             "name": "Dalibor Karlović",
-            "email": "dalibor.karlovic@flexolabs.io"
+            "email": "dalibor.karlovic@sigwin.hr"
         }
     ],
     "require": {
         "php": "^7.3 || ^8.0",
         "box/spout": "^3.0",
-        "dkarlovi/xezilaires": "^0.3"
+        "sigwin/xezilaires": "^0.3"
     },
     "require-dev": {
         "doctrine/annotations": "^1.6",
@@ -22,7 +22,7 @@
         "symfony/property-info": "^4.4 || ^5.0"
     },
     "suggest": {
-        "dkarlovi/xezilaires-symfony": "Symfony bundle integration, bin/xezilaires use"
+        "sigwin/xezilaires-symfony": "Symfony bundle integration, bin/xezilaires use"
     },
     "config": {
         "sort-packages": true

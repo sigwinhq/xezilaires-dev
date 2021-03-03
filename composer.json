@@ -1,12 +1,12 @@
 {
-    "name": "dkarlovi/xezilaires-dev",
+    "name": "sigwin/xezilaires-dev",
     "type": "library",
     "description": "Iterate Excel spreadsheets, normalize rows into value objects, validate, serialize into CSV, JSON, XML",
     "license": "MIT",
     "authors": [
         {
             "name": "Dalibor Karlović",
-            "email": "dalibor.karlovic@flexolabs.io"
+            "email": "dalibor.karlovic@sigwin.hr"
         }
     ],
     "require": {
@@ -16,10 +16,10 @@
         "symfony/serializer": "^4.4 || ^5.0"
     },
     "replace": {
-        "dkarlovi/xezilaires-core": "self.version",
-        "dkarlovi/xezilaires-phpspreadsheet": "self.version",
-        "dkarlovi/xezilaires-spout": "self.version",
-        "dkarlovi/xezilaires-symfony": "self.version"
+        "sigwin/xezilaires-core": "self.version",
+        "sigwin/xezilaires-phpspreadsheet": "self.version",
+        "sigwin/xezilaires-spout": "self.version",
+        "sigwin/xezilaires-symfony": "self.version"
     },
     "conflict": {
         "box/spout": "< 3.0",

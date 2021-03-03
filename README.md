@@ -3,7 +3,7 @@
 Xezilaires is a PHP 7 library which helps reading structured Excel files
 into PHP objects.
 
-[![Latest Stable Version](https://poser.pugx.org/dkarlovi/xezilaires/v/stable.png)](https://packagist.org/packages/dkarlovi/xezilaires)
+[![Latest Stable Version](https://poser.pugx.org/sigwin/xezilaires/v/stable.png)](https://github.com/sigwinhq/xezilaires-dev)
 [![Actions Status](https://github.com/sigwinhq/xezilaires-dev/workflows/Build/badge.svg)](https://github.com/sigwinhq/xezilaires-dev/actions)
 [![PHPStan enabled](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)](https://github.com/phpstan/phpstan)
 [![Psalm enabled](https://img.shields.io/badge/Psalm-enabled-brightgreen.svg?style=flat)](https://github.com/vimeo/psalm)
@@ -39,7 +39,7 @@ $iteratorFactory = new \Xezilaires\SpreadsheetIteratorFactory($normalizer, [
 ]);
 
 $iterator = $iteratorFactory->fromFile(
-    // https://github.com/dkarlovi/xezilaires-dev/raw/master/src/Xezilaires/Test/resources/fixtures/products.xlsx
+    // https://github.com/sigwinhq/xezilaires-dev/raw/master/src/Xezilaires/Test/resources/fixtures/products.xlsx
     new \SplFileObject(__DIR__.'/../../src/Xezilaires/Test/resources/fixtures/products.xlsx'),
     new \Xezilaires\Metadata\Mapping(
         Model\Product::class,
@@ -80,7 +80,7 @@ $iteratorFactory = new \Xezilaires\SpreadsheetIteratorFactory($normalizer, [
 $annotationDriver = new \Xezilaires\Metadata\Annotation\AnnotationDriver();
 
 $iterator = $iteratorFactory->fromFile(
-    // https://github.com/dkarlovi/xezilaires-dev/raw/master/src/Xezilaires/Test/resources/fixtures/products.xlsx
+    // https://github.com/sigwinhq/xezilaires-dev/raw/master/src/Xezilaires/Test/resources/fixtures/products.xlsx
     new \SplFileObject(__DIR__.'/../../src/Xezilaires/Test/resources/fixtures/products.xlsx'),
     $annotationDriver->getMetadataMapping(Product::class, ['reverse' => true])
 );

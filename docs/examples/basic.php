@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the xezilaires project.
  *
- * (c) Dalibor Karlović <dalibor@flexolabs.io>
+ * (c) sigwin.hr
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -29,7 +29,7 @@ $iteratorFactory = new \Xezilaires\SpreadsheetIteratorFactory($normalizer, [
 // </demo>
 
 $iterator = $iteratorFactory->fromFile(
-    // https://github.com/dkarlovi/xezilaires/raw/master/resources/fixtures/products.xlsx
+    // https://github.com/sigwinhq/xezilaires/raw/master/resources/fixtures/products.xlsx
     new \SplFileObject(__DIR__.'/../../src/Xezilaires/Test/resources/fixtures/products.xlsx'),
     new \Xezilaires\Metadata\Mapping(
         // what class to denormalize into

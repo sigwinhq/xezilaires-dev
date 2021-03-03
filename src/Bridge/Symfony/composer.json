@@ -1,17 +1,17 @@
 {
-    "name": "dkarlovi/xezilaires-symfony",
+    "name": "sigwin/xezilaires-symfony",
     "type": "library",
     "description": "Iterate Excel spreadsheets, normalize rows into value objects, validate, serialize into CSV, JSON, XML",
     "license": "MIT",
     "authors": [
         {
             "name": "Dalibor Karlović",
-            "email": "dalibor.karlovic@flexolabs.io"
+            "email": "dalibor.karlovic@sigwin.hr"
         }
     ],
     "require": {
         "php": "^7.3 || ^8.0",
-        "dkarlovi/xezilaires": "^0.3",
+        "sigwin/xezilaires": "^0.3",
         "symfony/console": "^4.4 || ^5.0",
         "symfony/framework-bundle": "^4.4 || ^5.0",
         "symfony/property-access": "^4.4 || ^5.0",
@@ -19,15 +19,15 @@
         "symfony/validator": "^4.4 || ^5.0"
     },
     "require-dev": {
-        "dkarlovi/xezilaires-phpspreadsheet": "^0.3",
-        "dkarlovi/xezilaires-spout": "^0.3",
+        "sigwin/xezilaires-phpspreadsheet": "^0.3",
+        "sigwin/xezilaires-spout": "^0.3",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "nyholm/symfony-bundle-test": "^1.5",
         "phpunit/phpunit": "^9.5"
     },
     "suggest": {
-        "dkarlovi/xezilaires-phpspreadsheet": "Read Excel files with PhpSpreadsheet",
-        "dkarlovi/xezilaires-spout": "Read Excel files with Spout"
+        "sigwin/xezilaires-phpspreadsheet": "Read Excel files with PhpSpreadsheet",
+        "sigwin/xezilaires-spout": "Read Excel files with Spout"
     },
     "config": {
         "sort-packages": true
