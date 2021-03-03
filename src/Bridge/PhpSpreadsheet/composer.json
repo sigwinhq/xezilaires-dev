@@ -1,5 +1,5 @@
 {
-    "name": "dkarlovi/xezilaires-phpspreadsheet",
+    "name": "sigwin/xezilaires-phpspreadsheet",
     "type": "library",
     "description": "Iterate Excel spreadsheets, normalize rows into value objects, validate, serialize into CSV, JSON, XML",
     "license": "MIT",
@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": "^7.3 || ^8.0",
-        "dkarlovi/xezilaires": "^0.3",
+        "sigwin/xezilaires": "^0.3",
         "phpoffice/phpspreadsheet": "^1.4,>1.4.1"
     },
     "require-dev": {
@@ -21,7 +21,7 @@
         "symfony/property-info": "^4.4 || ^5.0"
     },
     "suggest": {
-        "dkarlovi/xezilaires-symfony": "Symfony bundle integration, bin/xezilaires use"
+        "sigwin/xezilaires-symfony": "Symfony bundle integration, bin/xezilaires use"
     },
     "config": {
         "platform": {
