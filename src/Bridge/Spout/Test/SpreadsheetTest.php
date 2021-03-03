@@ -36,8 +36,8 @@ final class SpreadsheetTest extends TestCase
             0 => 'A',
             25 => 'Z',
             26 => 'AA',
+            99 => 'CV',
         ];
-        /** @var string[] $values */
         $values = array_values($row);
 
         $object = new Spreadsheet($this->invalidFixture('products.xlsx'));

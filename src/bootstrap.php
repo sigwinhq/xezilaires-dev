@@ -26,4 +26,4 @@ foreach ($autoLoaders as $autoLoader) {
     }
 }
 
-fwrite(STDERR, 'You must set up the project dependencies using `composer install`'.PHP_EOL);
+fwrite(\STDERR, 'You must set up the project dependencies using `composer install`'.\PHP_EOL);

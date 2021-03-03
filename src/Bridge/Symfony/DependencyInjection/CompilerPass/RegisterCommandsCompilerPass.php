@@ -44,11 +44,15 @@ final class RegisterCommandsCompilerPass implements CompilerPassInterface
             }
 
             $arguments = $definition->getArguments();
-            /** @var array<array<string, string>> $tags */
-            $tags = $definition->getTags()['console.command'];
+
+            /** @var array{"console.command": array} $all */
+            $all = $definition->getTags();
+
+            /** @var array{command: string} $tags */
+            $tags = current($all['console.command']);
 
             // TODO: error handling
-            $command = explode(':', current($tags)['command'])[1];
+            $command = explode(':', $tags['command'])[1];
 
             $definition = new Definition($className);
             $definition->setArguments($arguments);

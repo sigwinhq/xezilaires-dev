@@ -48,8 +48,9 @@ final class FilterIterator extends \FilterIterator
      */
     public function accept(): bool
     {
-        /** @var object $object */
-        $object = $this->getInnerIterator()->current();
+        /** @var Iterator $iterator */
+        $iterator = $this->getInnerIterator();
+        $object = $iterator->current();
 
         /** @var bool $accepted */
         $accepted = \call_user_func($this->filter, $object);
