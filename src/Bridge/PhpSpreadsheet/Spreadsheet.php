@@ -24,6 +24,9 @@ use Xezilaires\Exception\SpreadsheetException;
 use Xezilaires\Iterator;
 use Xezilaires\Spreadsheet as SpreadsheetInterface;
 
+/**
+ * @implements SpreadsheetInterface<object>
+ */
 final class Spreadsheet implements SpreadsheetInterface
 {
     private \SplFileObject $file;
