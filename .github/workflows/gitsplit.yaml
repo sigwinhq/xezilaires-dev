@@ -1,0 +1,23 @@
+name: Monorepo split
+on:
+    push:
+        branches:
+            - "fix/gitsplit"
+            - "master"
+    release:
+        types: [ published ]
+
+jobs:
+    gitsplit:
+        runs-on: ubuntu-latest
+        steps:
+            -
+                name: Full checkout
+                run: git clone $GITHUB_SERVER_URL/$GITHUB_REPOSITORY /home/runner/work/xezilaires-dev/xezilaires-dev && cd /home/runner/work/xezilaires-dev/xezilaires-dev && git checkout $GITHUB_SHA
+            -
+                name: Split repositories
+                uses: docker://jderusse/gitsplit:latest
+                with:
+                    args: gitsplit
+                env:
+                    GH_TOKEN: ${{ secrets.GITSPLIT_TOKEN }}
