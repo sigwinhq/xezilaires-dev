@@ -15,35 +15,45 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                php: ["7.3", "7.4", "8.0"]
-                dependencies: [lowest, highest]
+                php: [ "7.3", "7.4", "8.0" ]
+                dependencies: [ lowest, highest ]
         steps:
-            -   uses: actions/checkout@master
-            -   name: Composer install lowest dependencies
+            -
+                uses: actions/checkout@master
+            -
+                name: Composer install lowest dependencies
                 if: "matrix.dependencies == 'lowest'"
                 run: make composer-bare-install-lowest
-            -   name: Composer install highest dependencies
+            -
+                name: Composer install highest dependencies
                 if: "matrix.dependencies == 'highest'"
                 run: make composer-bare-install
-            -   name: Tests without mutation
+            -
+                name: Tests without mutation
                 if: "matrix.php == '7.3'"
                 run: make phpunit-coverage
-            -   name: Tests with mutation
+            -
+                name: Tests with mutation
                 if: "matrix.php != '7.3'"
                 run: make test
     CodeQualityAnalysis:
         container: jakzal/phpqa:1.52-php7.4-alpine
         runs-on: ubuntu-latest
         steps:
-            -   uses: actions/checkout@master
-            -   name: Composer install highest dependencies
+            -
+                uses: actions/checkout@master
+            -
+                name: Composer install highest dependencies
                 run: make composer-bare-install
-            -   name: Run code quality analysis
+            -
+                name: Run code quality analysis
                 run: make check
     DocumentationQualityAnalysis:
         container: dkarlovi/docqa:latest
         runs-on: ubuntu-latest
         steps:
-            -   uses: actions/checkout@master
-            -   name: Run documentation quality analysis
+            -
+                uses: actions/checkout@master
+            -
+                name: Run documentation quality analysis
                 run: make doc

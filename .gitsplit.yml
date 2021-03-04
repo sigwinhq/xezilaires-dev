@@ -1,9 +1,15 @@
 splits:
-    - prefix: "src/Xezilaires"
-      target: "git@github.com:sigwinhq/xezilaires.git"
-    - prefix: "src/Bridge/PhpSpreadsheet"
-      target: "git@github.com:sigwinhq/xezilaires-phpspreadsheet.git"
-    - prefix: "src/Bridge/Spout"
-      target: "git@github.com:sigwinhq/xezilaires-spout.git"
-    - prefix: "src/Bridge/Symfony"
-      target: "git@github.com:sigwinhq/xezilaires-symfony.git"
+    -
+        prefix: "src/Xezilaires"
+        target: "https://${GH_TOKEN}@github.com/sigwinhq/xezilaires.git"
+    -
+        prefix: "src/Bridge/PhpSpreadsheet"
+        target: "https://${GH_TOKEN}@github.com/sigwinhq/xezilaires-phpspreadsheet.git"
+    -
+        prefix: "src/Bridge/Spout"
+        target: "https://${GH_TOKEN}@github.com/sigwinhq/xezilaires-spout.git"
+    -
+        prefix: "src/Bridge/Symfony"
+        target: "https://${GH_TOKEN}@github.com/sigwinhq/xezilaires-symfony.git"
+origins:
+    - ^master$
