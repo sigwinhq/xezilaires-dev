@@ -13,3 +13,4 @@ splits:
         target: "https://${GH_TOKEN}@github.com/sigwinhq/xezilaires-symfony.git"
 origins:
     - ^master$
+    - ^\d+\.\d+\.\d+$
