@@ -13,7 +13,7 @@ jobs:
         steps:
             -
                 name: Full checkout
-                run: git clone $GITHUB_SERVER_URL/$GITHUB_REPOSITORY /home/runner/work/xezilaires-dev/xezilaires-dev && cd /home/runner/work/xezilaires-dev/xezilaires-dev && git checkout $GITHUB_REF
+                run: git clone $GITHUB_SERVER_URL/$GITHUB_REPOSITORY /home/runner/work/xezilaires-dev/xezilaires-dev && cd /home/runner/work/xezilaires-dev/xezilaires-dev && git checkout $GITHUB_SHA
             -
                 name: Split repositories
                 uses: docker://jderusse/gitsplit:latest
