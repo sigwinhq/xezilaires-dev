@@ -32,7 +32,7 @@ use Xezilaires\Serializer\ObjectSerializer;
  *
  * @internal
  *
- * @small
+ * @medium
  */
 final class XezilairesExtensionTest extends AbstractExtensionTestCase
 {

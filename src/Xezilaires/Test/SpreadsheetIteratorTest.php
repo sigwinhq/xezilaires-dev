@@ -19,6 +19,8 @@ use PHPUnit\Framework\TestCase;
 use Xezilaires\Denormalizer;
 use Xezilaires\Exception\MappingException;
 use Xezilaires\Iterator;
+use Xezilaires\Metadata\ArrayReference;
+use Xezilaires\Metadata\ColumnReference;
 use Xezilaires\Metadata\HeaderReference;
 use Xezilaires\Metadata\Mapping;
 use Xezilaires\Spreadsheet;
@@ -28,6 +30,8 @@ use Xezilaires\SpreadsheetIterator;
  * @covers \Xezilaires\SpreadsheetIterator
  * @covers \Xezilaires\Metadata\Mapping
  *
+ * @uses \Xezilaires\Metadata\ArrayReference
+ * @uses \Xezilaires\Metadata\ColumnReference
  * @uses \Xezilaires\Metadata\HeaderReference
  *
  * @internal
@@ -80,6 +84,44 @@ final class SpreadsheetIteratorTest extends TestCase
         static::assertGreaterThan($key, $iterator->key());
     }
 
+    public function testCanPerformCurrentCorrectly(): void
+    {
+        $spreadsheet = $this
+            ->getMockBuilder(Spreadsheet::class)
+            ->getMock();
+        $spreadsheet
+            ->expects(static::once())
+            ->method('getRow')
+            ->willReturn(
+                ['A' => 'One', 'B' => 'Two', 'C' => 'Three', 'D' => 'Four'],
+            );
+        $spreadsheet
+            ->expects(static::once())
+            ->method('getCurrentRow')
+            ->willReturn(
+                ['A' => 'Yes', 'B' => 'Nope', 'C' => 'Yeah', 'D' => 'Right'],
+            );
+
+        $denormalizer = $this
+            ->getMockBuilder(Denormalizer::class)
+            ->getMock();
+        $denormalizer
+            ->expects(static::once())
+            ->method('denormalize')
+            ->with(
+                ['one' => 'Yes', 'two' => 'Nope', 'three' => ['Yeah', 'Right']],
+            );
+
+        $mapping = new Mapping(\stdClass::class, [
+            'one' => new HeaderReference('One'),
+            'two' => new ColumnReference('B'),
+            'three' => new ArrayReference([new ColumnReference('C'), new HeaderReference('Four')]),
+        ], ['header' => 1]);
+
+        $iterator = new SpreadsheetIterator($spreadsheet, $mapping, $denormalizer);
+        $iterator->current();
+    }
+
     public function testWillOfferAnDidYouMeanForInvalidHeader(): void
     {
         $spreadsheet = $this
@@ -99,6 +141,23 @@ final class SpreadsheetIteratorTest extends TestCase
         $this->expectExceptionMessage('Invalid header "Naem", did you mean "Name"?');
 
         $iterator = new SpreadsheetIterator($spreadsheet, $mapping, $this->getMockBuilder(Denormalizer::class)->getMock());
+        $iterator->current();
+    }
+
+    public function testCannotLoadWithNestedArrayReference(): void
+    {
+        $mapping = new Mapping(\stdClass::class, [
+            'name' => new ArrayReference([new ArrayReference([new ColumnReference('A')])]),
+        ], ['header' => 1]);
+
+        $this->expectException(MappingException::class);
+        $this->expectExceptionMessage('Unexpected reference type');
+
+        $iterator = new SpreadsheetIterator(
+            $this->getMockBuilder(Spreadsheet::class)->getMock(),
+            $mapping,
+            $this->getMockBuilder(Denormalizer::class)->getMock()
+        );
         $iterator->current();
     }
 
