@@ -59,6 +59,7 @@ final class SerializeCommand extends Command
             ->addOption('bundle', 'b', InputOption::VALUE_REQUIRED, 'Custom project-specific bundle to load')
             ->addOption('format', 'f', InputOption::VALUE_OPTIONAL, 'Format to export to', 'json')
             ->addOption('reverse', 'r', InputOption::VALUE_NONE, 'Iterate in reverse')
+            ->addOption('group', 'g', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Group(s) to serialize')
             ->addOption('xml-root', null, InputOption::VALUE_OPTIONAL, 'Name of root node in XML format', 'root');
     }
 
@@ -80,6 +81,8 @@ final class SerializeCommand extends Command
         $format = $input->getOption('format');
         /** @var bool $reverse */
         $reverse = $input->getOption('reverse');
+        /** @var array<string> $groups */
+        $groups = $input->getOption('group');
         /** @var null|string $xmlRoot */
         $xmlRoot = $input->getOption('xml-root');
 
@@ -87,7 +90,9 @@ final class SerializeCommand extends Command
             throw new \RuntimeException('Format is required');
         }
 
-        $context = [];
+        $context = array_filter([
+            'groups' => $groups,
+        ]);
         switch ($format) {
             case 'csv':
                 if (false === class_exists(CsvEncoder::class)) {
