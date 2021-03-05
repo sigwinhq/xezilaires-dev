@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Xezilaires\Test\Model;
 
+use Symfony\Component\Serializer\Annotation\Groups;
 use Xezilaires\Annotation as XLS;
 
 /**
@@ -23,6 +24,7 @@ final class Product
     /**
      * @var array
      *
+     * @Groups({"array"})
      * @XLS\ArrayReference({
      *     @XLS\ColumnReference(column="A"),
      *     @XLS\HeaderReference(header="Price USD")
@@ -33,6 +35,7 @@ final class Product
     /**
      * @var string
      *
+     * @Groups({"column", "product"})
      * @XLS\ColumnReference(column="A")
      */
     public $name;
@@ -40,6 +43,7 @@ final class Product
     /**
      * @var float|string
      *
+     * @Groups({"header", "product"})
      * @XLS\HeaderReference(header="Price USD")
      */
     public $price;
