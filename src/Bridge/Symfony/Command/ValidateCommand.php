@@ -56,8 +56,9 @@ final class ValidateCommand extends Command
         $this
             ->setName('xezilaires:serialize')
             ->addArgument('class', InputArgument::REQUIRED, 'Process the rows as class')
-            ->addArgument('path', InputArgument::REQUIRED, 'Path to file to process')
-            ->addOption('bundle', 'b', InputOption::VALUE_REQUIRED, 'Custom project-specific bundle to load');
+            ->addArgument('paths', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'Path(s) to file(s) to process')
+            ->addOption('bundle', 'b', InputOption::VALUE_REQUIRED, 'Custom project-specific bundle to load')
+            ->addOption('stop-on-violation', 's', InputOption::VALUE_NONE, 'Stop validation on first violation found');
     }
 
     /**
@@ -67,56 +68,95 @@ final class ValidateCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        /** @var bool $stopOnViolation */
+        $stopOnViolation = $input->getOption('stop-on-violation');
+
         /**
          * @var string $class
          * @psalm-var class-string $class
          */
         $class = $input->getArgument('class');
-        /** @var string $path */
-        $path = $input->getArgument('path');
 
-        $driver = new AnnotationDriver();
-        $iterator = $this->iteratorFactory->fromFile(
-            new \SplFileObject($path),
-            $driver->getMetadataMapping($class)
-        );
+        /** @var array<string> $paths */
+        $paths = $input->getArgument('paths');
 
         $style = new SymfonyStyle($input, $output);
         $style->title('Xezilaires validate');
 
-        $total = 0;
-        $invalid = 0;
-        $progress = $style->createProgressBar();
-        foreach ($iterator as $item) {
-            ++$total;
-            $violations = $this->validator->validate($item);
-            if ($violations->count() > 0) {
-                ++$invalid;
-                $progress->clear();
+        $driver = new AnnotationDriver();
 
-                $style->section(sprintf('Row %1$d', $iterator->key()));
-
-                /** @var ConstraintViolationInterface $violation */
-                foreach ($violations as $violation) {
-                    /** @var string $message */
-                    $message = $violation->getMessage();
-
-                    $style->error(sprintf('%1$s: %2$s', $violation->getPropertyPath(), $message));
-                }
+        $totalCount = 0;
+        $totalInvalid = 0;
+        $totalPaths = 0;
+        foreach ($paths as $path) {
+            ++$totalPaths;
+            if ($style->isVerbose()) {
+                $style->section(sprintf('Processing: %1$s', $path));
             }
 
-            $progress->advance();
+            $iterator = $this->iteratorFactory->fromFile(
+                new \SplFileObject($path),
+                $driver->getMetadataMapping($class)
+            );
+
+            $count = 0;
+            $invalid = 0;
+            $progress = $style->createProgressBar();
+            foreach ($iterator as $item) {
+                ++$count;
+                ++$totalCount;
+                $violations = $this->validator->validate($item);
+                if ($violations->count() > 0) {
+                    ++$invalid;
+                    ++$totalInvalid;
+                    $progress->clear();
+
+                    $style->section(sprintf('Row %1$d', $iterator->key()));
+
+                    /** @var ConstraintViolationInterface $violation */
+                    foreach ($violations as $violation) {
+                        /** @var string $message */
+                        $message = $violation->getMessage();
+
+                        $style->error(sprintf('%1$s: %2$s', $violation->getPropertyPath(), $message));
+                    }
+
+                    if ($stopOnViolation) {
+                        break;
+                    }
+                }
+
+                $progress->advance();
+            }
+            $progress->clear();
+
+            if ($invalid > 0 || $style->isVerbose()) {
+                $style->section(sprintf('Summary:    %1$s', $path));
+            }
+            if ($invalid > 0) {
+                $style->error(sprintf('Processed %1$d rows, %2$d had errors (%3$.02f%%)', $count, $invalid, $invalid / $count * 100));
+
+                if ($stopOnViolation) {
+                    break;
+                }
+            } elseif (\count($paths) < 2 || $style->isVerbose()) {
+                $style->success(sprintf('Processed %1$d rows', $count));
+            }
         }
-        $progress->clear();
 
-        if ($invalid > 0) {
-            $style->error(sprintf('Processed %1$d rows, %2$d had errors', $total, $invalid));
+        if ($totalPaths > 1) {
+            if ($totalInvalid > 0 || $style->isVerbose()) {
+                $style->title('Summary');
+            }
+            if ($totalInvalid > 0) {
+                $style->error(sprintf('Processed %1$d files with %2$d rows, %3$d rows had errors (%4$.02f%%)', $totalPaths, $totalCount, $totalInvalid, $totalInvalid / $totalCount * 100));
 
-            return 1;
+                return 1;
+            }
+
+            $style->success(sprintf('Processed %1$d files with %2$d rows', $totalPaths, $totalCount));
         }
 
-        $style->success(sprintf('Processed %1$d rows', $total));
-
-        return 0;
+        return $totalInvalid;
     }
 }
