@@ -12,21 +12,50 @@ PHPQA_DOCKER_IMAGE=jakzal/phpqa:1.52-php${BUILD_ENV}-alpine
 PHPQA_DOCKER_COMMAND=docker run --init --interactive --rm --env "COMPOSER_CACHE_DIR=/composer/cache" --user "$(shell id -u):$(shell id -g)" --volume "$(shell pwd)/var/tmp/phpqa:/tmp" --volume "$(shell pwd):/project" --volume "${HOME}/.composer:/composer" --workdir /project ${PHPQA_DOCKER_IMAGE}
 endif
 
-dist: composer-normalize cs phpstan psalm test doc
-check: composer-validate cs-check analyze
-analyze: phpstan psalm
+ifndef MAKEFILE_ROOT
+MAKEFILE_ROOT=.
+endif
+
+dist: composer-normalize-all cs check-all test-all doc-all
+check: composer-normalize-check phpstan psalm
 test: infection
 doc: markdownlint textlint proselint vale
 
+define process
+	(cd src/Bridge/PhpSpreadsheet && MAKEFILE_ROOT=../../.. make -f ../../../Makefile $(1))
+	(cd src/Bridge/Spout && MAKEFILE_ROOT=../../.. make -f ../../../Makefile $(1))
+	(cd src/Bridge/Symfony && MAKEFILE_ROOT=../../.. make -f ../../../Makefile $(1))
+	(cd src/Xezilaires && MAKEFILE_ROOT=../../.. make -f ../../Makefile $(1))
+endef
+
+check-all: cs-check check
+	$(call process,check)
+test-all: test
+	$(call process,test)
+composer-install-all: composer-install
+	$(call process,composer-install)
+composer-install-lowest-all: composer-install-lowest
+	$(call process,composer-install-lowest)
+composer-normalize-all: composer-normalize
+	$(call process,composer-normalize)
+composer-normalize-check-all: composer-normalize-check
+	$(call process,composer-normalize-check)
+phpunit-all: phpunit
+	$(call process,phpunit)
+phpunit-coverage-all: phpunit-coverage
+	$(call process,phpunit-coverage)
+doc-all: doc
+	$(call process,doc)
+ensure-all: ensure
+	$(call process,ensure)
+clean-all: clean
+	$(call process,clean)
+
 composer-validate: ensure composer-normalize-check
-	sh -c "${PHPQA_DOCKER_COMMAND} composer validate"
-composer-install: fetch ensure
+	sh -c "${PHPQA_DOCKER_COMMAND} composer validate --no-check-lock"
+composer-install: ensure
 	sh -c "${PHPQA_DOCKER_COMMAND} composer upgrade"
-composer-bare-install:
-	sh -c "${PHPQA_DOCKER_COMMAND} composer upgrade"
-composer-install-lowest: fetch ensure
-	sh -c "${PHPQA_DOCKER_COMMAND} composer upgrade --with-all-dependencies --prefer-lowest"
-composer-bare-install-lowest:
+composer-install-lowest: ensure
 	sh -c "${PHPQA_DOCKER_COMMAND} composer upgrade --with-all-dependencies --prefer-lowest"
 composer-normalize: ensure
 	sh -c "${PHPQA_DOCKER_COMMAND} composer normalize --no-check-lock"
@@ -42,7 +71,7 @@ phpstan: ensure
 	sh -c "${PHPQA_DOCKER_COMMAND} phpstan analyse"
 
 psalm: ensure
-	sh -c "${PHPQA_DOCKER_COMMAND} psalm --show-info=false --threads max"
+	sh -c "${PHPQA_DOCKER_COMMAND} psalm"
 
 phpunit:
 	sh -c "${PHPQA_DOCKER_COMMAND} vendor/bin/phpunit --verbose"
@@ -53,18 +82,18 @@ infection: phpunit-coverage
 	sh -c "${PHPQA_DOCKER_COMMAND} infection run --verbose --show-mutations --no-interaction --only-covered --coverage var/ --min-msi=100 --min-covered-msi=100 --threads 4"
 
 markdownlint: ensure
-	sh -c "${DOCQA_DOCKER_COMMAND} markdownlint *.md docs/"
+	sh -c "${DOCQA_DOCKER_COMMAND} markdownlint README.md"
 proselint: ensure
-	sh -c "${DOCQA_DOCKER_COMMAND} proselint README.md docs/"
+	sh -c "${DOCQA_DOCKER_COMMAND} proselint README.md"
 textlint: ensure
-	sh -c "${DOCQA_DOCKER_COMMAND} textlint -c docs/.textlintrc.dist README.md"
+	sh -c "${DOCQA_DOCKER_COMMAND} textlint -c ${MAKEFILE_ROOT}/docs/.textlintrc.dist README.md"
 vale: ensure
-	sh -c "${DOCQA_DOCKER_COMMAND} vale --config docs/.vale.ini.dist README.md"
+	sh -c "${DOCQA_DOCKER_COMMAND} vale --config ${MAKEFILE_ROOT}/docs/.vale.ini.dist README.md"
 
-ensure:
+ensure: clean
 	mkdir -p ${HOME}/.composer var/tmp/docqa var/tmp/phpqa
 fetch:
 	docker pull "${DOCQA_DOCKER_IMAGE}"
 	docker pull "${PHPQA_DOCKER_IMAGE}"
 clean:
-	rm -rf var/cache/
+	rm -rf var/ .phpunit.result.cache composer.lock

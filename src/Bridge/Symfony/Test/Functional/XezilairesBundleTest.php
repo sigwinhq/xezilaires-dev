@@ -44,7 +44,7 @@ use Xezilaires\Validator;
  *
  * @internal
  *
- * @small
+ * @medium
  */
 final class XezilairesBundleTest extends BaseBundleTestCase
 {
