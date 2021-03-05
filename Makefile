@@ -63,9 +63,9 @@ composer-normalize-check: ensure
 	sh -c "${PHPQA_DOCKER_COMMAND} composer normalize --no-check-lock --dry-run"
 
 cs: ensure
-	sh -c "${PHPQA_DOCKER_COMMAND} php-cs-fixer fix --using-cache=false --diff -vvv"
+	sh -c "${PHPQA_DOCKER_COMMAND} php-cs-fixer fix --diff -vvv"
 cs-check: ensure
-	sh -c "${PHPQA_DOCKER_COMMAND} php-cs-fixer fix --using-cache=false --dry-run --diff -vvv"
+	sh -c "${PHPQA_DOCKER_COMMAND} php-cs-fixer fix --dry-run --diff -vvv"
 
 phpstan: ensure
 	sh -c "${PHPQA_DOCKER_COMMAND} phpstan analyse"

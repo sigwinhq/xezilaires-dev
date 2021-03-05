@@ -18,7 +18,6 @@ $finder = PhpCsFixer\Finder::create()
 
 return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
-    ->setUsingCache(false)
     ->setRules(
         [
             '@DoctrineAnnotation' => true,
