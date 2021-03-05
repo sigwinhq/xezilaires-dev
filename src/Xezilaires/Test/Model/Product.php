@@ -21,7 +21,7 @@ use Xezilaires\Annotation as XLS;
 final class Product
 {
     /**
-     * @var array<float|string>
+     * @var array
      *
      * @XLS\ArrayReference({
      *     @XLS\ColumnReference(column="A"),
