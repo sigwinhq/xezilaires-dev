@@ -11,11 +11,11 @@
     ],
     "require": {
         "php": "^7.3 || ^8.0",
-        "sigwin/xezilaires": "^0.3",
-        "phpoffice/phpspreadsheet": "^1.4,>1.4.1"
+        "phpoffice/phpspreadsheet": "^1.4,>1.4.1",
+        "sigwin/xezilaires": "^0.4"
     },
     "require-dev": {
-        "doctrine/annotations": "^1.6",
+        "doctrine/annotations": "^1.11",
         "phpunit/phpunit": "^9.5",
         "symfony/property-access": "^4.4 || ^5.0",
         "symfony/property-info": "^4.4 || ^5.0"
