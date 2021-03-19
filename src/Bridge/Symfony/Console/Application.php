@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Xezilaires\Bridge\Symfony\Console;
 
+use Composer\InstalledVersions;
 use Symfony\Bundle\FrameworkBundle\Console\Application as BaseApplication;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -26,13 +27,22 @@ final class Application extends BaseApplication
   / . \  __// /| | | (_| | | | |  __/\__ \
  /_/ \_\___/___|_|_|\__,_|_|_|  \___||___/ ';
 
-    private const APP_VERSION = '0.3.0';
-
     public function __construct(KernelInterface $kernel)
     {
         parent::__construct($kernel);
 
         $this->setName(self::APP_NAME);
-        $this->setVersion(self::APP_VERSION);
+        if (class_exists(InstalledVersions::class)) {
+            /** @var null|string $version */
+            $version = InstalledVersions::getPrettyVersion('sigwin/xezilaires-symfony');
+            $this->setVersion($version ?? 'N/A');
+        } else {
+            $this->setVersion('N/A');
+        }
+    }
+
+    public function getLongVersion(): string
+    {
+        return sprintf('%s <info>%s</info>', $this->getName(), $this->getVersion());
     }
 }
