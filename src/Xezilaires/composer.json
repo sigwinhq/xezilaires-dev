@@ -11,7 +11,6 @@
     ],
     "require": {
         "php": "^7.3 || ^8.0",
-        "ext-json": "*",
         "symfony/options-resolver": "^4.4 || ^5.0",
         "symfony/serializer": "^4.4 || ^5.0"
     },
