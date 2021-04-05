@@ -1,10 +1,7 @@
 <?xml version="1.0"?>
-<psalm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns="https://getpsalm.org/schema/config"
-       xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+<psalm xmlns="https://getpsalm.org/schema/config"
        cacheDirectory="var/psalm"
        totallyTyped="true">
-    
     <projectFiles>
         <directory name="."/>
         <ignoreFiles>
@@ -14,19 +11,10 @@
     </projectFiles>
 
     <issueHandlers>
-        <InternalMethod>
-            <errorLevel type="info">
-                <directory name="Test/" />
-            </errorLevel>
-        </InternalMethod>
         <PropertyNotSetInConstructor>
             <errorLevel type="info">
-                <directory name="Test/" />
+                <directory name="Test/"/>
             </errorLevel>
         </PropertyNotSetInConstructor>
     </issueHandlers>
-
-    <mockClasses>
-        <class name="PHPUnit\Framework\MockObject\MockObject"/>
-    </mockClasses>
 </psalm>

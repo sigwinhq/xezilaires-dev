@@ -2,7 +2,6 @@
 <psalm xmlns="https://getpsalm.org/schema/config"
        cacheDirectory="var/psalm"
        totallyTyped="true">
-    
     <projectFiles>
         <directory name="src/"/>
         <ignoreFiles allowMissingFiles="true">
@@ -16,32 +15,21 @@
     </projectFiles>
 
     <issueHandlers>
-        <InvalidCatch>
-            <errorLevel type="info">
-                <file name="src/Xezilaires/Metadata/Mapping.php" />
-            </errorLevel>
-        </InvalidCatch>
-        <InternalMethod>
-            <errorLevel type="info">
-                <directory name="src/Xezilaires/Test/" />
-                <directory name="src/Bridge/*/Test/" />
-            </errorLevel>
-        </InternalMethod>
         <MissingConstructor>
             <errorLevel type="info">
-                <directory name="src/Xezilaires/Annotation/" />
-                <directory name="src/Xezilaires/Test/Model/" />
+                <directory name="src/Xezilaires/Annotation/"/>
+                <directory name="src/Xezilaires/Test/Model/"/>
             </errorLevel>
         </MissingConstructor>
         <RedundantCondition>
             <errorLevel type="info">
-                <file name="src/Xezilaires/Metadata/Annotation/AnnotationDriver.php" />
+                <file name="src/Xezilaires/Metadata/Annotation/AnnotationDriver.php"/>
             </errorLevel>
         </RedundantCondition>
         <PropertyNotSetInConstructor>
             <errorLevel type="info">
-                <directory name="src/Xezilaires/Test/" />
-                <directory name="src/Bridge/*/Test/" />
+                <directory name="src/Xezilaires/Test/"/>
+                <directory name="src/Bridge/*/Test/"/>
             </errorLevel>
         </PropertyNotSetInConstructor>
     </issueHandlers>

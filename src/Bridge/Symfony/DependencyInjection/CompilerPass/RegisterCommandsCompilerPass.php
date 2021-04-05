@@ -29,7 +29,7 @@ final class RegisterCommandsCompilerPass implements CompilerPassInterface
     {
         /** @var array<string, array<string, string>> $commands */
         $commands = $container->findTaggedServiceIds('console.command');
-        foreach ($commands as $id => $arguments) {
+        foreach (array_keys($commands) as $id) {
             $definition = $container->getDefinition($id);
 
             $className = $definition->getClass();

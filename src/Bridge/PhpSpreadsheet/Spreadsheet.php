@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Xezilaires\Bridge\PhpSpreadsheet;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -152,7 +151,6 @@ final class Spreadsheet implements SpreadsheetInterface
         $worksheet = $this->getActiveWorksheet();
         $columnIndex = Coordinate::columnIndexFromString($columnName);
 
-        /** @var null|Cell $cell */
         $cell = $worksheet->getCellByColumnAndRow($columnIndex, $rowIndex, self::CELL_NO_AUTO_CREATE);
         if (null === $cell) {
             return null;

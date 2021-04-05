@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Xezilaires\Test;
 
 use Nyholm\NSA;
-use PHPUnit\Framework\MockObject\Builder\InvocationMocker;
 use PHPUnit\Framework\TestCase;
 use Xezilaires\Denormalizer;
 use Xezilaires\Exception\MappingException;
@@ -176,7 +175,6 @@ final class SpreadsheetIteratorTest extends TestCase
                 /** @var int $count */
                 $count = $spec['count'];
 
-                /** @var InvocationMocker $mocker */
                 $mocker = $iterator
                     ->expects(static::exactly($count))
                     ->method($method)

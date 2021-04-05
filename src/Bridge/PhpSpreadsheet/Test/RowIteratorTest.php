@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Xezilaires\Bridge\PhpSpreadsheet\Test;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\RowIterator as PhpspreadsheetRowIterator;
-use PHPUnit\Framework\MockObject\Builder\InvocationMocker;
 use PHPUnit\Framework\TestCase;
 use Xezilaires\Bridge\PhpSpreadsheet\RowIterator;
 
@@ -86,7 +85,6 @@ final class RowIteratorTest extends TestCase
                 /** @var int $count */
                 $count = $spec['count'];
 
-                /** @var InvocationMocker $mocker */
                 $mocker = $iterator
                     ->expects(static::exactly($count))
                     ->method($method)
