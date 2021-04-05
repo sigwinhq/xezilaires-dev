@@ -66,17 +66,14 @@ final class AnnotationDriver
     {
         $columns = [];
         foreach ($reflectionClass->getProperties() as $reflectionProperty) {
-            /** @var null|Annotation\ArrayReference $arrayAnnotation */
             $arrayAnnotation = $this->reader->getPropertyAnnotation(
                 $reflectionProperty,
                 Annotation\ArrayReference::class
             );
-            /** @var null|Annotation\ColumnReference $columnAnnotation */
             $columnAnnotation = $this->reader->getPropertyAnnotation(
                 $reflectionProperty,
                 Annotation\ColumnReference::class
             );
-            /** @var null|Annotation\HeaderReference $headerAnnotation */
             $headerAnnotation = $this->reader->getPropertyAnnotation(
                 $reflectionProperty,
                 Annotation\HeaderReference::class
@@ -120,7 +117,6 @@ final class AnnotationDriver
     {
         $options = (array) $this->reader->getClassAnnotation($reflectionClass, Annotation\Options::class);
         if (null !== $additionalOptions) {
-            /** @var array $options */
             $options = array_replace($options, $additionalOptions);
         }
 

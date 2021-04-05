@@ -1,7 +1,4 @@
 {
-    "phpUnit": {
-        "customPath": "vendor/bin/phpunit"
-    },
     "source": {
         "directories": [
             "src/Xezilaires",

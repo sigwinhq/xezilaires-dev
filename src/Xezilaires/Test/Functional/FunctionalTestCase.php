@@ -16,6 +16,8 @@ namespace Xezilaires\Test\Functional;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Xezilaires\Exception\MappingException;
+use Xezilaires\Exception\SpreadsheetException;
 use Xezilaires\Metadata\Annotation\AnnotationDriver;
 use Xezilaires\Metadata\ArrayReference;
 use Xezilaires\Metadata\ColumnReference;
@@ -159,7 +161,7 @@ abstract class FunctionalTestCase extends TestCase
 
     public function testCannotLoadFixtureWithAmbiguousHeaderReference(): void
     {
-        $this->expectException(\Xezilaires\Exception\MappingException::class);
+        $this->expectException(MappingException::class);
         $this->expectExceptionMessage('Ambiguous header "Duplicate"');
 
         $iterator = $this->createIterator(
@@ -176,12 +178,13 @@ abstract class FunctionalTestCase extends TestCase
             )
         );
 
+        /** @psalm-suppress UnusedFunctionCall */
         iterator_to_array($iterator);
     }
 
     public function testCannotLoadFixtureWithInvalidHeaderReference(): void
     {
-        $this->expectException(\Xezilaires\Exception\MappingException::class);
+        $this->expectException(MappingException::class);
         $this->expectExceptionMessage('Invalid header "No such name"');
 
         $iterator = $this->createIterator(
@@ -199,12 +202,13 @@ abstract class FunctionalTestCase extends TestCase
             )
         );
 
+        /** @psalm-suppress UnusedFunctionCall */
         iterator_to_array($iterator);
     }
 
     public function testCannotLoadFlatFixtureWithNestedArrayReference(): void
     {
-        $this->expectException(\Xezilaires\Exception\MappingException::class);
+        $this->expectException(MappingException::class);
         $this->expectExceptionMessage('Unexpected reference type');
 
         $iterator = $this->createIterator(
@@ -226,12 +230,13 @@ abstract class FunctionalTestCase extends TestCase
             )
         );
 
+        /** @psalm-suppress UnusedFunctionCall */
         iterator_to_array($iterator);
     }
 
     public function testCannotLoadUnreachableFile(): void
     {
-        $this->expectException(\Xezilaires\Exception\SpreadsheetException::class);
+        $this->expectException(SpreadsheetException::class);
         $this->expectExceptionMessage('No spreadsheet path given');
 
         $iterator = $this->createIterator(
@@ -239,6 +244,7 @@ abstract class FunctionalTestCase extends TestCase
             new Mapping(Product::class, ['name' => new ColumnReference('A')])
         );
 
+        /** @psalm-suppress UnusedFunctionCall */
         iterator_to_array($iterator);
     }
 
