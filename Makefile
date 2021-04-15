@@ -2,9 +2,13 @@ ifndef BUILD_ENV
 BUILD_ENV=8.0
 endif
 
+ifndef MAKEFILE_ROOT
+MAKEFILE_ROOT=.
+endif
+
 ifndef DOCQA_DOCKER_COMMAND
 DOCQA_DOCKER_IMAGE=dkarlovi/docqa:latest
-DOCQA_DOCKER_COMMAND=docker run --init --interactive --rm --user "$(shell id -u):$(shell id -g)"  --volume "$(shell pwd)/var/tmp/docqa:/.cache" --volume "$(shell pwd):/project" --workdir /project ${DOCQA_DOCKER_IMAGE}
+DOCQA_DOCKER_COMMAND=docker run --init --interactive --rm --env HOME=/tmp --user "$(shell id -u):$(shell id -g)"  --volume "$(shell pwd)/${MAKEFILE_ROOT}/docs:/config" --volume "$(shell pwd)/var/tmp/docqa:/.cache" --volume "$(shell pwd):/project" --workdir /project ${DOCQA_DOCKER_IMAGE}
 endif
 
 ifndef PHPQA_DOCKER_COMMAND
@@ -12,20 +16,16 @@ PHPQA_DOCKER_IMAGE=jakzal/phpqa:1.55-php${BUILD_ENV}-alpine
 PHPQA_DOCKER_COMMAND=docker run --init --interactive --rm --env "COMPOSER_CACHE_DIR=/composer/cache" --user "$(shell id -u):$(shell id -g)" --volume "$(shell pwd)/var/tmp/phpqa:/tmp" --volume "$(shell pwd):/project" --volume "${HOME}/.composer:/composer" --workdir /project ${PHPQA_DOCKER_IMAGE}
 endif
 
-ifndef MAKEFILE_ROOT
-MAKEFILE_ROOT=.
-endif
-
 dist: composer-normalize-all cs check-all test-all doc-all
 check: composer-normalize-check phpstan psalm
 test: infection
-doc: markdownlint textlint proselint vale
+docs: markdownlint vale
 
 define process
 	(cd src/Bridge/PhpSpreadsheet && MAKEFILE_ROOT=../../.. make -f ../../../Makefile $(1))
 	(cd src/Bridge/Spout && MAKEFILE_ROOT=../../.. make -f ../../../Makefile $(1))
 	(cd src/Bridge/Symfony && MAKEFILE_ROOT=../../.. make -f ../../../Makefile $(1))
-	(cd src/Xezilaires && MAKEFILE_ROOT=../../.. make -f ../../Makefile $(1))
+	(cd src/Xezilaires && MAKEFILE_ROOT=../.. make -f ../../Makefile $(1))
 endef
 
 check-all: cs-check check
@@ -44,8 +44,8 @@ phpunit-all: phpunit
 	$(call process,phpunit)
 phpunit-coverage-all: phpunit-coverage
 	$(call process,phpunit-coverage)
-doc-all: doc
-	$(call process,doc)
+docs-all: docs
+	$(call process,docs)
 ensure-all: ensure
 	$(call process,ensure)
 clean-all: clean
@@ -83,12 +83,8 @@ infection: phpunit-coverage
 
 markdownlint: ensure
 	sh -c "${DOCQA_DOCKER_COMMAND} markdownlint README.md"
-proselint: ensure
-	sh -c "${DOCQA_DOCKER_COMMAND} proselint README.md"
-textlint: ensure
-	sh -c "${DOCQA_DOCKER_COMMAND} textlint -c ${MAKEFILE_ROOT}/docs/.textlintrc.dist README.md"
 vale: ensure
-	sh -c "${DOCQA_DOCKER_COMMAND} vale --config ${MAKEFILE_ROOT}/docs/.vale.ini.dist README.md"
+	sh -c "${DOCQA_DOCKER_COMMAND} vale --config /config/.vale.ini.dist README.md"
 
 ensure: clean
 	mkdir -p ${HOME}/.composer var/tmp/docqa var/tmp/phpqa
