@@ -327,6 +327,58 @@ abstract class FunctionalTestCase extends TestCase
         ], $iterator);
     }
 
+    public function testCanLoadIteratorSequentially(): void
+    {
+        $iterator = $this->createIterator(
+            $this->getSpreadsheet($this->fixture('products.xlsx')),
+            new Mapping(
+                Product::class,
+                [
+                    'name' => new ColumnReference('A'),
+                    'price' => new ColumnReference('B'),
+                ],
+                [
+                    'start' => 2,
+                    'sequential' => true,
+                ]
+            )
+        );
+
+        self::assertIteratorMatches([
+            ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
+            ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
+            ['name' => 'Stillhouse Lake', 'price' => '1.99'],
+        ], $iterator);
+    }
+
+    /**
+     * @uses \Xezilaires\ReverseIterator
+     */
+    public function testCanLoadReverseIteratorSequentially(): void
+    {
+        $iterator = $this->createIterator(
+            $this->getSpreadsheet($this->fixture('products.xlsx')),
+            new Mapping(
+                Product::class,
+                [
+                    'name' => new ColumnReference('A'),
+                    'price' => new ColumnReference('B'),
+                ],
+                [
+                    'start' => 2,
+                    'reverse' => true,
+                    'sequential' => true,
+                ]
+            )
+        );
+
+        self::assertIteratorMatches([
+            ['name' => 'Stillhouse Lake', 'price' => '1.99'],
+            ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
+            ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
+        ], $iterator);
+    }
+
     abstract protected function getSpreadsheet(\SplFileObject $file): Spreadsheet;
 
     private function createIterator(Spreadsheet $spreadsheet, Mapping $mapping): SpreadsheetIterator

@@ -113,7 +113,7 @@ final class SerializeCommand extends Command
         $driver = new AnnotationDriver();
         $iterator = $this->iteratorFactory->fromFile(
             new \SplFileObject($path),
-            $driver->getMetadataMapping($class, ['reverse' => $reverse])
+            $driver->getMetadataMapping($class, ['reverse' => $reverse, 'sequential' => true])
         );
         $output->write($this->serializer->serialize($iterator, $format, $context));
 

@@ -91,6 +91,7 @@ final class Mapping
             'end' => null,
             'header' => null,
             'reverse' => false,
+            'sequential' => false,
         ]);
 
         $resolver->setAllowedTypes('start', 'int');
