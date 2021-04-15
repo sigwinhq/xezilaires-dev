@@ -49,11 +49,14 @@ jobs:
                 name: Run code quality analysis
                 run: make check-all
     DocumentationQualityAnalysis:
-        container: dkarlovi/docqa:latest
+        container:
+            image: dkarlovi/docqa:latest
+            volumes:
+                - ${{ github.workspace }}:/config
         runs-on: ubuntu-latest
         steps:
             -
-                uses: actions/checkout@master
+                uses: actions/checkout@v1
             -
                 name: Run documentation quality analysis
                 run: make docs-all

@@ -16,7 +16,7 @@ PHPQA_DOCKER_IMAGE=jakzal/phpqa:1.55-php${BUILD_ENV}-alpine
 PHPQA_DOCKER_COMMAND=docker run --init --interactive --rm --env "COMPOSER_CACHE_DIR=/composer/cache" --user "$(shell id -u):$(shell id -g)" --volume "$(shell pwd)/var/tmp/phpqa:/tmp" --volume "$(shell pwd):/project" --volume "${HOME}/.composer:/composer" --workdir /project ${PHPQA_DOCKER_IMAGE}
 endif
 
-dist: composer-normalize-all cs check-all test-all doc-all
+dist: composer-normalize-all cs check-all test-all docs-all
 check: composer-normalize-check phpstan psalm
 test: infection
 docs: markdownlint vale

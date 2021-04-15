@@ -96,6 +96,8 @@ See more examples in the [`docs/examples/`](./docs/examples/) folder.
   *(integer, optional if not using `HeaderReference`, default: `null`)*
 - `reverse`, do we iterate the rows in reverse, from end to start  
   *(boolean, optional, default: `false`)*
+- `sequential`, is the key sequential (0, 1, 2) or represents current row?  
+  *(boolean, optional, default: `false`)*
 
 ## Features
 
