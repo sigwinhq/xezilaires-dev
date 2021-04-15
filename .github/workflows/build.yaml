@@ -56,4 +56,4 @@ jobs:
                 uses: actions/checkout@master
             -
                 name: Run documentation quality analysis
-                run: ls && cat Makefile
+                run: pwd && ls && cat Makefile
