@@ -1,4 +1,5 @@
 StylesPath = styles
+Vocab = docs
 
 [*]
-BasedOnStyles = proselint, write-good, Joblint, docs
+BasedOnStyles = Vale

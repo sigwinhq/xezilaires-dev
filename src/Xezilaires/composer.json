@@ -1,7 +1,7 @@
 {
     "name": "sigwin/xezilaires",
     "type": "library",
-    "description": "Iterate Excel spreadsheets, normalize rows into value objects, validate, serialize into CSV, JSON, XML",
+    "description": "Iterate structured Excel spreadsheets, normalize rows into value objects, validate, serialize into CSV, JSON, XML.",
     "license": "MIT",
     "authors": [
         {

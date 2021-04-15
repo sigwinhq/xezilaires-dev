@@ -1,7 +1,7 @@
 # Xezilaires
 
-Xezilaires is a PHP 7 library which helps reading structured Excel files
-into PHP objects.
+Xezilaires is a PHP library which helps to iterate structured Excel spreadsheets,
+normalize rows into value objects, validate, serialize into CSV, JSON, XML.
 
 [![Latest Stable Version](https://poser.pugx.org/sigwin/xezilaires/v/stable.png)](https://github.com/sigwinhq/xezilaires-dev)
 [![Actions Status](https://github.com/sigwinhq/xezilaires-dev/workflows/Build/badge.svg)](https://github.com/sigwinhq/xezilaires-dev/actions)
@@ -115,7 +115,7 @@ Features included:
 
 ## What's with the name
 
-"xezilaires" is "serializex" backwards.
+`xezilaires` is `serializex` backwards.
 
 We added the X so the name so we can shorten it as [XLS](https://fileinfo.com/extension/xls).
 As a side-effect, we [made reading Excel files with this library cool](https://tvtropes.org/pmwiki/pmwiki.php/Main/XMakesAnythingCool).
