@@ -49,7 +49,10 @@ jobs:
                 name: Run code quality analysis
                 run: make check-all
     DocumentationQualityAnalysis:
-        container: dkarlovi/docqa:latest
+        container:
+            image: dkarlovi/docqa:latest
+            volumes:
+                - ./docs:/config
         runs-on: ubuntu-latest
         steps:
             -
