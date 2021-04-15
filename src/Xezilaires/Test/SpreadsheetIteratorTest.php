@@ -83,6 +83,30 @@ final class SpreadsheetIteratorTest extends TestCase
         static::assertGreaterThan($key, $iterator->key());
     }
 
+    public function testCanPerformNextSequentially(): void
+    {
+        $mapping = new Mapping(\stdClass::class, [
+            'name' => new HeaderReference('Name'),
+        ], ['header' => 1, 'sequential' => true]);
+
+        $iterator = new SpreadsheetIterator(
+            $this->getMockBuilder(Spreadsheet::class)->getMock(),
+            $mapping,
+            $this->getMockBuilder(Denormalizer::class)->getMock()
+        );
+        NSA::setProperty($iterator, 'iterator', $this->mockIterator([
+            'valid' => ['count' => 0, 'params' => null, 'return' => true],
+            'current' => ['count' => 0, 'params' => null],
+            'key' => ['count' => 0, 'params' => null],
+            'prev' => ['count' => 0, 'params' => null],
+            'next' => ['count' => 1, 'params' => null],
+        ]));
+        $key = $iterator->key();
+        $iterator->next();
+
+        static::assertGreaterThan($key, $iterator->key());
+    }
+
     public function testCanPerformCurrentCorrectly(): void
     {
         $spreadsheet = $this
