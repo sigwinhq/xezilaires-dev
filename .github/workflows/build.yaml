@@ -60,7 +60,7 @@ jobs:
                 uses: actions/checkout@v1
             -
                 name: Bug workaround for GH actions bind mounts empty (?) 
-                run: ln -s docs /config
+                run: ln -s docs /config -v
             -
                 name: Run documentation quality analysis
                 run: pwd && ls docs/ && ls -ad /config && ls -a /config/* && echo done
