@@ -51,12 +51,14 @@ jobs:
     DocumentationQualityAnalysis:
         container:
             image: dkarlovi/docqa:latest
-            volumes:
-                - ${{ github.workspace }}:/config
+            # volumes:
+            #     - ${{ github.workspace }}:/config
         runs-on: ubuntu-latest
         steps:
             -
                 uses: actions/checkout@v1
             -
+                run: ln -s docs/ /config/
+            -
                 name: Run documentation quality analysis
-                run: pwd && ls docs/ && ls -ad /config && echo done
+                run: pwd && ls docs/ && ls -ad /config && ls -a /config/* && echo done
