@@ -56,4 +56,4 @@ jobs:
                 uses: actions/checkout@master
             -
                 name: Run documentation quality analysis
-                run: pwd && ls && cat Makefile
+                run: pwd && ls -a && cat composer.json
