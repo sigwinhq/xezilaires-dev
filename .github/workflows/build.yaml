@@ -52,7 +52,7 @@ jobs:
         container:
             image: dkarlovi/docqa:latest
             volumes:
-                - ./docs:/config
+                - ${{ GITHUB_WORKSPACE }}/docs:/config
         runs-on: ubuntu-latest
         steps:
             -
