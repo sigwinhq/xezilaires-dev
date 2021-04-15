@@ -59,4 +59,4 @@ jobs:
                 uses: actions/checkout@v1
             -
                 name: Run documentation quality analysis
-                run: pwd && ls -a && ls -a /config && echo done
+                run: pwd && ls -a /config && echo done
