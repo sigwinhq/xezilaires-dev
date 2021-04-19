@@ -6,7 +6,6 @@ on:
             - "master"
 
 env:
-    DOCQA_DOCKER_COMMAND: " "
     PHPQA_DOCKER_COMMAND: " "
 
 jobs:
@@ -49,10 +48,6 @@ jobs:
                 name: Run code quality analysis
                 run: make check-all
     DocumentationQualityAnalysis:
-        container:
-            image: dkarlovi/docqa:latest
-            volumes:
-                - ${{ github.workspace }}:/config
         runs-on: ubuntu-latest
         steps:
             -
