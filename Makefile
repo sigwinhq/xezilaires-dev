@@ -6,15 +6,38 @@ ifndef MAKEFILE_ROOT
 MAKEFILE_ROOT=.
 endif
 
+PHPSTAN_OUTPUT=
+PSALM_OUTPUT=
+define start
+endef
+define end
+endef
+ifdef GITHUB_ACTIONS
+define start
+echo ::group::$(1)
+endef
+define end
+echo ::endgroup::
+endef
+PHPSTAN_OUTPUT=--error-format=github
+PSALM_OUTPUT=--output-format=github
+endif
+
+ifndef TTY
+TTY:=$(shell [ -t 0 ] && echo --tty)
+endif
+
 ifndef DOCQA_DOCKER_COMMAND
 DOCQA_DOCKER_IMAGE=dkarlovi/docqa:latest
-DOCQA_DOCKER_COMMAND=docker run --init --interactive --rm --env HOME=/tmp --user "$(shell id -u):$(shell id -g)"  --volume "$(shell pwd)/${MAKEFILE_ROOT}/docs:/config" --volume "$(shell pwd)/var/tmp/docqa:/.cache" --volume "$(shell pwd):/project" --workdir /project ${DOCQA_DOCKER_IMAGE}
+DOCQA_DOCKER_COMMAND=docker run --init --interactive ${TTY} --rm --env HOME=/tmp --user "$(shell id -u):$(shell id -g)"  --volume "$(shell pwd)/${MAKEFILE_ROOT}/docs:/config" --volume "$(shell pwd)/var/tmp/docqa:/.cache" --volume "$(shell pwd):/project" --workdir /project ${DOCQA_DOCKER_IMAGE}
 endif
 
 ifndef PHPQA_DOCKER_COMMAND
 PHPQA_DOCKER_IMAGE=jakzal/phpqa:1.55-php${BUILD_ENV}-alpine
-PHPQA_DOCKER_COMMAND=docker run --init --interactive --rm --env "COMPOSER_CACHE_DIR=/composer/cache" --user "$(shell id -u):$(shell id -g)" --volume "$(shell pwd)/var/tmp/phpqa:/tmp" --volume "$(shell pwd):/project" --volume "${HOME}/.composer:/composer" --workdir /project ${PHPQA_DOCKER_IMAGE}
+PHPQA_DOCKER_COMMAND=docker run --init --interactive ${TTY} --rm --env "COMPOSER_CACHE_DIR=/composer/cache" --user "$(shell id -u):$(shell id -g)" --volume "$(shell pwd)/var/tmp/phpqa:/tmp" --volume "$(shell pwd):/project" --volume "${HOME}/.composer:/composer" --workdir /project ${PHPQA_DOCKER_IMAGE}
 endif
+
+.SILENT:
 
 dist: composer-normalize-all cs check-all test-all docs-all
 check: composer-normalize-check phpstan psalm
@@ -68,10 +91,10 @@ cs-check: ensure
 	sh -c "${PHPQA_DOCKER_COMMAND} php-cs-fixer fix --dry-run --diff -vvv"
 
 phpstan: ensure
-	sh -c "${PHPQA_DOCKER_COMMAND} phpstan analyse"
+	sh -c "${PHPQA_DOCKER_COMMAND} phpstan analyse ${PHPSTAN_OUTPUT}"
 
 psalm: ensure
-	sh -c "${PHPQA_DOCKER_COMMAND} psalm"
+	sh -c "${PHPQA_DOCKER_COMMAND} psalm ${PSALM_OUTPUT}"
 
 phpunit:
 	sh -c "${PHPQA_DOCKER_COMMAND} vendor/bin/phpunit --verbose"
@@ -82,9 +105,13 @@ infection: phpunit-coverage
 	sh -c "${PHPQA_DOCKER_COMMAND} infection run --verbose --show-mutations --no-interaction --only-covered --coverage var/ --threads 4"
 
 markdownlint: ensure
+	$(call start,Markdownlint)
 	sh -c "${DOCQA_DOCKER_COMMAND} markdownlint README.md"
+	$(call end)
 vale: ensure
+	$(call start,Vale)
 	sh -c "${DOCQA_DOCKER_COMMAND} vale --config /config/.vale.ini.dist README.md"
+	$(call end)
 
 ensure: clean
 	mkdir -p ${HOME}/.composer var/tmp/docqa var/tmp/phpqa
