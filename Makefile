@@ -83,18 +83,26 @@ composer-install-lowest: ensure
 composer-normalize: ensure
 	sh -c "${PHPQA_DOCKER_COMMAND} composer normalize --no-check-lock"
 composer-normalize-check: ensure
+	$(call start,Composer normalize)
 	sh -c "${PHPQA_DOCKER_COMMAND} composer normalize --no-check-lock --dry-run"
+	$(call end)
 
 cs: ensure
 	sh -c "${PHPQA_DOCKER_COMMAND} php-cs-fixer fix --diff -vvv"
 cs-check: ensure
+	$(call start,PHP CS Fixer)
 	sh -c "${PHPQA_DOCKER_COMMAND} php-cs-fixer fix --dry-run --diff -vvv"
+	$(call end)
 
 phpstan: ensure
+	$(call start,PHPStan)
 	sh -c "${PHPQA_DOCKER_COMMAND} phpstan analyse ${PHPSTAN_OUTPUT}"
+	$(call end)
 
 psalm: ensure
+	$(call start,Psalm)
 	sh -c "${PHPQA_DOCKER_COMMAND} psalm ${PSALM_OUTPUT}"
+	$(call end)
 
 phpunit:
 	sh -c "${PHPQA_DOCKER_COMMAND} vendor/bin/phpunit --verbose"
