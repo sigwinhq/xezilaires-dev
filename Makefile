@@ -14,7 +14,7 @@ define end
 endef
 ifdef GITHUB_ACTIONS
 define start
-echo ::group::$(1)
+echo ::group::$(1) in ${CURDIR}
 endef
 define end
 echo ::endgroup::
