@@ -77,9 +77,13 @@ clean-all: clean
 composer-validate: ensure composer-normalize-check
 	sh -c "${PHPQA_DOCKER_COMMAND} composer validate --no-check-lock"
 composer-install: ensure
+	$(call start,Composer install)
 	sh -c "${PHPQA_DOCKER_COMMAND} composer upgrade"
+	$(call end)
 composer-install-lowest: ensure
+	$(call start,Composer install)
 	sh -c "${PHPQA_DOCKER_COMMAND} composer upgrade --with-all-dependencies --prefer-lowest"
+	$(call end)
 composer-normalize: ensure
 	sh -c "${PHPQA_DOCKER_COMMAND} composer normalize --no-check-lock"
 composer-normalize-check: ensure
@@ -105,12 +109,18 @@ psalm: ensure
 	$(call end)
 
 phpunit:
+	$(call start,PHPUnit)
 	sh -c "${PHPQA_DOCKER_COMMAND} vendor/bin/phpunit --verbose"
+	$(call end)
 phpunit-coverage: ensure
+	$(call start,PHPUnit)
 	sh -c "${PHPQA_DOCKER_COMMAND} php -d pcov.enabled=1 vendor/bin/phpunit --verbose --coverage-text --log-junit=var/junit.xml --coverage-xml var/coverage-xml/"
+	$(call end)
 
 infection: phpunit-coverage
+	$(call start,Infection)
 	sh -c "${PHPQA_DOCKER_COMMAND} infection run --verbose --show-mutations --no-interaction --only-covered --coverage var/ --threads 4"
+	$(call end)
 
 markdownlint: ensure
 	$(call start,Markdownlint)
