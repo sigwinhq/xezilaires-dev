@@ -33,7 +33,6 @@ final class Application extends BaseApplication
 
         $this->setName(self::APP_NAME);
         if (class_exists(InstalledVersions::class)) {
-            /** @var null|string $version */
             $version = InstalledVersions::getPrettyVersion('sigwin/xezilaires-symfony');
             $this->setVersion($version ?? 'N/A');
         } else {

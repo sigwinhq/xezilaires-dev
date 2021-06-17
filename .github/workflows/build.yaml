@@ -36,7 +36,7 @@ jobs:
                 if: "matrix.php != '7.3'"
                 run: make test-all
     CodeQualityAnalysis:
-        container: jakzal/phpqa:1.55-php8.0-alpine
+        container: jakzal/phpqa:1.58.7-php8.0-alpine
         runs-on: ubuntu-latest
         steps:
             -
