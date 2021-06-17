@@ -26,8 +26,6 @@ use Xezilaires\Spreadsheet as SpreadsheetInterface;
 
 final class Spreadsheet implements SpreadsheetInterface
 {
-    private const CELL_NO_AUTO_CREATE = false;
-
     /**
      * @var \SplFileObject
      */
@@ -151,10 +149,7 @@ final class Spreadsheet implements SpreadsheetInterface
         $worksheet = $this->getActiveWorksheet();
         $columnIndex = Coordinate::columnIndexFromString($columnName);
 
-        $cell = $worksheet->getCellByColumnAndRow($columnIndex, $rowIndex, self::CELL_NO_AUTO_CREATE);
-        if (null === $cell) {
-            return null;
-        }
+        $cell = $worksheet->getCellByColumnAndRow($columnIndex, $rowIndex);
 
         /** @var null|float|int|string $value */
         $value = $cell->getValue();

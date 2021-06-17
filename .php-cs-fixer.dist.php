@@ -16,7 +16,7 @@ $finder = PhpCsFixer\Finder::create()
     ->exclude('vendor')
     ->in(__DIR__);
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules(
         [
@@ -32,15 +32,15 @@ return PhpCsFixer\Config::create()
             'date_time_immutable' => true,
             'declare_strict_types' => true,
             'dir_constant' => true,
+            'echo_tag_syntax' => ['format' => 'short'],
             'final_class' => true,
             'final_internal_class' => true,
-            'general_phpdoc_annotation_remove' => ['@author'],
+            'general_phpdoc_annotation_remove' => ['annotations' => ['@author']],
             'mb_str_functions' => true,
             'modernize_types_casting' => true,
+            'multiline_whitespace_before_semicolons' => false,
             'native_function_invocation' => ['include' => ['@compiler_optimized']],
-            'no_multiline_whitespace_before_semicolons' => true,
             'no_php4_constructor' => true,
-            'no_short_echo_tag' => true,
             // 'no_useless_comment' => true,
             'no_useless_else' => true,
             'no_useless_return' => true,
@@ -63,7 +63,6 @@ return PhpCsFixer\Config::create()
                 'null_adjustment' => 'always_first'
             ],
             'php_unit_internal_class' => true,
-            'psr4' => true,
             'random_api_migration' => true,
             'semicolon_after_instruction' => true,
             'static_lambda' => true,
