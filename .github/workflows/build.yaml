@@ -5,13 +5,11 @@ on:
         branches:
             - "master"
 
-env:
-    PHPQA_DOCKER_COMMAND: " "
-
 jobs:
     MutationTest:
-        container: jakzal/phpqa:1.55-php${{ matrix.php }}-alpine
         runs-on: ubuntu-latest
+        env:
+            BUILD_ENV: ${{ matrix.php }}
         strategy:
             matrix:
                 php: [ "7.3", "7.4", "8.0" ]
@@ -36,7 +34,6 @@ jobs:
                 if: "matrix.php != '7.3'"
                 run: make test-all
     CodeQualityAnalysis:
-        container: jakzal/phpqa:1.58.7-php8.0-alpine
         runs-on: ubuntu-latest
         steps:
             -
