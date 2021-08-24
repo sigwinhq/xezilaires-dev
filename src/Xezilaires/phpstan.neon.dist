@@ -12,9 +12,3 @@ parameters:
     excludes_analyse:
         - var/
         - vendor/
-    ignoreErrors:
-        - message: '#Access to an undefined property object\:\:\$scalar\.#'
-          path: %currentWorkingDirectory%/Test/FilterIteratorTest.php
-        - message: '#Return type \(bool\) of method class@anonymous\/Test\/FixtureTrait\.php:28::getRealPath\(\) should be covariant with return type \(string\|false\) of method SplFileInfo::getRealPath\(\)#'
-          paths:
-            - %currentWorkingDirectory%/Test/Functional/FunctionalTestCase.php

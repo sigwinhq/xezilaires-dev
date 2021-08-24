@@ -2,7 +2,6 @@ includes:
     - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-deprecation-rules/rules.neon
     - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-strict-rules/rules.neon
     - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-phpunit/extension.neon
-    # - /tools/.composer/vendor-bin/phpstan/vendor/pepakriz/phpstan-exception-rules/extension.neon
 parameters:
     checkMissingIterableValueType: false
     checkGenericClassInNonGenericObjectType: false
@@ -17,16 +16,3 @@ parameters:
         - src/Xezilaires/vendor/
         - var/
         - vendor/
-    #exceptionRules:
-    #    uncheckedExceptions:
-    #        - LogicException
-    #        - PHPUnit\Framework\Exception
-    #        - PHPUnit\Framework\MockObject\RuntimeException
-    ignoreErrors:
-        - message: '#Access to an undefined property object\:\:\$scalar\.#'
-          path: %currentWorkingDirectory%/src/Xezilaires/Test/FilterIteratorTest.php
-        - message: '#Return type \(bool\) of method class@anonymous\/src\/Xezilaires\/Test\/FixtureTrait\.php:28::getRealPath\(\) should be covariant with return type \(string\|false\) of method SplFileInfo::getRealPath\(\)#'
-          paths:
-            - %currentWorkingDirectory%/src/Bridge/Spout/Test/SpreadsheetTest.php
-            - %currentWorkingDirectory%/src/Bridge/Symfony/Test/Functional/XezilairesBundleTest.php
-            - %currentWorkingDirectory%/src/Xezilaires/Test/Functional/FunctionalTestCase.php
