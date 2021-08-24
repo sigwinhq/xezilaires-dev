@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <psalm xmlns="https://getpsalm.org/schema/config"
        cacheDirectory="var/psalm"
-       totallyTyped="true">
+       errorLevel="1">
     <projectFiles>
         <directory name="."/>
         <ignoreFiles>
