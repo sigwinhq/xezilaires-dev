@@ -70,6 +70,7 @@
             "**/src/Bridge/*/Test/"
         ]
     },
+    "minimum-stability": "dev",
     "bin": [
         "src/Bridge/Symfony/bin/xezilaires"
     ]
