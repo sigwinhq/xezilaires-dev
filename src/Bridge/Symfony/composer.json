@@ -57,6 +57,7 @@
             "/Test/"
         ]
     },
+    "minimum-stability": "dev",
     "bin": [
         "bin/xezilaires"
     ]

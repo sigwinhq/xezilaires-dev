@@ -45,7 +45,7 @@ final class SpreadsheetIteratorFactory implements IteratorFactory
             return $this->fromSpreadsheet($spreadsheetClass::fromFile($file), $mapping);
         }
 
-        throw new \RuntimeException('Install either phpoffice/phpspreadsheet or box/spout to read Excel files');
+        throw new \RuntimeException('Install either sigwin/xezilaires-phpspreadsheet or sigwin/xezilaires-spout to read Excel files');
     }
 
     public function fromSpreadsheet(Spreadsheet $spreadsheet, Mapping $mapping): Iterator
