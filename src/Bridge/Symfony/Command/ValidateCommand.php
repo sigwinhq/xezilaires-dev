@@ -57,8 +57,8 @@ final class ValidateCommand extends Command
             ->setName('xezilaires:serialize')
             ->addArgument('class', InputArgument::REQUIRED, 'Process the rows as class')
             ->addArgument('paths', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'Path(s) to file(s) to process')
-            ->addOption('bundle', 'b', InputOption::VALUE_REQUIRED, 'Custom project-specific bundle to load')
-            ->addOption('stop-on-violation', 's', InputOption::VALUE_NONE, 'Stop validation on first violation found');
+            ->addOption('bundle', 'B', InputOption::VALUE_REQUIRED, 'Custom project-specific bundle to load')
+            ->addOption('stop-on-violation', 'S', InputOption::VALUE_NONE, 'Stop validation on first violation found');
     }
 
     /**
