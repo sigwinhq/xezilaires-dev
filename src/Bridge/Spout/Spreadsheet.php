@@ -160,7 +160,7 @@ final class Spreadsheet implements SpreadsheetInterface
             try {
                 $this->reader = ReaderEntityFactory::createXLSXReader();
                 $this->reader->open($path);
-            } catch (UnsupportedTypeException | IOException $exception) {
+            } catch (UnsupportedTypeException|IOException $exception) {
                 throw SpreadsheetException::invalidSpreadsheet($exception);
             }
         }

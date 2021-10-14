@@ -51,7 +51,7 @@ if (false === ini_get('date.timezone')) {
 
 $bundles = [];
 $input = new ArgvInput();
-if (null !== $bundleClass = $input->getParameterOption(['--bundle', '-b'], null, true)) {
+if (null !== $bundleClass = $input->getParameterOption(['--bundle', '-B'], null, true)) {
     if (class_exists($bundleClass) === false) {
         fwrite(STDERR, sprintf('Bundle class `%1$s` does not exist, quitting.'.PHP_EOL, $bundleClass));
 

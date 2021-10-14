@@ -35,11 +35,22 @@ jobs:
                 run: make test-all
     CodeQualityAnalysis:
         runs-on: ubuntu-latest
+        env:
+            BUILD_ENV: ${{ matrix.php }}
+        strategy:
+            matrix:
+                php: [ "7.3", "7.4", "8.0" ]
+                dependencies: [ lowest, highest ]
         steps:
             -
                 uses: actions/checkout@master
             -
+                name: Composer install lowest dependencies
+                if: "matrix.dependencies == 'lowest'"
+                run: make composer-install-lowest-all
+            -
                 name: Composer install highest dependencies
+                if: "matrix.dependencies == 'highest'"
                 run: make composer-install-all
             -
                 name: Run code quality analysis
