@@ -46,4 +46,4 @@ $iterator = $iteratorFactory->fromFile(
 );
 
 $out = iterator_to_array($iterator);
-echo \json_encode($out, \JSON_PRETTY_PRINT);
+echo json_encode($out, \JSON_PRETTY_PRINT);

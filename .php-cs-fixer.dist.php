@@ -23,7 +23,6 @@ return (new PhpCsFixer\Config())
             '@DoctrineAnnotation' => true,
             '@PHP71Migration:risky' => true,
             '@PHP70Migration:risky' => true,
-            '@PHP56Migration' => true,
             '@PHPUnit75Migration:risky' => true,
             '@Symfony' => true,
             '@Symfony:risky' => true,

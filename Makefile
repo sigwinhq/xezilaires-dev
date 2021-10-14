@@ -33,7 +33,7 @@ DOCQA_DOCKER_COMMAND=docker run --init --interactive ${TTY} --rm --env HOME=/tmp
 endif
 
 ifndef PHPQA_DOCKER_COMMAND
-PHPQA_DOCKER_IMAGE=jakzal/phpqa:1.59.2-php${BUILD_ENV}-alpine
+PHPQA_DOCKER_IMAGE=jakzal/phpqa:1.60.4-php${BUILD_ENV}-alpine
 PHPQA_DOCKER_COMMAND=docker run --init --interactive ${TTY} --rm --env "COMPOSER_CACHE_DIR=/composer/cache" --user "$(shell id -u):$(shell id -g)" --volume "$(shell pwd)/var/tmp/phpqa:/tmp" --volume "$(shell pwd):/project" --volume "${HOME}/.composer:/composer" --workdir /project ${PHPQA_DOCKER_IMAGE}
 endif
 
@@ -105,7 +105,7 @@ phpstan: ensure
 
 psalm: ensure
 	$(call start,Psalm)
-	sh -c "${PHPQA_DOCKER_COMMAND} psalm ${PSALM_OUTPUT}"
+	sh -c "${PHPQA_DOCKER_COMMAND} psalm --php-version=${BUILD_ENV} ${PSALM_OUTPUT}"
 	$(call end)
 
 phpunit:
