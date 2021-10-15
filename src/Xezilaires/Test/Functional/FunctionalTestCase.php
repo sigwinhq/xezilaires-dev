@@ -29,6 +29,7 @@ use Xezilaires\SpreadsheetIterator;
 use Xezilaires\Test\FixtureTrait;
 use Xezilaires\Test\IteratorMatcherTrait;
 use Xezilaires\Test\Model\Product;
+use Xezilaires\Test\Model\ProductWithAttributes;
 
 /**
  * @internal
@@ -111,6 +112,9 @@ abstract class FunctionalTestCase extends TestCase
         ], $iterator);
     }
 
+    /**
+     * @uses \Xezilaires\Annotation\HeaderReference
+     */
     public function testCanLoadSparseFixtureWithHeaderReference(): void
     {
         $iterator = $this->createIterator(
@@ -137,6 +141,9 @@ abstract class FunctionalTestCase extends TestCase
 
     /**
      * @uses \Xezilaires\Metadata\Annotation\AnnotationDriver
+     * @uses \Xezilaires\Annotation\ColumnReference
+     * @uses \Xezilaires\Annotation\HeaderReference
+     * @uses \Xezilaires\Annotation\Options
      *
      * @throws \ReflectionException
      * @throws \RuntimeException
@@ -156,6 +163,37 @@ abstract class FunctionalTestCase extends TestCase
             2 => ['all' => ['The Very Hungry Caterpillar', '6.59'], 'name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
             3 => ['all' => ['Brown Bear, Brown Bear, What Do You See?', '6.51'], 'name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
             4 => ['all' => ['Stillhouse Lake', '1.99'], 'name' => 'Stillhouse Lake', 'price' => '1.99'],
+        ], $iterator);
+    }
+
+    /**
+     * @uses \Xezilaires\Metadata\Annotation\AnnotationDriver
+     * @uses \Xezilaires\Annotation\ColumnReference
+     * @uses \Xezilaires\Annotation\HeaderReference
+     * @uses \Xezilaires\Annotation\Options
+     *
+     * @throws \ReflectionException
+     * @throws \RuntimeException
+     * @throws \ReflectionException
+     */
+    public function testCanLoadSparseFixtureWithNativeAttributes(): void
+    {
+        if (\PHP_VERSION_ID < 80000) {
+            static::markTestSkipped('Native PHP attributes available since PHP 8.0.0');
+        }
+
+        $driver = new AnnotationDriver();
+        $mapping = $driver->getMetadataMapping(ProductWithAttributes::class);
+
+        $iterator = $this->createIterator(
+            $this->getSpreadsheet($this->fixture('products-sparse.xlsx')),
+            $mapping
+        );
+
+        self::assertIteratorMatches([
+            2 => ['name' => 'The Very Hungry Caterpillar', 'price' => 6.59],
+            3 => ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => 6.51],
+            4 => ['name' => 'Stillhouse Lake', 'price' => 1.99],
         ], $iterator);
     }
 
@@ -265,7 +303,7 @@ abstract class FunctionalTestCase extends TestCase
 
         $current = new Product();
         $current->name = 'Brown Bear, Brown Bear, What Do You See?';
-        $current->price = '6.51';
+        $current->price = 6.51;
         static::assertEquals($current, $iterator->current());
     }
 
@@ -291,7 +329,7 @@ abstract class FunctionalTestCase extends TestCase
         $iterator->rewind();
         $current = new Product();
         $current->name = 'The Very Hungry Caterpillar';
-        $current->price = '6.59';
+        $current->price = 6.59;
         static::assertEquals($current, $iterator->current());
         static::assertEquals(2, $iterator->key());
     }

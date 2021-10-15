@@ -41,7 +41,7 @@ final class Product
     public $name;
 
     /**
-     * @var float|string
+     * @var float
      *
      * @Groups({"header", "product"})
      * @XLS\HeaderReference(header="Price USD")

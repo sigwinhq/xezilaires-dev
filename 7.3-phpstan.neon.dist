@@ -1,5 +1,11 @@
 includes:
     - phpstan.neon.dist
 parameters:
+    ignoreErrors:
+        # PHPStan does not process version guards correctly
+        - '#Call to an undefined method.*getAttributes#'
     excludePaths:
         - src/Xezilaires/Test/Model/ProductWithAttributes.php
+        
+        # false positive: PHPStan loads the first file from this one (?) 
+        - src/Xezilaires/Test/Functional/FunctionalTestCase.php

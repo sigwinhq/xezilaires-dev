@@ -15,7 +15,10 @@ namespace Xezilaires\Annotation;
 
 /**
  * @Annotation
+ * @Target({"CLASS"})
+ * @NamedArgumentConstructor
  */
+#[\Attribute(\Attribute::TARGET_CLASS)]
 final class Options
 {
     /**
@@ -37,4 +40,12 @@ final class Options
      * @var bool
      */
     public $reverse;
+
+    public function __construct(int $start = 0, int $end = \PHP_INT_MAX, int $header = 0, bool $reverse = false)
+    {
+        $this->start = $start;
+        $this->end = $end;
+        $this->header = $header;
+        $this->reverse = $reverse;
+    }
 }

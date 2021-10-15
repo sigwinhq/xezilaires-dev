@@ -109,7 +109,7 @@ phpstan: ensure
 
 psalm: ensure
 	$(call start,Psalm)
-	sh -c "${PHPQA_DOCKER_COMMAND} psalm --php-version=${BUILD_ENV} ${PSALM_OUTPUT}"
+	sh -c "${PHPQA_DOCKER_COMMAND} psalm --php-version=${BUILD_ENV} ${PSALM_OUTPUT} --config $(call environment,psalm.xml.dist)"
 	$(call end)
 
 phpunit:

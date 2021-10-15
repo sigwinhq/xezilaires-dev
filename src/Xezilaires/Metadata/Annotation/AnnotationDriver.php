@@ -66,15 +66,15 @@ final class AnnotationDriver
     {
         $columns = [];
         foreach ($reflectionClass->getProperties() as $reflectionProperty) {
-            $arrayAnnotation = $this->reader->getPropertyAnnotation(
+            $arrayAnnotation = $this->getPropertyAnnotationOrAttribute(
                 $reflectionProperty,
                 Annotation\ArrayReference::class
             );
-            $columnAnnotation = $this->reader->getPropertyAnnotation(
+            $columnAnnotation = $this->getPropertyAnnotationOrAttribute(
                 $reflectionProperty,
                 Annotation\ColumnReference::class
             );
-            $headerAnnotation = $this->reader->getPropertyAnnotation(
+            $headerAnnotation = $this->getPropertyAnnotationOrAttribute(
                 $reflectionProperty,
                 Annotation\HeaderReference::class
             );
@@ -115,7 +115,7 @@ final class AnnotationDriver
 
     private function getOptions(\ReflectionClass $reflectionClass, ?array $additionalOptions = null): array
     {
-        $options = (array) $this->reader->getClassAnnotation($reflectionClass, Annotation\Options::class);
+        $options = $this->getClassAnnotationOrAttribute($reflectionClass, Annotation\Options::class);
         if (null !== $additionalOptions) {
             $options = array_replace($options, $additionalOptions);
         }
@@ -140,5 +140,41 @@ final class AnnotationDriver
         }
 
         return $reference;
+    }
+
+    /**
+     * @template T
+     *
+     * @param class-string<T> $name
+     */
+    private function getClassAnnotationOrAttribute(\ReflectionClass $reflection, string $name): array
+    {
+        if (\PHP_VERSION_ID >= 80000) {
+            $attribute = current($reflection->getAttributes($name));
+            if ($attribute !== false) {
+                return $attribute->getArguments();
+            }
+        }
+
+        return (array) $this->reader->getClassAnnotation($reflection, $name);
+    }
+
+    /**
+     * @template T
+     *
+     * @param class-string<T> $name
+     *
+     * @phpstan-return T|null
+     */
+    private function getPropertyAnnotationOrAttribute(\ReflectionProperty $reflection, string $name)
+    {
+        if (\PHP_VERSION_ID >= 80000) {
+            $attribute = current($reflection->getAttributes($name));
+            if ($attribute !== false) {
+                return $attribute->newInstance();
+            }
+        }
+
+        return $this->reader->getPropertyAnnotation($reflection, $name);
     }
 }
