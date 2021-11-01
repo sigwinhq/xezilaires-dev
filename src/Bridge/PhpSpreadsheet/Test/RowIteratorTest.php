@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Xezilaires\Bridge\PhpSpreadsheet\Test;
 
+use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowIterator as PhpspreadsheetRowIterator;
 use PHPUnit\Framework\TestCase;
 use Xezilaires\Bridge\PhpSpreadsheet\RowIterator;
@@ -41,7 +42,7 @@ final class RowIteratorTest extends TestCase
     {
         $iterator = new RowIterator($this->mockIterator([
             'valid' => ['count' => 0, 'params' => null, 'return' => false],
-            'current' => ['count' => 1, 'params' => null, 'return' => new \stdClass()],
+            'current' => ['count' => 1, 'params' => null, 'return' => new Row()],
             'prev' => ['count' => 0, 'params' => null],
             'next' => ['count' => 0, 'params' => null],
         ]));

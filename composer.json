@@ -71,6 +71,7 @@
         ]
     },
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "bin": [
         "src/Bridge/Symfony/bin/xezilaires"
     ]
