@@ -17,7 +17,6 @@
     "require-dev": {
         "box/spout": "^3.0",
         "doctrine/annotations": "^1.12",
-        "nicmart/tree": "^0.2,>= 0.2.4",
         "nyholm/nsa": "^1.1",
         "phpunit/phpunit": "^9.5",
         "symfony/console": "^4.4 || ^5.0",
