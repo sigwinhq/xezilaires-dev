@@ -9,6 +9,9 @@ parameters:
     level: max
     paths:
         - ./
-    excludes_analyse:
+    excludePaths:
         - var/
         - vendor/
+    ignoreErrors:
+        # false positive PHPStan 1.x
+        - '#Return type \(bool\) of method class@anonymous/Test/FixtureTrait.php:28::getRealPath#'

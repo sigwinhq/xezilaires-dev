@@ -178,7 +178,6 @@ abstract class FunctionalTestCase extends TestCase
             )
         );
 
-        /** @psalm-suppress UnusedFunctionCall */
         iterator_to_array($iterator);
     }
 
@@ -202,7 +201,6 @@ abstract class FunctionalTestCase extends TestCase
             )
         );
 
-        /** @psalm-suppress UnusedFunctionCall */
         iterator_to_array($iterator);
     }
 
@@ -230,7 +228,6 @@ abstract class FunctionalTestCase extends TestCase
             )
         );
 
-        /** @psalm-suppress UnusedFunctionCall */
         iterator_to_array($iterator);
     }
 
@@ -244,7 +241,6 @@ abstract class FunctionalTestCase extends TestCase
             new Mapping(Product::class, ['name' => new ColumnReference('A')])
         );
 
-        /** @psalm-suppress UnusedFunctionCall */
         iterator_to_array($iterator);
     }
 

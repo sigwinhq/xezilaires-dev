@@ -8,6 +8,6 @@ parameters:
     level: max
     paths:
         - ./
-    excludes_analyse:
+    excludePaths:
         - var/
         - vendor/
