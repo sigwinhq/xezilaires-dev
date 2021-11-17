@@ -13,9 +13,7 @@ declare(strict_types=1);
 
 namespace Xezilaires\Test\Model;
 
-use Xezilaires\Nestable;
-
-final class Category implements Nestable
+final class Category
 {
     /**
      * @var int
@@ -37,26 +35,17 @@ final class Category implements Nestable
         return $this->name;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getIdentifier()
+    public function getIdentifier(): int
     {
         return $this->id;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasParent(): bool
     {
         return null !== $this->parent;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getParentIdentifier()
+    public function getParentIdentifier(): ?int
     {
         return $this->parent;
     }
