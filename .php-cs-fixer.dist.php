@@ -16,6 +16,12 @@ $finder = PhpCsFixer\Finder::create()
     ->exclude('vendor')
     ->in(__DIR__);
 
+// TODO: remove when on ^7.4
+if (PHP_VERSION_ID < 70400) {
+    // has property types
+    $finder->notPath('src/Xezilaires/Test/Model/ProductWithAttributes.php');
+}
+
 return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules(

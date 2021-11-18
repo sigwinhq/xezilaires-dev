@@ -1,0 +1,5 @@
+includes:
+    - phpstan.neon.dist
+parameters:
+    excludePaths:
+        - Test/Model/ProductWithAttributes.php

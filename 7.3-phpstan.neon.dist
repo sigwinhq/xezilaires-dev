@@ -1,0 +1,5 @@
+includes:
+    - phpstan.neon.dist
+parameters:
+    excludePaths:
+        - src/Xezilaires/Test/Model/ProductWithAttributes.php
