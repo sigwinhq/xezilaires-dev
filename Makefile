@@ -51,6 +51,10 @@ define process
 	(cd src/Xezilaires && MAKEFILE_ROOT=../.. make -f ../../Makefile $(1))
 endef
 
+define environment
+	$(shell test -f ${BUILD_ENV}-${1} && echo -n ${BUILD_ENV}-${1} || echo ${1})
+endef
+
 check-all: cs-check check
 	$(call process,check)
 test-all: test
@@ -100,7 +104,7 @@ cs-check: ensure
 
 phpstan: ensure
 	$(call start,PHPStan)
-	sh -c "${PHPQA_DOCKER_COMMAND} phpstan analyse ${PHPSTAN_OUTPUT}"
+	sh -c "${PHPQA_DOCKER_COMMAND} phpstan analyse ${PHPSTAN_OUTPUT} --configuration $(call environment,phpstan.neon.dist)"
 	$(call end)
 
 psalm: ensure
