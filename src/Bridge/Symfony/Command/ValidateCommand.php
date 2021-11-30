@@ -113,7 +113,11 @@ final class ValidateCommand extends Command
 
                     $style->section(sprintf('Row %1$d', $iterator->key()));
 
-                    /** @var ConstraintViolationInterface $violation */
+                    /**
+                     * @psalm-suppress UnnecessaryVarAnnotation it's required for older Symfony instances
+                     *
+                     * @var ConstraintViolationInterface $violation
+                     */
                     foreach ($violations as $violation) {
                         /** @var string $message */
                         $message = $violation->getMessage();
