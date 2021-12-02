@@ -19,7 +19,7 @@ namespace Xezilaires\Test;
 trait IteratorMatcherTrait
 {
     /**
-     * @param array<int, array<string, array<string>|string>> $expected
+     * @param array<int, array<string, array<float|string>|float|string>> $expected
      */
     private static function assertIteratorMatches(array $expected, \Iterator $iterator): void
     {

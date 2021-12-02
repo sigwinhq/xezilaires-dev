@@ -1,0 +1,8 @@
+includes:
+    - phpstan.neon.dist
+parameters:
+    ignoreErrors:
+        # PHPStan does not process version guards correctly
+        - '#Call to an undefined method.*getAttributes#'
+    excludePaths:
+        - Test/Model/ProductWithAttributes.php

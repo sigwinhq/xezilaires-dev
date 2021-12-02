@@ -15,11 +15,19 @@ namespace Xezilaires\Annotation;
 
 /**
  * @Annotation
+ * @Target({"ANNOTATION", "PROPERTY"})
+ * @NamedArgumentConstructor
  */
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
 final class ColumnReference implements Reference
 {
     /**
      * @var string
      */
     public $column;
+
+    public function __construct(string $column)
+    {
+        $this->column = $column;
+    }
 }

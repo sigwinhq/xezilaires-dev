@@ -15,6 +15,7 @@ namespace Xezilaires\Annotation;
 
 /**
  * @Annotation
+ * @Target({"PROPERTY"})
  */
 final class ArrayReference
 {

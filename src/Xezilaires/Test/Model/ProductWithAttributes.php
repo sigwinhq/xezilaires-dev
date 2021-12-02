@@ -13,9 +13,14 @@ declare(strict_types=1);
 
 namespace Xezilaires\Test\Model;
 
+use Xezilaires\Annotation as XLS;
+
+#[XLS\Options(header: 1, start: 2)]
 final class ProductWithAttributes
 {
+    #[XLS\ColumnReference(column: 'A')]
     public string $name;
 
+    #[XLS\HeaderReference(header: 'Price USD')]
     public float $price;
 }

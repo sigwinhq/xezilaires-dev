@@ -15,11 +15,19 @@ namespace Xezilaires\Annotation;
 
 /**
  * @Annotation
+ * @Target({"ANNOTATION", "PROPERTY"})
+ * @NamedArgumentConstructor
  */
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
 final class HeaderReference implements Reference
 {
     /**
      * @var string
      */
     public $header;
+
+    public function __construct(string $header)
+    {
+        $this->header = $header;
+    }
 }
