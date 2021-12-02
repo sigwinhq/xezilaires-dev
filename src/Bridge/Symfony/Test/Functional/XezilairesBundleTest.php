@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Xezilaires\Bridge\Symfony\Test\Functional;
 
-use Nyholm\BundleTest\BaseBundleTestCase;
+use Nyholm\BundleTest\TestKernel;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Xezilaires\Bridge\Symfony\XezilairesBundle;
 use Xezilaires\Denormalizer;
 use Xezilaires\IteratorFactory;
@@ -46,7 +48,7 @@ use Xezilaires\Validator;
  *
  * @medium
  */
-final class XezilairesBundleTest extends BaseBundleTestCase
+final class XezilairesBundleTest extends KernelTestCase
 {
     use FixtureTrait;
 
@@ -55,8 +57,8 @@ final class XezilairesBundleTest extends BaseBundleTestCase
      */
     public function testBundleHasValidator(): void
     {
-        $this->bootKernel();
-        $container = $this->getContainer();
+        $kernel = self::bootKernel();
+        $container = $kernel->getContainer();
 
         static::assertTrue($container->has(Validator::class));
         static::assertInstanceOf(\Xezilaires\Bridge\Symfony\Validator::class, $container->get(Validator::class));
@@ -67,8 +69,8 @@ final class XezilairesBundleTest extends BaseBundleTestCase
      */
     public function testBundleHasSerializer(): void
     {
-        $this->bootKernel();
-        $container = $this->getContainer();
+        $kernel = self::bootKernel();
+        $container = $kernel->getContainer();
 
         static::assertTrue($container->has(Serializer::class));
         static::assertInstanceOf(ObjectSerializer::class, $container->get(Serializer::class));
@@ -79,8 +81,8 @@ final class XezilairesBundleTest extends BaseBundleTestCase
      */
     public function testBundleHasDenormalizer(): void
     {
-        $this->bootKernel();
-        $container = $this->getContainer();
+        $kernel = self::bootKernel();
+        $container = $kernel->getContainer();
 
         static::assertTrue($container->has(Denormalizer::class));
         static::assertInstanceOf(ObjectSerializer::class, $container->get(Denormalizer::class));
@@ -91,8 +93,8 @@ final class XezilairesBundleTest extends BaseBundleTestCase
      */
     public function testBundleHasIteratorFactory(): void
     {
-        $this->bootKernel();
-        $container = $this->getContainer();
+        $kernel = self::bootKernel();
+        $container = $kernel->getContainer();
 
         static::assertTrue($container->has(IteratorFactory::class));
         static::assertInstanceOf(SpreadsheetIteratorFactory::class, $container->get(IteratorFactory::class));
@@ -103,8 +105,8 @@ final class XezilairesBundleTest extends BaseBundleTestCase
      */
     public function testIteratorFactoryWorks(): void
     {
-        $this->bootKernel();
-        $container = $this->getContainer();
+        $kernel = self::bootKernel();
+        $container = $kernel->getContainer();
 
         /** @var IteratorFactory $iteratorFactory */
         $iteratorFactory = $container->get(IteratorFactory::class);
@@ -115,19 +117,21 @@ final class XezilairesBundleTest extends BaseBundleTestCase
         static::assertInstanceOf(SpreadsheetIterator::class, $iterator);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function getBundleClass(): string
+    protected static function getKernelClass(): string
     {
-        return XezilairesBundle::class;
+        return TestKernel::class;
     }
 
-    protected function bootKernel(): void
+    protected static function createKernel(array $options = []): KernelInterface
     {
-        $kernel = $this->createKernel();
-        $kernel->addConfigFile(__DIR__.'/config.yaml');
+        /**
+         * @var TestKernel $kernel
+         */
+        $kernel = parent::createKernel($options);
+        $kernel->addTestBundle(XezilairesBundle::class);
+        $kernel->addTestConfig(__DIR__.'/config.yaml');
+        $kernel->handleOptions($options);
 
-        parent::bootKernel();
+        return $kernel;
     }
 }

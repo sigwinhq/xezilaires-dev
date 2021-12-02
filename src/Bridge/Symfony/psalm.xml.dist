@@ -2,7 +2,6 @@
 <psalm xmlns="https://getpsalm.org/schema/config"
        cacheDirectory="var/psalm"
        errorLevel="1"
-       findUnusedPsalmSuppress="true"
        findUnusedVariablesAndParams="true">
     <projectFiles>
         <directory name="."/>

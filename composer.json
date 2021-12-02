@@ -32,7 +32,7 @@
         "doctrine/annotations": "^1.12",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "nyholm/nsa": "^1.1",
-        "nyholm/symfony-bundle-test": "^1.5",
+        "nyholm/symfony-bundle-test": "dev-master",
         "phpoffice/phpspreadsheet": "^1.18",
         "phpunit/phpunit": "^9.5",
         "symfony/console": "^4.4 || ^5.0",
