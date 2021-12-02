@@ -12,8 +12,8 @@
     "require": {
         "php": "^7.3 || ^8.0",
         "ext-json": "*",
-        "symfony/options-resolver": "^4.4 || ^5.0",
-        "symfony/serializer": "^4.4 || ^5.0"
+        "symfony/options-resolver": "^4.4 || ^5.0 || ^6.0",
+        "symfony/serializer": "^4.4 || ^5.0 || ^6.0"
     },
     "replace": {
         "sigwin/xezilaires-core": "self.version",
@@ -35,11 +35,11 @@
         "nyholm/symfony-bundle-test": "dev-master",
         "phpoffice/phpspreadsheet": "^1.18",
         "phpunit/phpunit": "^9.5",
-        "symfony/console": "^4.4 || ^5.0",
-        "symfony/framework-bundle": "^4.4 || ^5.0",
-        "symfony/property-access": "^4.4 || ^5.0",
-        "symfony/property-info": "^4.4 || ^5.0",
-        "symfony/validator": "^4.4 || ^5.0"
+        "symfony/console": "^4.4 || ^5.0 || ^6.0",
+        "symfony/framework-bundle": "^4.4 || ^5.0 || ^6.0",
+        "symfony/property-access": "^4.4 || ^5.0 || ^6.0",
+        "symfony/property-info": "^4.4 || ^5.0 || ^6.0",
+        "symfony/validator": "^4.4 || ^5.0 || ^6.0"
     },
     "suggest": {
         "box/spout": "Read Excel files with Spout",
