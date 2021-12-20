@@ -1,8 +1,8 @@
 {
     "name": "sigwin/xezilaires-symfony",
-    "type": "library",
     "description": "Use Xezilaires together with Symfony to iterate structured Excel spreadsheets, normalize rows into value objects, validate, serialize into CSV, JSON, XML",
     "license": "MIT",
+    "type": "library",
     "authors": [
         {
             "name": "Dalibor Karlović",
@@ -18,10 +18,6 @@
         "symfony/property-info": "^4.4 || ^5.0 || ^6.0",
         "symfony/validator": "^4.4 || ^5.0 || ^6.0"
     },
-    "conflict": {
-        "symfony/config": "< 4.4.12",
-        "symfony/dependency-injection": "< 4.4.12"
-    },
     "require-dev": {
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "nyholm/symfony-bundle-test": "dev-master",
@@ -29,10 +25,27 @@
         "sigwin/xezilaires-phpspreadsheet": "^0.5 || ^0.6",
         "sigwin/xezilaires-spout": "^0.5 || ^0.6"
     },
+    "conflict": {
+        "symfony/config": "< 4.4.12",
+        "symfony/dependency-injection": "< 4.4.12"
+    },
     "suggest": {
         "sigwin/xezilaires-phpspreadsheet": "Read Excel files with PhpSpreadsheet",
         "sigwin/xezilaires-spout": "Read Excel files with Spout"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Xezilaires\\Bridge\\Symfony\\": "."
+        },
+        "exclude-from-classmap": [
+            "/Test/"
+        ]
+    },
+    "bin": [
+        "bin/xezilaires"
+    ],
     "config": {
         "platform": {
             "ext-gd": "1.3.1"
@@ -48,18 +61,5 @@
         "branch-alias": {
             "dev-master": "1.0-dev"
         }
-    },
-    "autoload": {
-        "psr-4": {
-            "Xezilaires\\Bridge\\Symfony\\": "."
-        },
-        "exclude-from-classmap": [
-            "/Test/"
-        ]
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "bin": [
-        "bin/xezilaires"
-    ]
+    }
 }

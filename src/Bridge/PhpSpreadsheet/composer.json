@@ -1,8 +1,8 @@
 {
     "name": "sigwin/xezilaires-phpspreadsheet",
-    "type": "library",
     "description": "Use Xezilaires together with PhpSpreadsheet to iterate structured Excel spreadsheets, normalize rows into value objects, validate, serialize into CSV, JSON, XML",
     "license": "MIT",
+    "type": "library",
     "authors": [
         {
             "name": "Dalibor Karlović",
@@ -23,6 +23,16 @@
     "suggest": {
         "sigwin/xezilaires-symfony": "Symfony bundle integration, bin/xezilaires use"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Xezilaires\\Bridge\\PhpSpreadsheet\\": "."
+        },
+        "exclude-from-classmap": [
+            "/Test/"
+        ]
+    },
     "config": {
         "platform": {
             "ext-gd": "1.3.1"
@@ -36,15 +46,5 @@
         "branch-alias": {
             "dev-master": "1.0-dev"
         }
-    },
-    "autoload": {
-        "psr-4": {
-            "Xezilaires\\Bridge\\PhpSpreadsheet\\": "."
-        },
-        "exclude-from-classmap": [
-            "/Test/"
-        ]
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }
