@@ -33,7 +33,7 @@ DOCQA_DOCKER_COMMAND=docker run --init --interactive ${TTY} --rm --env HOME=/tmp
 endif
 
 ifndef PHPQA_DOCKER_COMMAND
-PHPQA_DOCKER_IMAGE=jakzal/phpqa:1.61.0-php${BUILD_ENV}-alpine
+PHPQA_DOCKER_IMAGE=jakzal/phpqa:1.61.2-php${BUILD_ENV}-alpine
 PHPQA_DOCKER_COMMAND=docker run --init --interactive ${TTY} --rm --env "COMPOSER_CACHE_DIR=/composer/cache" --user "$(shell id -u):$(shell id -g)" --volume "$(shell pwd)/var/tmp/phpqa:/tmp" --volume "$(shell pwd):/project" --volume "${HOME}/.composer:/composer" --workdir /project ${PHPQA_DOCKER_IMAGE}
 endif
 
