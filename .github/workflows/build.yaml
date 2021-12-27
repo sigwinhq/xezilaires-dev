@@ -12,7 +12,7 @@ jobs:
             BUILD_ENV: ${{ matrix.php }}
         strategy:
             matrix:
-                php: [ "7.3", "7.4", "8.0" ]
+                php: [ "7.4", "8.0" ]
                 dependencies: [ lowest, highest ]
         steps:
             -
@@ -26,12 +26,7 @@ jobs:
                 if: "matrix.dependencies == 'highest'"
                 run: make composer-install-all
             -
-                name: Tests without mutation
-                if: "matrix.php == '7.3'"
-                run: make phpunit-coverage-all
-            -
                 name: Tests with mutation
-                if: "matrix.php != '7.3'"
                 run: make test-all
     CodeQualityAnalysis:
         runs-on: ubuntu-latest
@@ -39,7 +34,7 @@ jobs:
             BUILD_ENV: ${{ matrix.php }}
         strategy:
             matrix:
-                php: [ "7.3", "7.4", "8.0" ]
+                php: [ "7.4", "8.0" ]
                 dependencies: [ lowest, highest ]
         steps:
             -
