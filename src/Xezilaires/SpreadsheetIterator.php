@@ -34,14 +34,14 @@ final class SpreadsheetIterator implements Iterator
     /**
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    private ?Iterator $iterator;
+    private Iterator $iterator;
 
     /**
-     * @var null|array<string, array<int, string>|string>
+     * @var array<string, array<int, string>|string>
      *
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    private ?array $headers;
+    private array $headers;
 
     private int $index = 0;
 
@@ -143,7 +143,8 @@ final class SpreadsheetIterator implements Iterator
 
     private function getIterator(): Iterator
     {
-        if (null === $this->iterator) {
+        /** @psalm-suppress RedundantPropertyInitializationCheck */
+        if (isset($this->iterator) === false) {
             /** @var int $start */
             $start = $this->mapping->getOption('start');
             $this->spreadsheet->createIterator($start);
@@ -165,7 +166,8 @@ final class SpreadsheetIterator implements Iterator
      */
     private function getHeaderColumnReferences(): array
     {
-        if (null === $this->headers) {
+        /** @psalm-suppress RedundantPropertyInitializationCheck */
+        if (isset($this->headers) === false) {
             /** @var null|int $headerRowIndex */
             $headerRowIndex = $this->mapping->getOption('header');
             if (null === $headerRowIndex) {

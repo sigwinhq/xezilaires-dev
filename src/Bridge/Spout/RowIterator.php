@@ -29,7 +29,7 @@ final class RowIterator implements Iterator
     /**
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    private ?int $highestRow;
+    private int $highestRow;
 
     public function __construct(IteratorInterface $iterator, int $firstRow)
     {
@@ -117,7 +117,8 @@ final class RowIterator implements Iterator
 
     public function getHighestRow(): int
     {
-        if (null === $this->highestRow) {
+        /** @psalm-suppress RedundantPropertyInitializationCheck */
+        if (isset($this->highestRow) === false) {
             $highestRow = 0;
 
             $this->iterator->rewind();

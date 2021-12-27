@@ -31,12 +31,12 @@ final class Spreadsheet implements SpreadsheetInterface
     /**
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    private ?PhpSpreadsheet $spreadsheet;
+    private PhpSpreadsheet $spreadsheet;
 
     /**
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    private ?Iterator $iterator;
+    private Iterator $iterator;
 
     public function __construct(\SplFileObject $file)
     {
@@ -53,7 +53,8 @@ final class Spreadsheet implements SpreadsheetInterface
      */
     public function createIterator(int $startRowIndex): void
     {
-        if (null !== $this->iterator) {
+        /** @psalm-suppress RedundantPropertyInitializationCheck */
+        if (isset($this->iterator)) {
             throw SpreadsheetException::iteratorAlreadyCreated();
         }
 
@@ -67,7 +68,8 @@ final class Spreadsheet implements SpreadsheetInterface
      */
     public function getIterator(): Iterator
     {
-        if (null === $this->iterator) {
+        /** @psalm-suppress RedundantPropertyInitializationCheck */
+        if (isset($this->iterator) === false) {
             throw SpreadsheetException::noIterator();
         }
 
@@ -112,7 +114,8 @@ final class Spreadsheet implements SpreadsheetInterface
 
     private function getSpreadsheet(): PhpSpreadsheet
     {
-        if (null === $this->spreadsheet) {
+        /** @psalm-suppress RedundantPropertyInitializationCheck */
+        if (isset($this->spreadsheet) === false) {
             $path = $this->file->getRealPath();
             if (false === $path) {
                 throw SpreadsheetException::noSpreadsheetFound();
