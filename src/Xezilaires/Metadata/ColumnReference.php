@@ -15,10 +15,7 @@ namespace Xezilaires\Metadata;
 
 final class ColumnReference implements Reference
 {
-    /**
-     * @var string
-     */
-    private $column;
+    private string $column;
 
     public function __construct(string $column)
     {

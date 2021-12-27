@@ -28,22 +28,19 @@ final class Spreadsheet implements SpreadsheetInterface
     /**
      * @var array<int, string> $indexCache
      */
-    private static $indexCache = [];
+    private static array $indexCache = [];
+
+    private \SplFileObject $file;
 
     /**
-     * @var \SplFileObject
+     * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $file;
+    private ?ReaderInterface $reader;
 
     /**
-     * @var null|ReaderInterface
+     * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $reader;
-
-    /**
-     * @var null|RowIterator
-     */
-    private $iterator;
+    private ?RowIterator $iterator;
 
     public function __construct(\SplFileObject $file)
     {

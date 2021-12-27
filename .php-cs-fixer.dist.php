@@ -63,6 +63,7 @@ return (new PhpCsFixer\Config())
             'phpdoc_var_without_name' => false,
             'phpdoc_order' => true,
             'phpdoc_to_comment' => false,
+            'phpdoc_to_property_type' => true,
             'phpdoc_to_return_type' => true,
             'phpdoc_types_order' => [
                 'null_adjustment' => 'always_first'

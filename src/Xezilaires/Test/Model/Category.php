@@ -15,20 +15,11 @@ namespace Xezilaires\Test\Model;
 
 final class Category
 {
-    /**
-     * @var int
-     */
-    public $id;
+    public int $id;
 
-    /**
-     * @var null|int
-     */
-    public $parent;
+    public ?int $parent;
 
-    /**
-     * @var string
-     */
-    public $name;
+    public string $name;
 
     public function __toString(): string
     {

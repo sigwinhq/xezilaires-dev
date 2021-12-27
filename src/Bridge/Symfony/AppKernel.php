@@ -28,7 +28,7 @@ final class AppKernel extends Kernel
     /**
      * @var BundleInterface[]
      */
-    private $customBundles;
+    private array $customBundles;
 
     /**
      * @param BundleInterface[] $customBundles

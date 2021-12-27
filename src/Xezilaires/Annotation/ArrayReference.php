@@ -22,5 +22,5 @@ final class ArrayReference
     /**
      * @var \Xezilaires\Annotation\Reference[]
      */
-    public $references;
+    public array $references;
 }

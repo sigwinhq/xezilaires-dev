@@ -23,10 +23,7 @@ use Xezilaires\Iterator;
  */
 final class RowIterator implements Iterator
 {
-    /**
-     * @var PhpSpreadsheetRowIterator
-     */
-    private $iterator;
+    private PhpSpreadsheetRowIterator $iterator;
 
     public function __construct(PhpSpreadsheetRowIterator $iterator)
     {

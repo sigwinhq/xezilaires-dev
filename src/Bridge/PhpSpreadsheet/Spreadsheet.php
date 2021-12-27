@@ -26,20 +26,17 @@ use Xezilaires\Spreadsheet as SpreadsheetInterface;
 
 final class Spreadsheet implements SpreadsheetInterface
 {
-    /**
-     * @var \SplFileObject
-     */
-    private $file;
+    private \SplFileObject $file;
 
     /**
-     * @var null|PhpSpreadsheet
+     * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $spreadsheet;
+    private ?PhpSpreadsheet $spreadsheet;
 
     /**
-     * @var null|Iterator
+     * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $iterator;
+    private ?Iterator $iterator;
 
     public function __construct(\SplFileObject $file)
     {

@@ -20,10 +20,7 @@ final class FilterIterator extends \FilterIterator
      */
     private $filter;
 
-    /**
-     * @var int
-     */
-    private $key = -1;
+    private int $key = -1;
 
     /**
      * @param callable(object): bool $filter

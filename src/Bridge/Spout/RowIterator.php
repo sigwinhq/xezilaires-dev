@@ -22,20 +22,14 @@ use Xezilaires\Iterator;
  */
 final class RowIterator implements Iterator
 {
-    /**
-     * @var IteratorInterface
-     */
-    private $iterator;
+    private IteratorInterface $iterator;
+
+    private int $firstRow;
 
     /**
-     * @var int
+     * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $firstRow;
-
-    /**
-     * @var null|int
-     */
-    private $highestRow;
+    private ?int $highestRow;
 
     public function __construct(IteratorInterface $iterator, int $firstRow)
     {

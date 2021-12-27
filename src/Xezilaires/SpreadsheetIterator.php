@@ -23,40 +23,27 @@ use Xezilaires\Metadata\Reference;
 
 final class SpreadsheetIterator implements Iterator
 {
-    /**
-     * @var Spreadsheet
-     */
-    private $spreadsheet;
+    private Spreadsheet $spreadsheet;
+
+    private Mapping $mapping;
+
+    private Denormalizer $denormalizer;
+
+    private array $context;
 
     /**
-     * @var Mapping
+     * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $mapping;
-
-    /**
-     * @var Denormalizer
-     */
-    private $denormalizer;
-
-    /**
-     * @var array
-     */
-    private $context;
-
-    /**
-     * @var null|Iterator
-     */
-    private $iterator;
+    private ?Iterator $iterator;
 
     /**
      * @var null|array<string, array<int, string>|string>
+     *
+     * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $headers;
+    private ?array $headers;
 
-    /**
-     * @var int
-     */
-    private $index = 0;
+    private int $index = 0;
 
     public function __construct(Spreadsheet $spreadsheet, Mapping $mapping, Denormalizer $denormalizer, array $context = [])
     {

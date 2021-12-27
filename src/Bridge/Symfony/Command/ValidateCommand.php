@@ -28,15 +28,9 @@ final class ValidateCommand extends Command
 {
     protected static $defaultName = 'xezilaires:validate';
 
-    /**
-     * @var IteratorFactory
-     */
-    private $iteratorFactory;
+    private IteratorFactory $iteratorFactory;
 
-    /**
-     * @var Validator
-     */
-    private $validator;
+    private Validator $validator;
 
     public function __construct(IteratorFactory $iteratorFactory, Validator $validator)
     {

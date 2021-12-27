@@ -17,15 +17,12 @@ use Xezilaires\Metadata\Mapping;
 
 final class SpreadsheetIteratorFactory implements IteratorFactory
 {
-    /**
-     * @var Denormalizer
-     */
-    private $denormalizer;
+    private Denormalizer $denormalizer;
 
     /**
      * @var array<class-string<Spreadsheet>>
      */
-    private $spreadsheetClasses;
+    private array $spreadsheetClasses;
 
     /**
      * @param array<class-string<Spreadsheet>> $spreadsheetClasses

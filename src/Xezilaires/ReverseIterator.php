@@ -15,25 +15,13 @@ namespace Xezilaires;
 
 final class ReverseIterator implements Iterator
 {
-    /**
-     * @var Iterator
-     */
-    private $iterator;
+    private Iterator $iterator;
 
-    /**
-     * @var int
-     */
-    private $startIndex;
+    private int $startIndex;
 
-    /**
-     * @var int
-     */
-    private $endIndex;
+    private int $endIndex;
 
-    /**
-     * @var int
-     */
-    private $index;
+    private int $index;
 
     public function __construct(Iterator $iterator, int $startIndex, int $endIndex)
     {

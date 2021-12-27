@@ -18,10 +18,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class Validator implements \Xezilaires\Validator
 {
-    /**
-     * @var ValidatorInterface
-     */
-    private $validator;
+    private ValidatorInterface $validator;
 
     public function __construct(ValidatorInterface $validator)
     {
