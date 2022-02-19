@@ -23,7 +23,8 @@
         "nyholm/symfony-bundle-test": "dev-master",
         "phpunit/phpunit": "^9.5",
         "sigwin/xezilaires-phpspreadsheet": "^0.5 || ^0.6",
-        "sigwin/xezilaires-spout": "^0.5 || ^0.6"
+        "sigwin/xezilaires-spout": "^0.5 || ^0.6",
+        "symfony/phpunit-bridge": "^4.4.9 || ^5.0 || ^6.0"
     },
     "conflict": {
         "symfony/config": "< 4.4.12",

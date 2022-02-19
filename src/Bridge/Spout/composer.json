@@ -18,6 +18,7 @@
         "doctrine/annotations": "^1.11",
         "nyholm/nsa": "^1.1",
         "phpunit/phpunit": "^9.5",
+        "symfony/phpunit-bridge": "^4.4.9 || ^5.0 || ^6.0",
         "symfony/property-access": "^4.4 || ^5.0 || ^6.0",
         "symfony/property-info": "^4.4 || ^5.0 || ^6.0"
     },

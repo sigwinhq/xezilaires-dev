@@ -29,4 +29,10 @@
             <directory>./Test</directory>
         </testsuite>
     </testsuites>
+    <php>
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0&amp;max[direct]=9&amp;verbose=0"/>
+    </php>
+    <listeners>
+        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
+    </listeners>
 </phpunit>

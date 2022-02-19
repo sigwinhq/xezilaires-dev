@@ -30,6 +30,7 @@ trait FixtureTrait
              * @psalm-suppress ImplementedReturnTypeMismatch Invalid by design
              * @phpstan-ignore-next-line
              */
+            #[\ReturnTypeWillChange]
             public function getRealPath(): bool
             {
                 return false;

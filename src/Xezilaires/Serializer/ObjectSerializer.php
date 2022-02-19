@@ -21,12 +21,12 @@ use Xezilaires\Serializer;
 final class ObjectSerializer implements Denormalizer, Serializer
 {
     /**
-     * @var SerializerInterface&DenormalizerInterface
+     * @var DenormalizerInterface&SerializerInterface
      */
     private $serializer;
 
     /**
-     * @param SerializerInterface&DenormalizerInterface $serializer
+     * @param DenormalizerInterface&SerializerInterface $serializer
      */
     public function __construct($serializer)
     {
