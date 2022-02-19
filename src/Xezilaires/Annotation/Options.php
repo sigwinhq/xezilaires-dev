@@ -21,25 +21,13 @@ namespace Xezilaires\Annotation;
 #[\Attribute(\Attribute::TARGET_CLASS)]
 final class Options
 {
-    /**
-     * @var int
-     */
-    public $start;
+    public int $start;
 
-    /**
-     * @var int
-     */
-    public $end;
+    public int $end;
 
-    /**
-     * @var int
-     */
-    public $header;
+    public int $header;
 
-    /**
-     * @var bool
-     */
-    public $reverse;
+    public bool $reverse;
 
     public function __construct(int $start = 0, int $end = \PHP_INT_MAX, int $header = 0, bool $reverse = false)
     {

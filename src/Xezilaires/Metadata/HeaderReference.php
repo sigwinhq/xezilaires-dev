@@ -15,10 +15,7 @@ namespace Xezilaires\Metadata;
 
 final class HeaderReference implements Reference
 {
-    /**
-     * @var string
-     */
-    private $header;
+    private string $header;
 
     public function __construct(string $header)
     {

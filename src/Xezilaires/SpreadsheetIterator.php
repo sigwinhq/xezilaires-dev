@@ -23,40 +23,27 @@ use Xezilaires\Metadata\Reference;
 
 final class SpreadsheetIterator implements Iterator
 {
-    /**
-     * @var Spreadsheet
-     */
-    private $spreadsheet;
+    private Spreadsheet $spreadsheet;
+
+    private Mapping $mapping;
+
+    private Denormalizer $denormalizer;
+
+    private array $context;
 
     /**
-     * @var Mapping
+     * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $mapping;
+    private Iterator $iterator;
 
     /**
-     * @var Denormalizer
+     * @var array<string, array<int, string>|string>
+     *
+     * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $denormalizer;
+    private array $headers;
 
-    /**
-     * @var array
-     */
-    private $context;
-
-    /**
-     * @var null|Iterator
-     */
-    private $iterator;
-
-    /**
-     * @var null|array<string, array<int, string>|string>
-     */
-    private $headers;
-
-    /**
-     * @var int
-     */
-    private $index = 0;
+    private int $index = 0;
 
     public function __construct(Spreadsheet $spreadsheet, Mapping $mapping, Denormalizer $denormalizer, array $context = [])
     {
@@ -156,7 +143,8 @@ final class SpreadsheetIterator implements Iterator
 
     private function getIterator(): Iterator
     {
-        if (null === $this->iterator) {
+        /** @psalm-suppress RedundantPropertyInitializationCheck */
+        if (isset($this->iterator) === false) {
             /** @var int $start */
             $start = $this->mapping->getOption('start');
             $this->spreadsheet->createIterator($start);
@@ -178,7 +166,8 @@ final class SpreadsheetIterator implements Iterator
      */
     private function getHeaderColumnReferences(): array
     {
-        if (null === $this->headers) {
+        /** @psalm-suppress RedundantPropertyInitializationCheck */
+        if (isset($this->headers) === false) {
             /** @var null|int $headerRowIndex */
             $headerRowIndex = $this->mapping->getOption('header');
             if (null === $headerRowIndex) {

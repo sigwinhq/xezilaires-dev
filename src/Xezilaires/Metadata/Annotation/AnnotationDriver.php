@@ -26,10 +26,7 @@ use Xezilaires\Metadata\Mapping;
  */
 final class AnnotationDriver
 {
-    /**
-     * @var AnnotationReader
-     */
-    private $reader;
+    private AnnotationReader $reader;
 
     /**
      * @throws \RuntimeException if Doctrine's Annotations component is not available

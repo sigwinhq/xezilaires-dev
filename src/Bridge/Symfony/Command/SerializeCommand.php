@@ -27,15 +27,9 @@ final class SerializeCommand extends Command
 {
     protected static $defaultName = 'xezilaires:serialize';
 
-    /**
-     * @var IteratorFactory
-     */
-    private $iteratorFactory;
+    private IteratorFactory $iteratorFactory;
 
-    /**
-     * @var Serializer
-     */
-    private $serializer;
+    private Serializer $serializer;
 
     public function __construct(IteratorFactory $iteratorFactory, Serializer $serializer)
     {

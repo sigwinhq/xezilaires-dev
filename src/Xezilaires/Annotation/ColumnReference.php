@@ -21,10 +21,7 @@ namespace Xezilaires\Annotation;
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
 final class ColumnReference implements Reference
 {
-    /**
-     * @var string
-     */
-    public $column;
+    public string $column;
 
     public function __construct(string $column)
     {

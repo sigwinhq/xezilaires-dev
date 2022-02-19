@@ -18,7 +18,7 @@ final class ArrayReference implements Reference
     /**
      * @var Reference[]
      */
-    private $references;
+    private array $references;
 
     /**
      * @param Reference[] $references

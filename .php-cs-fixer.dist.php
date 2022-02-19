@@ -16,12 +16,6 @@ $finder = PhpCsFixer\Finder::create()
     ->exclude('vendor')
     ->in(__DIR__);
 
-// TODO: remove when on ^7.4
-if (PHP_VERSION_ID < 70400) {
-    // has property types
-    $finder->notPath('src/Xezilaires/Test/Model/ProductWithAttributes.php');
-}
-
 return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules(
@@ -63,6 +57,7 @@ return (new PhpCsFixer\Config())
             'phpdoc_var_without_name' => false,
             'phpdoc_order' => true,
             'phpdoc_to_comment' => false,
+            'phpdoc_to_property_type' => true,
             'phpdoc_to_return_type' => true,
             'phpdoc_types_order' => [
                 'null_adjustment' => 'always_first'

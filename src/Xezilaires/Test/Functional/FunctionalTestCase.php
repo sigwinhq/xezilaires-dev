@@ -56,9 +56,9 @@ abstract class FunctionalTestCase extends TestCase
         );
 
         self::assertIteratorMatches([
-            2 => ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
-            3 => ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
-            4 => ['name' => 'Stillhouse Lake', 'price' => '1.99'],
+            2 => ['name' => 'The Very Hungry Caterpillar', 'price' => 6.59],
+            3 => ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => 6.51],
+            4 => ['name' => 'Stillhouse Lake', 'price' => 1.99],
         ], $iterator);
     }
 
@@ -80,9 +80,9 @@ abstract class FunctionalTestCase extends TestCase
         );
 
         self::assertIteratorMatches([
-            2 => ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
-            3 => ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
-            4 => ['name' => 'Stillhouse Lake', 'price' => '1.99'],
+            2 => ['name' => 'The Very Hungry Caterpillar', 'price' => 6.59],
+            3 => ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => 6.51],
+            4 => ['name' => 'Stillhouse Lake', 'price' => 1.99],
         ], $iterator);
     }
 
@@ -133,9 +133,9 @@ abstract class FunctionalTestCase extends TestCase
         );
 
         self::assertIteratorMatches([
-            2 => ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
-            3 => ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
-            4 => ['name' => 'Stillhouse Lake', 'price' => '1.99'],
+            2 => ['name' => 'The Very Hungry Caterpillar', 'price' => 6.59],
+            3 => ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => 6.51],
+            4 => ['name' => 'Stillhouse Lake', 'price' => 1.99],
         ], $iterator);
     }
 
@@ -160,9 +160,9 @@ abstract class FunctionalTestCase extends TestCase
         );
 
         self::assertIteratorMatches([
-            2 => ['all' => ['The Very Hungry Caterpillar', '6.59'], 'name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
-            3 => ['all' => ['Brown Bear, Brown Bear, What Do You See?', '6.51'], 'name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
-            4 => ['all' => ['Stillhouse Lake', '1.99'], 'name' => 'Stillhouse Lake', 'price' => '1.99'],
+            2 => ['all' => ['The Very Hungry Caterpillar', '6.59'], 'name' => 'The Very Hungry Caterpillar', 'price' => 6.59],
+            3 => ['all' => ['Brown Bear, Brown Bear, What Do You See?', '6.51'], 'name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => 6.51],
+            4 => ['all' => ['Stillhouse Lake', '1.99'], 'name' => 'Stillhouse Lake', 'price' => 1.99],
         ], $iterator);
     }
 
@@ -355,9 +355,9 @@ abstract class FunctionalTestCase extends TestCase
         );
 
         self::assertIteratorMatches([
-            ['name' => 'Stillhouse Lake', 'price' => '1.99'],
-            ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
-            ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
+            ['name' => 'Stillhouse Lake', 'price' => 1.99],
+            ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => 6.51],
+            ['name' => 'The Very Hungry Caterpillar', 'price' => 6.59],
         ], $iterator);
     }
 
@@ -379,9 +379,9 @@ abstract class FunctionalTestCase extends TestCase
         );
 
         self::assertIteratorMatches([
-            ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
-            ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
-            ['name' => 'Stillhouse Lake', 'price' => '1.99'],
+            ['name' => 'The Very Hungry Caterpillar', 'price' => 6.59],
+            ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => 6.51],
+            ['name' => 'Stillhouse Lake', 'price' => 1.99],
         ], $iterator);
     }
 
@@ -407,9 +407,9 @@ abstract class FunctionalTestCase extends TestCase
         );
 
         self::assertIteratorMatches([
-            ['name' => 'Stillhouse Lake', 'price' => '1.99'],
-            ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => '6.51'],
-            ['name' => 'The Very Hungry Caterpillar', 'price' => '6.59'],
+            ['name' => 'Stillhouse Lake', 'price' => 1.99],
+            ['name' => 'Brown Bear, Brown Bear, What Do You See?', 'price' => 6.51],
+            ['name' => 'The Very Hungry Caterpillar', 'price' => 6.59],
         ], $iterator);
     }
 

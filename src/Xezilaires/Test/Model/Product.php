@@ -22,29 +22,23 @@ use Xezilaires\Annotation as XLS;
 final class Product
 {
     /**
-     * @var array
-     *
      * @Groups({"array"})
      * @XLS\ArrayReference({
      *     @XLS\ColumnReference(column="A"),
      *     @XLS\HeaderReference(header="Price USD")
      * })
      */
-    public $all;
+    public array $all;
 
     /**
-     * @var string
-     *
      * @Groups({"column", "product"})
      * @XLS\ColumnReference(column="A")
      */
-    public $name;
+    public string $name;
 
     /**
-     * @var float
-     *
      * @Groups({"header", "product"})
      * @XLS\HeaderReference(header="Price USD")
      */
-    public $price;
+    public float $price;
 }

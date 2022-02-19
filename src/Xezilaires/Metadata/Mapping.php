@@ -20,25 +20,21 @@ use Xezilaires\Exception\MappingException;
 final class Mapping
 {
     /**
-     * @var string
      * @psalm-var class-string
      */
-    private $className;
+    private string $className;
 
     /**
      * @var array<string, Reference>
      */
-    private $references = [];
+    private array $references = [];
 
     /**
      * @var array<string, null|bool|string>
      */
-    private $options;
+    private array $options;
 
-    /**
-     * @var bool
-     */
-    private $headerOptionRequired = false;
+    private bool $headerOptionRequired = false;
 
     /**
      * @param array<string, Reference> $references

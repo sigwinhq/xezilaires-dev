@@ -28,22 +28,21 @@ final class Spreadsheet implements SpreadsheetInterface
     /**
      * @var array<int, string> $indexCache
      */
-    private static $indexCache = [];
+    private static array $indexCache = [];
+
+    private \SplFileObject $file;
 
     /**
-     * @var \SplFileObject
+     * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $file;
+    private ReaderInterface $reader;
 
     /**
-     * @var null|ReaderInterface
+     * @psalm-suppress PropertyNotSetInConstructor
+     *
+     * @psalm-var Iterator&RowIterator
      */
-    private $reader;
-
-    /**
-     * @var null|RowIterator
-     */
-    private $iterator;
+    private Iterator $iterator;
 
     public function __construct(\SplFileObject $file)
     {
@@ -60,7 +59,8 @@ final class Spreadsheet implements SpreadsheetInterface
      */
     public function createIterator(int $startRowIndex): void
     {
-        if (null !== $this->iterator) {
+        /** @psalm-suppress RedundantPropertyInitializationCheck */
+        if (isset($this->iterator)) {
             throw SpreadsheetException::iteratorAlreadyCreated();
         }
 
@@ -72,7 +72,8 @@ final class Spreadsheet implements SpreadsheetInterface
 
     public function getIterator(): Iterator
     {
-        if (null === $this->iterator) {
+        /** @psalm-suppress RedundantPropertyInitializationCheck */
+        if (isset($this->iterator) === false) {
             throw SpreadsheetException::noIterator();
         }
 
@@ -121,7 +122,8 @@ final class Spreadsheet implements SpreadsheetInterface
      */
     public function getHighestRow(): int
     {
-        if (null === $this->iterator) {
+        /** @psalm-suppress RedundantPropertyInitializationCheck */
+        if (isset($this->iterator) === false) {
             throw SpreadsheetException::noIterator();
         }
 
@@ -151,7 +153,8 @@ final class Spreadsheet implements SpreadsheetInterface
 
     private function getReader(): ReaderInterface
     {
-        if (null === $this->reader) {
+        /** @psalm-suppress RedundantPropertyInitializationCheck */
+        if (isset($this->reader) === false) {
             $path = $this->file->getRealPath();
             if (false === $path) {
                 throw SpreadsheetException::noSpreadsheetFound();

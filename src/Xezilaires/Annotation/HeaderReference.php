@@ -21,10 +21,7 @@ namespace Xezilaires\Annotation;
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
 final class HeaderReference implements Reference
 {
-    /**
-     * @var string
-     */
-    public $header;
+    public string $header;
 
     public function __construct(string $header)
     {
