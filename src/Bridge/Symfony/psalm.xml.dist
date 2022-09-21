@@ -17,5 +17,10 @@
                 <directory name="Test/"/>
             </errorLevel>
         </PropertyNotSetInConstructor>
+        <UndefinedDocblockClass>
+            <errorLevel type="info">
+                <referencedClass name="Stringable"/>
+            </errorLevel>
+        </UndefinedDocblockClass>
     </issueHandlers>
 </psalm>

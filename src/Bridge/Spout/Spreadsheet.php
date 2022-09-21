@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace Xezilaires\Bridge\Spout;
 
-use Box\Spout\Common\Exception\IOException;
-use Box\Spout\Common\Exception\UnsupportedTypeException;
-use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
-use Box\Spout\Reader\Exception\ReaderNotOpenedException;
-use Box\Spout\Reader\ReaderInterface;
-use Box\Spout\Reader\SheetInterface;
+use OpenSpout\Common\Exception\IOException;
+use OpenSpout\Common\Exception\UnsupportedTypeException;
+use OpenSpout\Reader\Common\Creator\ReaderEntityFactory;
+use OpenSpout\Reader\Exception\ReaderNotOpenedException;
+use OpenSpout\Reader\ReaderInterface;
+use OpenSpout\Reader\SheetInterface;
 use Xezilaires\Exception\SpreadsheetException;
 use Xezilaires\Iterator;
 use Xezilaires\Spreadsheet as SpreadsheetInterface;

@@ -104,7 +104,7 @@ See more examples in the [`docs/examples/`](./docs/examples/) folder.
 Features included:
 
 - **Reading Excel files**  
-*(using either `phpoffice/PhpSpreadsheet` or `box/spout`)*
+*(using either `phpoffice/PhpSpreadsheet` or `openspout/openspout`)*
 - **Denormalization / normalization** support  
 *(using `symfony/serializer`, from / to all supported formats)*
 - **Annotations** support  
