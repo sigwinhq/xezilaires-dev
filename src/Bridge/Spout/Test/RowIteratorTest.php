@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Xezilaires\Bridge\Spout\Test;
 
-use Box\Spout\Reader\IteratorInterface;
+use OpenSpout\Reader\IteratorInterface;
 use PHPUnit\Framework\TestCase;
 use Xezilaires\Bridge\Spout\RowIterator;
 

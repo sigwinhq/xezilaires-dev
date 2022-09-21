@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Xezilaires\Bridge\Spout;
 
-use Box\Spout\Common\Entity\Row;
-use Box\Spout\Reader\IteratorInterface;
+use OpenSpout\Common\Entity\Row;
+use OpenSpout\Reader\IteratorInterface;
 use Xezilaires\Iterator;
 
 /**
