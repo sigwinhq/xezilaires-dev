@@ -33,7 +33,7 @@ final class Category
 
     public function hasParent(): bool
     {
-        return null !== $this->parent;
+        return $this->parent !== null;
     }
 
     public function getParentIdentifier(): ?int

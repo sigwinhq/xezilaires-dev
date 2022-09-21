@@ -26,8 +26,8 @@ use Xezilaires\Spreadsheet;
 use Xezilaires\SpreadsheetIterator;
 
 /**
- * @covers \Xezilaires\SpreadsheetIterator
  * @covers \Xezilaires\Metadata\Mapping
+ * @covers \Xezilaires\SpreadsheetIterator
  *
  * @uses \Xezilaires\Metadata\ArrayReference
  * @uses \Xezilaires\Metadata\ColumnReference
@@ -111,29 +111,34 @@ final class SpreadsheetIteratorTest extends TestCase
     {
         $spreadsheet = $this
             ->getMockBuilder(Spreadsheet::class)
-            ->getMock();
+            ->getMock()
+        ;
         $spreadsheet
             ->expects(static::once())
             ->method('getRow')
             ->willReturn(
                 ['A' => 'One', 'B' => 'Two', 'C' => 'Three', 'D' => 'Four'],
-            );
+            )
+        ;
         $spreadsheet
             ->expects(static::once())
             ->method('getCurrentRow')
             ->willReturn(
                 ['A' => 'Yes', 'B' => 'Nope', 'C' => 'Yeah', 'D' => 'Right'],
-            );
+            )
+        ;
 
         $denormalizer = $this
             ->getMockBuilder(Denormalizer::class)
-            ->getMock();
+            ->getMock()
+        ;
         $denormalizer
             ->expects(static::once())
             ->method('denormalize')
             ->with(
                 ['one' => 'Yes', 'two' => 'Nope', 'three' => ['Yeah', 'Right']],
-            );
+            )
+        ;
 
         $mapping = new Mapping(\stdClass::class, [
             'one' => new HeaderReference('One'),
@@ -149,12 +154,14 @@ final class SpreadsheetIteratorTest extends TestCase
     {
         $spreadsheet = $this
             ->getMockBuilder(Spreadsheet::class)
-            ->getMock();
+            ->getMock()
+        ;
         $spreadsheet
             ->expects(static::once())
             ->method('getRow')
             ->with(1)
-            ->willReturn(['Amen', 'Nope', 'Name']);
+            ->willReturn(['Amen', 'Nope', 'Name'])
+        ;
 
         $mapping = new Mapping(\stdClass::class, [
             'name' => new HeaderReference('Naem'),
@@ -192,9 +199,10 @@ final class SpreadsheetIteratorTest extends TestCase
         $iterator = $this
             ->getMockBuilder(Iterator::class)
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMock()
+        ;
 
-        if (null !== $counts) {
+        if ($counts !== null) {
             foreach ($counts as $method => $spec) {
                 /** @var int $count */
                 $count = $spec['count'];
@@ -202,7 +210,8 @@ final class SpreadsheetIteratorTest extends TestCase
                 $mocker = $iterator
                     ->expects(static::exactly($count))
                     ->method($method)
-                    ->with(...(array) $spec['params']);
+                    ->with(...(array) $spec['params'])
+                ;
 
                 if (isset($spec['return'])) {
                     if (\is_array($spec['return'])) {

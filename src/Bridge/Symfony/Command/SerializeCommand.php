@@ -54,7 +54,8 @@ final class SerializeCommand extends Command
             ->addOption('format', 'F', InputOption::VALUE_OPTIONAL, 'Format to export to', 'json')
             ->addOption('reverse', 'R', InputOption::VALUE_NONE, 'Iterate in reverse')
             ->addOption('group', 'G', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Group(s) to serialize')
-            ->addOption('xml-root', null, InputOption::VALUE_OPTIONAL, 'Name of root node in XML format', 'root');
+            ->addOption('xml-root', null, InputOption::VALUE_OPTIONAL, 'Name of root node in XML format', 'root')
+        ;
     }
 
     /**
@@ -81,7 +82,7 @@ final class SerializeCommand extends Command
         /** @var null|string $xmlRoot */
         $xmlRoot = $input->getOption('xml-root');
 
-        if (null === $format) {
+        if ($format === null) {
             throw new \RuntimeException('Format is required');
         }
 
@@ -98,7 +99,7 @@ final class SerializeCommand extends Command
                 $context['json_encode_options'] = \JSON_PRETTY_PRINT;
                 break;
             case 'xml':
-                if (null === $xmlRoot) {
+                if ($xmlRoot === null) {
                     throw new \RuntimeException('XML root node name cannot be empty if XML format requested');
                 }
                 $context['xml_root_node_name'] = $xmlRoot;

@@ -117,7 +117,7 @@ final class Spreadsheet implements SpreadsheetInterface
         /** @psalm-suppress RedundantPropertyInitializationCheck */
         if (isset($this->spreadsheet) === false) {
             $path = $this->file->getRealPath();
-            if (false === $path) {
+            if ($path === false) {
                 throw SpreadsheetException::noSpreadsheetFound();
             }
 

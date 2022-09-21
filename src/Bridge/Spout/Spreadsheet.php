@@ -26,7 +26,7 @@ use Xezilaires\Spreadsheet as SpreadsheetInterface;
 final class Spreadsheet implements SpreadsheetInterface
 {
     /**
-     * @var array<int, string> $indexCache
+     * @var array<int, string>
      */
     private static array $indexCache = [];
 
@@ -111,7 +111,7 @@ final class Spreadsheet implements SpreadsheetInterface
         foreach ($rowArrayObject as $columnIndex => $columnValue) {
             $columnName = self::stringFromColumnIndex($columnIndex + 1);
 
-            $row[$columnName] = '' !== $columnValue ? $columnValue : null;
+            $row[$columnName] = $columnValue !== '' ? $columnValue : null;
         }
 
         return $row;
@@ -135,7 +135,7 @@ final class Spreadsheet implements SpreadsheetInterface
      */
     private static function stringFromColumnIndex(int $columnIndex): string
     {
-        if (false === isset(self::$indexCache[$columnIndex])) {
+        if (isset(self::$indexCache[$columnIndex]) === false) {
             $indexValue = $columnIndex;
             $base26 = '';
             do {
@@ -156,7 +156,7 @@ final class Spreadsheet implements SpreadsheetInterface
         /** @psalm-suppress RedundantPropertyInitializationCheck */
         if (isset($this->reader) === false) {
             $path = $this->file->getRealPath();
-            if (false === $path) {
+            if ($path === false) {
                 throw SpreadsheetException::noSpreadsheetFound();
             }
 

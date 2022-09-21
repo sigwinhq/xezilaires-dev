@@ -40,7 +40,7 @@ final class SpreadsheetException extends \InvalidArgumentException implements Ex
     public static function failedFetchingActiveWorksheet(?\Throwable $exception = null): self
     {
         $message = 'Failed to fetch active worksheet';
-        if (null === $exception) {
+        if ($exception === null) {
             return new self($message);
         }
 

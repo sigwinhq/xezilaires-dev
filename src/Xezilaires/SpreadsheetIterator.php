@@ -152,7 +152,7 @@ final class SpreadsheetIterator implements Iterator
             $iterator = $this->spreadsheet->getIterator();
 
             $reverse = $this->mapping->getOption('reverse');
-            if (true === $reverse) {
+            if ($reverse === true) {
                 $iterator = new ReverseIterator($iterator, $start, $this->spreadsheet->getHighestRow());
             }
             $this->iterator = $iterator;
@@ -170,7 +170,7 @@ final class SpreadsheetIterator implements Iterator
         if (isset($this->headers) === false) {
             /** @var null|int $headerRowIndex */
             $headerRowIndex = $this->mapping->getOption('header');
-            if (null === $headerRowIndex) {
+            if ($headerRowIndex === null) {
                 throw MappingException::missingHeaderOption();
             }
             /** @var array<string, null|string> $headerRow */
@@ -178,7 +178,7 @@ final class SpreadsheetIterator implements Iterator
 
             $this->headers = [];
             foreach ($headerRow as $column => $header) {
-                if (null === $header) {
+                if ($header === null) {
                     continue;
                 }
 

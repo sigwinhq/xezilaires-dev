@@ -35,9 +35,9 @@ use Xezilaires\Validator;
  * @uses \Xezilaires\Bridge\Spout\Spreadsheet
  * @uses \Xezilaires\Bridge\Symfony\DependencyInjection\XezilairesExtension
  * @uses \Xezilaires\Bridge\Symfony\Validator
- * @uses \Xezilaires\Serializer\ObjectSerializer
- * @uses \Xezilaires\Metadata\Mapping
  * @uses \Xezilaires\Metadata\ColumnReference
+ * @uses \Xezilaires\Metadata\Mapping
+ * @uses \Xezilaires\Serializer\ObjectSerializer
  * @uses \Xezilaires\SpreadsheetIterator
  * @uses \Xezilaires\SpreadsheetIteratorFactory
  *

@@ -113,7 +113,7 @@ final class Mapping
      */
     private function setReferences(array $references): void
     {
-        if ([] === $references) {
+        if ($references === []) {
             throw MappingException::noReferencesSpecified();
         }
 
@@ -142,7 +142,7 @@ final class Mapping
      */
     private function setOptions(array $options): void
     {
-        if (true === $this->headerOptionRequired && false === isset($options['header'])) {
+        if ($this->headerOptionRequired === true && isset($options['header']) === false) {
             throw MappingException::missingHeaderOption();
         }
 

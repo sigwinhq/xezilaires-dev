@@ -58,7 +58,7 @@ final class MappingTest extends TestCase
         static::assertSame($className, $mapping->getClassName());
         static::assertSame($columns, $mapping->getReferences());
 
-        if (null !== $options) {
+        if ($options !== null) {
             foreach ($options as $option => $value) {
                 static::assertSame($value, $mapping->getOption($option));
             }

@@ -76,26 +76,30 @@ final class RowIteratorTest extends TestCase
     {
         $iterator = $this
             ->getMockBuilder(IteratorInterface::class)
-            ->getMock();
+            ->getMock()
+        ;
 
         $iterator
             ->method('key')
-            ->willReturn($currentRow);
+            ->willReturn($currentRow)
+        ;
 
-        if (null !== $counts) {
+        if ($counts !== null) {
             foreach ($counts as $method => $count) {
                 $iterator
                     ->expects(static::exactly($count))
-                    ->method($method);
+                    ->method($method)
+                ;
             }
         }
 
-        if (null !== $calls) {
+        if ($calls !== null) {
             foreach ($calls as $method => $return) {
                 $iterator
                     ->expects(static::exactly(\count($return)))
                     ->method($method)
-                    ->willReturnOnConsecutiveCalls(...$return);
+                    ->willReturnOnConsecutiveCalls(...$return)
+                ;
             }
         }
 
