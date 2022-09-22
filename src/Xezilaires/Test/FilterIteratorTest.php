@@ -31,6 +31,7 @@ final class FilterIteratorTest extends TestCase
         $filter = new FilterIterator($iterator, static function (object $item): bool {
             /**
              * @var int $scalar
+             *
              * @phpstan-ignore-next-line
              */
             $scalar = $item->scalar;
@@ -47,6 +48,7 @@ final class FilterIteratorTest extends TestCase
         $filter = new FilterIterator($iterator, static function (object $item): bool {
             /**
              * @var string $scalar
+             *
              * @phpstan-ignore-next-line
              */
             $scalar = $item->scalar;

@@ -66,6 +66,7 @@ final class SerializeCommand extends Command
     {
         /**
          * @var string $class
+         *
          * @psalm-var class-string $class
          */
         $class = $input->getArgument('class');
