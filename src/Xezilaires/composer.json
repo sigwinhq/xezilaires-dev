@@ -20,6 +20,7 @@
         "openspout/openspout": "^3.0",
         "phpunit/phpunit": "^9.5",
         "symfony/console": "^4.4 || ^5.0 || ^6.0",
+        "symfony/phpunit-bridge": "^4.4.9 || ^5.0 || ^6.0",
         "symfony/property-access": "^4.4 || ^5.0 || ^6.0",
         "symfony/property-info": "^4.4 || ^5.0 || ^6.0",
         "symfony/validator": "^4.4 || ^5.0 || ^6.0"

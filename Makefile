@@ -1,5 +1,5 @@
 ifndef BUILD_ENV
-BUILD_ENV=8.0
+BUILD_ENV=8.1
 endif
 
 ifndef MAKEFILE_ROOT
@@ -33,7 +33,7 @@ DOCQA_DOCKER_COMMAND=docker run --init --interactive ${TTY} --rm --env HOME=/tmp
 endif
 
 ifndef PHPQA_DOCKER_COMMAND
-PHPQA_DOCKER_IMAGE=jakzal/phpqa:1.64.0-php${BUILD_ENV}-alpine
+PHPQA_DOCKER_IMAGE=jakzal/phpqa:1.66.1-php${BUILD_ENV}-alpine
 PHPQA_DOCKER_COMMAND=docker run --init --interactive ${TTY} --rm --env "COMPOSER_CACHE_DIR=/composer/cache" --user "$(shell id -u):$(shell id -g)" --volume "$(shell pwd)/var/tmp/phpqa:/tmp" --volume "$(shell pwd):/project" --volume "${HOME}/.composer:/composer" --workdir /project ${PHPQA_DOCKER_IMAGE}
 endif
 
@@ -89,10 +89,10 @@ composer-install-lowest: ensure
 	sh -c "${PHPQA_DOCKER_COMMAND} composer upgrade --with-all-dependencies --prefer-lowest"
 	$(call end)
 composer-normalize: ensure
-	sh -c "${PHPQA_DOCKER_COMMAND} composer normalize --no-check-lock"
+	# sh -c "${PHPQA_DOCKER_COMMAND} composer normalize --no-check-lock --no-interaction"
 composer-normalize-check: ensure
 	$(call start,Composer normalize)
-	sh -c "${PHPQA_DOCKER_COMMAND} composer normalize --no-check-lock --dry-run"
+	#sh -c "${PHPQA_DOCKER_COMMAND} composer normalize --no-check-lock --dry-run --no-interaction"
 	$(call end)
 
 cs: ensure

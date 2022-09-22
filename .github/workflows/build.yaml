@@ -12,7 +12,7 @@ jobs:
             BUILD_ENV: ${{ matrix.php }}
         strategy:
             matrix:
-                php: [ "7.4", "8.0" ]
+                php: [ "7.4", "8.0", "8.1" ]
                 dependencies: [ lowest, highest ]
         steps:
             -
@@ -34,7 +34,7 @@ jobs:
             BUILD_ENV: ${{ matrix.php }}
         strategy:
             matrix:
-                php: [ "7.4", "8.0" ]
+                php: [ "7.4", "8.0", "8.1" ]
                 dependencies: [ lowest, highest ]
         steps:
             -
