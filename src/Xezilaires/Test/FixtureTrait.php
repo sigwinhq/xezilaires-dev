@@ -28,6 +28,7 @@ trait FixtureTrait
         return new class(__DIR__.'/resources/fixtures/'.$name) extends \SplFileObject {
             /**
              * @psalm-suppress ImplementedReturnTypeMismatch Invalid by design
+             *
              * @phpstan-ignore-next-line
              */
             #[\ReturnTypeWillChange]

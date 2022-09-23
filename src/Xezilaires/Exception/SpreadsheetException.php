@@ -32,9 +32,6 @@ final class SpreadsheetException extends \InvalidArgumentException implements Ex
         return new self('Invalid cell: '.$exception->getMessage(), 0, $exception);
     }
 
-    /**
-     * @return SpreadsheetException
-     */
     public static function invalidSeek(\Throwable $exception): self
     {
         return new self('Invalid seek: '.$exception->getMessage(), 0, $exception);
@@ -50,17 +47,11 @@ final class SpreadsheetException extends \InvalidArgumentException implements Ex
         return new self($message.': '.$exception->getMessage(), 0, $exception);
     }
 
-    /**
-     * @return SpreadsheetException
-     */
     public static function noIterator(): self
     {
         return new self('No iterator was created');
     }
 
-    /**
-     * @return SpreadsheetException
-     */
     public static function iteratorAlreadyCreated(): self
     {
         return new self('Iterator already created');

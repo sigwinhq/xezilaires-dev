@@ -15,7 +15,9 @@ namespace Xezilaires\Annotation;
 
 /**
  * @Annotation
+ *
  * @Target({"ANNOTATION", "PROPERTY"})
+ *
  * @NamedArgumentConstructor
  */
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
