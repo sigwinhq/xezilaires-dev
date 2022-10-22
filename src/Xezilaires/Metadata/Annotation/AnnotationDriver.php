@@ -21,9 +21,6 @@ use Xezilaires\Metadata\ColumnReference;
 use Xezilaires\Metadata\HeaderReference;
 use Xezilaires\Metadata\Mapping;
 
-/**
- * @internal
- */
 final class AnnotationDriver
 {
     private AnnotationReader $reader;

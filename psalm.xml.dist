@@ -4,8 +4,9 @@
        errorLevel="1"
        findUnusedVariablesAndParams="true">
     <projectFiles>
-        <directory name="src/"/>
+        <directory name="."/>
         <ignoreFiles allowMissingFiles="true">
+            <file name=".php-cs-fixer.dist.php"/>
             <directory name="src/Bridge/*/var/"/>
             <directory name="src/Bridge/*/vendor/"/>
             <directory name="src/Xezilaires/var/"/>
@@ -34,4 +35,9 @@
             </errorLevel>
         </PropertyNotSetInConstructor>
     </issueHandlers>
+
+    <plugins>
+        <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin"/>
+        <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
+    </plugins>
 </psalm>
