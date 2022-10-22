@@ -35,9 +35,9 @@ use Xezilaires\Validator;
  * @uses \Xezilaires\Bridge\Spout\Spreadsheet
  * @uses \Xezilaires\Bridge\Symfony\DependencyInjection\XezilairesExtension
  * @uses \Xezilaires\Bridge\Symfony\Validator
- * @uses \Xezilaires\Serializer\ObjectSerializer
- * @uses \Xezilaires\Metadata\Mapping
  * @uses \Xezilaires\Metadata\ColumnReference
+ * @uses \Xezilaires\Metadata\Mapping
+ * @uses \Xezilaires\Serializer\ObjectSerializer
  * @uses \Xezilaires\SpreadsheetIterator
  * @uses \Xezilaires\SpreadsheetIteratorFactory
  *
@@ -108,7 +108,11 @@ final class XezilairesBundleTest extends KernelTestCase
         $kernel = self::bootKernel();
         $container = $kernel->getContainer();
 
-        /** @var IteratorFactory $iteratorFactory */
+        /**
+         * @phpstan-var IteratorFactory $iteratorFactory
+         *
+         * @psalm-suppress UnnecessaryVarAnnotation
+         */
         $iteratorFactory = $container->get(IteratorFactory::class);
 
         $mapping = new Mapping(Product::class, ['name' => new ColumnReference('A')]);
@@ -125,7 +129,9 @@ final class XezilairesBundleTest extends KernelTestCase
     protected static function createKernel(array $options = []): KernelInterface
     {
         /**
-         * @var TestKernel $kernel
+         * @phpstan-var TestKernel $kernel
+         *
+         * @psalm-suppress UnnecessaryVarAnnotation
          */
         $kernel = parent::createKernel($options);
         $kernel->addTestBundle(XezilairesBundle::class);

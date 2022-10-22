@@ -140,10 +140,10 @@ abstract class FunctionalTestCase extends TestCase
     }
 
     /**
-     * @uses \Xezilaires\Metadata\Annotation\AnnotationDriver
      * @uses \Xezilaires\Annotation\ColumnReference
      * @uses \Xezilaires\Annotation\HeaderReference
      * @uses \Xezilaires\Annotation\Options
+     * @uses \Xezilaires\Metadata\Annotation\AnnotationDriver
      *
      * @throws \ReflectionException
      * @throws \RuntimeException
@@ -167,10 +167,10 @@ abstract class FunctionalTestCase extends TestCase
     }
 
     /**
-     * @uses \Xezilaires\Metadata\Annotation\AnnotationDriver
      * @uses \Xezilaires\Annotation\ColumnReference
      * @uses \Xezilaires\Annotation\HeaderReference
      * @uses \Xezilaires\Annotation\Options
+     * @uses \Xezilaires\Metadata\Annotation\AnnotationDriver
      *
      * @throws \ReflectionException
      * @throws \RuntimeException
@@ -304,7 +304,12 @@ abstract class FunctionalTestCase extends TestCase
         $current = new Product();
         $current->name = 'Brown Bear, Brown Bear, What Do You See?';
         $current->price = 6.51;
-        static::assertEquals($current, $iterator->current());
+
+        $actual = $iterator->current();
+
+        static::assertInstanceOf(Product::class, $actual);
+        static::assertSame($current->name, $actual->name);
+        static::assertSame($current->price, $actual->price);
     }
 
     public function testCanRewindIterator(): void
@@ -327,11 +332,15 @@ abstract class FunctionalTestCase extends TestCase
         static::assertSame(3, $iterator->key());
 
         $iterator->rewind();
+        $actual = $iterator->current();
+
         $current = new Product();
         $current->name = 'The Very Hungry Caterpillar';
         $current->price = 6.59;
-        static::assertEquals($current, $iterator->current());
-        static::assertEquals(2, $iterator->key());
+
+        static::assertInstanceOf(Product::class, $actual);
+        static::assertSame($current->name, $actual->name);
+        static::assertSame($current->price, $actual->price);
     }
 
     /**

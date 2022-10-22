@@ -21,9 +21,6 @@ use Xezilaires\Metadata\ColumnReference;
 use Xezilaires\Metadata\HeaderReference;
 use Xezilaires\Metadata\Mapping;
 
-/**
- * @internal
- */
 final class AnnotationDriver
 {
     private AnnotationReader $reader;
@@ -76,24 +73,24 @@ final class AnnotationDriver
                 Annotation\HeaderReference::class
             );
 
-            if (null === $arrayAnnotation && null === $columnAnnotation && null === $headerAnnotation) {
+            if ($arrayAnnotation === null && $columnAnnotation === null && $headerAnnotation === null) {
                 // property not managed, skip
                 continue;
             }
 
-            if (false === ($arrayAnnotation xor $columnAnnotation xor $headerAnnotation)) {
+            if (($arrayAnnotation xor $columnAnnotation xor $headerAnnotation) === false) {
                 // if any is set, only one is allowed
                 throw AnnotationException::tooManyReferencesDefined($reflectionProperty, [$arrayAnnotation, $columnAnnotation, $headerAnnotation]);
             }
 
             switch (true) {
-                case null !== $columnAnnotation:
+                case $columnAnnotation !== null:
                     $reference = $this->createReference($columnAnnotation);
                     break;
-                case null !== $headerAnnotation:
+                case $headerAnnotation !== null:
                     $reference = $this->createReference($headerAnnotation);
                     break;
-                case null !== $arrayAnnotation:
+                case $arrayAnnotation !== null:
                     $references = [];
                     foreach ($arrayAnnotation->references as $annotation) {
                         $references[] = $this->createReference($annotation);
@@ -113,7 +110,7 @@ final class AnnotationDriver
     private function getOptions(\ReflectionClass $reflectionClass, ?array $additionalOptions = null): array
     {
         $options = $this->getClassAnnotationOrAttribute($reflectionClass, Annotation\Options::class);
-        if (null !== $additionalOptions) {
+        if ($additionalOptions !== null) {
             $options = array_replace($options, $additionalOptions);
         }
 

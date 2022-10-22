@@ -19,6 +19,7 @@ use Xezilaires\Metadata\ArrayReference;
 use Xezilaires\Metadata\ColumnReference;
 use Xezilaires\Metadata\HeaderReference;
 use Xezilaires\Metadata\Mapping;
+use Xezilaires\Metadata\Reference;
 use Xezilaires\Test\Model\Product;
 
 /**
@@ -46,8 +47,7 @@ final class MappingTest extends TestCase
     /**
      * @dataProvider getValidMappings
      *
-     * @psalm-param class-string                            $className
-     *
+     * @param class-string                                  $className
      * @param array<string, \Xezilaires\Metadata\Reference> $columns
      * @param null|array<string, null|bool|string>          $options
      */
@@ -58,7 +58,7 @@ final class MappingTest extends TestCase
         static::assertSame($className, $mapping->getClassName());
         static::assertSame($columns, $mapping->getReferences());
 
-        if (null !== $options) {
+        if ($options !== null) {
             foreach ($options as $option => $value) {
                 static::assertSame($value, $mapping->getOption($option));
             }
@@ -66,21 +66,28 @@ final class MappingTest extends TestCase
     }
 
     /**
-     * @dataProvider getInvalidMappings
+     * @dataProvider   getInvalidMappings
      *
-     * @psalm-param class-string                            $className
+     * @psalm-suppress InvalidArgument That's what we're testing for here
      *
      * @param array<string, \Xezilaires\Metadata\Reference> $columns
      * @param null|array<string, null|bool|string>          $options
      */
-    public function testCannotCreateInvalidMapping(string $exceptionMessage, string $className, array $columns, ?array $options = null): void
-    {
+    public function testCannotCreateInvalidMapping(
+        string $exceptionMessage,
+        string $className,
+        array $columns,
+        ?array $options = null
+    ): void {
         $this->expectException(MappingException::class);
         $this->expectExceptionMessage($exceptionMessage);
 
         new Mapping($className, $columns, $options);
     }
 
+    /**
+     * @return list<array{0: class-string, 1: array{name: Reference}}>
+     */
     public function getValidMappings(): array
     {
         return [
@@ -91,6 +98,9 @@ final class MappingTest extends TestCase
         ];
     }
 
+    /**
+     * @return list<array{0: string, 1: string, 2: array{name?: Reference}}>
+     */
     public function getInvalidMappings(): array
     {
         return [
@@ -102,12 +112,36 @@ final class MappingTest extends TestCase
 
             ['Invalid reference "aaa"', Product::class, ['aaa' => 123]],
 
-            ['When using HeaderReference, "header" option is required', Product::class, ['name' => new HeaderReference('Name')]],
+            [
+                'When using HeaderReference, "header" option is required',
+                Product::class,
+                ['name' => new HeaderReference('Name')],
+            ],
 
-            ['The option "start" with value "yes" is expected to be of type "int"', Product::class, ['name' => new ColumnReference('A')], ['start' => 'yes']],
-            ['The option "end" with value "yes" is expected to be of type "int"', Product::class, ['name' => new ColumnReference('A')], ['end' => 'yes']],
-            ['The option "header" with value "yes" is expected to be of type "int"', Product::class, ['name' => new ColumnReference('A')], ['header' => 'yes']],
-            ['The option "reverse" with value "yes" is expected to be of type "bool"', Product::class, ['name' => new ColumnReference('A')], ['reverse' => 'yes']],
+            [
+                'The option "start" with value "yes" is expected to be of type "int"',
+                Product::class,
+                ['name' => new ColumnReference('A')],
+                ['start' => 'yes'],
+            ],
+            [
+                'The option "end" with value "yes" is expected to be of type "int"',
+                Product::class,
+                ['name' => new ColumnReference('A')],
+                ['end' => 'yes'],
+            ],
+            [
+                'The option "header" with value "yes" is expected to be of type "int"',
+                Product::class,
+                ['name' => new ColumnReference('A')],
+                ['header' => 'yes'],
+            ],
+            [
+                'The option "reverse" with value "yes" is expected to be of type "bool"',
+                Product::class,
+                ['name' => new ColumnReference('A')],
+                ['reverse' => 'yes'],
+            ],
         ];
     }
 }

@@ -54,7 +54,8 @@ final class SerializeCommand extends Command
             ->addOption('format', 'F', InputOption::VALUE_OPTIONAL, 'Format to export to', 'json')
             ->addOption('reverse', 'R', InputOption::VALUE_NONE, 'Iterate in reverse')
             ->addOption('group', 'G', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Group(s) to serialize')
-            ->addOption('xml-root', null, InputOption::VALUE_OPTIONAL, 'Name of root node in XML format', 'root');
+            ->addOption('xml-root', null, InputOption::VALUE_OPTIONAL, 'Name of root node in XML format', 'root')
+        ;
     }
 
     /**
@@ -65,23 +66,41 @@ final class SerializeCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /**
-         * @var string $class
-         *
-         * @psalm-var class-string $class
+         * @var class-string $class
          */
         $class = $input->getArgument('class');
-        /** @var string $path */
+        /**
+         * @phpstan-var string $path
+         *
+         * @psalm-suppress UnnecessaryVarAnnotation
+         */
         $path = $input->getArgument('path');
-        /** @var null|string $format */
+        /**
+         * @phpstan-var null|string $format
+         *
+         * @psalm-suppress UnnecessaryVarAnnotation
+         */
         $format = $input->getOption('format');
-        /** @var bool $reverse */
+        /**
+         * @phpstan-var bool $reverse
+         *
+         * @psalm-suppress UnnecessaryVarAnnotation
+         */
         $reverse = $input->getOption('reverse');
-        /** @var array<string> $groups */
+        /**
+         * @phpstan-var array<string> $groups
+         *
+         * @psalm-suppress UnnecessaryVarAnnotation
+         */
         $groups = $input->getOption('group');
-        /** @var null|string $xmlRoot */
+        /**
+         * @phpstan-var null|string $xmlRoot
+         *
+         * @psalm-suppress UnnecessaryVarAnnotation
+         */
         $xmlRoot = $input->getOption('xml-root');
 
-        if (null === $format) {
+        if ($format === null) {
             throw new \RuntimeException('Format is required');
         }
 
@@ -98,7 +117,7 @@ final class SerializeCommand extends Command
                 $context['json_encode_options'] = \JSON_PRETTY_PRINT;
                 break;
             case 'xml':
-                if (null === $xmlRoot) {
+                if ($xmlRoot === null) {
                     throw new \RuntimeException('XML root node name cannot be empty if XML format requested');
                 }
                 $context['xml_root_node_name'] = $xmlRoot;

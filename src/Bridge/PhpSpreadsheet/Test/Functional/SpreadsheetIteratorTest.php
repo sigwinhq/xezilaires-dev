@@ -18,9 +18,9 @@ use Xezilaires\Spreadsheet as SpreadsheetInterface;
 use Xezilaires\Test\Functional\FunctionalTestCase;
 
 /**
- * @covers \Xezilaires\SpreadsheetIterator
- * @covers \Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet
  * @covers \Xezilaires\Bridge\PhpSpreadsheet\RowIterator
+ * @covers \Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet
+ * @covers \Xezilaires\SpreadsheetIterator
  *
  * @uses \Xezilaires\Metadata\ArrayReference
  * @uses \Xezilaires\Metadata\ColumnReference

@@ -52,7 +52,8 @@ final class ValidateCommand extends Command
             ->addArgument('class', InputArgument::REQUIRED, 'Process the rows as class')
             ->addArgument('paths', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'Path(s) to file(s) to process')
             ->addOption('bundle', 'B', InputOption::VALUE_REQUIRED, 'Custom project-specific bundle to load')
-            ->addOption('stop-on-violation', 'S', InputOption::VALUE_NONE, 'Stop validation on first violation found');
+            ->addOption('stop-on-violation', 'S', InputOption::VALUE_NONE, 'Stop validation on first violation found')
+        ;
     }
 
     /**
@@ -62,13 +63,15 @@ final class ValidateCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        /** @var bool $stopOnViolation */
+        /**
+         * @phpstan-var bool $stopOnViolation
+         *
+         * @psalm-suppress UnnecessaryVarAnnotation
+         */
         $stopOnViolation = $input->getOption('stop-on-violation');
 
         /**
-         * @var string $class
-         *
-         * @psalm-var class-string $class
+         * @var class-string $class
          */
         $class = $input->getArgument('class');
 

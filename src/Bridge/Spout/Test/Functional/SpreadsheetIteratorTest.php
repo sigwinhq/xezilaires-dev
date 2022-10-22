@@ -18,9 +18,9 @@ use Xezilaires\Spreadsheet as SpreadsheetInterface;
 use Xezilaires\Test\Functional\FunctionalTestCase;
 
 /**
- * @covers \Xezilaires\SpreadsheetIterator
- * @covers \Xezilaires\Bridge\Spout\Spreadsheet
  * @covers \Xezilaires\Bridge\Spout\RowIterator
+ * @covers \Xezilaires\Bridge\Spout\Spreadsheet
+ * @covers \Xezilaires\SpreadsheetIterator
  *
  * @uses \Xezilaires\Metadata\ArrayReference
  * @uses \Xezilaires\Metadata\ColumnReference

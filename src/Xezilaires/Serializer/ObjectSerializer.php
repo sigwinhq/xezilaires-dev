@@ -35,7 +35,11 @@ final class ObjectSerializer implements Denormalizer, Serializer
 
     public function denormalize(array $data, string $class, ?string $format = null, array $context = []): object
     {
-        /** @var object $object */
+        /**
+         * @phpstan-var object $object
+         *
+         * @psalm-suppress UnnecessaryVarAnnotation
+         */
         $object = $this->serializer->denormalize($data, $class, $format, $context);
 
         return $object;

@@ -80,9 +80,10 @@ final class RowIteratorTest extends TestCase
         $iterator = $this
             ->getMockBuilder(PhpspreadsheetRowIterator::class)
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMock()
+        ;
 
-        if (null !== $counts) {
+        if ($counts !== null) {
             foreach ($counts as $method => $spec) {
                 /** @var int $count */
                 $count = $spec['count'];
@@ -90,7 +91,8 @@ final class RowIteratorTest extends TestCase
                 $mocker = $iterator
                     ->expects(static::exactly($count))
                     ->method($method)
-                    ->with(...(array) $spec['params']);
+                    ->with(...(array) $spec['params'])
+                ;
 
                 if (isset($spec['return'])) {
                     $mocker->willReturn($spec['return']);

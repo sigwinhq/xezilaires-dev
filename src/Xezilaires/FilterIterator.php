@@ -52,7 +52,7 @@ final class FilterIterator extends \FilterIterator
         /** @var bool $accepted */
         $accepted = \call_user_func($this->filter, $object);
 
-        if (true === $accepted) {
+        if ($accepted === true) {
             ++$this->key;
         }
 

@@ -33,7 +33,7 @@ final class RegisterCommandsCompilerPass implements CompilerPassInterface
             $definition = $container->getDefinition($id);
 
             $className = $definition->getClass();
-            if (null === $className) {
+            if ($className === null) {
                 continue;
             }
 

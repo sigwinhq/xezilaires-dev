@@ -37,7 +37,7 @@ final class MappingException extends \InvalidArgumentException implements Except
     public static function headerNotFound(string $unknownHeader, array $knownHeaders): self
     {
         $alternative = self::findAlternative($unknownHeader, $knownHeaders);
-        if (null === $alternative) {
+        if ($alternative === null) {
             return new self(sprintf('Invalid header "%1$s", not found', $unknownHeader));
         }
 

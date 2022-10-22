@@ -83,7 +83,7 @@ final class ReverseIterator implements Iterator
      */
     public function valid(): bool
     {
-        return $this->endIndex - $this->startIndex >= $this->index;
+        return $this->index <= $this->endIndex - $this->startIndex;
     }
 
     /**
