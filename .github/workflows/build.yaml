@@ -27,7 +27,7 @@ jobs:
             -
                 name: Tests with mutation
                 if: "matrix.php != '7.4'"
-                run: make all/test
+                run: make test
     CodeQualityAnalysis:
         runs-on: ubuntu-latest
         env:
