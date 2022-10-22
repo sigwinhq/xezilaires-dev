@@ -26,6 +26,9 @@ use Xezilaires\Bridge\Spout\RowIterator;
  */
 final class RowIteratorTest extends TestCase
 {
+    /**
+     * @return list<array{0: int, 1: int, 2: int, 3: array{rewind: int, next: int, valid: int}}>
+     */
     public function seekProvider(): array
     {
         return [
@@ -35,6 +38,9 @@ final class RowIteratorTest extends TestCase
         ];
     }
 
+    /**
+     * @return list<array{0: int, 1: int, 2: int, 3: array{rewind: int, next: int}, 4: array{valid: list<bool>}}>
+     */
     public function getHighestRowProvider(): array
     {
         return [

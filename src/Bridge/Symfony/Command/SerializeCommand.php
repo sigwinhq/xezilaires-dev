@@ -66,20 +66,38 @@ final class SerializeCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /**
-         * @var string $class
-         *
-         * @psalm-var class-string $class
+         * @var class-string $class
          */
         $class = $input->getArgument('class');
-        /** @var string $path */
+        /**
+         * @phpstan-var string $path
+         *
+         * @psalm-suppress UnnecessaryVarAnnotation
+         */
         $path = $input->getArgument('path');
-        /** @var null|string $format */
+        /**
+         * @phpstan-var null|string $format
+         *
+         * @psalm-suppress UnnecessaryVarAnnotation
+         */
         $format = $input->getOption('format');
-        /** @var bool $reverse */
+        /**
+         * @phpstan-var bool $reverse
+         *
+         * @psalm-suppress UnnecessaryVarAnnotation
+         */
         $reverse = $input->getOption('reverse');
-        /** @var array<string> $groups */
+        /**
+         * @phpstan-var array<string> $groups
+         *
+         * @psalm-suppress UnnecessaryVarAnnotation
+         */
         $groups = $input->getOption('group');
-        /** @var null|string $xmlRoot */
+        /**
+         * @phpstan-var null|string $xmlRoot
+         *
+         * @psalm-suppress UnnecessaryVarAnnotation
+         */
         $xmlRoot = $input->getOption('xml-root');
 
         if ($format === null) {

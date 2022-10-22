@@ -63,13 +63,15 @@ final class ValidateCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        /** @var bool $stopOnViolation */
+        /**
+         * @phpstan-var bool $stopOnViolation
+         *
+         * @psalm-suppress UnnecessaryVarAnnotation
+         */
         $stopOnViolation = $input->getOption('stop-on-violation');
 
         /**
-         * @var string $class
-         *
-         * @psalm-var class-string $class
+         * @var class-string $class
          */
         $class = $input->getArgument('class');
 

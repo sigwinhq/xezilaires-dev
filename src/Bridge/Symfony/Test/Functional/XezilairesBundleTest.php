@@ -108,7 +108,11 @@ final class XezilairesBundleTest extends KernelTestCase
         $kernel = self::bootKernel();
         $container = $kernel->getContainer();
 
-        /** @var IteratorFactory $iteratorFactory */
+        /**
+         * @phpstan-var IteratorFactory $iteratorFactory
+         *
+         * @psalm-suppress UnnecessaryVarAnnotation
+         */
         $iteratorFactory = $container->get(IteratorFactory::class);
 
         $mapping = new Mapping(Product::class, ['name' => new ColumnReference('A')]);
@@ -125,7 +129,9 @@ final class XezilairesBundleTest extends KernelTestCase
     protected static function createKernel(array $options = []): KernelInterface
     {
         /**
-         * @var TestKernel $kernel
+         * @phpstan-var TestKernel $kernel
+         *
+         * @psalm-suppress UnnecessaryVarAnnotation
          */
         $kernel = parent::createKernel($options);
         $kernel->addTestBundle(XezilairesBundle::class);

@@ -58,6 +58,7 @@
         </RedundantCondition>
         <PropertyNotSetInConstructor>
             <errorLevel type="info">
+                <file name="src/Bridge/Symfony/AppKernel.php"/>
                 <directory name="src/Xezilaires/Test/"/>
                 <directory name="src/Bridge/*/Test/"/>
             </errorLevel>

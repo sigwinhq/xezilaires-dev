@@ -71,7 +71,6 @@ final class MappingTest extends TestCase
      * @psalm-suppress InvalidArgument That's what we're testing for here
      *
      * @param array<string, \Xezilaires\Metadata\Reference> $columns
-     * @param string                                        $className
      * @param null|array<string, null|bool|string>          $options
      */
     public function testCannotCreateInvalidMapping(
