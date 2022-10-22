@@ -304,8 +304,12 @@ abstract class FunctionalTestCase extends TestCase
         $current = new Product();
         $current->name = 'Brown Bear, Brown Bear, What Do You See?';
         $current->price = 6.51;
-        static::assertSame($current->name, $iterator->current()->name);
-        static::assertSame($current->price, $iterator->current()->price);
+
+        $actual = $iterator->current();
+
+        static::assertInstanceOf(Product::class, $actual);
+        static::assertSame($current->name, $actual->name);
+        static::assertSame($current->price, $actual->price);
     }
 
     public function testCanRewindIterator(): void
@@ -328,12 +332,15 @@ abstract class FunctionalTestCase extends TestCase
         static::assertSame(3, $iterator->key());
 
         $iterator->rewind();
+        $actual = $iterator->current();
+
         $current = new Product();
         $current->name = 'The Very Hungry Caterpillar';
         $current->price = 6.59;
-        static::assertSame($current->name, $iterator->current()->name);
-        static::assertSame($current->price, $iterator->current()->price);
-        static::assertSame(2, $iterator->key());
+
+        static::assertInstanceOf(Product::class, $actual);
+        static::assertSame($current->name, $actual->name);
+        static::assertSame($current->price, $actual->price);
     }
 
     /**

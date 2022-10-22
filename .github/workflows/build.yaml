@@ -9,57 +9,39 @@ jobs:
     MutationTest:
         runs-on: ubuntu-latest
         env:
-            BUILD_ENV: ${{ matrix.php }}
+            PHP_VERSION: ${{ matrix.php }}
         strategy:
             matrix:
                 php: [ "7.4", "8.0", "8.1" ]
                 dependencies: [ lowest, highest ]
         steps:
             -
-                uses: actions/checkout@master
+                uses: actions/checkout@v3
             -
-                name: Composer install lowest dependencies
-                if: "matrix.dependencies == 'lowest'"
-                run: make composer-install-lowest-all
-            -
-                name: Composer install highest dependencies
-                if: "matrix.dependencies == 'highest'"
-                run: make composer-install-all
+                name: "Composer install: ${{ matrix.dependencies }}"
+                run: make composer/install-${{ matrix.dependencies }}
             -
                 name: Tests without mutation
                 if: "matrix.php == '7.4'"
-                run: make phpunit-coverage-all
+                run: make all/test/phpunit-coverage
             -
                 name: Tests with mutation
                 if: "matrix.php != '7.4'"
-                run: make test-all
+                run: make all/test
     CodeQualityAnalysis:
         runs-on: ubuntu-latest
         env:
-            BUILD_ENV: ${{ matrix.php }}
+            PHP_VERSION: ${{ matrix.php }}
         strategy:
             matrix:
                 php: [ "7.4", "8.0", "8.1" ]
                 dependencies: [ lowest, highest ]
         steps:
             -
-                uses: actions/checkout@master
+                uses: "actions/checkout@v3"
             -
-                name: Composer install lowest dependencies
-                if: "matrix.dependencies == 'lowest'"
-                run: make composer-install-lowest-all
-            -
-                name: Composer install highest dependencies
-                if: "matrix.dependencies == 'highest'"
-                run: make composer-install-all
+                name: "Composer install: ${{ matrix.dependencies }}"
+                run: make composer/install-${{ matrix.dependencies }}
             -
                 name: Run code quality analysis
-                run: make check-all
-    DocumentationQualityAnalysis:
-        runs-on: ubuntu-latest
-        steps:
-            -
-                uses: actions/checkout@v1
-            -
-                name: Run documentation quality analysis
-                run: make docs-all
+                run: make analyze
