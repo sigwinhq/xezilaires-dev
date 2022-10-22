@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <psalm xmlns="https://getpsalm.org/schema/config"
-       cacheDirectory="var/psalm"
+       cacheDirectory="var/phpqa/psalm"
        errorLevel="1"
        findUnusedVariablesAndParams="true">
     <projectFiles>
