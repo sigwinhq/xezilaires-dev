@@ -12,7 +12,7 @@ jobs:
             PHP_VERSION: ${{ matrix.php }}
         strategy:
             matrix:
-                php: [ "7.4", "8.0", "8.1" ]
+                php: [ "8.0", "8.1" ]
                 dependencies: [ lowest, highest ]
         steps:
             -
@@ -21,12 +21,7 @@ jobs:
                 name: "Composer install: ${{ matrix.dependencies }}"
                 run: make all/composer/install-${{ matrix.dependencies }}
             -
-                name: Tests without mutation
-                if: "matrix.php == '7.4'"
-                run: make all/test/phpunit-coverage
-            -
                 name: Tests with mutation
-                if: "matrix.php != '7.4'"
                 run: make test
     CodeQualityAnalysis:
         runs-on: ubuntu-latest
@@ -34,7 +29,7 @@ jobs:
             PHP_VERSION: ${{ matrix.php }}
         strategy:
             matrix:
-                php: [ "7.4", "8.0", "8.1" ]
+                php: [ "8.0", "8.1" ]
                 dependencies: [ lowest, highest ]
         steps:
             -
