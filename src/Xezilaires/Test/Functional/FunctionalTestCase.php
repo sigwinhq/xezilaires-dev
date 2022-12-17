@@ -178,10 +178,6 @@ abstract class FunctionalTestCase extends TestCase
      */
     public function testCanLoadSparseFixtureWithNativeAttributes(): void
     {
-        if (\PHP_VERSION_ID < 80000) {
-            static::markTestSkipped('Native PHP attributes available since PHP 8.0.0');
-        }
-
         $driver = new AnnotationDriver();
         $mapping = $driver->getMetadataMapping(ProductWithAttributes::class);
 

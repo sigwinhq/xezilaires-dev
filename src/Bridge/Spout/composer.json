@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^8.0",
         "openspout/openspout": "^3.0",
         "sigwin/xezilaires": "^0.5 || ^0.6"
     },

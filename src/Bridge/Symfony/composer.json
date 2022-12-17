@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^8.0",
         "sigwin/xezilaires": "^0.5 || ^0.6",
         "symfony/console": "^4.4 || ^5.0 || ^6.0",
         "symfony/framework-bundle": "^4.4 || ^5.0 || ^6.0",
