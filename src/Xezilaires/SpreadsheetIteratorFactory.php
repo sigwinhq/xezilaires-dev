@@ -17,7 +17,7 @@ use Xezilaires\Metadata\Mapping;
 
 /**
  * @template T of object
- *                      
+ *
  * @implements IteratorFactory<T>
  */
 final class SpreadsheetIteratorFactory implements IteratorFactory

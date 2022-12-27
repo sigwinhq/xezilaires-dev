@@ -23,7 +23,7 @@ use Xezilaires\Iterator;
 final class FakeIterator implements Iterator
 {
     /**
-     * @var \ArrayIterator<array-key, object>
+     * @var \ArrayIterator<int, object>
      */
     private \ArrayIterator $iterator;
 

@@ -21,6 +21,11 @@ use Xezilaires\Metadata\HeaderReference;
 use Xezilaires\Metadata\Mapping;
 use Xezilaires\Metadata\Reference;
 
+/**
+ * @template T of object
+ *
+ * @implements Iterator<T>
+ */
 final class SpreadsheetIterator implements Iterator
 {
     private Spreadsheet $spreadsheet;

@@ -62,8 +62,8 @@ final class RowIteratorTest extends TestCase
     /**
      * @dataProvider getHighestRowProvider
      *
-     * @param array<string, int>   $counts
-     * @param array<string, array> $calls
+     * @param array<string, int>                         $counts
+     * @param array<string, array<string, array<mixed>>> $calls
      */
     public function testCanDetermineHighestRowProperly(int $startRow, int $currentRow, int $highestRow, array $counts, array $calls): void
     {
@@ -75,8 +75,8 @@ final class RowIteratorTest extends TestCase
     }
 
     /**
-     * @param null|array<string, int>   $counts
-     * @param null|array<string, array> $calls
+     * @param null|array<string, int>                         $counts
+     * @param null|array<string, array<string, array<mixed>>> $calls
      */
     private function mockIterator(int $currentRow, ?array $counts = null, ?array $calls = null): IteratorInterface
     {

@@ -15,6 +15,7 @@ namespace Xezilaires\Bridge\Symfony\Test\Functional;
 
 use Nyholm\BundleTest\TestKernel;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Xezilaires\Bridge\Symfony\XezilairesBundle;
 use Xezilaires\Denormalizer;
@@ -53,7 +54,7 @@ final class XezilairesBundleTest extends KernelTestCase
     use FixtureTrait;
 
     /**
-     * @throws \Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException
+     * @throws ServiceCircularReferenceException
      */
     public function testBundleHasValidator(): void
     {
@@ -65,7 +66,7 @@ final class XezilairesBundleTest extends KernelTestCase
     }
 
     /**
-     * @throws \Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException
+     * @throws ServiceCircularReferenceException
      */
     public function testBundleHasSerializer(): void
     {
@@ -77,7 +78,7 @@ final class XezilairesBundleTest extends KernelTestCase
     }
 
     /**
-     * @throws \Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException
+     * @throws ServiceCircularReferenceException
      */
     public function testBundleHasDenormalizer(): void
     {
@@ -89,7 +90,7 @@ final class XezilairesBundleTest extends KernelTestCase
     }
 
     /**
-     * @throws \Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException
+     * @throws ServiceCircularReferenceException
      */
     public function testBundleHasIteratorFactory(): void
     {
@@ -101,7 +102,7 @@ final class XezilairesBundleTest extends KernelTestCase
     }
 
     /**
-     * @throws \Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException
+     * @throws ServiceCircularReferenceException
      */
     public function testIteratorFactoryWorks(): void
     {

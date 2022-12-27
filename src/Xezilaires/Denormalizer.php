@@ -16,7 +16,9 @@ namespace Xezilaires;
 interface Denormalizer
 {
     /**
-     * @psalm-param class-string $class
+     * @param array<string, mixed> $data
+     * @param class-string         $class
+     * @param array<string, mixed> $context
      *
      * @throws Exception
      */
