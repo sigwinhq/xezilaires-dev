@@ -4,7 +4,7 @@ includes:
     - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-phpunit/extension.neon
     - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-symfony/extension.neon
 parameters:
-    # checkMissingIterableValueType: false
+    checkMissingIterableValueType: false
     # checkGenericClassInNonGenericObjectType: false
     tmpDir: %currentWorkingDirectory%/var/phpqa/phpstan
     level: max

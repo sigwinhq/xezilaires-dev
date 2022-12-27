@@ -15,9 +15,20 @@ namespace Xezilaires;
 
 use Xezilaires\Metadata\Mapping;
 
+/**
+ * @template T of object
+ */
 interface IteratorFactory
 {
+    /**
+     * @return Iterator<T>
+     */
     public function fromFile(\SplFileObject $file, Mapping $mapping): Iterator;
 
+    /**
+     * @param Spreadsheet<T> $spreadsheet
+     *
+     * @return Iterator<T>
+     */
     public function fromSpreadsheet(Spreadsheet $spreadsheet, Mapping $mapping): Iterator;
 }

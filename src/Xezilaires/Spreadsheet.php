@@ -18,6 +18,11 @@ namespace Xezilaires;
  */
 interface Spreadsheet
 {
+    /**
+     * @param \SplFileObject $file
+     *
+     * @return self<T>
+     */
     public static function fromFile(\SplFileObject $file): self;
 
     /**

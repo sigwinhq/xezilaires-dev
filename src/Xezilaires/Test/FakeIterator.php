@@ -17,7 +17,7 @@ use Xezilaires\Iterator;
 
 /**
  * @internal
- *          
+ *
  * @implements Iterator<object>
  */
 final class FakeIterator implements Iterator
