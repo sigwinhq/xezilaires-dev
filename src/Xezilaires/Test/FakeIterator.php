@@ -17,9 +17,14 @@ use Xezilaires\Iterator;
 
 /**
  * @internal
+ *          
+ * @implements Iterator<object>
  */
 final class FakeIterator implements Iterator
 {
+    /**
+     * @var \ArrayIterator<array-key, object>
+     */
     private \ArrayIterator $iterator;
 
     /**

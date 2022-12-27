@@ -15,6 +15,7 @@ namespace Xezilaires;
 
 /**
  * @template TValue of object
+ *
  * @extends \Iterator<int, TValue>
  */
 interface Iterator extends \Iterator

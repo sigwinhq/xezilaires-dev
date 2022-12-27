@@ -36,6 +36,7 @@ use Xezilaires\SpreadsheetIterator;
  * @internal
  *
  * @small
+ *
  * @template T of object
  */
 final class SpreadsheetIteratorTest extends TestCase

@@ -418,8 +418,14 @@ abstract class FunctionalTestCase extends TestCase
         ], $iterator);
     }
 
+    /**
+     * @return Spreadsheet<object>
+     */
     abstract protected function getSpreadsheet(\SplFileObject $file): Spreadsheet;
 
+    /**
+     * @param Spreadsheet<object> $spreadsheet
+     */
     private function createIterator(Spreadsheet $spreadsheet, Mapping $mapping): SpreadsheetIterator
     {
         $serializer = new ObjectSerializer(new Serializer([new ObjectNormalizer()]));

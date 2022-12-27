@@ -27,6 +27,7 @@ final class Product
      *     @XLS\ColumnReference(column="A"),
      *     @XLS\HeaderReference(header="Price USD")
      * })
+     * @var array{string, float}
      */
     public array $all;
 
