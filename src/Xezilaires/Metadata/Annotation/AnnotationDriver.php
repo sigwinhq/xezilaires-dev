@@ -42,9 +42,10 @@ final class AnnotationDriver
     }
 
     /**
-     * @throws \ReflectionException
+     * @param class-string                    $className
+     * @param null|array<string, bool|string> $options
      *
-     * @psalm-param class-string $className
+     * @throws \ReflectionException
      */
     public function getMetadataMapping(string $className, ?array $options = null): Mapping
     {
@@ -107,6 +108,11 @@ final class AnnotationDriver
         return $columns;
     }
 
+    /**
+     * @param null|array<string, bool|string> $additionalOptions
+     *
+     * @return array<string, bool|string>
+     */
     private function getOptions(\ReflectionClass $reflectionClass, ?array $additionalOptions = null): array
     {
         $options = $this->getClassAnnotationOrAttribute($reflectionClass, Annotation\Options::class);

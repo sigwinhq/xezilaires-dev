@@ -40,7 +40,7 @@ final class Spreadsheet implements SpreadsheetInterface
     /**
      * @psalm-suppress PropertyNotSetInConstructor
      *
-     * @psalm-var Iterator&RowIterator
+     * @var Iterator&RowIterator
      */
     private Iterator $iterator;
 

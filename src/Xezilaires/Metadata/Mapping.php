@@ -20,7 +20,7 @@ use Xezilaires\Exception\MappingException;
 final class Mapping
 {
     /**
-     * @psalm-var class-string
+     * @var class-string
      */
     private string $className;
 
@@ -37,7 +37,8 @@ final class Mapping
     private bool $headerOptionRequired = false;
 
     /**
-     * @param array<string, Reference> $references
+     * @param array<string, Reference>            $references
+     * @param array<string, null|bool|int|string> $options
      */
     public function __construct(string $className, array $references, array $options = null)
     {
@@ -57,7 +58,7 @@ final class Mapping
     }
 
     /**
-     * @psalm-return class-string
+     * @return class-string
      */
     public function getClassName(): string
     {
@@ -96,9 +97,6 @@ final class Mapping
         $resolver->setAllowedTypes('reverse', 'bool');
     }
 
-    /**
-     * @psalm-param string $className
-     */
     private function setClassName(string $className): void
     {
         if (false === class_exists($className)) {
