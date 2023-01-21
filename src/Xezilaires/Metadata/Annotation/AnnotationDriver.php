@@ -42,8 +42,8 @@ final class AnnotationDriver
     }
 
     /**
-     * @param class-string                    $className
-     * @param null|array<string, bool|string> $options
+     * @param class-string                  $className
+     * @param null|array<string, null|bool> $options
      *
      * @throws \ReflectionException
      */
@@ -109,9 +109,9 @@ final class AnnotationDriver
     }
 
     /**
-     * @param null|array<string, bool|string> $additionalOptions
+     * @param null|array<string, null|bool|int|string> $additionalOptions
      *
-     * @return array<string, bool|string>
+     * @return array<string, null|bool|int|string>
      */
     private function getOptions(\ReflectionClass $reflectionClass, ?array $additionalOptions = null): array
     {
@@ -146,6 +146,8 @@ final class AnnotationDriver
      * @template T
      *
      * @param class-string<T> $name
+     *
+     * @return array<string, bool|int|string>
      */
     private function getClassAnnotationOrAttribute(\ReflectionClass $reflection, string $name): array
     {
@@ -156,7 +158,10 @@ final class AnnotationDriver
             }
         }
 
-        return (array) $this->reader->getClassAnnotation($reflection, $name);
+        /** @var array<string, bool|int|string> $annotation */
+        $annotation = (array) $this->reader->getClassAnnotation($reflection, $name);
+
+        return $annotation;
     }
 
     /**
