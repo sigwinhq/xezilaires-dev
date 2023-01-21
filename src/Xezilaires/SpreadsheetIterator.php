@@ -64,9 +64,6 @@ final class SpreadsheetIterator implements Iterator
         $this->context = $context;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function current(): object
     {
         $row = $this->spreadsheet->getCurrentRow();
