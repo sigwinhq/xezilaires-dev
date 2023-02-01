@@ -32,17 +32,11 @@ final class FilterIterator extends \FilterIterator
         $this->filter = $filter;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function key(): int
     {
         return $this->key;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function accept(): bool
     {
         /** @var Iterator $iterator */

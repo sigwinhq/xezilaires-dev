@@ -85,9 +85,6 @@ final class SpreadsheetIterator implements Iterator
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function prev(): void
     {
         --$this->index;
@@ -95,9 +92,6 @@ final class SpreadsheetIterator implements Iterator
         $this->getIterator()->prev();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function next(): void
     {
         ++$this->index;
@@ -105,9 +99,6 @@ final class SpreadsheetIterator implements Iterator
         $this->getIterator()->next();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function key(): int
     {
         /** @var bool $sequential */
@@ -119,17 +110,11 @@ final class SpreadsheetIterator implements Iterator
         return $this->getIterator()->key();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function valid(): bool
     {
         return $this->getIterator()->valid();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function rewind(): void
     {
         $this->index = 0;
@@ -137,9 +122,6 @@ final class SpreadsheetIterator implements Iterator
         $this->getIterator()->rewind();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function seek(int $rowIndex): void
     {
         /** @var int $start */
