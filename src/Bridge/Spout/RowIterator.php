@@ -19,6 +19,8 @@ use Xezilaires\Iterator;
 
 /**
  * @internal
+ *
+ * @implements Iterator<\ArrayObject>
  */
 final class RowIterator implements Iterator
 {
@@ -26,9 +28,6 @@ final class RowIterator implements Iterator
 
     private int $firstRow;
 
-    /**
-     * @psalm-suppress PropertyNotSetInConstructor
-     */
     private int $highestRow;
 
     public function __construct(IteratorInterface $iterator, int $firstRow)

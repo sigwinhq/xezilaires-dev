@@ -33,6 +33,7 @@
                 <file name="src/Bridge/Symfony/AppKernel.php"/>
                 <directory name="src/Xezilaires/Test/"/>
                 <directory name="src/Bridge/*/Test/"/>
+                <referencedProperty name="Xezilaires\Bridge\Spout\RowIterator::$highestRow"/>
             </errorLevel>
         </PropertyNotSetInConstructor>
     </issueHandlers>

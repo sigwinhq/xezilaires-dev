@@ -21,9 +21,7 @@ use Xezilaires\Iterator;
 /**
  * @internal
  *
- * @template T as \PhpOffice\PhpSpreadsheet\Worksheet\Row
- *
- * @implements Iterator<T>
+ * @implements Iterator<\PhpOffice\PhpSpreadsheet\Worksheet\Row>
  */
 final class RowIterator implements Iterator
 {
