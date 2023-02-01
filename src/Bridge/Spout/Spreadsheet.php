@@ -23,6 +23,9 @@ use Xezilaires\Exception\SpreadsheetException;
 use Xezilaires\Iterator;
 use Xezilaires\Spreadsheet as SpreadsheetInterface;
 
+/**
+ * @implements SpreadsheetInterface<object>
+ */
 final class Spreadsheet implements SpreadsheetInterface
 {
     /**
@@ -39,10 +42,8 @@ final class Spreadsheet implements SpreadsheetInterface
 
     /**
      * @psalm-suppress PropertyNotSetInConstructor
-     *
-     * @var Iterator&RowIterator
      */
-    private Iterator $iterator;
+    private RowIterator $iterator;
 
     public function __construct(\SplFileObject $file)
     {
@@ -54,9 +55,6 @@ final class Spreadsheet implements SpreadsheetInterface
         return new self($file);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createIterator(int $startRowIndex): void
     {
         /** @psalm-suppress RedundantPropertyInitializationCheck */
@@ -80,9 +78,6 @@ final class Spreadsheet implements SpreadsheetInterface
         return $this->iterator;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRow(int $rowIndex): array
     {
         $iterator = $this->getIterator();
@@ -94,9 +89,6 @@ final class Spreadsheet implements SpreadsheetInterface
         return $row;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCurrentRow(): array
     {
         /** @var \ArrayObject<int, null|float|int|string> $rowArrayObject */
@@ -112,9 +104,6 @@ final class Spreadsheet implements SpreadsheetInterface
         return $row;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getHighestRow(): int
     {
         /** @psalm-suppress RedundantPropertyInitializationCheck */
