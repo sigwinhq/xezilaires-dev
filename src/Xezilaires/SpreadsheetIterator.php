@@ -30,8 +30,14 @@ final class SpreadsheetIterator implements Iterator
 {
     private Spreadsheet $spreadsheet;
 
+    /**
+     * @var Mapping<T>
+     */
     private Mapping $mapping;
 
+    /**
+     * @var Denormalizer<T>
+     */
     private Denormalizer $denormalizer;
 
     /**
@@ -54,6 +60,7 @@ final class SpreadsheetIterator implements Iterator
     private int $index = 0;
 
     /**
+     * @param Mapping<T>                     $mapping
      * @param array<string, bool|int|string> $context
      */
     public function __construct(Spreadsheet $spreadsheet, Mapping $mapping, Denormalizer $denormalizer, array $context = [])

@@ -13,12 +13,17 @@ declare(strict_types=1);
 
 namespace Xezilaires;
 
+/**
+ * @template T of object
+ */
 interface Denormalizer
 {
     /**
      * @param array<string, mixed> $data
-     * @param class-string         $class
+     * @param class-string<T>      $class
      * @param array<string, mixed> $context
+     *
+     * @return T
      *
      * @throws Exception
      */

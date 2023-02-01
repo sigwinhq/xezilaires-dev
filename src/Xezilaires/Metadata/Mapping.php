@@ -17,10 +17,13 @@ use Symfony\Component\OptionsResolver\Exception\ExceptionInterface as OptionsRes
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Xezilaires\Exception\MappingException;
 
+/**
+ * @template T of object
+ */
 final class Mapping
 {
     /**
-     * @var class-string
+     * @var class-string<T>
      */
     private string $className;
 
@@ -58,7 +61,7 @@ final class Mapping
     }
 
     /**
-     * @return class-string
+     * @return class-string<T>
      */
     public function getClassName(): string
     {
@@ -99,9 +102,7 @@ final class Mapping
 
     private function setClassName(string $className): void
     {
-        if (false === class_exists($className)) {
-            throw MappingException::classNotFound($className);
-        }
+        $this->assertValidClassName($className);
 
         $this->className = $className;
     }
@@ -145,5 +146,15 @@ final class Mapping
         }
 
         $this->options = $options;
+    }
+
+    /**
+     * @psalm-assert class-string<T> $className
+     */
+    private function assertValidClassName(string $className): void
+    {
+        if (false === class_exists($className)) {
+            throw MappingException::classNotFound($className);
+        }
     }
 }
