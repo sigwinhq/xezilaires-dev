@@ -22,15 +22,16 @@ use Xezilaires\Metadata\Mapping;
  */
 final class SpreadsheetIteratorFactory implements IteratorFactory
 {
+    /** @var Denormalizer<T> */
     private Denormalizer $denormalizer;
 
     /**
-     * @var array<class-string<Spreadsheet<T>>>
+     * @var list<class-string<Spreadsheet<T>>>
      */
     private array $spreadsheetClasses;
 
     /**
-     * @param array<class-string<Spreadsheet<T>>> $spreadsheetClasses
+     * @param list<class-string<Spreadsheet<T>>> $spreadsheetClasses
      */
     public function __construct(Denormalizer $denormalizer, array $spreadsheetClasses)
     {
