@@ -25,7 +25,7 @@ use Xezilaires\Iterator;
 use Xezilaires\Spreadsheet as SpreadsheetInterface;
 
 /**
- * @implements SpreadsheetInterface<object>
+ * @implements SpreadsheetInterface<Row>
  */
 final class Spreadsheet implements SpreadsheetInterface
 {
@@ -38,6 +38,8 @@ final class Spreadsheet implements SpreadsheetInterface
 
     /**
      * @psalm-suppress PropertyNotSetInConstructor
+     *
+     * @var Iterator<Row>
      */
     private Iterator $iterator;
 
@@ -75,7 +77,6 @@ final class Spreadsheet implements SpreadsheetInterface
 
     public function getCurrentRow(): array
     {
-        /** @var Row $row */
         $row = $this->getIterator()->current();
 
         return $this->getRow($row->getRowIndex());
