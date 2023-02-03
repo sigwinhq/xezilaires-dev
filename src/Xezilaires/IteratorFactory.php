@@ -21,12 +21,15 @@ use Xezilaires\Metadata\Mapping;
 interface IteratorFactory
 {
     /**
+     * @param Mapping<T> $mapping
+     *
      * @return Iterator<T>
      */
     public function fromFile(\SplFileObject $file, Mapping $mapping): Iterator;
 
     /**
      * @param Spreadsheet<T> $spreadsheet
+     * @param Mapping<T>     $mapping
      *
      * @return Iterator<T>
      */
