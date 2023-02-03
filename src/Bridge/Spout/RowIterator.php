@@ -13,14 +13,13 @@ declare(strict_types=1);
 
 namespace Xezilaires\Bridge\Spout;
 
-use OpenSpout\Common\Entity\Row;
 use OpenSpout\Reader\IteratorInterface;
 use Xezilaires\Iterator;
 
 /**
  * @internal
  *
- * @implements Iterator<\ArrayObject>
+ * @implements Iterator<\OpenSpout\Common\Entity\Row>
  */
 final class RowIterator implements Iterator
 {
@@ -40,13 +39,7 @@ final class RowIterator implements Iterator
 
     public function current(): object
     {
-        /** @var Row $row */
-        $row = $this->iterator->current();
-
-        /** @var array<int, null|float|int|string> $current */
-        $current = $row->toArray();
-
-        return new \ArrayObject($current);
+        return $this->iterator->current();
     }
 
     public function next(): void

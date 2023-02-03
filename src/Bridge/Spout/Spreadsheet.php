@@ -91,11 +91,10 @@ final class Spreadsheet implements SpreadsheetInterface
 
     public function getCurrentRow(): array
     {
-        /** @var \ArrayObject<int, null|float|int|string> $rowArrayObject */
         $rowArrayObject = $this->getIterator()->current();
 
         $row = [];
-        foreach ($rowArrayObject as $columnIndex => $columnValue) {
+        foreach ($rowArrayObject->toArray() as $columnIndex => $columnValue) {
             $columnName = self::stringFromColumnIndex($columnIndex + 1);
 
             $row[$columnName] = $columnValue !== '' ? $columnValue : null;
