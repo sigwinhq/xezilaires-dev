@@ -31,6 +31,7 @@ final class SpreadsheetIteratorFactory implements IteratorFactory
     private array $spreadsheetClasses;
 
     /**
+     * @param Denormalizer<T>                    $denormalizer
      * @param list<class-string<Spreadsheet<T>>> $spreadsheetClasses
      */
     public function __construct(Denormalizer $denormalizer, array $spreadsheetClasses)
