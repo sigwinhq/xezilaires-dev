@@ -13,17 +13,23 @@ declare(strict_types=1);
 
 namespace Xezilaires;
 
+/**
+ * @template T of object
+ *
+ * @extends \FilterIterator<T>
+ */
 final class FilterIterator extends \FilterIterator
 {
     /**
-     * @var callable
+     * @var callable(T): bool
      */
     private $filter;
 
     private int $key = -1;
 
     /**
-     * @param callable(object): bool $filter
+     * @param Iterator<T>       $iterator
+     * @param callable(T): bool $filter
      */
     public function __construct(Iterator $iterator, callable $filter)
     {
@@ -39,11 +45,9 @@ final class FilterIterator extends \FilterIterator
 
     public function accept(): bool
     {
-        /** @var Iterator $iterator */
+        /** @var Iterator<T> $iterator */
         $iterator = $this->getInnerIterator();
         $object = $iterator->current();
-
-        /** @var bool $accepted */
         $accepted = \call_user_func($this->filter, $object);
 
         if ($accepted === true) {

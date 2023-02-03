@@ -13,6 +13,11 @@ declare(strict_types=1);
 
 namespace Xezilaires;
 
+/**
+ * @template T of object
+ *
+ * @implements Iterator<T>
+ */
 final class ReverseIterator implements Iterator
 {
     private Iterator $iterator;

@@ -18,6 +18,11 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Xezilaires\Denormalizer;
 use Xezilaires\Serializer;
 
+/**
+ * @template T of object
+ *
+ * @implements Denormalizer<T>
+ */
 final class ObjectSerializer implements Denormalizer, Serializer
 {
     /**
@@ -36,7 +41,7 @@ final class ObjectSerializer implements Denormalizer, Serializer
     public function denormalize(array $data, string $class, ?string $format = null, array $context = []): object
     {
         /**
-         * @phpstan-var object $object
+         * @phpstan-var T $object
          *
          * @psalm-suppress UnnecessaryVarAnnotation
          */

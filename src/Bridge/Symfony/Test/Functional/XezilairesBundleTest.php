@@ -127,6 +127,7 @@ final class XezilairesBundleTest extends KernelTestCase
         return TestKernel::class;
     }
 
+    /** @phpstan-ignore-next-line */
     protected static function createKernel(array $options = []): KernelInterface
     {
         /**
