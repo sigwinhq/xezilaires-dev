@@ -16,7 +16,7 @@ namespace Xezilaires;
 /**
  * @template T of object
  *
- * @extends \FilterIterator<T>
+ * @extends \FilterIterator<int, T, Iterator<T>>
  */
 final class FilterIterator extends \FilterIterator
 {
@@ -48,6 +48,7 @@ final class FilterIterator extends \FilterIterator
         /** @var Iterator<T> $iterator */
         $iterator = $this->getInnerIterator();
         $object = $iterator->current();
+        /** @var bool $accepted */
         $accepted = \call_user_func($this->filter, $object);
 
         if ($accepted === true) {

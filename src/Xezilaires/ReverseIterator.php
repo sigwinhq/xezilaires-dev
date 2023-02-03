@@ -20,6 +20,7 @@ namespace Xezilaires;
  */
 final class ReverseIterator implements Iterator
 {
+    /** @var Iterator<T> */
     private Iterator $iterator;
 
     private int $startIndex;
@@ -28,6 +29,9 @@ final class ReverseIterator implements Iterator
 
     private int $index;
 
+    /**
+     * @param Iterator<T> $iterator
+     */
     public function __construct(Iterator $iterator, int $startIndex, int $endIndex)
     {
         $this->iterator = $iterator;
