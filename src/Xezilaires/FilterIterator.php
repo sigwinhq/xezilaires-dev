@@ -48,7 +48,11 @@ final class FilterIterator extends \FilterIterator
         /** @var Iterator<T> $iterator */
         $iterator = $this->getInnerIterator();
         $object = $iterator->current();
-        /** @var bool $accepted */
+        /**
+         * @var bool $accepted
+         *
+         * @psalm-suppress UnnecessaryVarAnnotation
+         */
         $accepted = \call_user_func($this->filter, $object);
 
         if ($accepted === true) {
