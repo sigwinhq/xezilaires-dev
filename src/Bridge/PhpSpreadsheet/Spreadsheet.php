@@ -149,7 +149,7 @@ final class Spreadsheet implements SpreadsheetInterface
         $worksheet = $this->getActiveWorksheet();
         $columnIndex = Coordinate::columnIndexFromString($columnName);
 
-        $cell = $worksheet->getCellByColumnAndRow($columnIndex, $rowIndex);
+        $cell = $worksheet->getCell([$columnIndex, $rowIndex]);
 
         /** @var null|float|int|string $value */
         $value = $cell->getValue();
