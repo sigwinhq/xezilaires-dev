@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Xezilaires\Bridge\Spout\Test;
 
-use OpenSpout\Reader\IteratorInterface;
+use OpenSpout\Reader\RowIteratorInterface;
 use PHPUnit\Framework\TestCase;
 use Xezilaires\Bridge\Spout\RowIterator;
 
@@ -78,10 +78,10 @@ final class RowIteratorTest extends TestCase
      * @param null|array<string, int>   $counts
      * @param null|array<string, array> $calls
      */
-    private function mockIterator(int $currentRow, ?array $counts = null, ?array $calls = null): IteratorInterface
+    private function mockIterator(int $currentRow, ?array $counts = null, ?array $calls = null): RowIteratorInterface
     {
         $iterator = $this
-            ->getMockBuilder(IteratorInterface::class)
+            ->getMockBuilder(RowIteratorInterface::class)
             ->getMock()
         ;
 
