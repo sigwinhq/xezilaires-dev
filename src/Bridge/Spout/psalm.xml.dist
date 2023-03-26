@@ -12,6 +12,11 @@
     </projectFiles>
 
     <issueHandlers>
+        <InternalMethod>
+            <errorLevel type="info">
+                <referencedMethod name="OpenSpout\Common\Entity\Row::toArray"/>
+            </errorLevel>
+        </InternalMethod>
         <PropertyNotSetInConstructor>
             <errorLevel type="info">
                 <directory name="Test/"/>
