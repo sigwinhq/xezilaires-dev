@@ -22,7 +22,7 @@
         "nyholm/symfony-bundle-test": "dev-master",
         "openspout/openspout": "^4.0",
         "phpoffice/phpspreadsheet": "^1.18",
-        "phpunit/phpunit": "^9.5",
+        "phpunit/phpunit": "^9.6",
         "sigwin/infra": "~1.4.1",
         "symfony/console": "^5.0 || ^6.0",
         "symfony/framework-bundle": "^5.0 || ^6.0",
@@ -36,9 +36,6 @@
         "sigwin/xezilaires-phpspreadsheet": "self.version",
         "sigwin/xezilaires-spout": "self.version",
         "sigwin/xezilaires-symfony": "self.version"
-    },
-    "conflict": {
-        "phpoffice/phpspreadsheet": "< 1.18"
     },
     "suggest": {
         "openspout/openspout": "Read Excel files with Spout",

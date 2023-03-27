@@ -16,7 +16,7 @@
     },
     "require-dev": {
         "doctrine/annotations": "^1.11",
-        "phpunit/phpunit": "^9.5",
+        "phpunit/phpunit": "^9.6",
         "symfony/phpunit-bridge": "^5.0 || ^6.0",
         "symfony/property-access": "^5.0 || ^6.0",
         "symfony/property-info": "^5.0 || ^6.0"
