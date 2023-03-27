@@ -44,7 +44,11 @@ final class RowIterator implements Iterator
      */
     public function current(): object
     {
-        /** @var Row $row */
+        /**
+         * @var Row $row
+         *              
+         * @psalm-suppress UnnecessaryVarAnnotation
+         */
         $row = $this->iterator->current();
 
         /** @var array<int, null|float|int|string> $current */
