@@ -11,19 +11,22 @@
     ],
     "require": {
         "php": "^8.0",
-        "symfony/options-resolver": "^4.4 || ^5.0 || ^6.0",
-        "symfony/serializer": "^4.4 || ^5.0 || ^6.0"
+        "symfony/options-resolver": "^5.4 || ^6.0",
+        "symfony/serializer": "^5.4 || ^6.0"
     },
     "require-dev": {
         "doctrine/annotations": "^1.12",
         "nyholm/nsa": "^1.1",
-        "openspout/openspout": "^3.0",
-        "phpunit/phpunit": "^9.5",
-        "symfony/console": "^4.4 || ^5.0 || ^6.0",
-        "symfony/phpunit-bridge": "^4.4.9 || ^5.0 || ^6.0",
-        "symfony/property-access": "^4.4 || ^5.0 || ^6.0",
-        "symfony/property-info": "^4.4 || ^5.0 || ^6.0",
-        "symfony/validator": "^4.4 || ^5.0 || ^6.0"
+        "openspout/openspout": "^4.0",
+        "phpunit/phpunit": "^9.6",
+        "symfony/console": "^5.4 || ^6.0",
+        "symfony/phpunit-bridge": "^5.4 || ^6.0",
+        "symfony/property-access": "^5.4 || ^6.0",
+        "symfony/property-info": "^5.4 || ^6.0",
+        "symfony/validator": "^5.4 || ^6.0"
+    },
+    "conflict": {
+        "nikic/php-parser": "< 4.14"
     },
     "suggest": {
         "sigwin/xezilaires-phpspreadsheet": "Read Excel files with PhpSpreadsheet",
