@@ -12,8 +12,8 @@
     "require": {
         "php": "^8.0",
         "ext-json": "*",
-        "symfony/options-resolver": "^5.0 || ^6.0",
-        "symfony/serializer": "^5.0 || ^6.0"
+        "symfony/options-resolver": "^5.4 || ^6.0",
+        "symfony/serializer": "^5.4 || ^6.0"
     },
     "require-dev": {
         "doctrine/annotations": "^1.12",
@@ -24,12 +24,12 @@
         "phpoffice/phpspreadsheet": "^1.18",
         "phpunit/phpunit": "^9.6",
         "sigwin/infra": "~1.4.1",
-        "symfony/console": "^5.0 || ^6.0",
-        "symfony/framework-bundle": "^5.0 || ^6.0",
-        "symfony/phpunit-bridge": "^5.0 || ^6.0",
-        "symfony/property-access": "^5.0 || ^6.0",
-        "symfony/property-info": "^5.0 || ^6.0",
-        "symfony/validator": "^5.0 || ^6.0"
+        "symfony/console": "^5.4 || ^6.0",
+        "symfony/framework-bundle": "^5.4 || ^6.0",
+        "symfony/phpunit-bridge": "^5.4 || ^6.0",
+        "symfony/property-access": "^5.4 || ^6.0",
+        "symfony/property-info": "^5.4 || ^6.0",
+        "symfony/validator": "^5.4 || ^6.0"
     },
     "replace": {
         "sigwin/xezilaires-core": "self.version",
@@ -38,8 +38,7 @@
         "sigwin/xezilaires-symfony": "self.version"
     },
     "conflict": {
-        "nikic/php-parser": "< 4.14",
-        "symfony/dependency-injection": "< 5.4"
+        "nikic/php-parser": "< 4.14"
     },
     "suggest": {
         "openspout/openspout": "Read Excel files with Spout",

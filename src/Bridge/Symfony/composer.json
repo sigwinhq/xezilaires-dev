@@ -12,11 +12,11 @@
     "require": {
         "php": "^8.0",
         "sigwin/xezilaires": "^0.6",
-        "symfony/console": "^5.0 || ^6.0",
-        "symfony/framework-bundle": "^5.0 || ^6.0",
-        "symfony/property-access": "^5.0 || ^6.0",
-        "symfony/property-info": "^5.0 || ^6.0",
-        "symfony/validator": "^5.0 || ^6.0"
+        "symfony/console": "^5.4 || ^6.0",
+        "symfony/framework-bundle": "^5.4 || ^6.0",
+        "symfony/property-access": "^5.4 || ^6.0",
+        "symfony/property-info": "^5.4 || ^6.0",
+        "symfony/validator": "^5.4 || ^6.0"
     },
     "require-dev": {
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
@@ -24,11 +24,10 @@
         "phpunit/phpunit": "^9.6",
         "sigwin/xezilaires-phpspreadsheet": "^0.6",
         "sigwin/xezilaires-spout": "^0.6",
-        "symfony/phpunit-bridge": "^5.0 || ^6.0"
+        "symfony/phpunit-bridge": "^5.4 || ^6.0"
     },
     "conflict": {
-        "nikic/php-parser": "< 4.14",
-        "symfony/dependency-injection": "< 5.4"
+        "nikic/php-parser": "< 4.14"
     },
     "suggest": {
         "sigwin/xezilaires-phpspreadsheet": "Read Excel files with PhpSpreadsheet",
