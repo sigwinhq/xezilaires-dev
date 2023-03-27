@@ -37,6 +37,10 @@
         "sigwin/xezilaires-spout": "self.version",
         "sigwin/xezilaires-symfony": "self.version"
     },
+    "conflict": {
+        "nikic/php-parser": "< 4.14",
+        "symfony/dependency-injection": "< 5.4"
+    },
     "suggest": {
         "openspout/openspout": "Read Excel files with Spout",
         "phpoffice/phpspreadsheet": "Read Excel files with PhpSpreadsheet",
