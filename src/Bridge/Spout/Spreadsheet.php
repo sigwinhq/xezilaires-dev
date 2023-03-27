@@ -15,10 +15,10 @@ namespace Xezilaires\Bridge\Spout;
 
 use OpenSpout\Common\Exception\IOException;
 use OpenSpout\Common\Exception\UnsupportedTypeException;
-use OpenSpout\Reader\Common\Creator\ReaderEntityFactory;
 use OpenSpout\Reader\Exception\ReaderNotOpenedException;
 use OpenSpout\Reader\ReaderInterface;
 use OpenSpout\Reader\SheetInterface;
+use OpenSpout\Reader\XLSX\Reader;
 use Xezilaires\Exception\SpreadsheetException;
 use Xezilaires\Iterator;
 use Xezilaires\Spreadsheet as SpreadsheetInterface;
@@ -161,7 +161,7 @@ final class Spreadsheet implements SpreadsheetInterface
             }
 
             try {
-                $this->reader = ReaderEntityFactory::createXLSXReader();
+                $this->reader = new Reader();
                 $this->reader->open($path);
             } catch (UnsupportedTypeException|IOException $exception) {
                 throw SpreadsheetException::invalidSpreadsheet($exception);

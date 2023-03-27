@@ -17,12 +17,23 @@
     </projectFiles>
 
     <issueHandlers>
+        <InternalMethod>
+            <errorLevel type="info">
+                <referencedMethod name="OpenSpout\Common\Entity\Row::toArray"/>
+            </errorLevel>
+        </InternalMethod>
         <MissingConstructor>
             <errorLevel type="info">
                 <directory name="src/Xezilaires/Annotation/"/>
                 <directory name="src/Xezilaires/Test/Model/"/>
             </errorLevel>
         </MissingConstructor>
+        <MissingTemplateParam>
+            <errorLevel type="info">
+                <file name="src/Xezilaires/FilterIterator.php"/>
+                <file name="src/Xezilaires/Iterator.php"/>
+            </errorLevel>
+        </MissingTemplateParam>
         <RedundantCondition>
             <errorLevel type="info">
                 <file name="src/Xezilaires/Metadata/Annotation/AnnotationDriver.php"/>

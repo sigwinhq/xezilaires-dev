@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Xezilaires\Bridge\Spout;
 
 use OpenSpout\Common\Entity\Row;
-use OpenSpout\Reader\IteratorInterface;
+use OpenSpout\Reader\RowIteratorInterface;
 use Xezilaires\Iterator;
 
 /**
@@ -22,7 +22,7 @@ use Xezilaires\Iterator;
  */
 final class RowIterator implements Iterator
 {
-    private IteratorInterface $iterator;
+    private RowIteratorInterface $iterator;
 
     private int $firstRow;
 
@@ -31,7 +31,7 @@ final class RowIterator implements Iterator
      */
     private int $highestRow;
 
-    public function __construct(IteratorInterface $iterator, int $firstRow)
+    public function __construct(RowIteratorInterface $iterator, int $firstRow)
     {
         $iterator->rewind();
 
@@ -44,7 +44,11 @@ final class RowIterator implements Iterator
      */
     public function current(): object
     {
-        /** @var Row $row */
+        /**
+         * @var Row $row
+         *
+         * @psalm-suppress UnnecessaryVarAnnotation
+         */
         $row = $this->iterator->current();
 
         /** @var array<int, null|float|int|string> $current */

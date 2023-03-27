@@ -23,8 +23,11 @@ final class Product
 {
     /**
      * @Groups({"array"})
+     *
      * @XLS\ArrayReference({
+     *
      *     @XLS\ColumnReference(column="A"),
+     *
      *     @XLS\HeaderReference(header="Price USD")
      * })
      */
@@ -32,12 +35,14 @@ final class Product
 
     /**
      * @Groups({"column", "product"})
+     *
      * @XLS\ColumnReference(column="A")
      */
     public string $name;
 
     /**
      * @Groups({"header", "product"})
+     *
      * @XLS\HeaderReference(header="Price USD")
      */
     public float $price;

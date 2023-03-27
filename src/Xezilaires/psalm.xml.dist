@@ -18,6 +18,12 @@
                 <directory name="Test/" />
             </errorLevel>
         </MissingConstructor>
+        <MissingTemplateParam>
+            <errorLevel type="info">
+                <file name="FilterIterator.php"/>
+                <file name="Iterator.php"/>
+            </errorLevel>
+        </MissingTemplateParam>
         <RedundantCondition>
             <errorLevel type="info">
                 <file name="Metadata/Annotation/AnnotationDriver.php" />
