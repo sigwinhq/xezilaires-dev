@@ -46,7 +46,7 @@ final class RowIterator implements Iterator
     {
         /**
          * @var Row $row
-         *              
+         *
          * @psalm-suppress UnnecessaryVarAnnotation
          */
         $row = $this->iterator->current();
