@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "phpoffice/phpspreadsheet": "^1.18",
         "sigwin/xezilaires": "^0.6"
     },
