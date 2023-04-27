@@ -49,7 +49,7 @@ final class MappingTest extends TestCase
      *
      * @param class-string                                  $className
      * @param array<string, \Xezilaires\Metadata\Reference> $columns
-     * @param null|array<string, null|bool|string>          $options
+     * @param null|array<string, null|bool|int|string>      $options
      */
     public function testCanCreateValidMapping(string $className, array $columns, ?array $options = null): void
     {
@@ -68,10 +68,10 @@ final class MappingTest extends TestCase
     /**
      * @dataProvider   getInvalidMappings
      *
-     * @psalm-suppress InvalidArgument That's what we're testing for here
+     * @psalm-suppress MixedArgumentTypeCoercion intentionally testing invalid mappings
      *
-     * @param array<string, \Xezilaires\Metadata\Reference> $columns
-     * @param null|array<string, null|bool|string>          $options
+     * @param array<array-key, mixed>                  $columns
+     * @param null|array<string, null|bool|int|string> $options
      */
     public function testCannotCreateInvalidMapping(
         string $exceptionMessage,
@@ -82,66 +82,65 @@ final class MappingTest extends TestCase
         $this->expectException(MappingException::class);
         $this->expectExceptionMessage($exceptionMessage);
 
+        /** @phpstan-ignore-next-line */
         new Mapping($className, $columns, $options);
     }
 
     /**
-     * @return list<array{0: class-string, 1: array{name: Reference}}>
+     * @return iterable<int, array{0: class-string, 1: array{name: Reference}, 2?: array{header: int, reverse?: bool, start?: int}}>
      */
-    public function getValidMappings(): array
+    public function getValidMappings(): iterable
     {
-        return [
-            [Product::class, ['name' => new ArrayReference([new ColumnReference('A'), new HeaderReference('Price')])]],
-            [Product::class, ['name' => new ColumnReference('A')]],
-            [Product::class, ['name' => new HeaderReference('Name')], ['header' => 1]],
-            [Product::class, ['name' => new HeaderReference('Name')], ['start' => 2, 'header' => 4, 'reverse' => true]],
+        yield [
+            Product::class,
+            ['name' => new ArrayReference([new ColumnReference('A'), new HeaderReference('Price')])],
+        ];
+        yield [Product::class, ['name' => new ColumnReference('A')]];
+        yield [Product::class, ['name' => new HeaderReference('Name')], ['header' => 1]];
+        yield [
+            Product::class,
+            ['name' => new HeaderReference('Name')],
+            ['start' => 2, 'header' => 4, 'reverse' => true],
         ];
     }
 
     /**
-     * @return list<array{0: string, 1: string, 2: array{name?: Reference}}>
+     * @return iterable<int, array{0: string, 1: string, 2: array<array-key, mixed>, 3?: array<string, null|bool|int|string>}>
      */
-    public function getInvalidMappings(): array
+    public function getInvalidMappings(): iterable
     {
-        return [
-            ['Invalid class "foo"', 'foo', ['name' => new ColumnReference('A')]],
-
-            ['Invalid mapping, no references specified', Product::class, []],
-
-            ['Invalid property name "0"', Product::class, [new ColumnReference('A')]],
-
-            ['Invalid reference "aaa"', Product::class, ['aaa' => 123]],
-
-            [
-                'When using HeaderReference, "header" option is required',
-                Product::class,
-                ['name' => new HeaderReference('Name')],
-            ],
-
-            [
-                'The option "start" with value "yes" is expected to be of type "int"',
-                Product::class,
-                ['name' => new ColumnReference('A')],
-                ['start' => 'yes'],
-            ],
-            [
-                'The option "end" with value "yes" is expected to be of type "int"',
-                Product::class,
-                ['name' => new ColumnReference('A')],
-                ['end' => 'yes'],
-            ],
-            [
-                'The option "header" with value "yes" is expected to be of type "int"',
-                Product::class,
-                ['name' => new ColumnReference('A')],
-                ['header' => 'yes'],
-            ],
-            [
-                'The option "reverse" with value "yes" is expected to be of type "bool"',
-                Product::class,
-                ['name' => new ColumnReference('A')],
-                ['reverse' => 'yes'],
-            ],
+        yield ['Invalid class "foo"', 'foo', ['name' => new ColumnReference('A')]];
+        yield ['Invalid mapping, no references specified', Product::class, []];
+        yield ['Invalid property name "0"', Product::class, [new ColumnReference('A')]];
+        yield ['Invalid reference "aaa"', Product::class, ['aaa' => 123]];
+        yield [
+            'When using HeaderReference, "header" option is required',
+            Product::class,
+            ['name' => new HeaderReference('Name')],
+        ];
+        yield [
+            'The option "start" with value "yes" is expected to be of type "int"',
+            Product::class,
+            ['name' => new ColumnReference('A')],
+            ['start' => 'yes'],
+        ];
+        yield [
+            'The option "end" with value "yes" is expected to be of type "int"',
+            Product::class,
+            ['name' => new ColumnReference('A')],
+            ['end' => 'yes'],
+        ];
+        yield [
+            'The option "header" with value "yes" is expected to be of type "int"',
+            Product::class,
+            ['name' => new ColumnReference('A')],
+            ['header' => 'yes'],
+        ];
+        yield [
+            'The option "reverse" with value "yes" is expected to be of type "bool"',
+            Product::class,
+            ['name' => new ColumnReference('A')],
+            ['reverse' => 'yes'],
         ];
     }
 }
