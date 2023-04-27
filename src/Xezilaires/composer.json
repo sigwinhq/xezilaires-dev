@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "symfony/options-resolver": "^5.4 || ^6.0",
         "symfony/serializer": "^5.4 || ^6.0"
     },

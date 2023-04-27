@@ -143,11 +143,9 @@ final class AnnotationDriver
      */
     private function getClassAnnotationOrAttribute(\ReflectionClass $reflection, string $name): array
     {
-        if (\PHP_VERSION_ID >= 80000) {
-            $attribute = current($reflection->getAttributes($name));
-            if ($attribute !== false) {
-                return $attribute->getArguments();
-            }
+        $attribute = current($reflection->getAttributes($name));
+        if ($attribute !== false) {
+            return $attribute->getArguments();
         }
 
         return (array) $this->reader->getClassAnnotation($reflection, $name);
@@ -162,11 +160,9 @@ final class AnnotationDriver
      */
     private function getPropertyAnnotationOrAttribute(\ReflectionProperty $reflection, string $name)
     {
-        if (\PHP_VERSION_ID >= 80000) {
-            $attribute = current($reflection->getAttributes($name));
-            if ($attribute !== false) {
-                return $attribute->newInstance();
-            }
+        $attribute = current($reflection->getAttributes($name));
+        if ($attribute !== false) {
+            return $attribute->newInstance();
         }
 
         return $this->reader->getPropertyAnnotation($reflection, $name);
