@@ -7,6 +7,7 @@
         <directory name="."/>
         <ignoreFiles allowMissingFiles="true">
             <file name=".php-cs-fixer.dist.php"/>
+            <file name="src/Xezilaires/Test/ExampleBundle/XezilairesExampleBundle.php"/>
             <directory name="src/Bridge/*/var/"/>
             <directory name="src/Bridge/*/vendor/"/>
             <directory name="src/Xezilaires/var/"/>

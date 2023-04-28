@@ -13,6 +13,7 @@ parameters:
     excludePaths:
         - src/Bridge/*/var/*
         - src/Bridge/*/vendor/*
+        - src/Xezilaires/Test/ExampleBundle/XezilairesExampleBundle.php
         - src/Xezilaires/var/
         - src/Xezilaires/vendor/
         - var/

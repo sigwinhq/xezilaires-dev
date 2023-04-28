@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Xezilaires\Test\Model;
 
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use Xezilaires\Annotation as XLS;
 
 /**
@@ -37,6 +38,8 @@ final class Product
      * @Groups({"column", "product"})
      *
      * @XLS\ColumnReference(column="A")
+     *
+     * @Assert\NotBlank
      */
     public string $name;
 
@@ -44,6 +47,10 @@ final class Product
      * @Groups({"header", "product"})
      *
      * @XLS\HeaderReference(header="Price USD")
+     *
+     * @Assert\NotBlank
+     *
+     * @Assert\GreaterThanOrEqual(0)
      */
     public float $price;
 }

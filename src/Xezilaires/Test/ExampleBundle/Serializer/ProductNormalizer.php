@@ -22,6 +22,7 @@ final class ProductNormalizer implements DenormalizerInterface
     {
         /**
          * @phpstan-ignore-next-line
+         *
          * @psalm-suppress MixedArrayAssignment
          */
         $data['price'] = (float) $data;
