@@ -1,4 +1,0 @@
-boolean
-Denormalization
-Symfony
-Xezilaires
