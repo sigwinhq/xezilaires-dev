@@ -13,37 +13,28 @@ declare(strict_types=1);
 
 namespace Xezilaires\Test\Model;
 
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation as Serializer;
+use Symfony\Component\Validator\Constraints as Assert;
 use Xezilaires\Annotation as XLS;
 
-/**
- * @XLS\Options(header=1, start=2)
- */
+#[XLS\Options(start: 2, header: 1)]
 final class Product
 {
-    /**
-     * @Groups({"array"})
-     *
-     * @XLS\ArrayReference({
-     *
-     *     @XLS\ColumnReference(column="A"),
-     *
-     *     @XLS\HeaderReference(header="Price USD")
-     * })
-     */
+    #[Serializer\Groups('array')]
+    #[XLS\ArrayReference([
+        new XLS\ColumnReference(column: 'A'),
+        new XLS\HeaderReference(header: 'Price USD'),
+    ])]
     public array $all;
 
-    /**
-     * @Groups({"column", "product"})
-     *
-     * @XLS\ColumnReference(column="A")
-     */
+    #[Assert\NotBlank]
+    #[Serializer\Groups(['column', 'product'])]
+    #[XLS\ColumnReference(column: 'A')]
     public string $name;
 
-    /**
-     * @Groups({"header", "product"})
-     *
-     * @XLS\HeaderReference(header="Price USD")
-     */
+    #[Assert\NotBlank]
+    #[Assert\GreaterThanOrEqual(0)]
+    #[Serializer\Groups(['header', 'product'])]
+    #[XLS\HeaderReference(header: 'Price USD')]
     public float $price;
 }

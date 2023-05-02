@@ -18,10 +18,19 @@ namespace Xezilaires\Annotation;
  *
  * @Target({"PROPERTY"})
  */
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
 final class ArrayReference
 {
     /**
-     * @var \Xezilaires\Annotation\Reference[]
+     * @var Reference[]
      */
     public array $references;
+
+    /**
+     * @param Reference[] $references
+     */
+    public function __construct(array $references)
+    {
+        $this->references = $references;
+    }
 }

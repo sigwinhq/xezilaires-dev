@@ -6,6 +6,7 @@
     <projectFiles>
         <directory name="."/>
         <ignoreFiles>
+            <file name="Test/ExampleBundle/XezilairesExampleBundle.php"/>
             <directory name="var/"/>
             <directory name="vendor/"/>
         </ignoreFiles>

@@ -115,6 +115,17 @@ Features included:
 *(for easy integration into existing apps)*
 - CLI *(command-line interface)* tool
 
+## Custom normalizers / validators
+
+You can use your own normalizers / validators by passing your own Symfony bundle
+which registers them to the Xezilaires commands via `--bundle`, like so: 
+
+```
+vendor/bin/xezilaires validate --bundle Xezilaires\\Test\\ExampleBundle\\XezilairesExampleBundle Xezilaires\\Test\\Model\\Product src/Xezilaires/Test/resources/fixtures/products.xlsx 
+```
+
+See example bundle in [`src/Xezilaires/Test/ExampleBundle/`](./src/Xezilaires/Test/ExampleBundle/).
+
 ## What's with the name
 
 `xezilaires` is `serializex` backwards.
