@@ -16,7 +16,6 @@ namespace Xezilaires\Test\ExampleBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
-use Xezilaires\Test\ExampleBundle\Serializer\ProductNormalizer;
 
 final class XezilairesExampleBundle extends AbstractBundle
 {
@@ -24,8 +23,10 @@ final class XezilairesExampleBundle extends AbstractBundle
     {
         $services = $container->services();
         $services
-            ->set(ProductNormalizer::class)
-                ->tag('serializer.normalizer')
+            ->defaults()
+                ->autoconfigure()
+                ->autowire()
         ;
+        $services->load(__NAMESPACE__.'\\', __DIR__);
     }
 }
