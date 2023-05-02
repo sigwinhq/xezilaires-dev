@@ -20,10 +20,17 @@ final class ProductNormalizer implements DenormalizerInterface
 {
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): object
     {
+        /**
+         * @phpstan-ignore-next-line
+         *
+         * @psalm-suppress MixedArrayAccess
+         */
         if (isset($data['all'][1])) {
             /**
              * @phpstan-ignore-next-line
              *
+             * @psalm-suppress MixedArgument
+             * @psalm-suppress MixedArrayAccess
              * @psalm-suppress MixedArrayAssignment
              */
             $data['all'][1] = $this->cast($data['all'][1]);
@@ -32,6 +39,8 @@ final class ProductNormalizer implements DenormalizerInterface
         /**
          * @phpstan-ignore-next-line
          *
+         * @psalm-suppress MixedArgument
+         * @psalm-suppress MixedArrayAccess
          * @psalm-suppress MixedArrayAssignment
          */
         $data['price'] = $this->cast($data['price']);
