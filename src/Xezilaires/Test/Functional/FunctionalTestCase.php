@@ -140,6 +140,7 @@ abstract class FunctionalTestCase extends TestCase
     }
 
     /**
+     * @uses \Xezilaires\Annotation\ArrayReference
      * @uses \Xezilaires\Annotation\ColumnReference
      * @uses \Xezilaires\Annotation\HeaderReference
      * @uses \Xezilaires\Annotation\Options
