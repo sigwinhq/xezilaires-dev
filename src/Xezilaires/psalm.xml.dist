@@ -1,8 +1,17 @@
 <?xml version="1.0"?>
 <psalm xmlns="https://getpsalm.org/schema/config"
        cacheDirectory="var/phpqa/psalm"
+       checkForThrowsInGlobalScope="true"
+       ensureArrayIntOffsetsExist="true"
+       ensureArrayStringOffsetsExist="false"
        errorLevel="1"
-       findUnusedVariablesAndParams="true">
+       findUnusedBaselineEntry="false"
+       findUnusedCode="false"
+       findUnusedPsalmSuppress="false"
+       findUnusedVariablesAndParams="false"
+       limitMethodComplexity="true"
+       restrictReturnTypes="false"
+       strictBinaryOperands="false">
     <projectFiles>
         <directory name="."/>
         <ignoreFiles>
