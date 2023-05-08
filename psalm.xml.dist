@@ -1,10 +1,19 @@
 <?xml version="1.0"?>
 <psalm xmlns="https://getpsalm.org/schema/config"
        cacheDirectory="var/phpqa/psalm"
+       checkForThrowsInGlobalScope="false"
+       ensureArrayIntOffsetsExist="false"
+       ensureArrayStringOffsetsExist="false"
        errorLevel="1"
-       findUnusedVariablesAndParams="true">
+       findUnusedBaselineEntry="false"
+       findUnusedCode="false"
+       findUnusedPsalmSuppress="false"
+       findUnusedVariablesAndParams="true"
+       limitMethodComplexity="true"
+       restrictReturnTypes="false"
+       strictBinaryOperands="false">
     <projectFiles>
-        <directory name="."/>
+        <directory name="./"/>
         <ignoreFiles allowMissingFiles="true">
             <file name=".php-cs-fixer.dist.php"/>
             <file name="src/Xezilaires/Test/ExampleBundle/XezilairesExampleBundle.php"/>
@@ -12,8 +21,8 @@
             <directory name="src/Bridge/*/vendor/"/>
             <directory name="src/Xezilaires/var/"/>
             <directory name="src/Xezilaires/vendor/"/>
-            <directory name="vendor/"/>
             <directory name="var/"/>
+            <directory name="vendor/"/>
         </ignoreFiles>
     </projectFiles>
 
@@ -50,7 +59,7 @@
     </issueHandlers>
 
     <plugins>
-        <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin"/>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
+        <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin"/>
     </plugins>
 </psalm>

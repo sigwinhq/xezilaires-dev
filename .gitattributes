@@ -1,8 +1,8 @@
 /docs export-ignore
-/resources export-ignore
 /src/Xezilaires/Bridge/*/Test export-ignore
 /src/Xezilaires/Test export-ignore
 /.* export-ignore
 /*dist export-ignore
+/*baseline* export-ignore
+/composer.lock export-ignore
 /Makefile export-ignore
-*.xls binary
