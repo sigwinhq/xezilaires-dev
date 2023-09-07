@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": "^8.1",
-        "phpoffice/phpspreadsheet": "^1.18",
+        "phpoffice/phpspreadsheet": "^1.29",
         "sigwin/xezilaires": "^0.6"
     },
     "require-dev": {
