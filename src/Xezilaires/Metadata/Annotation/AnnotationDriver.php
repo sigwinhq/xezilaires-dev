@@ -28,7 +28,7 @@ final class AnnotationDriver
     /**
      * @throws \RuntimeException if Doctrine's Annotations component is not available
      */
-    public function __construct(AnnotationReader $reader = null)
+    public function __construct(?AnnotationReader $reader = null)
     {
         if (false === class_exists(AnnotationReader::class)) {
             throw new \RuntimeException('Xezilaires annotations support requires Doctrine Annotations component. Install "doctrine/annotations" to use it.');

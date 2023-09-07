@@ -60,8 +60,8 @@ final class XezilairesBundleTest extends KernelTestCase
         $kernel = self::bootKernel();
         $container = $kernel->getContainer();
 
-        static::assertTrue($container->has(Validator::class));
-        static::assertInstanceOf(\Xezilaires\Bridge\Symfony\Validator::class, $container->get(Validator::class));
+        self::assertTrue($container->has(Validator::class));
+        self::assertInstanceOf(\Xezilaires\Bridge\Symfony\Validator::class, $container->get(Validator::class));
     }
 
     /**
@@ -72,8 +72,8 @@ final class XezilairesBundleTest extends KernelTestCase
         $kernel = self::bootKernel();
         $container = $kernel->getContainer();
 
-        static::assertTrue($container->has(Serializer::class));
-        static::assertInstanceOf(ObjectSerializer::class, $container->get(Serializer::class));
+        self::assertTrue($container->has(Serializer::class));
+        self::assertInstanceOf(ObjectSerializer::class, $container->get(Serializer::class));
     }
 
     /**
@@ -84,8 +84,8 @@ final class XezilairesBundleTest extends KernelTestCase
         $kernel = self::bootKernel();
         $container = $kernel->getContainer();
 
-        static::assertTrue($container->has(Denormalizer::class));
-        static::assertInstanceOf(ObjectSerializer::class, $container->get(Denormalizer::class));
+        self::assertTrue($container->has(Denormalizer::class));
+        self::assertInstanceOf(ObjectSerializer::class, $container->get(Denormalizer::class));
     }
 
     /**
@@ -96,8 +96,8 @@ final class XezilairesBundleTest extends KernelTestCase
         $kernel = self::bootKernel();
         $container = $kernel->getContainer();
 
-        static::assertTrue($container->has(IteratorFactory::class));
-        static::assertInstanceOf(SpreadsheetIteratorFactory::class, $container->get(IteratorFactory::class));
+        self::assertTrue($container->has(IteratorFactory::class));
+        self::assertInstanceOf(SpreadsheetIteratorFactory::class, $container->get(IteratorFactory::class));
     }
 
     /**
@@ -118,7 +118,7 @@ final class XezilairesBundleTest extends KernelTestCase
         $mapping = new Mapping(Product::class, ['name' => new ColumnReference('A')]);
         $iterator = $iteratorFactory->fromFile($this->fixture('products.xlsx'), $mapping);
 
-        static::assertInstanceOf(SpreadsheetIterator::class, $iterator);
+        self::assertInstanceOf(SpreadsheetIterator::class, $iterator);
     }
 
     protected static function getKernelClass(): string

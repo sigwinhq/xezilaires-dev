@@ -38,14 +38,14 @@ final class MappingTest extends TestCase
     {
         $mapping = new Mapping(Product::class, ['name' => new ColumnReference('A')]);
 
-        static::assertSame(1, $mapping->getOption('start'));
-        static::assertNull($mapping->getOption('end'));
-        static::assertNull($mapping->getOption('header'));
-        static::assertFalse($mapping->getOption('reverse'));
+        self::assertSame(1, $mapping->getOption('start'));
+        self::assertNull($mapping->getOption('end'));
+        self::assertNull($mapping->getOption('header'));
+        self::assertFalse($mapping->getOption('reverse'));
     }
 
     /**
-     * @dataProvider getValidMappings
+     * @dataProvider provideCanCreateValidMappingCases
      *
      * @param class-string                                  $className
      * @param array<string, \Xezilaires\Metadata\Reference> $columns
@@ -55,18 +55,18 @@ final class MappingTest extends TestCase
     {
         $mapping = new Mapping($className, $columns, $options);
 
-        static::assertSame($className, $mapping->getClassName());
-        static::assertSame($columns, $mapping->getReferences());
+        self::assertSame($className, $mapping->getClassName());
+        self::assertSame($columns, $mapping->getReferences());
 
         if ($options !== null) {
             foreach ($options as $option => $value) {
-                static::assertSame($value, $mapping->getOption($option));
+                self::assertSame($value, $mapping->getOption($option));
             }
         }
     }
 
     /**
-     * @dataProvider   getInvalidMappings
+     * @dataProvider   provideCannotCreateInvalidMappingCases
      *
      * @psalm-suppress MixedArgumentTypeCoercion intentionally testing invalid mappings
      *
@@ -89,7 +89,7 @@ final class MappingTest extends TestCase
     /**
      * @return iterable<int, array{0: class-string, 1: array{name: Reference}, 2?: array{header: int, reverse?: bool, start?: int}}>
      */
-    public function getValidMappings(): iterable
+    public function provideCanCreateValidMappingCases(): iterable
     {
         yield [
             Product::class,
@@ -107,7 +107,7 @@ final class MappingTest extends TestCase
     /**
      * @return iterable<int, array{0: string, 1: string, 2: array<array-key, mixed>, 3?: array<string, null|bool|int|string>}>
      */
-    public function getInvalidMappings(): iterable
+    public function provideCannotCreateInvalidMappingCases(): iterable
     {
         yield ['Invalid class "foo"', 'foo', ['name' => new ColumnReference('A')]];
         yield ['Invalid mapping, no references specified', Product::class, []];

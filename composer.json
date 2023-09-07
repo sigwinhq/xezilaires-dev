@@ -23,7 +23,7 @@
         "openspout/openspout": "^4.0",
         "phpoffice/phpspreadsheet": "^1.18",
         "phpunit/phpunit": "^9.6",
-        "sigwin/infra": "~1.5.0",
+        "sigwin/infra": "~1.6.0",
         "symfony/console": "^5.4 || ^6.0",
         "symfony/framework-bundle": "^5.4 || ^6.0",
         "symfony/phpunit-bridge": "^5.4 || ^6.0",

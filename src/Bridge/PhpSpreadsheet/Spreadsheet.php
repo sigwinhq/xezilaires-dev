@@ -47,9 +47,6 @@ final class Spreadsheet implements SpreadsheetInterface
         return new self($file);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createIterator(int $startRowIndex): void
     {
         /** @psalm-suppress RedundantPropertyInitializationCheck */
@@ -62,9 +59,6 @@ final class Spreadsheet implements SpreadsheetInterface
         $this->iterator = new RowIterator($sheet->getRowIterator($startRowIndex));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getIterator(): Iterator
     {
         /** @psalm-suppress RedundantPropertyInitializationCheck */
@@ -75,9 +69,6 @@ final class Spreadsheet implements SpreadsheetInterface
         return $this->iterator;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCurrentRow(): array
     {
         /** @var Row $row */
@@ -86,9 +77,6 @@ final class Spreadsheet implements SpreadsheetInterface
         return $this->getRow($row->getRowIndex());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRow(int $rowIndex): array
     {
         $data = [];
@@ -103,9 +91,6 @@ final class Spreadsheet implements SpreadsheetInterface
         return $data;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getHighestRow(): int
     {
         return $this->getActiveWorksheet()->getHighestRow();

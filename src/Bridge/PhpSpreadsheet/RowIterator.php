@@ -30,49 +30,31 @@ final class RowIterator implements Iterator
         $this->iterator = $iterator;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function current(): object
     {
         return $this->iterator->current();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function next(): void
     {
         $this->iterator->next();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function key(): int
     {
         return $this->iterator->key();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function valid(): bool
     {
         return $this->iterator->valid();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function rewind(): void
     {
         $this->iterator->rewind();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function seek(int $rowIndex): void
     {
         try {
@@ -82,9 +64,6 @@ final class RowIterator implements Iterator
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function prev(): void
     {
         $this->iterator->prev();

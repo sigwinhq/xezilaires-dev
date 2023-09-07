@@ -29,7 +29,7 @@ final class RowIteratorTest extends TestCase
     /**
      * @return list<array{0: int, 1: int, 2: int, 3: array{rewind: int, next: int, valid: int}}>
      */
-    public function seekProvider(): array
+    public function provideCanSeekProperlyCases(): iterable
     {
         return [
             [2, 2, 2, ['rewind' => 1, 'next' => 0, 'valid' => 0]],
@@ -41,7 +41,7 @@ final class RowIteratorTest extends TestCase
     /**
      * @return list<array{0: int, 1: int, 2: int, 3: array{rewind: int, next: int}, 4: array{valid: list<bool>}}>
      */
-    public function getHighestRowProvider(): array
+    public function provideCanDetermineHighestRowProperlyCases(): iterable
     {
         return [
             [1, 1, 2, ['rewind' => 2, 'next' => 2], ['valid' => [true, true, false]]],
@@ -49,7 +49,7 @@ final class RowIteratorTest extends TestCase
     }
 
     /**
-     * @dataProvider seekProvider
+     * @dataProvider provideCanSeekProperlyCases
      *
      * @param array<string, int> $counts
      */
@@ -60,7 +60,7 @@ final class RowIteratorTest extends TestCase
     }
 
     /**
-     * @dataProvider getHighestRowProvider
+     * @dataProvider provideCanDetermineHighestRowProperlyCases
      *
      * @param array<string, int>   $counts
      * @param array<string, array> $calls
@@ -71,7 +71,7 @@ final class RowIteratorTest extends TestCase
         ++$counts['rewind'];
 
         $iterator = new RowIterator($this->mockIterator($currentRow, $counts, $calls), $startRow);
-        static::assertSame($highestRow, $iterator->getHighestRow());
+        self::assertSame($highestRow, $iterator->getHighestRow());
     }
 
     /**
@@ -93,7 +93,7 @@ final class RowIteratorTest extends TestCase
         if ($counts !== null) {
             foreach ($counts as $method => $count) {
                 $iterator
-                    ->expects(static::exactly($count))
+                    ->expects(self::exactly($count))
                     ->method($method)
                 ;
             }
@@ -102,7 +102,7 @@ final class RowIteratorTest extends TestCase
         if ($calls !== null) {
             foreach ($calls as $method => $return) {
                 $iterator
-                    ->expects(static::exactly(\count($return)))
+                    ->expects(self::exactly(\count($return)))
                     ->method($method)
                     ->willReturnOnConsecutiveCalls(...$return)
                 ;

@@ -43,6 +43,6 @@ final class SpreadsheetTest extends TestCase
         $object = new Spreadsheet($this->invalidFixture('products.xlsx'));
         NSA::setProperty($object, 'iterator', new FakeIterator([(object) $row]));
 
-        static::assertSame(array_combine($values, $values), $object->getCurrentRow());
+        self::assertSame(array_combine($values, $values), $object->getCurrentRow());
     }
 }

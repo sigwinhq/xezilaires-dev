@@ -32,17 +32,11 @@ final class ReverseIterator implements Iterator
         $this->rewind();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function current(): object
     {
         return $this->iterator->current();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function seek(int $rowIndex = 1): void
     {
         $this->index = ($this->endIndex + 1) - $rowIndex;
@@ -50,9 +44,6 @@ final class ReverseIterator implements Iterator
         $this->iterator->seek($this->index);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function prev(): void
     {
         --$this->index;
@@ -60,9 +51,6 @@ final class ReverseIterator implements Iterator
         $this->iterator->next();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function next(): void
     {
         ++$this->index;
@@ -70,25 +58,16 @@ final class ReverseIterator implements Iterator
         $this->iterator->prev();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function key(): int
     {
         return $this->index;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function valid(): bool
     {
         return $this->index <= $this->endIndex - $this->startIndex;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function rewind(): void
     {
         $this->index = 0;

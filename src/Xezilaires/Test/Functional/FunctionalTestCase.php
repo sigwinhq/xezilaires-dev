@@ -296,7 +296,7 @@ abstract class FunctionalTestCase extends TestCase
         );
 
         $iterator->seek(1);
-        static::assertSame(3, $iterator->key());
+        self::assertSame(3, $iterator->key());
 
         $current = new Product();
         $current->name = 'Brown Bear, Brown Bear, What Do You See?';
@@ -304,9 +304,9 @@ abstract class FunctionalTestCase extends TestCase
 
         $actual = $iterator->current();
 
-        static::assertInstanceOf(Product::class, $actual);
-        static::assertSame($current->name, $actual->name);
-        static::assertSame($current->price, $actual->price);
+        self::assertInstanceOf(Product::class, $actual);
+        self::assertSame($current->name, $actual->name);
+        self::assertSame($current->price, $actual->price);
     }
 
     public function testCanRewindIterator(): void
@@ -326,7 +326,7 @@ abstract class FunctionalTestCase extends TestCase
         );
 
         $iterator->seek(1);
-        static::assertSame(3, $iterator->key());
+        self::assertSame(3, $iterator->key());
 
         $iterator->rewind();
         $actual = $iterator->current();
@@ -335,9 +335,9 @@ abstract class FunctionalTestCase extends TestCase
         $current->name = 'The Very Hungry Caterpillar';
         $current->price = 6.59;
 
-        static::assertInstanceOf(Product::class, $actual);
-        static::assertSame($current->name, $actual->name);
-        static::assertSame($current->price, $actual->price);
+        self::assertInstanceOf(Product::class, $actual);
+        self::assertSame($current->name, $actual->name);
+        self::assertSame($current->price, $actual->price);
     }
 
     /**

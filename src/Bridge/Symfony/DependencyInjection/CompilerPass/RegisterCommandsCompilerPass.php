@@ -22,9 +22,6 @@ use Symfony\Component\DependencyInjection\Definition;
  */
 final class RegisterCommandsCompilerPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container): void
     {
         /** @var array<string, array<string, string>> $commands */

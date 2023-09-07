@@ -89,7 +89,7 @@ final class RowIteratorTest extends TestCase
                 $count = $spec['count'];
 
                 $mocker = $iterator
-                    ->expects(static::exactly($count))
+                    ->expects(self::exactly($count))
                     ->method($method)
                     ->with(...(array) $spec['params'])
                 ;

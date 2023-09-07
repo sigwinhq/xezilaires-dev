@@ -41,9 +41,6 @@ final class SerializeCommand extends Command
         $this->serializer = $serializer;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         $this

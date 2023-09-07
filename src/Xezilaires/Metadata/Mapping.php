@@ -39,7 +39,7 @@ final class Mapping
     /**
      * @param array<string, Reference> $references
      */
-    public function __construct(string $className, array $references, array $options = null)
+    public function __construct(string $className, array $references, ?array $options = null)
     {
         $this->setClassName($className);
         $this->setReferences($references);
