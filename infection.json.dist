@@ -14,9 +14,15 @@
         "@default": true,
         "IdenticalEqual": false,
         "NotIdenticalNotEqual": false,
+        "IfNegation": {
+            "ignore": [
+                "Xezilaires\\Bridge\\Symfony\\DependencyInjection\\XezilairesExtension::load::36",
+                "Xezilaires\\Bridge\\Symfony\\DependencyInjection\\XezilairesExtension::load::39"
+            ]
+        },
         "MethodCallRemoval": {
             "ignore": [
-                "Xezilaires\\Bridge\\Symfony\\DependencyInjection\\XezilairesExtension::load::45"
+                "Xezilaires\\Bridge\\Symfony\\DependencyInjection\\XezilairesExtension::load::43"
             ]
         }
     }

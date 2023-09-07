@@ -80,7 +80,7 @@ final class SpreadsheetIteratorTest extends TestCase
         $key = $iterator->key();
         $iterator->next();
 
-        static::assertGreaterThan($key, $iterator->key());
+        self::assertGreaterThan($key, $iterator->key());
     }
 
     public function testCanPerformNextSequentially(): void
@@ -104,7 +104,7 @@ final class SpreadsheetIteratorTest extends TestCase
         $key = $iterator->key();
         $iterator->next();
 
-        static::assertGreaterThan($key, $iterator->key());
+        self::assertGreaterThan($key, $iterator->key());
     }
 
     public function testCanPerformCurrentCorrectly(): void
@@ -114,14 +114,14 @@ final class SpreadsheetIteratorTest extends TestCase
             ->getMock()
         ;
         $spreadsheet
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('getRow')
             ->willReturn(
                 ['A' => 'One', 'B' => 'Two', 'C' => 'Three', 'D' => 'Four'],
             )
         ;
         $spreadsheet
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('getCurrentRow')
             ->willReturn(
                 ['A' => 'Yes', 'B' => 'Nope', 'C' => 'Yeah', 'D' => 'Right'],
@@ -133,7 +133,7 @@ final class SpreadsheetIteratorTest extends TestCase
             ->getMock()
         ;
         $denormalizer
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('denormalize')
             ->with(
                 ['one' => 'Yes', 'two' => 'Nope', 'three' => ['Yeah', 'Right']],
@@ -157,7 +157,7 @@ final class SpreadsheetIteratorTest extends TestCase
             ->getMock()
         ;
         $spreadsheet
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('getRow')
             ->with(1)
             ->willReturn(['Amen', 'Nope', 'Name'])
@@ -208,7 +208,7 @@ final class SpreadsheetIteratorTest extends TestCase
                 $count = $spec['count'];
 
                 $mocker = $iterator
-                    ->expects(static::exactly($count))
+                    ->expects(self::exactly($count))
                     ->method($method)
                     ->with(...(array) $spec['params'])
                 ;

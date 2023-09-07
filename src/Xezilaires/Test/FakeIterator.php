@@ -62,33 +62,21 @@ final class FakeIterator implements Iterator
         return $items;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function next(): void
     {
         $this->iterator->next();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function valid(): bool
     {
         return $this->iterator->valid();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function rewind(): void
     {
         $this->iterator->rewind();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function current(): object
     {
         /** @var object $current */
@@ -97,9 +85,6 @@ final class FakeIterator implements Iterator
         return $current;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function key(): int
     {
         /** @var int|string $key */
@@ -112,17 +97,11 @@ final class FakeIterator implements Iterator
         return $key;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function seek(int $rowIndex): void
     {
         $this->iterator->seek($rowIndex);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function prev(): void
     {
     }

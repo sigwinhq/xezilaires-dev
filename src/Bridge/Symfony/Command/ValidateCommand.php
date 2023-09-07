@@ -42,9 +42,6 @@ final class ValidateCommand extends Command
         $this->validator = $validator;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         $this

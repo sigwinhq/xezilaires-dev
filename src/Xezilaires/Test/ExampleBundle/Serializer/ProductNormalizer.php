@@ -18,7 +18,7 @@ use Xezilaires\Test\Model\Product;
 
 final class ProductNormalizer implements DenormalizerInterface
 {
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): object
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): object
     {
         /**
          * @phpstan-ignore-next-line
@@ -48,7 +48,7 @@ final class ProductNormalizer implements DenormalizerInterface
         return (object) $data;
     }
 
-    public function supportsDenormalization(mixed $data, string $type, string $format = null): bool
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null): bool
     {
         return $type === Product::class;
     }
