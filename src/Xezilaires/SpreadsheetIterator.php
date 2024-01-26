@@ -206,10 +206,8 @@ final class SpreadsheetIterator implements Iterator
 
     /**
      * @param array<string, null|float|int|string> $row
-     *
-     * @return null|float|int|string
      */
-    private function readReference(array $row, Reference $reference)
+    private function readReference(array $row, Reference $reference): null|float|int|string
     {
         switch (true) {
             case $reference instanceof ColumnReference:

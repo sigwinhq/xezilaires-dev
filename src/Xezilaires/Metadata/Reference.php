@@ -18,5 +18,5 @@ interface Reference
     /**
      * @return Reference[]|string
      */
-    public function getReference();
+    public function getReference(): array|string;
 }

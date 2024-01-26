@@ -125,10 +125,7 @@ final class Spreadsheet implements SpreadsheetInterface
         }
     }
 
-    /**
-     * @return null|float|int|string
-     */
-    private function fetchCell(string $columnName, int $rowIndex)
+    private function fetchCell(string $columnName, int $rowIndex): null|float|int|string
     {
         $worksheet = $this->getActiveWorksheet();
 

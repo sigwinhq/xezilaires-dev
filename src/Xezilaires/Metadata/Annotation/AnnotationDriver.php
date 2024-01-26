@@ -117,10 +117,7 @@ final class AnnotationDriver
         return array_filter($options);
     }
 
-    /**
-     * @return ColumnReference|HeaderReference
-     */
-    private function createReference(Annotation\Reference $annotation)
+    private function createReference(Annotation\Reference $annotation): ColumnReference|HeaderReference
     {
         switch (true) {
             case $annotation instanceof Annotation\ColumnReference:
