@@ -11,36 +11,17 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Xezilaires\Metadata\Annotation;
+namespace Xezilaires\Metadata\Attribute;
 
-use Doctrine\Common\Annotations\AnnotationReader;
-use Xezilaires\Annotation;
-use Xezilaires\Exception\AnnotationException;
+use Xezilaires\Attribute;
+use Xezilaires\Exception\AttributeException;
 use Xezilaires\Metadata\ArrayReference;
 use Xezilaires\Metadata\ColumnReference;
 use Xezilaires\Metadata\HeaderReference;
 use Xezilaires\Metadata\Mapping;
 
-final class AnnotationDriver
+final class AttributeDriver
 {
-    private AnnotationReader $reader;
-
-    /**
-     * @throws \RuntimeException if Doctrine's Annotations component is not available
-     */
-    public function __construct(?AnnotationReader $reader = null)
-    {
-        if (false === class_exists(AnnotationReader::class)) {
-            throw new \RuntimeException('Xezilaires annotations support requires Doctrine Annotations component. Install "doctrine/annotations" to use it.');
-        }
-
-        try {
-            $this->reader = $reader ?? new AnnotationReader();
-        } catch (\Doctrine\Common\Annotations\AnnotationException $exception) {
-            throw AnnotationException::failedCreatingAnnotationReader($exception);
-        }
-    }
-
     /**
      * @throws \ReflectionException
      *
@@ -60,17 +41,17 @@ final class AnnotationDriver
     {
         $columns = [];
         foreach ($reflectionClass->getProperties() as $reflectionProperty) {
-            $arrayAnnotation = $this->getPropertyAnnotationOrAttribute(
+            $arrayAnnotation = $this->getPropertyAttribute(
                 $reflectionProperty,
-                Annotation\ArrayReference::class
+                Attribute\ArrayReference::class
             );
-            $columnAnnotation = $this->getPropertyAnnotationOrAttribute(
+            $columnAnnotation = $this->getPropertyAttribute(
                 $reflectionProperty,
-                Annotation\ColumnReference::class
+                Attribute\ColumnReference::class
             );
-            $headerAnnotation = $this->getPropertyAnnotationOrAttribute(
+            $headerAnnotation = $this->getPropertyAttribute(
                 $reflectionProperty,
-                Annotation\HeaderReference::class
+                Attribute\HeaderReference::class
             );
 
             if ($arrayAnnotation === null && $columnAnnotation === null && $headerAnnotation === null) {
@@ -80,7 +61,7 @@ final class AnnotationDriver
 
             if (($arrayAnnotation xor $columnAnnotation xor $headerAnnotation) === false) {
                 // if any is set, only one is allowed
-                throw AnnotationException::tooManyReferencesDefined($reflectionProperty, [$arrayAnnotation, $columnAnnotation, $headerAnnotation]);
+                throw AttributeException::tooManyReferencesDefined($reflectionProperty, [$arrayAnnotation, $columnAnnotation, $headerAnnotation]);
             }
 
             switch (true) {
@@ -98,7 +79,7 @@ final class AnnotationDriver
                     $reference = new ArrayReference($references);
                     break;
                 default:
-                    throw AnnotationException::unsupportedAnnotation();
+                    throw AttributeException::unsupportedAttribute();
             }
 
             $columns[$reflectionProperty->getName()] = $reference;
@@ -109,7 +90,7 @@ final class AnnotationDriver
 
     private function getOptions(\ReflectionClass $reflectionClass, ?array $additionalOptions = null): array
     {
-        $options = $this->getClassAnnotationOrAttribute($reflectionClass, Annotation\Options::class);
+        $options = $this->getClassAttribute($reflectionClass, Attribute\Options::class);
         if ($additionalOptions !== null) {
             $options = array_replace($options, $additionalOptions);
         }
@@ -117,20 +98,13 @@ final class AnnotationDriver
         return array_filter($options);
     }
 
-    private function createReference(Annotation\Reference $annotation): ColumnReference|HeaderReference
+    private function createReference(Attribute\Reference $annotation): ColumnReference|HeaderReference
     {
-        switch (true) {
-            case $annotation instanceof Annotation\ColumnReference:
-                $reference = new ColumnReference($annotation->column);
-                break;
-            case $annotation instanceof Annotation\HeaderReference:
-                $reference = new HeaderReference($annotation->header);
-                break;
-            default:
-                throw AnnotationException::unsupportedAnnotation();
-        }
-
-        return $reference;
+        return match (true) {
+            $annotation instanceof Attribute\ColumnReference => new ColumnReference($annotation->column),
+            $annotation instanceof Attribute\HeaderReference => new HeaderReference($annotation->header),
+            default => throw AttributeException::unsupportedAttribute(),
+        };
     }
 
     /**
@@ -138,14 +112,14 @@ final class AnnotationDriver
      *
      * @param class-string<T> $name
      */
-    private function getClassAnnotationOrAttribute(\ReflectionClass $reflection, string $name): array
+    private function getClassAttribute(\ReflectionClass $reflection, string $name): array
     {
         $attribute = current($reflection->getAttributes($name));
         if ($attribute !== false) {
             return $attribute->getArguments();
         }
 
-        return (array) $this->reader->getClassAnnotation($reflection, $name);
+        return [];
     }
 
     /**
@@ -155,13 +129,13 @@ final class AnnotationDriver
      *
      * @phpstan-return T|null
      */
-    private function getPropertyAnnotationOrAttribute(\ReflectionProperty $reflection, string $name)
+    private function getPropertyAttribute(\ReflectionProperty $reflection, string $name)
     {
         $attribute = current($reflection->getAttributes($name));
         if ($attribute !== false) {
             return $attribute->newInstance();
         }
 
-        return $this->reader->getPropertyAnnotation($reflection, $name);
+        return null;
     }
 }

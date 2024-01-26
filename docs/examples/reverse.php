@@ -26,13 +26,13 @@ $normalizer = new \Xezilaires\Serializer\ObjectSerializer($symfonySerializer);
 $iteratorFactory = new \Xezilaires\SpreadsheetIteratorFactory($normalizer, [
     \Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet::class,
 ]);
-$annotationDriver = new \Xezilaires\Metadata\Annotation\AnnotationDriver();
+$attributeDriver = new \Xezilaires\Metadata\Attribute\AttributeDriver();
 // </demo>
 
 $iterator = $iteratorFactory->fromFile(
     // https://github.com/sigwinhq/xezilaires/raw/master/resources/fixtures/products.xlsx
     new \SplFileObject(__DIR__.'/../../src/Xezilaires/Test/resources/fixtures/products.xlsx'),
-    $annotationDriver->getMetadataMapping(Product::class, ['reverse' => true])
+    $attributeDriver->getMetadataMapping(Product::class, ['reverse' => true])
 );
 
 $out = iterator_to_array($iterator);

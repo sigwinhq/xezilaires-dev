@@ -15,7 +15,7 @@ namespace Xezilaires\Test\Model;
 
 use Symfony\Component\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
-use Xezilaires\Annotation as XLS;
+use Xezilaires\Attribute as XLS;
 
 #[XLS\Options(start: 2, header: 1)]
 final class Product

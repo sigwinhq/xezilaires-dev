@@ -11,13 +11,8 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Xezilaires\Annotation;
+namespace Xezilaires\Attribute;
 
-/**
- * @Annotation
- * @Target({"CLASS"})
- * @NamedArgumentConstructor
- */
 #[\Attribute(\Attribute::TARGET_CLASS)]
 final class Options
 {

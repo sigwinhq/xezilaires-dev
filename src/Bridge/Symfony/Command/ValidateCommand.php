@@ -22,7 +22,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Xezilaires\IteratorFactory;
-use Xezilaires\Metadata\Annotation\AnnotationDriver;
+use Xezilaires\Metadata\Attribute\AttributeDriver;
 use Xezilaires\Validator;
 
 #[AsCommand(
@@ -79,7 +79,7 @@ final class ValidateCommand extends Command
         $style = new SymfonyStyle($input, $output);
         $style->title('Xezilaires validate');
 
-        $driver = new AnnotationDriver();
+        $driver = new AttributeDriver();
 
         $totalCount = 0;
         $totalInvalid = 0;

@@ -21,7 +21,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Xezilaires\IteratorFactory;
-use Xezilaires\Metadata\Annotation\AnnotationDriver;
+use Xezilaires\Metadata\Attribute\AttributeDriver;
 use Xezilaires\Serializer;
 
 #[AsCommand(
@@ -122,7 +122,7 @@ final class SerializeCommand extends Command
                 break;
         }
 
-        $driver = new AnnotationDriver();
+        $driver = new AttributeDriver();
         $iterator = $this->iteratorFactory->fromFile(
             new \SplFileObject($path),
             $driver->getMetadataMapping($class, ['reverse' => $reverse, 'sequential' => true])
