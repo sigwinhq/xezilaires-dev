@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Xezilaires\Bridge\Symfony\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -23,19 +24,19 @@ use Xezilaires\IteratorFactory;
 use Xezilaires\Metadata\Annotation\AnnotationDriver;
 use Xezilaires\Serializer;
 
+#[AsCommand(
+    name: 'xezilaires:serialize',
+    description: 'Serialize Excel files into JSON, XML, CSV',
+)]
 final class SerializeCommand extends Command
 {
-    protected static $defaultName = 'xezilaires:serialize';
-
     private IteratorFactory $iteratorFactory;
 
     private Serializer $serializer;
 
     public function __construct(IteratorFactory $iteratorFactory, Serializer $serializer)
     {
-        parent::__construct('xezilaires:serialize');
-
-        $this->setDescription('Serialize Excel files into JSON, XML, CSV');
+        parent::__construct();
 
         $this->iteratorFactory = $iteratorFactory;
         $this->serializer = $serializer;

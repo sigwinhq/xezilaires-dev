@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "openspout/openspout": "^4.0",
         "sigwin/xezilaires": "^0.6"
     },
@@ -18,9 +18,9 @@
         "doctrine/annotations": "^1.11",
         "nyholm/nsa": "^1.1",
         "phpunit/phpunit": "^9.6",
-        "symfony/phpunit-bridge": "^5.4 || ^6.0",
-        "symfony/property-access": "^5.4 || ^6.0",
-        "symfony/property-info": "^5.4 || ^6.0"
+        "symfony/phpunit-bridge": "^6.4 || ^7.0",
+        "symfony/property-access": "^6.4 || ^7.0",
+        "symfony/property-info": "^6.4 || ^7.0"
     },
     "conflict": {
         "nikic/php-parser": "< 4.14"

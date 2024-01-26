@@ -151,7 +151,7 @@ final class Spreadsheet implements SpreadsheetInterface
             try {
                 $this->reader = new Reader();
                 $this->reader->open($path);
-            } catch (UnsupportedTypeException|IOException $exception) {
+            } catch (IOException|UnsupportedTypeException $exception) {
                 throw SpreadsheetException::invalidSpreadsheet($exception);
             }
         }

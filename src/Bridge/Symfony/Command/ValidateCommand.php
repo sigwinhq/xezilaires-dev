@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Xezilaires\Bridge\Symfony\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -24,19 +25,19 @@ use Xezilaires\IteratorFactory;
 use Xezilaires\Metadata\Annotation\AnnotationDriver;
 use Xezilaires\Validator;
 
+#[AsCommand(
+    name: 'xezilaires:validate',
+    description: 'Validate the input file',
+)]
 final class ValidateCommand extends Command
 {
-    protected static $defaultName = 'xezilaires:validate';
-
     private IteratorFactory $iteratorFactory;
 
     private Validator $validator;
 
     public function __construct(IteratorFactory $iteratorFactory, Validator $validator)
     {
-        parent::__construct('xezilaires:validate');
-
-        $this->setDescription('Validate the input file');
+        parent::__construct();
 
         $this->iteratorFactory = $iteratorFactory;
         $this->validator = $validator;

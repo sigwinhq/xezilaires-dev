@@ -48,9 +48,14 @@ final class ProductNormalizer implements DenormalizerInterface
         return (object) $data;
     }
 
-    public function supportsDenormalization(mixed $data, string $type, ?string $format = null): bool
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
         return $type === Product::class;
+    }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [Product::class => true];
     }
 
     private function cast(string $price): float
