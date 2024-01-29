@@ -15,22 +15,13 @@ namespace Xezilaires;
 
 use Xezilaires\Metadata\Mapping;
 
-final class SpreadsheetIteratorFactory implements IteratorFactory
+final readonly class SpreadsheetIteratorFactory implements IteratorFactory
 {
-    private Denormalizer $denormalizer;
-
-    /**
-     * @var array<class-string<Spreadsheet>>
-     */
-    private array $spreadsheetClasses;
-
     /**
      * @param array<class-string<Spreadsheet>> $spreadsheetClasses
      */
-    public function __construct(Denormalizer $denormalizer, array $spreadsheetClasses)
+    public function __construct(private Denormalizer $denormalizer, private array $spreadsheetClasses)
     {
-        $this->denormalizer = $denormalizer;
-        $this->spreadsheetClasses = $spreadsheetClasses;
     }
 
     /**

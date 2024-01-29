@@ -13,19 +13,13 @@ declare(strict_types=1);
 
 namespace Xezilaires\Metadata;
 
-final class ArrayReference implements Reference
+final readonly class ArrayReference implements Reference
 {
-    /**
-     * @var Reference[]
-     */
-    private array $references;
-
     /**
      * @param Reference[] $references
      */
-    public function __construct(array $references)
+    public function __construct(private array $references)
     {
-        $this->references = $references;
     }
 
     /**

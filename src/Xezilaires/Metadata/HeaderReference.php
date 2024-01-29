@@ -13,13 +13,10 @@ declare(strict_types=1);
 
 namespace Xezilaires\Metadata;
 
-final class HeaderReference implements Reference
+final readonly class HeaderReference implements Reference
 {
-    private string $header;
-
-    public function __construct(string $header)
+    public function __construct(private string $header)
     {
-        $this->header = $header;
     }
 
     public function getReference(): string

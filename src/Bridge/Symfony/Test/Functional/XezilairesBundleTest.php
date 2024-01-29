@@ -30,24 +30,24 @@ use Xezilaires\Test\Model\Product;
 use Xezilaires\Validator;
 
 /**
- * @covers \Xezilaires\Bridge\Symfony\XezilairesBundle
- *
- * @uses \Xezilaires\Bridge\Spout\Spreadsheet
- * @uses \Xezilaires\Bridge\Symfony\DependencyInjection\XezilairesExtension
- * @uses \Xezilaires\Bridge\Symfony\Validator
- * @uses \Xezilaires\Metadata\ColumnReference
- * @uses \Xezilaires\Metadata\Mapping
- * @uses \Xezilaires\Serializer\ObjectSerializer
- * @uses \Xezilaires\SpreadsheetIterator
- * @uses \Xezilaires\SpreadsheetIteratorFactory
- *
- * @group functional
- * @group symfony
- *
  * @internal
  *
- * @medium
+ * @coversNothing
+ *
+ * @small
  */
+#[\PHPUnit\Framework\Attributes\Medium]
+#[\PHPUnit\Framework\Attributes\CoversClass(XezilairesBundle::class)]
+#[\PHPUnit\Framework\Attributes\Group('functional')]
+#[\PHPUnit\Framework\Attributes\Group('symfony')]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Xezilaires\Bridge\Spout\Spreadsheet::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Xezilaires\Bridge\Symfony\DependencyInjection\XezilairesExtension::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Xezilaires\Bridge\Symfony\Validator::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(ColumnReference::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(Mapping::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(ObjectSerializer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(SpreadsheetIterator::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(SpreadsheetIteratorFactory::class)]
 final class XezilairesBundleTest extends KernelTestCase
 {
     use FixtureTrait;

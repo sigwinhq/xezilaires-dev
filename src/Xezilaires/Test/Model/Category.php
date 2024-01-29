@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Xezilaires\Test\Model;
 
-final class Category
+final class Category implements \Stringable
 {
     public int $id;
 
-    public ?int $parent;
+    public ?int $parent = null;
 
     public string $name;
 

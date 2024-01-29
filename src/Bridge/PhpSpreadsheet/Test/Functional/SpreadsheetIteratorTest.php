@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Xezilaires\Bridge\PhpSpreadsheet\Test\Functional;
 
 use Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet;
+use Xezilaires\Metadata\Attribute\AttributeDriver;
+use Xezilaires\ReverseIterator;
 use Xezilaires\Spreadsheet as SpreadsheetInterface;
 use Xezilaires\Test\Functional\FunctionalTestCase;
 
@@ -28,13 +30,26 @@ use Xezilaires\Test\Functional\FunctionalTestCase;
  * @uses \Xezilaires\Metadata\Mapping
  * @uses \Xezilaires\Serializer\ObjectSerializer
  *
- * @group functional
- * @group phpspreadsheet
- *
  * @internal
  *
  * @small
  */
+#[\PHPUnit\Framework\Attributes\Small]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Xezilaires\Bridge\PhpSpreadsheet\RowIterator::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(Spreadsheet::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\Xezilaires\SpreadsheetIterator::class)]
+#[\PHPUnit\Framework\Attributes\Group('functional')]
+#[\PHPUnit\Framework\Attributes\Group('phpspreadsheet')]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Xezilaires\Metadata\ArrayReference::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Xezilaires\Metadata\ColumnReference::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Xezilaires\Metadata\HeaderReference::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Xezilaires\Metadata\Mapping::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Xezilaires\Serializer\ObjectSerializer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Xezilaires\Attribute\ArrayReference::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Xezilaires\Attribute\ColumnReference::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Xezilaires\Attribute\HeaderReference::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(ReverseIterator::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(AttributeDriver::class)]
 final class SpreadsheetIteratorTest extends FunctionalTestCase
 {
     /**

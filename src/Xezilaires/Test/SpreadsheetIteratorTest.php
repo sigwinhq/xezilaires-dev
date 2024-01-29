@@ -22,6 +22,7 @@ use Xezilaires\Metadata\ArrayReference;
 use Xezilaires\Metadata\ColumnReference;
 use Xezilaires\Metadata\HeaderReference;
 use Xezilaires\Metadata\Mapping;
+use Xezilaires\ReverseIterator;
 use Xezilaires\Spreadsheet;
 use Xezilaires\SpreadsheetIterator;
 
@@ -37,6 +38,16 @@ use Xezilaires\SpreadsheetIterator;
  *
  * @small
  */
+#[\PHPUnit\Framework\Attributes\Small]
+#[\PHPUnit\Framework\Attributes\CoversClass(Mapping::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(SpreadsheetIterator::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(ArrayReference::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(ColumnReference::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(HeaderReference::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(ReverseIterator::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Xezilaires\Attribute\ArrayReference::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Xezilaires\Attribute\ColumnReference::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Xezilaires\Attribute\HeaderReference::class)]
 final class SpreadsheetIteratorTest extends TestCase
 {
     public function testCanPerformValidCorrectly(): void

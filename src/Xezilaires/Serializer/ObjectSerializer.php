@@ -21,16 +21,10 @@ use Xezilaires\Serializer;
 final class ObjectSerializer implements Denormalizer, Serializer
 {
     /**
-     * @var DenormalizerInterface&SerializerInterface
-     */
-    private $serializer;
-
-    /**
      * @param DenormalizerInterface&SerializerInterface $serializer
      */
-    public function __construct($serializer)
+    public function __construct(private $serializer)
     {
-        $this->serializer = $serializer;
     }
 
     public function denormalize(array $data, string $class, ?string $format = null, array $context = []): object

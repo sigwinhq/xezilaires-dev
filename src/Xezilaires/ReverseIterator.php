@@ -15,20 +15,10 @@ namespace Xezilaires;
 
 final class ReverseIterator implements Iterator
 {
-    private Iterator $iterator;
-
-    private int $startIndex;
-
-    private int $endIndex;
-
     private int $index;
 
-    public function __construct(Iterator $iterator, int $startIndex, int $endIndex)
+    public function __construct(private readonly Iterator $iterator, private readonly int $startIndex, private readonly int $endIndex)
     {
-        $this->iterator = $iterator;
-        $this->startIndex = $startIndex;
-        $this->endIndex = $endIndex;
-
         $this->rewind();
     }
 

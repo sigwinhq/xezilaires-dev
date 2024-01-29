@@ -31,22 +31,14 @@ use Xezilaires\Validator;
 )]
 final class ValidateCommand extends Command
 {
-    private IteratorFactory $iteratorFactory;
-
-    private Validator $validator;
-
-    public function __construct(IteratorFactory $iteratorFactory, Validator $validator)
+    public function __construct(private readonly IteratorFactory $iteratorFactory, private readonly Validator $validator)
     {
         parent::__construct();
-
-        $this->iteratorFactory = $iteratorFactory;
-        $this->validator = $validator;
     }
 
     protected function configure(): void
     {
         $this
-            ->setName('xezilaires:serialize')
             ->addArgument('class', InputArgument::REQUIRED, 'Process the rows as class')
             ->addArgument('paths', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'Path(s) to file(s) to process')
             ->addOption('bundle', 'B', InputOption::VALUE_REQUIRED, 'Custom project-specific bundle to load')

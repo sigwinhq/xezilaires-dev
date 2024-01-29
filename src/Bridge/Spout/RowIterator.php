@@ -22,21 +22,18 @@ use Xezilaires\Iterator;
  */
 final class RowIterator implements Iterator
 {
-    private RowIteratorInterface $iterator;
-
-    private int $firstRow;
+    private readonly RowIteratorInterface $iterator;
 
     /**
      * @psalm-suppress PropertyNotSetInConstructor
      */
     private int $highestRow;
 
-    public function __construct(RowIteratorInterface $iterator, int $firstRow)
+    public function __construct(RowIteratorInterface $iterator, private readonly int $firstRow)
     {
         $iterator->rewind();
 
         $this->iterator = $iterator;
-        $this->firstRow = $firstRow;
     }
 
     public function current(): object

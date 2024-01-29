@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Xezilaires\Test\Functional;
 
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -23,6 +24,7 @@ use Xezilaires\Metadata\Attribute\AttributeDriver;
 use Xezilaires\Metadata\ColumnReference;
 use Xezilaires\Metadata\HeaderReference;
 use Xezilaires\Metadata\Mapping;
+use Xezilaires\ReverseIterator;
 use Xezilaires\Serializer\ObjectSerializer;
 use Xezilaires\Spreadsheet;
 use Xezilaires\SpreadsheetIterator;
@@ -34,6 +36,7 @@ use Xezilaires\Test\Model\ProductWithAttributes;
 /**
  * @internal
  */
+#[UsesClass(ReverseIterator::class)]
 abstract class FunctionalTestCase extends TestCase
 {
     use FixtureTrait;
@@ -112,9 +115,6 @@ abstract class FunctionalTestCase extends TestCase
         ], $iterator);
     }
 
-    /**
-     * @uses \Xezilaires\Attribute\HeaderReference
-     */
     public function testCanLoadSparseFixtureWithHeaderReference(): void
     {
         $iterator = $this->createIterator(
@@ -143,12 +143,6 @@ abstract class FunctionalTestCase extends TestCase
      * @throws \ReflectionException
      * @throws \RuntimeException
      * @throws \ReflectionException
-     *
-     * @uses \Xezilaires\Attribute\ArrayReference
-     * @uses \Xezilaires\Attribute\ColumnReference
-     * @uses \Xezilaires\Attribute\HeaderReference
-     *@uses  \Xezilaires\Attribute\Options
-     * @uses \Xezilaires\Metadata\Attribute\AttributeDriver
      */
     public function testCanLoadSparseFixtureWithAttributes(): void
     {
@@ -171,11 +165,6 @@ abstract class FunctionalTestCase extends TestCase
      * @throws \ReflectionException
      * @throws \RuntimeException
      * @throws \ReflectionException
-     *
-     * @uses \Xezilaires\Attribute\ColumnReference
-     * @uses \Xezilaires\Attribute\HeaderReference
-     * @uses \Xezilaires\Attribute\Options
-     *@uses  \Xezilaires\Metadata\Attribute\AttributeDriver
      */
     public function testCanLoadSparseFixtureWithNativeAttributes(): void
     {
@@ -340,9 +329,6 @@ abstract class FunctionalTestCase extends TestCase
         self::assertSame($current->price, $actual->price);
     }
 
-    /**
-     * @uses \Xezilaires\ReverseIterator
-     */
     public function testCanLoadFlatFixtureInReverse(): void
     {
         $iterator = $this->createIterator(
@@ -391,9 +377,6 @@ abstract class FunctionalTestCase extends TestCase
         ], $iterator);
     }
 
-    /**
-     * @uses \Xezilaires\ReverseIterator
-     */
     public function testCanLoadReverseIteratorSequentially(): void
     {
         $iterator = $this->createIterator(

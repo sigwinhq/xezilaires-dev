@@ -26,6 +26,8 @@ use Xezilaires\Test\FixtureTrait;
  *
  * @small
  */
+#[\PHPUnit\Framework\Attributes\Small]
+#[\PHPUnit\Framework\Attributes\CoversClass(Spreadsheet::class)]
 final class SpreadsheetTest extends TestCase
 {
     use FixtureTrait;

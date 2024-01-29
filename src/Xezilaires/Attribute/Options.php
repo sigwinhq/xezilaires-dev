@@ -16,19 +16,7 @@ namespace Xezilaires\Attribute;
 #[\Attribute(\Attribute::TARGET_CLASS)]
 final class Options
 {
-    public int $start;
-
-    public int $end;
-
-    public int $header;
-
-    public bool $reverse;
-
-    public function __construct(int $start = 0, int $end = \PHP_INT_MAX, int $header = 0, bool $reverse = false)
+    public function __construct(public int $start = 0, public int $end = \PHP_INT_MAX, public int $header = 0, public bool $reverse = false)
     {
-        $this->start = $start;
-        $this->end = $end;
-        $this->header = $header;
-        $this->reverse = $reverse;
     }
 }

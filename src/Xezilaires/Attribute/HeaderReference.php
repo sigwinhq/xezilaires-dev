@@ -16,10 +16,7 @@ namespace Xezilaires\Attribute;
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
 final class HeaderReference implements Reference
 {
-    public string $header;
-
-    public function __construct(string $header)
+    public function __construct(public string $header)
     {
-        $this->header = $header;
     }
 }

@@ -30,8 +30,6 @@ final class Spreadsheet implements SpreadsheetInterface
      */
     private static array $indexCache = [];
 
-    private \SplFileObject $file;
-
     /**
      * @psalm-suppress PropertyNotSetInConstructor
      */
@@ -44,9 +42,8 @@ final class Spreadsheet implements SpreadsheetInterface
      */
     private Iterator $iterator;
 
-    public function __construct(\SplFileObject $file)
+    public function __construct(private readonly \SplFileObject $file)
     {
-        $this->file = $file;
     }
 
     public static function fromFile(\SplFileObject $file): SpreadsheetInterface

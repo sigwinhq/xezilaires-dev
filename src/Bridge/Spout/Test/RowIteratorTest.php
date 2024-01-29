@@ -24,6 +24,8 @@ use Xezilaires\Bridge\Spout\RowIterator;
  *
  * @small
  */
+#[\PHPUnit\Framework\Attributes\Small]
+#[\PHPUnit\Framework\Attributes\CoversClass(RowIterator::class)]
 final class RowIteratorTest extends TestCase
 {
     /**
@@ -49,10 +51,9 @@ final class RowIteratorTest extends TestCase
     }
 
     /**
-     * @dataProvider provideCanSeekProperlyCases
-     *
      * @param array<string, int> $counts
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideCanSeekProperlyCases')]
     public function testCanSeekProperly(int $startRow, int $currentRow, int $seekToRow, array $counts): void
     {
         $iterator = new RowIterator($this->mockIterator($currentRow, $counts), $startRow);
@@ -60,11 +61,10 @@ final class RowIteratorTest extends TestCase
     }
 
     /**
-     * @dataProvider provideCanDetermineHighestRowProperlyCases
-     *
      * @param array<string, int>   $counts
      * @param array<string, array> $calls
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideCanDetermineHighestRowProperlyCases')]
     public function testCanDetermineHighestRowProperly(int $startRow, int $currentRow, int $highestRow, array $counts, array $calls): void
     {
         // Spout bug workaround: we're calling prev() to realign the counter

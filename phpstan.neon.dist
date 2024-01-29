@@ -18,6 +18,7 @@ parameters:
         - src/Xezilaires/vendor/
         - var/
         - vendor/
+        - rector.php
     ignoreErrors:
         # false positive PHPStan 1.x
         - '#Return type \(bool\) of method class@anonymous/src/Xezilaires/Test/FixtureTrait.php:28::getRealPath#'

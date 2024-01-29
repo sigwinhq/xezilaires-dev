@@ -25,15 +25,16 @@ use Xezilaires\Serializer;
 use Xezilaires\Serializer\ObjectSerializer;
 
 /**
- * @covers \Xezilaires\Bridge\Symfony\DependencyInjection\XezilairesExtension
- *
- * @group functional
- * @group symfony
- *
  * @internal
  *
- * @medium
+ * @coversNothing
+ *
+ * @small
  */
+#[\PHPUnit\Framework\Attributes\Medium]
+#[\PHPUnit\Framework\Attributes\CoversClass(XezilairesExtension::class)]
+#[\PHPUnit\Framework\Attributes\Group('functional')]
+#[\PHPUnit\Framework\Attributes\Group('symfony')]
 final class XezilairesExtensionTest extends AbstractExtensionTestCase
 {
     public function testContainerHasValidator(): void

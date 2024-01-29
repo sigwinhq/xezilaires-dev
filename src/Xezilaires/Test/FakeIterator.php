@@ -20,7 +20,7 @@ use Xezilaires\Iterator;
  */
 final class FakeIterator implements Iterator
 {
-    private \ArrayIterator $iterator;
+    private readonly \ArrayIterator $iterator;
 
     /**
      * @param array<int, int|object|string> $items
