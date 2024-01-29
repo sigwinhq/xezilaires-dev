@@ -18,8 +18,8 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Xezilaires\Exception\MappingException;
 use Xezilaires\Exception\SpreadsheetException;
-use Xezilaires\Metadata\Annotation\AnnotationDriver;
 use Xezilaires\Metadata\ArrayReference;
+use Xezilaires\Metadata\Attribute\AttributeDriver;
 use Xezilaires\Metadata\ColumnReference;
 use Xezilaires\Metadata\HeaderReference;
 use Xezilaires\Metadata\Mapping;
@@ -113,7 +113,7 @@ abstract class FunctionalTestCase extends TestCase
     }
 
     /**
-     * @uses \Xezilaires\Annotation\HeaderReference
+     * @uses \Xezilaires\Attribute\HeaderReference
      */
     public function testCanLoadSparseFixtureWithHeaderReference(): void
     {
@@ -140,19 +140,19 @@ abstract class FunctionalTestCase extends TestCase
     }
 
     /**
-     * @uses \Xezilaires\Annotation\ArrayReference
-     * @uses \Xezilaires\Annotation\ColumnReference
-     * @uses \Xezilaires\Annotation\HeaderReference
-     * @uses \Xezilaires\Annotation\Options
-     * @uses \Xezilaires\Metadata\Annotation\AnnotationDriver
-     *
      * @throws \ReflectionException
      * @throws \RuntimeException
      * @throws \ReflectionException
+     *
+     * @uses \Xezilaires\Attribute\ArrayReference
+     * @uses \Xezilaires\Attribute\ColumnReference
+     * @uses \Xezilaires\Attribute\HeaderReference
+     *@uses  \Xezilaires\Attribute\Options
+     * @uses \Xezilaires\Metadata\Attribute\AttributeDriver
      */
-    public function testCanLoadSparseFixtureWithAnnotations(): void
+    public function testCanLoadSparseFixtureWithAttributes(): void
     {
-        $driver = new AnnotationDriver();
+        $driver = new AttributeDriver();
         $mapping = $driver->getMetadataMapping(Product::class);
 
         $iterator = $this->createIterator(
@@ -168,18 +168,18 @@ abstract class FunctionalTestCase extends TestCase
     }
 
     /**
-     * @uses \Xezilaires\Annotation\ColumnReference
-     * @uses \Xezilaires\Annotation\HeaderReference
-     * @uses \Xezilaires\Annotation\Options
-     * @uses \Xezilaires\Metadata\Annotation\AnnotationDriver
-     *
      * @throws \ReflectionException
      * @throws \RuntimeException
      * @throws \ReflectionException
+     *
+     * @uses \Xezilaires\Attribute\ColumnReference
+     * @uses \Xezilaires\Attribute\HeaderReference
+     * @uses \Xezilaires\Attribute\Options
+     *@uses  \Xezilaires\Metadata\Attribute\AttributeDriver
      */
     public function testCanLoadSparseFixtureWithNativeAttributes(): void
     {
-        $driver = new AnnotationDriver();
+        $driver = new AttributeDriver();
         $mapping = $driver->getMetadataMapping(ProductWithAttributes::class);
 
         $iterator = $this->createIterator(

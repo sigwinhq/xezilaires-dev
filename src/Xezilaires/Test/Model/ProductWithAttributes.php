@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Xezilaires\Test\Model;
 
-use Xezilaires\Annotation as XLS;
+use Xezilaires\Attribute as XLS;
 
 #[XLS\Options(header: 1, start: 2)]
 final class ProductWithAttributes

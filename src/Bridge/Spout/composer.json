@@ -12,10 +12,9 @@
     "require": {
         "php": "^8.2",
         "openspout/openspout": "^4.0",
-        "sigwin/xezilaires": "^0.6"
+        "sigwin/xezilaires": "^1.0"
     },
     "require-dev": {
-        "doctrine/annotations": "^1.11",
         "nyholm/nsa": "^1.1",
         "phpunit/phpunit": "^9.6",
         "symfony/phpunit-bridge": "^6.4 || ^7.0",

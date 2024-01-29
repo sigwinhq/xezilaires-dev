@@ -11,20 +11,21 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Xezilaires\Annotation;
+namespace Xezilaires\Attribute;
 
-/**
- * @Annotation
- * @Target({"ANNOTATION", "PROPERTY"})
- * @NamedArgumentConstructor
- */
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
-final class HeaderReference implements Reference
+final class ArrayReference
 {
-    public string $header;
+    /**
+     * @var Reference[]
+     */
+    public array $references;
 
-    public function __construct(string $header)
+    /**
+     * @param Reference[] $references
+     */
+    public function __construct(array $references)
     {
-        $this->header = $header;
+        $this->references = $references;
     }
 }

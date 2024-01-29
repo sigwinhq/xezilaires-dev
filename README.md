@@ -22,7 +22,7 @@ An OEM *(Object Excel Manager)*, if you will.
 
 ## Example usage
 
-### Without annotations
+### Without attributes
 
 ```php
 class Product
@@ -54,19 +54,16 @@ $iterator = $iteratorFactory->fromFile(
 );
 ```
 
-### With annotations
+### With attributes
 
 ```php
-use Xezilaires\Annotation as XLS;
+use Xezilaires\Attribute as XLS;
 
-/**
- * @XLS\Options(header=1, start=2)
- */
+
+#[XLS\Options(header=1, start=2)]
 class Product
 {
-    /**
-     * @XLS\HeaderReference(header="Name")
-     */
+    #[@XLS\HeaderReference(header="Name")]
     private $name;
 }
 
@@ -77,12 +74,12 @@ $normalizer = new \Xezilaires\Bridge\Symfony\Serializer\ObjectSerializer($symfon
 $iteratorFactory = new \Xezilaires\SpreadsheetIteratorFactory($normalizer, [
     \Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet::class,
 ]);
-$annotationDriver = new \Xezilaires\Metadata\Annotation\AnnotationDriver();
+$attributeDriver = new \Xezilaires\Metadata\Attribute\AttributeDriver();
 
 $iterator = $iteratorFactory->fromFile(
     // https://github.com/sigwinhq/xezilaires-dev/raw/master/src/Xezilaires/Test/resources/fixtures/products.xlsx
     new \SplFileObject(__DIR__.'/../../src/Xezilaires/Test/resources/fixtures/products.xlsx'),
-    $annotationDriver->getMetadataMapping(Product::class, ['reverse' => true])
+    $attributeDriver->getMetadataMapping(Product::class, ['reverse' => true])
 );
 ```
 
@@ -107,8 +104,7 @@ Features included:
 *(using either `phpoffice/PhpSpreadsheet` or `openspout/openspout`)*
 - **Denormalization / normalization** support  
 *(using `symfony/serializer`, from / to all supported formats)*
-- **Annotations** support  
-*(using `doctrine/annotations`)*
+- Attributes support
 - mapping via **column names** or **header labels**  
 *(saying "Map header label `PrdctEN` to property `product`")*
 - **A Symfony bundle**  

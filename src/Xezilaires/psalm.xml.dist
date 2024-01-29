@@ -24,7 +24,7 @@
     <issueHandlers>
         <MissingConstructor>
             <errorLevel type="info">
-                <directory name="Annotation/" />
+                <directory name="Attribute/" />
                 <directory name="Test/" />
             </errorLevel>
         </MissingConstructor>
@@ -36,7 +36,7 @@
         </MissingTemplateParam>
         <RedundantCondition>
             <errorLevel type="info">
-                <file name="Metadata/Annotation/AnnotationDriver.php" />
+                <file name="Metadata/Attribute/AttributeDriver.php" />
             </errorLevel>
         </RedundantCondition>
         <PropertyNotSetInConstructor>
