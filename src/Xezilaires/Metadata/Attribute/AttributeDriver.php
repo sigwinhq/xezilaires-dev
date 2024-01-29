@@ -41,40 +41,40 @@ final class AttributeDriver
     {
         $columns = [];
         foreach ($reflectionClass->getProperties() as $reflectionProperty) {
-            $arrayAnnotation = $this->getPropertyAttribute(
+            $arrayAttribute = $this->getPropertyAttribute(
                 $reflectionProperty,
                 Attribute\ArrayReference::class
             );
-            $columnAnnotation = $this->getPropertyAttribute(
+            $columnAttribute = $this->getPropertyAttribute(
                 $reflectionProperty,
                 Attribute\ColumnReference::class
             );
-            $headerAnnotation = $this->getPropertyAttribute(
+            $headerAttribute = $this->getPropertyAttribute(
                 $reflectionProperty,
                 Attribute\HeaderReference::class
             );
 
-            if ($arrayAnnotation === null && $columnAnnotation === null && $headerAnnotation === null) {
+            if ($arrayAttribute === null && $columnAttribute === null && $headerAttribute === null) {
                 // property not managed, skip
                 continue;
             }
 
-            if (($arrayAnnotation xor $columnAnnotation xor $headerAnnotation) === false) {
+            if (($arrayAttribute xor $columnAttribute xor $headerAttribute) === false) {
                 // if any is set, only one is allowed
-                throw AttributeException::tooManyReferencesDefined($reflectionProperty, [$arrayAnnotation, $columnAnnotation, $headerAnnotation]);
+                throw AttributeException::tooManyReferencesDefined($reflectionProperty, [$arrayAttribute, $columnAttribute, $headerAttribute]);
             }
 
             switch (true) {
-                case $columnAnnotation !== null:
-                    $reference = $this->createReference($columnAnnotation);
+                case $columnAttribute !== null:
+                    $reference = $this->createReference($columnAttribute);
                     break;
-                case $headerAnnotation !== null:
-                    $reference = $this->createReference($headerAnnotation);
+                case $headerAttribute !== null:
+                    $reference = $this->createReference($headerAttribute);
                     break;
-                case $arrayAnnotation !== null:
+                case $arrayAttribute !== null:
                     $references = [];
-                    foreach ($arrayAnnotation->references as $annotation) {
-                        $references[] = $this->createReference($annotation);
+                    foreach ($arrayAttribute->references as $attribute) {
+                        $references[] = $this->createReference($attribute);
                     }
                     $reference = new ArrayReference($references);
                     break;
@@ -98,11 +98,11 @@ final class AttributeDriver
         return array_filter($options);
     }
 
-    private function createReference(Attribute\Reference $annotation): ColumnReference|HeaderReference
+    private function createReference(Attribute\Reference $attribute): ColumnReference|HeaderReference
     {
         return match (true) {
-            $annotation instanceof Attribute\ColumnReference => new ColumnReference($annotation->column),
-            $annotation instanceof Attribute\HeaderReference => new HeaderReference($annotation->header),
+            $attribute instanceof Attribute\ColumnReference => new ColumnReference($attribute->column),
+            $attribute instanceof Attribute\HeaderReference => new HeaderReference($attribute->header),
             default => throw AttributeException::unsupportedAttribute(),
         };
     }
