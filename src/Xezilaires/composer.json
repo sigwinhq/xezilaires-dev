@@ -24,9 +24,6 @@
         "symfony/property-info": "^6.4 || ^7.0",
         "symfony/validator": "^6.4 || ^7.0"
     },
-    "conflict": {
-        "nikic/php-parser": "< 4.14"
-    },
     "suggest": {
         "sigwin/xezilaires-phpspreadsheet": "Read Excel files with PhpSpreadsheet",
         "sigwin/xezilaires-spout": "Read Excel files with Spout",
