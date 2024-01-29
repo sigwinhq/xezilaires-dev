@@ -12,5 +12,5 @@ splits:
         prefix: "src/Bridge/Symfony"
         target: "https://${GH_TOKEN}@github.com/sigwinhq/xezilaires-symfony.git"
 origins:
-    - ^master$
+    - ^main$
     - ^\d+\.\d+\.\d+$
