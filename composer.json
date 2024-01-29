@@ -18,10 +18,10 @@
     "require-dev": {
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "nyholm/nsa": "^1.1",
-        "nyholm/symfony-bundle-test": "dev-master",
+        "nyholm/symfony-bundle-test": "^2.0",
         "openspout/openspout": "^4.0",
         "phpoffice/phpspreadsheet": "^1.29",
-        "phpunit/phpunit": "^9.6",
+        "phpunit/phpunit": "^10.5",
         "sigwin/infra": "~1.9.0",
         "symfony/console": "^6.4 || ^7.0",
         "symfony/framework-bundle": "^6.4 || ^7.0",
@@ -69,7 +69,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-main": "1.0-dev"
         }
     }
 }

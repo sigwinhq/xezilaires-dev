@@ -89,7 +89,7 @@ final class MappingTest extends TestCase
     /**
      * @return iterable<int, array{0: class-string, 1: array{name: Reference}, 2?: array{header: int, reverse?: bool, start?: int}}>
      */
-    public function provideCanCreateValidMappingCases(): iterable
+    public static function provideCanCreateValidMappingCases(): iterable
     {
         yield [
             Product::class,
@@ -107,7 +107,7 @@ final class MappingTest extends TestCase
     /**
      * @return iterable<int, array{0: string, 1: string, 2: array<array-key, mixed>, 3?: array<string, null|bool|int|string>}>
      */
-    public function provideCannotCreateInvalidMappingCases(): iterable
+    public static function provideCannotCreateInvalidMappingCases(): iterable
     {
         yield ['Invalid class "foo"', 'foo', ['name' => new ColumnReference('A')]];
         yield ['Invalid mapping, no references specified', Product::class, []];

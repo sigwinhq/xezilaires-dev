@@ -17,7 +17,7 @@
     "require-dev": {
         "nyholm/nsa": "^1.1",
         "openspout/openspout": "^4.0",
-        "phpunit/phpunit": "^9.6",
+        "phpunit/phpunit": "^10.5",
         "symfony/console": "^6.4 || ^7.0",
         "symfony/phpunit-bridge": "^6.4 || ^7.0",
         "symfony/property-access": "^6.4 || ^7.0",
@@ -47,7 +47,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-main": "1.0-dev"
         }
     }
 }

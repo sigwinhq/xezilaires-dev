@@ -29,7 +29,7 @@ final class RowIteratorTest extends TestCase
     /**
      * @return list<array{0: int, 1: int, 2: int, 3: array{rewind: int, next: int, valid: int}}>
      */
-    public function provideCanSeekProperlyCases(): iterable
+    public static function provideCanSeekProperlyCases(): iterable
     {
         return [
             [2, 2, 2, ['rewind' => 1, 'next' => 0, 'valid' => 0]],
@@ -41,7 +41,7 @@ final class RowIteratorTest extends TestCase
     /**
      * @return list<array{0: int, 1: int, 2: int, 3: array{rewind: int, next: int}, 4: array{valid: list<bool>}}>
      */
-    public function provideCanDetermineHighestRowProperlyCases(): iterable
+    public static function provideCanDetermineHighestRowProperlyCases(): iterable
     {
         return [
             [1, 1, 2, ['rewind' => 2, 'next' => 2], ['valid' => [true, true, false]]],

@@ -2,36 +2,34 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          beStrictAboutChangesToGlobalState="true"
-         beStrictAboutCoversAnnotation="true"
+         beStrictAboutCoverageMetadata="true"
          beStrictAboutOutputDuringTests="true"
-         beStrictAboutResourceUsageDuringSmallTests="true"
          beStrictAboutTodoAnnotatedTests="true"
-         bootstrap="./src/bootstrap.php"
-         cacheResultFile="var/phpqa/phpunit.result.cache"
+         bootstrap="./vendor/autoload.php"
+         cacheDirectory="var/phpqa/phpunit"
          colors="true"
-         convertDeprecationsToExceptions="true"
          enforceTimeLimit="true"
          executionOrder="random"
          failOnEmptyTestSuite="true"
          failOnRisky="true"
          failOnWarning="true"
-         forceCoversAnnotation="true"
-         verbose="true">
-    <coverage processUncoveredFiles="true">
+         requireCoverageMetadata="true">
+    <coverage/>
+    <source>
         <include>
-            <directory suffix=".php">./src/Xezilaires</directory>
-            <directory suffix=".php">./src/Bridge</directory>
+            <directory>./src/Xezilaires</directory>
+            <directory>./src/Bridge</directory>
         </include>
         <exclude>
-            <directory suffix=".php">./src/Xezilaires/Exception</directory>
-            <directory suffix=".php">./src/Xezilaires/Test</directory>
-            <directory suffix=".php">./src/Xezilaires/vendor</directory>
-            <directory suffix=".php">./src/Xezilaires/var</directory>
-            <directory suffix=".php">./src/Bridge/*/Test</directory>
-            <directory suffix=".php">./src/Bridge/*/vendor</directory>
-            <directory suffix=".php">./src/Bridge/*/var</directory>
+            <directory>./src/Xezilaires/Exception</directory>
+            <directory>./src/Xezilaires/Test</directory>
+            <directory>./src/Xezilaires/vendor</directory>
+            <directory>./src/Xezilaires/var</directory>
+            <directory>./src/Bridge/*/Test</directory>
+            <directory>./src/Bridge/*/vendor</directory>
+            <directory>./src/Bridge/*/var</directory>
         </exclude>
-    </coverage>
+    </source>
     <testsuites>
         <testsuite name="Xezilaires">
             <directory>./src/Xezilaires/Test</directory>
@@ -41,7 +39,4 @@
     <php>
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0&amp;max[direct]=12&amp;verbose=0"/>
     </php>
-    <listeners>
-        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
-    </listeners>
 </phpunit>
