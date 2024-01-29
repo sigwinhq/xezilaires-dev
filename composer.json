@@ -20,7 +20,7 @@
         "nyholm/nsa": "^1.1",
         "nyholm/symfony-bundle-test": "^3.0",
         "openspout/openspout": "^4.0",
-        "phpoffice/phpspreadsheet": "^1.29",
+        "phpoffice/phpspreadsheet": "^2.0",
         "phpunit/phpunit": "^10.5",
         "sigwin/infra": "~1.9.0",
         "symfony/console": "^6.4 || ^7.0",
