@@ -2,32 +2,29 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          beStrictAboutChangesToGlobalState="true"
-         beStrictAboutCoversAnnotation="true"
+         beStrictAboutCoverageMetadata="true"
          beStrictAboutOutputDuringTests="true"
-         beStrictAboutResourceUsageDuringSmallTests="true"
          beStrictAboutTodoAnnotatedTests="true"
          bootstrap="./vendor/autoload.php"
-         cacheResultFile="var/phpqa/phpunit.result.cache"
+         cacheDirectory="var/phpqa/phpunit"
          colors="true"
-         convertDeprecationsToExceptions="true"
          enforceTimeLimit="true"
          executionOrder="random"
          failOnEmptyTestSuite="true"
          failOnRisky="true"
-         failOnWarning="true"
-         forceCoversAnnotation="true"
-         verbose="true">
-    <coverage processUncoveredFiles="true">
+         failOnWarning="true">
+    <coverage/>
+    <source>
         <include>
-            <directory suffix=".php">./</directory>
+            <directory>./</directory>
         </include>
         <exclude>
-            <directory suffix=".php">./Exception</directory>
-            <directory suffix=".php">./Test</directory>
-            <directory suffix=".php">./var</directory>
-            <directory suffix=".php">./vendor</directory>
+            <directory>./Exception</directory>
+            <directory>./Test</directory>
+            <directory>./var</directory>
+            <directory>./vendor</directory>
         </exclude>
-    </coverage>
+    </source>
     <testsuites>
         <testsuite name="Xezilaires">
             <directory>./Test</directory>
@@ -36,7 +33,4 @@
     <php>
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0&amp;max[direct]=9&amp;verbose=0"/>
     </php>
-    <listeners>
-        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
-    </listeners>
 </phpunit>
