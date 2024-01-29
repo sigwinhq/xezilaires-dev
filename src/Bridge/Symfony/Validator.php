@@ -16,13 +16,10 @@ namespace Xezilaires\Bridge\Symfony;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-final class Validator implements \Xezilaires\Validator
+final readonly class Validator implements \Xezilaires\Validator
 {
-    private ValidatorInterface $validator;
-
-    public function __construct(ValidatorInterface $validator)
+    public function __construct(private ValidatorInterface $validator)
     {
-        $this->validator = $validator;
     }
 
     public function validate(object $object): ConstraintViolationListInterface

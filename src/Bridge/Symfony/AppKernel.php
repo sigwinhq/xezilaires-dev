@@ -26,18 +26,11 @@ use Xezilaires\Bridge\Symfony\DependencyInjection\CompilerPass\RegisterCommandsC
 final class AppKernel extends Kernel
 {
     /**
-     * @var BundleInterface[]
-     */
-    private array $customBundles;
-
-    /**
      * @param BundleInterface[] $customBundles
      */
-    public function __construct(array $customBundles)
+    public function __construct(private readonly array $customBundles)
     {
         parent::__construct('prod', false);
-
-        $this->customBundles = $customBundles;
     }
 
     /**

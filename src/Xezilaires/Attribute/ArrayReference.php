@@ -17,15 +17,9 @@ namespace Xezilaires\Attribute;
 final class ArrayReference
 {
     /**
-     * @var Reference[]
-     */
-    public array $references;
-
-    /**
      * @param Reference[] $references
      */
-    public function __construct(array $references)
+    public function __construct(public array $references)
     {
-        $this->references = $references;
     }
 }

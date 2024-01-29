@@ -72,9 +72,6 @@ final class MappingException extends \InvalidArgumentException implements Except
         return new self('Unexpected reference type');
     }
 
-    /**
-     * @param ExceptionInterface&\Throwable $exception
-     */
     public static function invalidOption(ExceptionInterface $exception): self
     {
         return new self($exception->getMessage(), 0, $exception);

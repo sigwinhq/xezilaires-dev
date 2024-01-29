@@ -21,13 +21,10 @@ use Xezilaires\Iterator;
 /**
  * @internal
  */
-final class RowIterator implements Iterator
+final readonly class RowIterator implements Iterator
 {
-    private PhpSpreadsheetRowIterator $iterator;
-
-    public function __construct(PhpSpreadsheetRowIterator $iterator)
+    public function __construct(private PhpSpreadsheetRowIterator $iterator)
     {
-        $this->iterator = $iterator;
     }
 
     public function current(): object

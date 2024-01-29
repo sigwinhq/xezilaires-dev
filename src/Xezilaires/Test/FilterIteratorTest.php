@@ -23,6 +23,8 @@ use Xezilaires\FilterIterator;
  *
  * @small
  */
+#[\PHPUnit\Framework\Attributes\Small]
+#[\PHPUnit\Framework\Attributes\CoversClass(FilterIterator::class)]
 final class FilterIteratorTest extends TestCase
 {
     public function testCanFilterOutIteratorItems(): void

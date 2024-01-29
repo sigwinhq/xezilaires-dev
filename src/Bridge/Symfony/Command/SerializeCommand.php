@@ -30,22 +30,14 @@ use Xezilaires\Serializer;
 )]
 final class SerializeCommand extends Command
 {
-    private IteratorFactory $iteratorFactory;
-
-    private Serializer $serializer;
-
-    public function __construct(IteratorFactory $iteratorFactory, Serializer $serializer)
+    public function __construct(private readonly IteratorFactory $iteratorFactory, private readonly Serializer $serializer)
     {
         parent::__construct();
-
-        $this->iteratorFactory = $iteratorFactory;
-        $this->serializer = $serializer;
     }
 
     protected function configure(): void
     {
         $this
-            ->setName('xezilaires:serialize')
             ->addArgument('class', InputArgument::REQUIRED, 'Process the rows as class')
             ->addArgument('path', InputArgument::REQUIRED, 'Path to file to process')
             ->addOption('bundle', 'B', InputOption::VALUE_REQUIRED, 'Custom project-specific bundle to load')

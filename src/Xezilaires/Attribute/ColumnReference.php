@@ -16,10 +16,7 @@ namespace Xezilaires\Attribute;
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
 final class ColumnReference implements Reference
 {
-    public string $column;
-
-    public function __construct(string $column)
+    public function __construct(public string $column)
     {
-        $this->column = $column;
     }
 }

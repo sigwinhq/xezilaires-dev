@@ -29,11 +29,11 @@ use Xezilaires\Test\Model\Product;
  *
  * @small
  */
+#[\PHPUnit\Framework\Attributes\Small]
+#[\PHPUnit\Framework\Attributes\CoversClass(Mapping::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(ColumnReference::class)]
 final class MappingTest extends TestCase
 {
-    /**
-     * @uses \Xezilaires\Metadata\ColumnReference
-     */
     public function testMappingHasDefaultOptions(): void
     {
         $mapping = new Mapping(Product::class, ['name' => new ColumnReference('A')]);
@@ -45,12 +45,11 @@ final class MappingTest extends TestCase
     }
 
     /**
-     * @dataProvider provideCanCreateValidMappingCases
-     *
      * @param class-string                                  $className
      * @param array<string, \Xezilaires\Metadata\Reference> $columns
      * @param null|array<string, null|bool|int|string>      $options
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideCanCreateValidMappingCases')]
     public function testCanCreateValidMapping(string $className, array $columns, ?array $options = null): void
     {
         $mapping = new Mapping($className, $columns, $options);
@@ -66,13 +65,12 @@ final class MappingTest extends TestCase
     }
 
     /**
-     * @dataProvider   provideCannotCreateInvalidMappingCases
-     *
      * @psalm-suppress MixedArgumentTypeCoercion intentionally testing invalid mappings
      *
      * @param array<array-key, mixed>                  $columns
      * @param null|array<string, null|bool|int|string> $options
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideCannotCreateInvalidMappingCases')]
     public function testCannotCreateInvalidMapping(
         string $exceptionMessage,
         string $className,

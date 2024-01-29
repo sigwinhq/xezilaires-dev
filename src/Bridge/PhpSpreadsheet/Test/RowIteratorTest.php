@@ -26,6 +26,8 @@ use Xezilaires\Bridge\PhpSpreadsheet\RowIterator;
  *
  * @small
  */
+#[\PHPUnit\Framework\Attributes\Small]
+#[\PHPUnit\Framework\Attributes\CoversClass(RowIterator::class)]
 final class RowIteratorTest extends TestCase
 {
     public function testCanPerformValidCorrectly(): void

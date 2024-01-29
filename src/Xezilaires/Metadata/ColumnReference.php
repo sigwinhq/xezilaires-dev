@@ -13,13 +13,10 @@ declare(strict_types=1);
 
 namespace Xezilaires\Metadata;
 
-final class ColumnReference implements Reference
+final readonly class ColumnReference implements Reference
 {
-    private string $column;
-
-    public function __construct(string $column)
+    public function __construct(private string $column)
     {
-        $this->column = $column;
     }
 
     public function getReference(): string
