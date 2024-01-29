@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "sigwin/xezilaires": "^0.6",
+        "sigwin/xezilaires": "^1.0",
         "symfony/console": "^6.4 || ^7.0",
         "symfony/framework-bundle": "^6.4 || ^7.0",
         "symfony/property-access": "^6.4 || ^7.0",
@@ -22,8 +22,8 @@
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "nyholm/symfony-bundle-test": "dev-master",
         "phpunit/phpunit": "^9.6",
-        "sigwin/xezilaires-phpspreadsheet": "^0.6",
-        "sigwin/xezilaires-spout": "^0.6",
+        "sigwin/xezilaires-phpspreadsheet": "^1.0",
+        "sigwin/xezilaires-spout": "^1.0",
         "symfony/phpunit-bridge": "^6.4 || ^7.0"
     },
     "conflict": {
