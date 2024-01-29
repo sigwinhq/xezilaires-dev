@@ -3,7 +3,7 @@ on:
     push:
         branches:
             - "fix/gitsplit"
-            - "master"
+            - "main"
     release:
         types: [ published ]
 
