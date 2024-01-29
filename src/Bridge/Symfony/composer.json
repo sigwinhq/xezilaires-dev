@@ -19,15 +19,12 @@
         "symfony/validator": "^6.4 || ^7.0"
     },
     "require-dev": {
-        "matthiasnoback/symfony-dependency-injection-test": "^4.0",
-        "nyholm/symfony-bundle-test": "^2.0",
+        "matthiasnoback/symfony-dependency-injection-test": "^5.0",
+        "nyholm/symfony-bundle-test": "^3.0",
         "phpunit/phpunit": "^10.5",
         "sigwin/xezilaires-phpspreadsheet": "^1.0",
         "sigwin/xezilaires-spout": "^1.0",
         "symfony/phpunit-bridge": "^6.4 || ^7.0"
-    },
-    "conflict": {
-        "nikic/php-parser": "< 4.14"
     },
     "suggest": {
         "sigwin/xezilaires-phpspreadsheet": "Read Excel files with PhpSpreadsheet",

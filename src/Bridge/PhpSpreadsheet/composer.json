@@ -20,9 +20,6 @@
         "symfony/property-access": "^6.4 || ^7.0",
         "symfony/property-info": "^6.4 || ^7.0"
     },
-    "conflict": {
-        "nikic/php-parser": "< 4.14"
-    },
     "suggest": {
         "sigwin/xezilaires-symfony": "Symfony bundle integration, bin/xezilaires use"
     },
