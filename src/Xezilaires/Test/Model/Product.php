@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Xezilaires\Test\Model;
 
-use Symfony\Component\Serializer\Annotation as Serializer;
+use Symfony\Component\Serializer\Attribute as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 use Xezilaires\Attribute as XLS;
 

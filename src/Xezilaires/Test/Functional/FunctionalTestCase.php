@@ -150,7 +150,7 @@ abstract class FunctionalTestCase extends TestCase
      *@uses  \Xezilaires\Attribute\Options
      * @uses \Xezilaires\Metadata\Attribute\AttributeDriver
      */
-    public function testCanLoadSparseFixtureWithAnnotations(): void
+    public function testCanLoadSparseFixtureWithAttributes(): void
     {
         $driver = new AttributeDriver();
         $mapping = $driver->getMetadataMapping(Product::class);
