@@ -20,8 +20,6 @@ use PHPUnit\Framework\TestCase;
 use Xezilaires\Bridge\PhpSpreadsheet\RowIterator;
 
 /**
- * @covers \Xezilaires\Bridge\PhpSpreadsheet\RowIterator
- *
  * @internal
  */
 #[\PHPUnit\Framework\Attributes\Small]

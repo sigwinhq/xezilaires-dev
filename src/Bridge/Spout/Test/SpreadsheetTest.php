@@ -20,8 +20,6 @@ use Xezilaires\Test\FakeIterator;
 use Xezilaires\Test\FixtureTrait;
 
 /**
- * @covers \Xezilaires\Bridge\Spout\Spreadsheet
- *
  * @internal
  */
 #[\PHPUnit\Framework\Attributes\Small]

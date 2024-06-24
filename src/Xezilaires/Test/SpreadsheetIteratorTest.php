@@ -27,13 +27,6 @@ use Xezilaires\Spreadsheet;
 use Xezilaires\SpreadsheetIterator;
 
 /**
- * @covers \Xezilaires\Metadata\Mapping
- * @covers \Xezilaires\SpreadsheetIterator
- *
- * @uses \Xezilaires\Metadata\ArrayReference
- * @uses \Xezilaires\Metadata\ColumnReference
- * @uses \Xezilaires\Metadata\HeaderReference
- *
  * @internal
  */
 #[\PHPUnit\Framework\Attributes\Small]

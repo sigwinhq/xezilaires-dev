@@ -23,8 +23,6 @@ use Xezilaires\Metadata\Reference;
 use Xezilaires\Test\Model\Product;
 
 /**
- * @covers \Xezilaires\Metadata\Mapping
- *
  * @internal
  */
 #[\PHPUnit\Framework\Attributes\Small]
