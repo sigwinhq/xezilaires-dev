@@ -26,10 +26,6 @@ use Xezilaires\Serializer\ObjectSerializer;
 
 /**
  * @internal
- *
- * @coversNothing
- *
- * @small
  */
 #[\PHPUnit\Framework\Attributes\Medium]
 #[\PHPUnit\Framework\Attributes\CoversClass(XezilairesExtension::class)]

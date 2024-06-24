@@ -72,7 +72,7 @@ final class Mapping
         return $this->references;
     }
 
-    public function getOption(string $option): null|bool|int|string
+    public function getOption(string $option): bool|int|string|null
     {
         return $this->options[$option];
     }

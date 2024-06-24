@@ -35,8 +35,6 @@ use Xezilaires\SpreadsheetIterator;
  * @uses \Xezilaires\Metadata\HeaderReference
  *
  * @internal
- *
- * @small
  */
 #[\PHPUnit\Framework\Attributes\Small]
 #[\PHPUnit\Framework\Attributes\CoversClass(Mapping::class)]

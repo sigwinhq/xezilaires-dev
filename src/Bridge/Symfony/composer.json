@@ -21,7 +21,7 @@
     "require-dev": {
         "matthiasnoback/symfony-dependency-injection-test": "^5.0",
         "nyholm/symfony-bundle-test": "^3.0",
-        "phpunit/phpunit": "^10.5",
+        "phpunit/phpunit": "^11.2",
         "sigwin/xezilaires-phpspreadsheet": "^1.0",
         "sigwin/xezilaires-spout": "^1.0",
         "symfony/phpunit-bridge": "^6.4 || ^7.0"

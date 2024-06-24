@@ -26,8 +26,6 @@ use Xezilaires\Test\Model\Product;
  * @covers \Xezilaires\Metadata\Mapping
  *
  * @internal
- *
- * @small
  */
 #[\PHPUnit\Framework\Attributes\Small]
 #[\PHPUnit\Framework\Attributes\CoversClass(Mapping::class)]

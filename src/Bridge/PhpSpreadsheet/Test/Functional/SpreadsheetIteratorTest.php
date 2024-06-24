@@ -31,8 +31,6 @@ use Xezilaires\Test\Functional\FunctionalTestCase;
  * @uses \Xezilaires\Serializer\ObjectSerializer
  *
  * @internal
- *
- * @small
  */
 #[\PHPUnit\Framework\Attributes\Small]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Xezilaires\Bridge\PhpSpreadsheet\RowIterator::class)]

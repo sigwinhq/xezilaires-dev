@@ -122,7 +122,7 @@ final class Spreadsheet implements SpreadsheetInterface
         }
     }
 
-    private function fetchCell(string $columnName, int $rowIndex): null|float|int|string
+    private function fetchCell(string $columnName, int $rowIndex): float|int|string|null
     {
         $worksheet = $this->getActiveWorksheet();
 
