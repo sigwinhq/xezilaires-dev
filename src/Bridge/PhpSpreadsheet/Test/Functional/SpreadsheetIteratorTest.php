@@ -20,19 +20,7 @@ use Xezilaires\Spreadsheet as SpreadsheetInterface;
 use Xezilaires\Test\Functional\FunctionalTestCase;
 
 /**
- * @covers \Xezilaires\Bridge\PhpSpreadsheet\RowIterator
- * @covers \Xezilaires\Bridge\PhpSpreadsheet\Spreadsheet
- * @covers \Xezilaires\SpreadsheetIterator
- *
- * @uses \Xezilaires\Metadata\ArrayReference
- * @uses \Xezilaires\Metadata\ColumnReference
- * @uses \Xezilaires\Metadata\HeaderReference
- * @uses \Xezilaires\Metadata\Mapping
- * @uses \Xezilaires\Serializer\ObjectSerializer
- *
  * @internal
- *
- * @small
  */
 #[\PHPUnit\Framework\Attributes\Small]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Xezilaires\Bridge\PhpSpreadsheet\RowIterator::class)]

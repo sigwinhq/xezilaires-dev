@@ -31,10 +31,6 @@ use Xezilaires\Validator;
 
 /**
  * @internal
- *
- * @coversNothing
- *
- * @small
  */
 #[\PHPUnit\Framework\Attributes\Medium]
 #[\PHPUnit\Framework\Attributes\CoversClass(XezilairesBundle::class)]
@@ -51,6 +47,20 @@ use Xezilaires\Validator;
 final class XezilairesBundleTest extends KernelTestCase
 {
     use FixtureTrait;
+
+    // TODO: remove when https://github.com/symfony/symfony/issues/53812 is fixed
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        while (true) {
+            $previousHandler = set_exception_handler(static fn () => null);
+            restore_exception_handler();
+            if ($previousHandler === null) {
+                break;
+            }
+            restore_exception_handler();
+        }
+    }
 
     /**
      * @throws \Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException

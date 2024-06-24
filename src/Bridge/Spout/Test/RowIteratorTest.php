@@ -18,11 +18,7 @@ use PHPUnit\Framework\TestCase;
 use Xezilaires\Bridge\Spout\RowIterator;
 
 /**
- * @covers \Xezilaires\Bridge\Spout\RowIterator
- *
  * @internal
- *
- * @small
  */
 #[\PHPUnit\Framework\Attributes\Small]
 #[\PHPUnit\Framework\Attributes\CoversClass(RowIterator::class)]

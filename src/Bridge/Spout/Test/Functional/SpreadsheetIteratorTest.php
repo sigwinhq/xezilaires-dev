@@ -21,10 +21,6 @@ use Xezilaires\Test\Functional\FunctionalTestCase;
 
 /**
  * @internal
- *
- * @coversNothing
- *
- * @small
  */
 #[\PHPUnit\Framework\Attributes\Small]
 #[\PHPUnit\Framework\Attributes\CoversClass(\Xezilaires\Bridge\Spout\RowIterator::class)]

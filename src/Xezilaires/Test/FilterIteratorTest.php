@@ -17,11 +17,7 @@ use PHPUnit\Framework\TestCase;
 use Xezilaires\FilterIterator;
 
 /**
- * @covers \Xezilaires\FilterIterator
- *
  * @internal
- *
- * @small
  */
 #[\PHPUnit\Framework\Attributes\Small]
 #[\PHPUnit\Framework\Attributes\CoversClass(FilterIterator::class)]
