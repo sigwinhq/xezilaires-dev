@@ -19,9 +19,9 @@
         "symfony/validator": "^6.4 || ^7.0"
     },
     "require-dev": {
-        "matthiasnoback/symfony-dependency-injection-test": "^5.0",
+        "matthiasnoback/symfony-dependency-injection-test": "^6.0",
         "nyholm/symfony-bundle-test": "^3.0",
-        "phpunit/phpunit": "^11.2",
+        "phpunit/phpunit": "^11.2 || ^12.0",
         "sigwin/xezilaires-phpspreadsheet": "^1.0",
         "sigwin/xezilaires-spout": "^1.0",
         "symfony/phpunit-bridge": "^6.4 || ^7.0"

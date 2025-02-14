@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="5.26.1@d747f6500b38ac4f7dfc5edbcae6e4b637d7add0">
+  <file src="Attribute/Options.php">
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$end]]></code>
+      <code><![CDATA[$header]]></code>
+      <code><![CDATA[$reverse]]></code>
+      <code><![CDATA[$start]]></code>
+    </PossiblyUnusedProperty>
+  </file>
+  <file src="Exception/AttributeException.php">
+    <UnusedParam>
+      <code><![CDATA[$references]]></code>
+    </UnusedParam>
+  </file>
+  <file src="Exception/NestableIteratorException.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[iteratorMustBeNestable]]></code>
+      <code><![CDATA[noSuchNode]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="Exception/SpreadsheetException.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[failedFetchingActiveWorksheet]]></code>
+      <code><![CDATA[invalidCell]]></code>
+      <code><![CDATA[invalidSeek]]></code>
+      <code><![CDATA[invalidSpreadsheet]]></code>
+      <code><![CDATA[iteratorAlreadyCreated]]></code>
+      <code><![CDATA[noIterator]]></code>
+      <code><![CDATA[noSpreadsheetFound]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="FilterIterator.php">
+    <MissingTemplateParam>
+      <code><![CDATA[FilterIterator]]></code>
+    </MissingTemplateParam>
+  </file>
+  <file src="Iterator.php">
+    <MissingTemplateParam>
+      <code><![CDATA[\Iterator]]></code>
+    </MissingTemplateParam>
+  </file>
+  <file src="IteratorFactory.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[fromFile]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="Metadata/Attribute/AttributeDriver.php">
+    <RedundantCondition>
+      <code><![CDATA[$arrayAttribute !== null]]></code>
+    </RedundantCondition>
+  </file>
+  <file src="Metadata/Mapping.php">
+    <RedundantIdentityWithTrue>
+      <code><![CDATA[$this->headerOptionRequired === true]]></code>
+      <code><![CDATA[true === $reference instanceof HeaderReference]]></code>
+    </RedundantIdentityWithTrue>
+  </file>
+  <file src="Serializer.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[serialize]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="Serializer/Exception.php">
+    <UnusedClass>
+      <code><![CDATA[Exception]]></code>
+    </UnusedClass>
+  </file>
+  <file src="Serializer/ObjectSerializer.php">
+    <UnusedPsalmSuppress>
+      <code><![CDATA[UnnecessaryVarAnnotation]]></code>
+    </UnusedPsalmSuppress>
+  </file>
+  <file src="SpreadsheetIterator.php">
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[bool]]></code>
+    </PossiblyUnusedReturnValue>
+  </file>
+  <file src="SpreadsheetIteratorFactory.php">
+    <UnusedClass>
+      <code><![CDATA[SpreadsheetIteratorFactory]]></code>
+    </UnusedClass>
+  </file>
+  <file src="Test/ExampleBundle/Serializer/ProductNormalizer.php">
+    <UnusedClass>
+      <code><![CDATA[ProductNormalizer]]></code>
+    </UnusedClass>
+    <UnusedPsalmSuppress>
+      <code><![CDATA[MixedArrayAccess]]></code>
+    </UnusedPsalmSuppress>
+  </file>
+  <file src="Test/ExampleBundle/XezilairesExampleBundle.php">
+    <UnusedClass>
+      <code><![CDATA[XezilairesExampleBundle]]></code>
+    </UnusedClass>
+  </file>
+  <file src="Test/Metadata/MappingTest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[provideCanCreateValidMappingCases]]></code>
+      <code><![CDATA[provideCannotCreateInvalidMappingCases]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="Test/Model/Category.php">
+    <MissingConstructor>
+      <code><![CDATA[$id]]></code>
+      <code><![CDATA[$name]]></code>
+    </MissingConstructor>
+    <UnusedClass>
+      <code><![CDATA[Category]]></code>
+    </UnusedClass>
+  </file>
+  <file src="Test/Model/Product.php">
+    <MissingConstructor>
+      <code><![CDATA[$all]]></code>
+      <code><![CDATA[$name]]></code>
+      <code><![CDATA[$price]]></code>
+    </MissingConstructor>
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$all]]></code>
+    </PossiblyUnusedProperty>
+  </file>
+  <file src="Test/Model/ProductWithAttributes.php">
+    <MissingConstructor>
+      <code><![CDATA[$name]]></code>
+      <code><![CDATA[$price]]></code>
+    </MissingConstructor>
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$name]]></code>
+      <code><![CDATA[$price]]></code>
+    </PossiblyUnusedProperty>
+  </file>
+  <file src="Test/SpreadsheetIteratorTest.php">
+    <PossiblyUndefinedStringArrayOffset>
+      <code><![CDATA[$spec['count']]]></code>
+      <code><![CDATA[$spec['params']]]></code>
+    </PossiblyUndefinedStringArrayOffset>
+  </file>
+  <file src="Validator.php">
+    <UnusedClass>
+      <code><![CDATA[Validator]]></code>
+    </UnusedClass>
+  </file>
+</files>

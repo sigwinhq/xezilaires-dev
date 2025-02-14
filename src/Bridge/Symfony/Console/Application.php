@@ -42,6 +42,6 @@ final class Application extends BaseApplication
 
     public function getLongVersion(): string
     {
-        return sprintf('%s <info>%s</info>', $this->getName(), $this->getVersion());
+        return \sprintf('%s <info>%s</info>', $this->getName(), $this->getVersion());
     }
 }

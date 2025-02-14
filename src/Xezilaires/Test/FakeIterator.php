@@ -91,7 +91,7 @@ final class FakeIterator implements Iterator
         $key = $this->iterator->key();
 
         if (false === \is_int($key)) {
-            throw new \LogicException(sprintf('Key must be of type int, %1$s given', \gettype($key)));
+            throw new \LogicException(\sprintf('Key must be of type int, %1$s given', \gettype($key)));
         }
 
         return $key;

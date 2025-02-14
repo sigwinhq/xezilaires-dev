@@ -28,7 +28,7 @@ final class MappingException extends \InvalidArgumentException implements Except
      */
     public static function ambiguousHeader(string $header, array $columns): self
     {
-        return new self(sprintf('Ambiguous header "%1$s" found, used in columns "%2$s"', $header, implode('", "', $columns)));
+        return new self(\sprintf('Ambiguous header "%1$s" found, used in columns "%2$s"', $header, implode('", "', $columns)));
     }
 
     /**
@@ -38,15 +38,15 @@ final class MappingException extends \InvalidArgumentException implements Except
     {
         $alternative = self::findAlternative($unknownHeader, $knownHeaders);
         if ($alternative === null) {
-            return new self(sprintf('Invalid header "%1$s", not found', $unknownHeader));
+            return new self(\sprintf('Invalid header "%1$s", not found', $unknownHeader));
         }
 
-        return new self(sprintf('Invalid header "%1$s", did you mean "%2$s"?', $unknownHeader, $alternative));
+        return new self(\sprintf('Invalid header "%1$s", did you mean "%2$s"?', $unknownHeader, $alternative));
     }
 
     public static function classNotFound(string $className): self
     {
-        return new self(sprintf('Invalid class "%1$s", not found', $className));
+        return new self(\sprintf('Invalid class "%1$s", not found', $className));
     }
 
     public static function noReferencesSpecified(): self
@@ -56,7 +56,7 @@ final class MappingException extends \InvalidArgumentException implements Except
 
     public static function invalidReference(string $name): self
     {
-        return new self(sprintf('Invalid reference "%1$s"', $name));
+        return new self(\sprintf('Invalid reference "%1$s"', $name));
     }
 
     /**
@@ -64,7 +64,7 @@ final class MappingException extends \InvalidArgumentException implements Except
      */
     public static function invalidPropertyName($name): self
     {
-        return new self(sprintf('Invalid property name "%1$s"', $name));
+        return new self(\sprintf('Invalid property name "%1$s"', $name));
     }
 
     public static function unexpectedReference(): self

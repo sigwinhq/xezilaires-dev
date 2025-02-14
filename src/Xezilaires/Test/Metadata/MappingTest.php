@@ -41,9 +41,9 @@ final class MappingTest extends TestCase
     }
 
     /**
-     * @param class-string                                  $className
-     * @param array<string, \Xezilaires\Metadata\Reference> $columns
-     * @param null|array<string, null|bool|int|string>      $options
+     * @param class-string                             $className
+     * @param array<string, Reference>                 $columns
+     * @param null|array<string, null|bool|int|string> $options
      */
     #[\PHPUnit\Framework\Attributes\DataProvider('provideCanCreateValidMappingCases')]
     public function testCanCreateValidMapping(string $className, array $columns, ?array $options = null): void
@@ -71,7 +71,7 @@ final class MappingTest extends TestCase
         string $exceptionMessage,
         string $className,
         array $columns,
-        ?array $options = null
+        ?array $options = null,
     ): void {
         $this->expectException(MappingException::class);
         $this->expectExceptionMessage($exceptionMessage);
