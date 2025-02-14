@@ -79,7 +79,7 @@ final class ValidateCommand extends Command
         foreach ($paths as $path) {
             ++$totalPaths;
             if ($style->isVerbose()) {
-                $style->section(sprintf('Processing: %1$s', $path));
+                $style->section(\sprintf('Processing: %1$s', $path));
             }
 
             $iterator = $this->iteratorFactory->fromFile(
@@ -99,7 +99,7 @@ final class ValidateCommand extends Command
                     ++$totalInvalid;
                     $progress->clear();
 
-                    $style->section(sprintf('Row %1$d', $iterator->key()));
+                    $style->section(\sprintf('Row %1$d', $iterator->key()));
 
                     /**
                      * @psalm-suppress UnnecessaryVarAnnotation it's required for older Symfony instances
@@ -110,7 +110,7 @@ final class ValidateCommand extends Command
                         /** @var string $message */
                         $message = $violation->getMessage();
 
-                        $style->error(sprintf('%1$s: %2$s', $violation->getPropertyPath(), $message));
+                        $style->error(\sprintf('%1$s: %2$s', $violation->getPropertyPath(), $message));
                     }
 
                     if ($stopOnViolation) {
@@ -123,16 +123,16 @@ final class ValidateCommand extends Command
             $progress->clear();
 
             if ($invalid > 0 || $style->isVerbose()) {
-                $style->section(sprintf('Summary:    %1$s', $path));
+                $style->section(\sprintf('Summary:    %1$s', $path));
             }
             if ($invalid > 0) {
-                $style->error(sprintf('Processed %1$d rows, %2$d had errors (%3$.02f%%)', $count, $invalid, $invalid / $count * 100));
+                $style->error(\sprintf('Processed %1$d rows, %2$d had errors (%3$.02f%%)', $count, $invalid, $invalid / $count * 100));
 
                 if ($stopOnViolation) {
                     break;
                 }
             } elseif (\count($paths) < 2 || $style->isVerbose()) {
-                $style->success(sprintf('Processed %1$d rows', $count));
+                $style->success(\sprintf('Processed %1$d rows', $count));
             }
         }
 
@@ -141,12 +141,12 @@ final class ValidateCommand extends Command
                 $style->title('Summary');
             }
             if ($totalInvalid > 0) {
-                $style->error(sprintf('Processed %1$d files with %2$d rows, %3$d rows had errors (%4$.02f%%)', $totalPaths, $totalCount, $totalInvalid, $totalInvalid / $totalCount * 100));
+                $style->error(\sprintf('Processed %1$d files with %2$d rows, %3$d rows had errors (%4$.02f%%)', $totalPaths, $totalCount, $totalInvalid, $totalInvalid / $totalCount * 100));
 
                 return 1;
             }
 
-            $style->success(sprintf('Processed %1$d files with %2$d rows', $totalPaths, $totalCount));
+            $style->success(\sprintf('Processed %1$d files with %2$d rows', $totalPaths, $totalCount));
         }
 
         return $totalInvalid;

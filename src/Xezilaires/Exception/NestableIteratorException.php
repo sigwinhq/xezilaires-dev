@@ -27,6 +27,6 @@ final class NestableIteratorException extends \InvalidArgumentException implemen
      */
     public static function noSuchNode($node): self
     {
-        return new self(sprintf('No such node: "%1$s"', $node));
+        return new self(\sprintf('No such node: "%1$s"', $node));
     }
 }
