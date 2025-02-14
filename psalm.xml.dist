@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <psalm xmlns="https://getpsalm.org/schema/config"
        cacheDirectory="var/phpqa/psalm"
-       checkForThrowsInGlobalScope="false"
-       ensureArrayIntOffsetsExist="false"
-       ensureArrayStringOffsetsExist="false"
-       errorBaseline="psalm.baseline.xml"
+       checkForThrowsInGlobalScope="true"
+       ensureArrayIntOffsetsExist="true"
+       ensureArrayStringOffsetsExist="true"
        errorLevel="1"
+       errorBaseline="psalm.baseline.xml"
        findUnusedBaselineEntry="false"
-       findUnusedCode="false"
-       findUnusedPsalmSuppress="false"
+       findUnusedCode="true"
+       findUnusedPsalmSuppress="true"
        findUnusedVariablesAndParams="true"
        limitMethodComplexity="true"
        restrictReturnTypes="false"
@@ -27,38 +27,6 @@
             <directory name="vendor/"/>
         </ignoreFiles>
     </projectFiles>
-
-    <issueHandlers>
-        <InternalMethod>
-            <errorLevel type="info">
-                <referencedMethod name="OpenSpout\Common\Entity\Row::toArray"/>
-            </errorLevel>
-        </InternalMethod>
-        <MissingConstructor>
-            <errorLevel type="info">
-                <directory name="src/Xezilaires/Attribute/"/>
-                <directory name="src/Xezilaires/Test/Model/"/>
-            </errorLevel>
-        </MissingConstructor>
-        <MissingTemplateParam>
-            <errorLevel type="info">
-                <file name="src/Xezilaires/FilterIterator.php"/>
-                <file name="src/Xezilaires/Iterator.php"/>
-            </errorLevel>
-        </MissingTemplateParam>
-        <RedundantCondition>
-            <errorLevel type="info">
-                <file name="src/Xezilaires/Metadata/Attribute/AttributeDriver.php"/>
-            </errorLevel>
-        </RedundantCondition>
-        <PropertyNotSetInConstructor>
-            <errorLevel type="info">
-                <file name="src/Bridge/Symfony/AppKernel.php"/>
-                <directory name="src/Xezilaires/Test/"/>
-                <directory name="src/Bridge/*/Test/"/>
-            </errorLevel>
-        </PropertyNotSetInConstructor>
-    </issueHandlers>
 
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
